@@ -200,18 +200,37 @@ export default function LiveWaveformStream({
     <div className="quiet-card panel live-waveform-terminal">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[var(--border)] pb-3 mb-4 gap-2">
         <div>
-          <h3 className="text-base font-semibold">Heart and breathing lines</h3>
-          <p className="text-sm text-[var(--muted)]">
-            Drawn from today's heart rate, blood oxygen, and breathing.
+          <div className="flex items-center gap-2">
+            <span className="size-2 rounded-full bg-emerald-400 animate-pulse" />
+            <h3 className="text-base font-semibold tracking-tight">Biometric Telemetry Waveforms</h3>
+          </div>
+          <p className="text-xs text-[var(--muted)] mt-0.5">
+            Continuous cardiovascular & respiratory traces synchronized from active crew bio-harness. Click any metric for spaceflight physiological insights.
           </p>
         </div>
-        <span className="text-sm text-[var(--muted)]">{liveStream ? "Lines moving" : "Lines still"}</span>
+        <div className="flex items-center gap-2 shrink-0">
+          <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-mono font-medium ${
+            liveStream
+              ? "bg-emerald-950/80 border border-emerald-500/40 text-emerald-300"
+              : "bg-slate-800/80 border border-slate-700 text-slate-400"
+          }`}>
+            <span className={`size-1.5 rounded-full ${liveStream ? "bg-emerald-400 animate-ping" : "bg-slate-500"}`} />
+            {liveStream ? "Bio-Harness: Live Stream" : "Bio-Harness: Paused"}
+          </span>
+        </div>
       </div>
 
       {/* 3 Live Interactive Waveform Traces */}
       <div className="space-y-3">
         {/* 1. Heart Rate ECG Waveform */}
-        <div className="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800/90 relative overflow-hidden group">
+        <div
+          onClick={() => setActiveInfo(activeInfo === "heartRate" ? null : "heartRate")}
+          className={`p-3.5 rounded-xl border relative overflow-hidden group cursor-pointer transition ${
+            activeInfo === "heartRate"
+              ? "bg-slate-900 border-emerald-500 shadow-md shadow-emerald-950/40"
+              : "bg-slate-950/70 border-slate-800/90 hover:border-slate-700"
+          }`}
+        >
           <div className="flex items-center justify-between mb-1.5">
             <div className="flex items-center gap-2">
               <Heart size={15} className="text-emerald-400" />
@@ -277,7 +296,14 @@ export default function LiveWaveformStream({
         </div>
 
         {/* 2. SpO2 Plethysmograph Waveform */}
-        <div className="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800/90 relative overflow-hidden group">
+        <div
+          onClick={() => setActiveInfo(activeInfo === "spo2" ? null : "spo2")}
+          className={`p-3.5 rounded-xl border relative overflow-hidden group cursor-pointer transition ${
+            activeInfo === "spo2"
+              ? "bg-slate-900 border-cyan-400 shadow-md shadow-cyan-950/40"
+              : "bg-slate-950/70 border-slate-800/90 hover:border-slate-700"
+          }`}
+        >
           <div className="flex items-center justify-between mb-1.5">
             <div className="flex items-center gap-2">
               <Activity size={15} className="text-cyan-400" />
@@ -338,7 +364,14 @@ export default function LiveWaveformStream({
         </div>
 
         {/* 3. Respiration Waveform */}
-        <div className="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800/90 relative overflow-hidden group">
+        <div
+          onClick={() => setActiveInfo(activeInfo === "respiration" ? null : "respiration")}
+          className={`p-3.5 rounded-xl border relative overflow-hidden group cursor-pointer transition ${
+            activeInfo === "respiration"
+              ? "bg-slate-900 border-purple-400 shadow-md shadow-purple-950/40"
+              : "bg-slate-950/70 border-slate-800/90 hover:border-slate-700"
+          }`}
+        >
           <div className="flex items-center justify-between mb-1.5">
             <div className="flex items-center gap-2">
               <Wind size={15} className="text-purple-400" />

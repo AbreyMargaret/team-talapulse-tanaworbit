@@ -11,8 +11,7 @@ body {
 }
 
 .brand small,
-.workspace-label,
-.nav-group-label {
+.workspace-label {
   color: var(--subtle);
   letter-spacing: 0;
   font-size: 12px;
@@ -20,9 +19,18 @@ body {
   text-transform: none;
 }
 
-.workspace-label,
-.nav-group-label {
+.workspace-label {
   padding: 14px 16px 6px;
+}
+
+.nav-group-label {
+  color: var(--subtle);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+  padding: 14px 14px 4px;
 }
 
 .nav-item {
@@ -813,6 +821,128 @@ h1,
   .week-facts {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+}
+
+.avatar {
+  color: #ffffff;
+  box-shadow: none;
+}
+
+.avatar-symptom-mapper,
+.zone-summary-card,
+.symptom-select,
+.severity-chip,
+.countermeasure-card,
+.sensorimotor-panel-container,
+.tap-cell,
+.rx-indicator.idle,
+[data-theme="light"] .avatar-symptom-mapper,
+[data-theme="light"] .zone-summary-card,
+[data-theme="light"] .symptom-select,
+[data-theme="light"] .countermeasure-card,
+[data-theme="light"] .sensorimotor-panel-container,
+[data-theme="light"] .tap-cell {
+  background: var(--panel);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.avatar-header,
+[data-theme="light"] .avatar-header {
+  border-bottom-color: var(--border);
+}
+
+.body-part,
+[data-theme="light"] .body-part {
+  fill: color-mix(in srgb, var(--accent) 24%, var(--panel));
+  stroke: var(--border);
+  filter: none;
+}
+
+.body-part:hover,
+.body-part.active,
+[data-theme="light"] .body-part:hover,
+[data-theme="light"] .body-part.active {
+  fill: color-mix(in srgb, var(--accent) 42%, var(--panel)) !important;
+  stroke: var(--accent) !important;
+  filter: none !important;
+}
+
+.spine-line,
+.spine-line.active,
+.pulse-dot {
+  stroke: var(--accent) !important;
+  fill: var(--accent) !important;
+}
+
+.zone-tag,
+.avatar-caption,
+.zone-normal-text {
+  color: var(--muted);
+}
+
+.zone-status-pill,
+.log-success-banner {
+  background: color-mix(in srgb, var(--green) 14%, transparent);
+  color: var(--green);
+  border-color: color-mix(in srgb, var(--green) 40%, transparent);
+}
+
+.severity-chip.selected.mild {
+  background: color-mix(in srgb, var(--green) 16%, var(--panel));
+  border-color: var(--green);
+  color: var(--green);
+}
+
+.severity-chip.selected.moderate {
+  background: color-mix(in srgb, var(--amber) 16%, var(--panel));
+  border-color: var(--amber);
+  color: var(--amber);
+}
+
+.severity-chip.selected.severe {
+  background: color-mix(in srgb, var(--red) 16%, var(--panel));
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.tap-cell.active-target,
+.target-reticle {
+  background: color-mix(in srgb, var(--accent) 22%, var(--panel));
+  border-color: var(--accent);
+  box-shadow: none;
+}
+
+.rx-indicator.waiting {
+  background: color-mix(in srgb, var(--red) 16%, var(--panel));
+  color: var(--red);
+  border-color: var(--red);
+}
+
+.rx-indicator.ready {
+  background: color-mix(in srgb, var(--green) 16%, var(--panel));
+  color: var(--green);
+  border-color: var(--green);
+  box-shadow: none;
+}
+
+.log-symptom-btn,
+.log-symptom-btn:hover,
+.btn-primary-aerospace,
+.btn-primary-aerospace:hover {
+  background: var(--accent) !important;
+  color: var(--on-accent) !important;
+}
+
+.log-symptom-btn:disabled {
+  background: color-mix(in srgb, var(--text) 8%, var(--panel));
+  color: var(--muted);
+}
+
+.btn-secondary-aerospace {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--border);
 }
 
 .term-pop {

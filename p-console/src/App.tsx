@@ -394,16 +394,16 @@ const navGroups: NavGroup[] = [
     pillar: "Physiological Telemetry",
     items: [
       { page: "Physiological Monitoring", label: "Biometric Telemetry", icon: "pulse" },
-      { page: "Health Trends", label: "Health Trends", icon: "chart" },
+      { page: "Health Trends", label: "14-Day Vitals Trends", icon: "chart" },
       { page: "Calculation Trend", label: "Baseline Analytics", icon: "chart" },
-      { page: "Sensorimotor & Reflex", label: "Sensorimotor Testing", icon: "check" },
-      { page: "Biodata", label: "Crew Medical Record", icon: "activity" },
+      { page: "Sensorimotor & Reflex", label: "Reflex & Coordination", icon: "check" },
+      { page: "Biodata", label: "Personal Medical Baseline", icon: "activity" },
     ],
   },
   {
     pillar: "Life Support & Habitat",
     items: [
-      { page: "Cabin Conditions", label: "Cabin Life Support", icon: "thermometer" },
+      { page: "Cabin Conditions", label: "Cabin Atmosphere & CO₂", icon: "thermometer" },
       { page: "Orbital Conditions", label: "Orbital Flight Parameters", icon: "globe" },
     ],
   },
@@ -880,6 +880,13 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
       window.location.hash = PAGE_TO_HASH[page] || "overview";
     }
     return () => window.removeEventListener("hashchange", onHashChange);
+  }, [page]);
+
+  useEffect(() => {
+    const activeEl = document.querySelector(".sidebar-nav .nav-item.active");
+    if (activeEl) {
+      activeEl.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    }
   }, [page]);
 
   useEffect(() => {
@@ -1396,7 +1403,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                 <polyline
                   points={diastolicSamples.map((v, i) => `${px(i)},${py(v)}`).join(" ")}
                   fill="none"
-                  stroke="#aaa2e3"
+                  stroke="var(--amber)"
                   strokeWidth="2"
                   strokeLinejoin="round"
                 />
@@ -1428,7 +1435,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                   cx={px(i)}
                   cy={py(v)}
                   r={i === days - 1 || hover === i ? 4 : 2.7}
-                  fill={i === days - 1 ? "#d4faff" : "#14222e"}
+                  fill={i === days - 1 ? "var(--accent)" : "var(--panel)"}
                   stroke="var(--accent)"
                   strokeWidth="1.8"
                   pointerEvents="none"
@@ -1712,7 +1719,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
             </span>
           </button>
           <div className="workspace-label">Pages</div>
-          <nav aria-label="Main navigation" className="sidebar-grouped-nav">
+          <nav aria-label="Main navigation" className="sidebar-grouped-nav sidebar-nav">
             {navGroups.map((group) => (
               <div key={group.pillar} className="nav-group-section">
                 <div className="nav-group-label">{group.pillar}</div>
