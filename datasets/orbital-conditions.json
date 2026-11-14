@@ -1,0 +1,121 @@
+{
+  "meta": {
+    "synthetic": true,
+    "origin": "Illustrative orbital samples, not a live ephemeris",
+    "warning": "Not NASA trajectory data. Lighting and altitude changes are scripted for the demo."
+  },
+  "records": [
+    {
+      "id": "orbit-135",
+      "missionId": "aster-07",
+      "missionDay": 135,
+      "recordedAt": "2035-06-07T12:05:00Z",
+      "altitudeKm": 404,
+      "velocityKms": 7.66,
+      "betaAngleDeg": -12,
+      "sunlit": true,
+      "eclipseMinutes": 0,
+      "lighting": "sunlight",
+      "gravity": "microgravity",
+      "source": "synthetic_fixture"
+    },
+    {
+      "id": "orbit-136",
+      "missionId": "aster-07",
+      "missionDay": 136,
+      "recordedAt": "2035-06-08T12:05:00Z",
+      "altitudeKm": 405,
+      "velocityKms": 7.67,
+      "betaAngleDeg": -9,
+      "sunlit": false,
+      "eclipseMinutes": 35,
+      "lighting": "eclipse",
+      "gravity": "microgravity",
+      "source": "synthetic_fixture"
+    },
+    {
+      "id": "orbit-137",
+      "missionId": "aster-07",
+      "missionDay": 137,
+      "recordedAt": "2035-06-09T12:05:00Z",
+      "altitudeKm": 406,
+      "velocityKms": 7.68,
+      "betaAngleDeg": -6,
+      "sunlit": true,
+      "eclipseMinutes": 0,
+      "lighting": "sunlight",
+      "gravity": "microgravity",
+      "source": "synthetic_fixture"
+    },
+    {
+      "id": "orbit-138",
+      "missionId": "aster-07",
+      "missionDay": 138,
+      "recordedAt": "2035-06-10T12:05:00Z",
+      "altitudeKm": 407,
+      "velocityKms": 7.66,
+      "betaAngleDeg": -3,
+      "sunlit": false,
+      "eclipseMinutes": 35,
+      "lighting": "eclipse",
+      "gravity": "microgravity",
+      "source": "synthetic_fixture"
+    },
+    {
+      "id": "orbit-139",
+      "missionId": "aster-07",
+      "missionDay": 139,
+      "recordedAt": "2035-06-11T12:05:00Z",
+      "altitudeKm": 408,
+      "velocityKms": 7.67,
+      "betaAngleDeg": 0,
+      "sunlit": true,
+      "eclipseMinutes": 0,
+      "lighting": "sunlight",
+      "gravity": "microgravity",
+      "source": "synthetic_fixture"
+    },
+    {
+      "id": "orbit-140",
+      "missionId": "aster-07",
+      "missionDay": 140,
+      "recordedAt": "2035-06-12T12:05:00Z",
+      "altitudeKm": 404,
+      "velocityKms": 7.68,
+      "betaAngleDeg": 3,
+      "sunlit": false,
+      "eclipseMinutes": 35,
+      "lighting": "eclipse",
+      "gravity": "microgravity",
+      "source": "synthetic_fixture"
+    },
+    {
+      "id": "orbit-141",
+      "missionId": "aster-07",
+      "missionDay": 141,
+      "recordedAt": "2035-06-13T12:05:00Z",
+      "altitudeKm": 405,
+      "velocityKms": 7.66,
+      "betaAngleDeg": 6,
+      "sunlit": true,
+      "eclipseMinutes": 0,
+      "lighting": "sunlight",
+      "gravity": "microgravity",
+      "source": "synthetic_fixture"
+    },
+    {
+      "id": "orbit-142",
+      "missionId": "aster-07",
+      "missionDay": 142,
+      "recordedAt": "2035-06-14T12:05:00Z",
+      "altitudeKm": 406,
+      "velocityKms": 7.67,
+      "betaAngleDeg": 9,
+      "sunlit": false,
+      "eclipseMinutes": 35,
+      "lighting": "eclipse",
+      "gravity": "microgravity",
+      "source": "synthetic_fixture"
+    }
+  ]
+}

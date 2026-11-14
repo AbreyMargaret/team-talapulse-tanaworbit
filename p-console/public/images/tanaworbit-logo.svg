@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="213" height="50" viewBox="0 0 213 50" fill="none">
+  <title>TanawOrbit</title>
+  <g transform="translate(4 5.5)">
+    <ellipse cx="17.5" cy="19.5" rx="15" ry="17.5" transform="rotate(32 17.5 19.5)" stroke="#57b4e6"/>
+    <svg x="6.5" y="8.5" width="22" height="22" viewBox="0 0 24 24">
+      <path d="M3 12h4l3-8 4 16 3-8h4" stroke="#79cce8" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <ellipse cx="17.5" cy="19.5" rx="20.5" ry="8" transform="rotate(-42 17.5 19.5)" stroke="#57b4e6"/>
+    <circle cx="35" cy="8" r="2" fill="#bbebff"/>
+  </g>
+  <text x="52" y="26" fill="#e6ebf4" font-family="DM Sans, Arial, sans-serif" font-size="22" font-weight="650" letter-spacing="-.8">TanawOrbit</text>
+  <text x="52" y="43" fill="#7c90b1" font-family="DM Sans, Arial, sans-serif" font-size="8" font-weight="500" letter-spacing="1.8">HEALTH OPERATIONS</text>
+</svg>

@@ -1,0 +1,544 @@
+{
+  "meta": {
+    "synthetic": true,
+    "warning": "Example intake logs. Not a prescription, not a clinical diet, and not a fluid-loading protocol."
+  },
+  "items": [
+    {
+      "id": "meal-oats",
+      "name": "Oat breakfast pack",
+      "kind": "meal"
+    },
+    {
+      "id": "meal-rice",
+      "name": "Rice and vegetable pack",
+      "kind": "meal"
+    },
+    {
+      "id": "meal-pack",
+      "name": "Crew dinner pack",
+      "kind": "meal"
+    },
+    {
+      "id": "snack-bar",
+      "name": "Fruit and nut bar",
+      "kind": "snack"
+    },
+    {
+      "id": "drink-water",
+      "name": "Drinking water",
+      "kind": "drink"
+    },
+    {
+      "id": "drink-electrolyte",
+      "name": "Electrolyte drink",
+      "kind": "drink"
+    }
+  ],
+  "records": [
+    {
+      "id": "nutrition-crew-am-136",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 136,
+      "itemIds": [
+        "meal-oats",
+        "meal-pack",
+        "snack-bar",
+        "drink-water"
+      ],
+      "kcal": 2330,
+      "waterMl": 2250,
+      "proteinG": 82,
+      "sodiumMg": 2680,
+      "source": "synthetic_fixture",
+      "note": "Example intake for the demo day. Not a diet order."
+    },
+    {
+      "id": "nutrition-crew-jc-136",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 136,
+      "itemIds": [
+        "meal-oats",
+        "meal-pack",
+        "snack-bar",
+        "drink-water"
+      ],
+      "kcal": 2560,
+      "waterMl": 2400,
+      "proteinG": 87,
+      "sodiumMg": 2760,
+      "source": "synthetic_fixture",
+      "note": "Example intake for the demo day. Not a diet order."
+    },
+    {
+      "id": "nutrition-crew-sr-136",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 136,
+      "itemIds": [
+        "meal-oats",
+        "meal-pack",
+        "snack-bar",
+        "drink-water"
+      ],
+      "kcal": 2140,
+      "waterMl": 2100,
+      "proteinG": 80,
+      "sodiumMg": 2600,
+      "source": "synthetic_fixture",
+      "note": "Example intake for the demo day. Not a diet order."
+    },
+    {
+      "id": "nutrition-crew-ew-136",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 136,
+      "itemIds": [
+        "meal-oats",
+        "meal-pack",
+        "snack-bar",
+        "drink-water"
+      ],
+      "kcal": 2440,
+      "waterMl": 2250,
+      "proteinG": 85,
+      "sodiumMg": 2680,
+      "source": "synthetic_fixture",
+      "note": "Example intake for the demo day. Not a diet order."
+    },
+    {
+      "id": "nutrition-crew-am-137",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 137,
+      "itemIds": [
+        "meal-oats",
+        "meal-pack",
+        "snack-bar",
+        "drink-water"
+      ],
+      "kcal": 2380,
+      "waterMl": 2400,
+      "proteinG": 86,
+      "sodiumMg": 2760,
+      "source": "synthetic_fixture",
+      "note": "Example intake for the demo day. Not a diet order."
+    },
+    {
+      "id": "nutrition-crew-jc-137",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 137,
+      "itemIds": [
+        "meal-oats",
+        "meal-pack",
+        "snack-bar",
+        "drink-water"
+      ],
+      "kcal": 2460,
+      "waterMl": 2100,
+      "proteinG": 79,
+      "sodiumMg": 2600,
+      "source": "synthetic_fixture",
+      "note": "Example intake for the demo day. Not a diet order."
+    },
+    {
+      "id": "nutrition-crew-sr-137",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 137,
+      "itemIds": [
+        "meal-oats",
+        "meal-pack",
+        "snack-bar",
+        "drink-water"
+      ],
+      "kcal": 2190,
+      "waterMl": 2250,
+      "proteinG": 84,
+      "sodiumMg": 2680,
+      "source": "synthetic_fixture",
+      "note": "Example intake for the demo day. Not a diet order."
+    },
+    {
+      "id": "nutrition-crew-ew-137",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 137,
+      "itemIds": [
+        "meal-oats",
+        "meal-pack",
+        "snack-bar",
+        "drink-water"
+      ],
+      "kcal": 2490,
+      "waterMl": 2400,
+      "proteinG": 89,
+      "sodiumMg": 2760,
+      "source": "synthetic_fixture",
+      "note": "Example intake for the demo day. Not a diet order."
+    },
+    {
+      "id": "nutrition-crew-am-138",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 138,
+      "itemIds": [
+        "meal-oats",
+        "meal-pack",
+        "snack-bar",
+        "drink-water"
+      ],
+      "kcal": 2280,
+      "waterMl": 2100,
+      "proteinG": 78,
+      "sodiumMg": 2600,
+      "source": "synthetic_fixture",
+      "note": "Example intake for the demo day. Not a diet order."
+    },
+    {
+      "id": "nutrition-crew-jc-138",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 138,
+      "itemIds": [
+        "meal-oats",
+        "meal-pack",
+        "snack-bar",
+        "drink-water"
+      ],
+      "kcal": 2510,
+      "waterMl": 2250,
+      "proteinG": 83,
+      "sodiumMg": 2680,
+      "source": "synthetic_fixture",
+      "note": "Example intake for the demo day. Not a diet order."
+    },
+    {
+      "id": "nutrition-crew-sr-138",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 138,
+      "itemIds": [
+        "meal-oats",
+        "meal-pack",
+        "snack-bar",
+        "drink-water"
+      ],
+      "kcal": 2240,
+      "waterMl": 2400,
+      "proteinG": 88,
+      "sodiumMg": 2760,
+      "source": "synthetic_fixture",
+      "note": "Example intake for the demo day. Not a diet order."
+    },
+    {
+      "id": "nutrition-crew-ew-138",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 138,
+      "itemIds": [
+        "meal-oats",
+        "meal-pack",
+        "snack-bar",
+        "drink-water"
+      ],
+      "kcal": 2390,
+      "waterMl": 2100,
+      "proteinG": 81,
+      "sodiumMg": 2600,
+      "source": "synthetic_fixture",
+      "note": "Example intake for the demo day. Not a diet order."
+    },
+    {
+      "id": "nutrition-crew-am-139",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 139,
+      "itemIds": [
+        "meal-oats",
+        "meal-pack",
+        "snack-bar",
+        "drink-water"
+      ],
+      "kcal": 2330,
+      "waterMl": 2250,
+      "proteinG": 82,
+      "sodiumMg": 2680,
+      "source": "synthetic_fixture",
+      "note": "Example intake for the demo day. Not a diet order."
+    },
+    {
+      "id": "nutrition-crew-jc-139",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 139,
+      "itemIds": [
+        "meal-oats",
+        "meal-pack",
+        "snack-bar",
+        "drink-water"
+      ],
+      "kcal": 2560,
+      "waterMl": 2400,
+      "proteinG": 87,
+      "sodiumMg": 2760,
+      "source": "synthetic_fixture",
+      "note": "Example intake for the demo day. Not a diet order."
+    },
+    {
+      "id": "nutrition-crew-sr-139",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 139,
+      "itemIds": [
+        "meal-oats",
+        "meal-pack",
+        "snack-bar",
+        "drink-water"
+      ],
+      "kcal": 2140,
+      "waterMl": 2100,
+      "proteinG": 80,
+      "sodiumMg": 2600,
+      "source": "synthetic_fixture",
+      "note": "Example intake for the demo day. Not a diet order."
+    },
+    {
+      "id": "nutrition-crew-ew-139",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 139,
+      "itemIds": [
+        "meal-oats",
+        "meal-pack",
+        "snack-bar",
+        "drink-water"
+      ],
+      "kcal": 2440,
+      "waterMl": 2250,
+      "proteinG": 85,
+      "sodiumMg": 2680,
+      "source": "synthetic_fixture",
+      "note": "Example intake for the demo day. Not a diet order."
+    },
+    {
+      "id": "nutrition-crew-am-140",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 140,
+      "itemIds": [
+        "meal-oats",
+        "meal-pack",
+        "snack-bar",
+        "drink-water"
+      ],
+      "kcal": 2380,
+      "waterMl": 2400,
+      "proteinG": 86,
+      "sodiumMg": 2760,
+      "source": "synthetic_fixture",
+      "note": "Example intake for the demo day. Not a diet order."
+    },
+    {
+      "id": "nutrition-crew-jc-140",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 140,
+      "itemIds": [
+        "meal-oats",
+        "meal-pack",
+        "snack-bar",
+        "drink-water"
+      ],
+      "kcal": 2460,
+      "waterMl": 2100,
+      "proteinG": 79,
+      "sodiumMg": 2600,
+      "source": "synthetic_fixture",
+      "note": "Example intake for the demo day. Not a diet order."
+    },
+    {
+      "id": "nutrition-crew-sr-140",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 140,
+      "itemIds": [
+        "meal-oats",
+        "meal-pack",
+        "snack-bar",
+        "drink-water"
+      ],
+      "kcal": 2190,
+      "waterMl": 2250,
+      "proteinG": 84,
+      "sodiumMg": 2680,
+      "source": "synthetic_fixture",
+      "note": "Example intake for the demo day. Not a diet order."
+    },
+    {
+      "id": "nutrition-crew-ew-140",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 140,
+      "itemIds": [
+        "meal-oats",
+        "meal-pack",
+        "snack-bar",
+        "drink-water"
+      ],
+      "kcal": 2490,
+      "waterMl": 2400,
+      "proteinG": 89,
+      "sodiumMg": 2760,
+      "source": "synthetic_fixture",
+      "note": "Example intake for the demo day. Not a diet order."
+    },
+    {
+      "id": "nutrition-crew-am-141",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 141,
+      "itemIds": [
+        "meal-oats",
+        "meal-pack",
+        "snack-bar",
+        "drink-water"
+      ],
+      "kcal": 2280,
+      "waterMl": 2100,
+      "proteinG": 78,
+      "sodiumMg": 2600,
+      "source": "synthetic_fixture",
+      "note": "Example intake for the demo day. Not a diet order."
+    },
+    {
+      "id": "nutrition-crew-jc-141",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 141,
+      "itemIds": [
+        "meal-oats",
+        "meal-pack",
+        "snack-bar",
+        "drink-water"
+      ],
+      "kcal": 2510,
+      "waterMl": 2250,
+      "proteinG": 83,
+      "sodiumMg": 2680,
+      "source": "synthetic_fixture",
+      "note": "Example intake for the demo day. Not a diet order."
+    },
+    {
+      "id": "nutrition-crew-sr-141",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 141,
+      "itemIds": [
+        "meal-oats",
+        "meal-pack",
+        "snack-bar",
+        "drink-water"
+      ],
+      "kcal": 2240,
+      "waterMl": 2400,
+      "proteinG": 88,
+      "sodiumMg": 2760,
+      "source": "synthetic_fixture",
+      "note": "Example intake for the demo day. Not a diet order."
+    },
+    {
+      "id": "nutrition-crew-ew-141",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 141,
+      "itemIds": [
+        "meal-oats",
+        "meal-pack",
+        "snack-bar",
+        "drink-water"
+      ],
+      "kcal": 2390,
+      "waterMl": 2100,
+      "proteinG": 81,
+      "sodiumMg": 2600,
+      "source": "synthetic_fixture",
+      "note": "Example intake for the demo day. Not a diet order."
+    },
+    {
+      "id": "nutrition-crew-am-142",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 142,
+      "itemIds": [
+        "meal-oats",
+        "meal-pack",
+        "snack-bar",
+        "drink-water"
+      ],
+      "kcal": 2330,
+      "waterMl": 2250,
+      "proteinG": 82,
+      "sodiumMg": 2680,
+      "source": "synthetic_fixture",
+      "note": "Example intake for the demo day. Not a diet order."
+    },
+    {
+      "id": "nutrition-crew-jc-142",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 142,
+      "itemIds": [
+        "meal-oats",
+        "meal-pack",
+        "snack-bar",
+        "drink-water"
+      ],
+      "kcal": 2560,
+      "waterMl": 2400,
+      "proteinG": 87,
+      "sodiumMg": 2760,
+      "source": "synthetic_fixture",
+      "note": "Example intake for the demo day. Not a diet order."
+    },
+    {
+      "id": "nutrition-crew-sr-142",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 142,
+      "itemIds": [
+        "meal-oats",
+        "meal-pack",
+        "snack-bar",
+        "drink-water"
+      ],
+      "kcal": 2140,
+      "waterMl": 2100,
+      "proteinG": 80,
+      "sodiumMg": 2600,
+      "source": "synthetic_fixture",
+      "note": "Example intake for the demo day. Not a diet order."
+    },
+    {
+      "id": "nutrition-crew-ew-142",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 142,
+      "itemIds": [
+        "meal-oats",
+        "meal-pack",
+        "snack-bar",
+        "drink-water"
+      ],
+      "kcal": 2440,
+      "waterMl": 2250,
+      "proteinG": 85,
+      "sodiumMg": 2680,
+      "source": "synthetic_fixture",
+      "note": "Example intake for the demo day. Not a diet order."
+    }
+  ]
+}

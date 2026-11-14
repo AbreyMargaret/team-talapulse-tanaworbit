@@ -1,0 +1,168 @@
+{
+  "meta": {
+    "synthetic": true,
+    "warning": "Demonstration bounds used to check the fixtures. They are not clinical limits or NASA alarm thresholds."
+  },
+  "records": [
+    {
+      "id": "heart",
+      "label": "Heart rate",
+      "unit": "bpm",
+      "group": "crew",
+      "source": "health-records.reading.heart",
+      "demoMin": 30,
+      "demoMax": 220,
+      "comparison": "Absolute difference from the 14-day personal mean"
+    },
+    {
+      "id": "systolic",
+      "label": "Systolic pressure",
+      "unit": "mmHg",
+      "group": "crew",
+      "source": "health-records.reading.systolic",
+      "demoMin": 60,
+      "demoMax": 250,
+      "comparison": "Absolute difference from the 14-day personal mean"
+    },
+    {
+      "id": "diastolic",
+      "label": "Diastolic pressure",
+      "unit": "mmHg",
+      "group": "crew",
+      "source": "health-records.reading.diastolic",
+      "demoMin": 30,
+      "demoMax": 160,
+      "comparison": "Absolute difference from the 14-day personal mean"
+    },
+    {
+      "id": "sleep",
+      "label": "Sleep duration",
+      "unit": "hours",
+      "group": "crew",
+      "source": "health-records.reading.sleep",
+      "demoMin": 0,
+      "demoMax": 24,
+      "comparison": "Decrease from the 14-day personal mean"
+    },
+    {
+      "id": "fatigue",
+      "label": "Fatigue self-report",
+      "unit": "1-5",
+      "group": "crew",
+      "source": "health-records.reading.fatigue",
+      "demoMin": 1,
+      "demoMax": 5,
+      "comparison": "Increase from the 14-day personal mean"
+    },
+    {
+      "id": "temperatureC",
+      "label": "Temperature",
+      "unit": "C",
+      "group": "crew",
+      "source": "health-records.temperatureC",
+      "demoMin": 35,
+      "demoMax": 40,
+      "comparison": "Shown for context. No demo flag."
+    },
+    {
+      "id": "respiration",
+      "label": "Respiration",
+      "unit": "breaths/min",
+      "group": "crew",
+      "source": "health-records.respiration",
+      "demoMin": 8,
+      "demoMax": 40,
+      "comparison": "Shown for context. No demo flag."
+    },
+    {
+      "id": "pressureKpa",
+      "label": "Cabin pressure",
+      "unit": "kPa",
+      "group": "cabin",
+      "source": "cabin-conditions.pressureKpa",
+      "demoMin": 90,
+      "demoMax": 110,
+      "comparison": "Latest cabin sample against the demo bound"
+    },
+    {
+      "id": "co2MmHg",
+      "label": "Cabin carbon dioxide",
+      "unit": "mmHg",
+      "group": "cabin",
+      "source": "cabin-conditions.co2MmHg",
+      "demoMin": 0,
+      "demoMax": 10,
+      "comparison": "Latest cabin sample against the demo bound"
+    },
+    {
+      "id": "o2Percent",
+      "label": "Cabin oxygen",
+      "unit": "percent",
+      "group": "cabin",
+      "source": "cabin-conditions.o2Percent",
+      "demoMin": 19,
+      "demoMax": 24,
+      "comparison": "Latest cabin sample against the demo bound"
+    },
+    {
+      "id": "cabinTemperatureC",
+      "label": "Cabin temperature",
+      "unit": "C",
+      "group": "cabin",
+      "source": "cabin-conditions.temperatureC",
+      "demoMin": 18,
+      "demoMax": 28,
+      "comparison": "Latest cabin sample against the demo bound"
+    },
+    {
+      "id": "humidityPercent",
+      "label": "Cabin humidity",
+      "unit": "percent",
+      "group": "cabin",
+      "source": "cabin-conditions.humidityPercent",
+      "demoMin": 20,
+      "demoMax": 80,
+      "comparison": "Latest cabin sample against the demo bound"
+    },
+    {
+      "id": "altitudeKm",
+      "label": "Altitude",
+      "unit": "km",
+      "group": "orbit",
+      "source": "orbital-conditions.altitudeKm",
+      "demoMin": 350,
+      "demoMax": 450,
+      "comparison": "Scripted sample. Does not change health thresholds."
+    },
+    {
+      "id": "velocityKms",
+      "label": "Velocity",
+      "unit": "km/s",
+      "group": "orbit",
+      "source": "orbital-conditions.velocityKms",
+      "demoMin": 7,
+      "demoMax": 8,
+      "comparison": "Scripted sample. Does not change health thresholds."
+    },
+    {
+      "id": "kcal",
+      "label": "Energy intake",
+      "unit": "kcal",
+      "group": "nutrition",
+      "source": "nutrition.kcal",
+      "demoMin": 1500,
+      "demoMax": 4000,
+      "comparison": "Example daily total against the demo bound"
+    },
+    {
+      "id": "waterMl",
+      "label": "Water intake",
+      "unit": "mL",
+      "group": "nutrition",
+      "source": "nutrition.waterMl",
+      "demoMin": 1000,
+      "demoMax": 5000,
+      "comparison": "Example daily total against the demo bound"
+    }
+  ]
+}

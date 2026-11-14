@@ -1,0 +1,2 @@
+# Keep the favicon as a binary file.
+favicon.png -filter -diff -merge -text

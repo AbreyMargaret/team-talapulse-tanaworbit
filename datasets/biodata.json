@@ -1,0 +1,53 @@
+{
+  "meta": {
+    "synthetic": true,
+    "origin": "Fictional body descriptions for the educational demo",
+    "warning": "Not a clinical record, not used for diagnosis, and not a real person."
+  },
+  "records": [
+    {
+      "id": "bio-crew-am",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "ageYears": 41,
+      "statureCm": 178,
+      "massKg": 74,
+      "bloodTypeLabel": "O+ (fictional label)",
+      "dominantSide": "right",
+      "analogDays": 45
+    },
+    {
+      "id": "bio-crew-jc",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "ageYears": 36,
+      "statureCm": 175,
+      "massKg": 71,
+      "bloodTypeLabel": "A+ (fictional label)",
+      "dominantSide": "left",
+      "analogDays": 30
+    },
+    {
+      "id": "bio-crew-sr",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "ageYears": 33,
+      "statureCm": 165,
+      "massKg": 60,
+      "bloodTypeLabel": "B+ (fictional label)",
+      "dominantSide": "right",
+      "analogDays": 28
+    },
+    {
+      "id": "bio-crew-ew",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "ageYears": 44,
+      "statureCm": 182,
+      "massKg": 79,
+      "bloodTypeLabel": "AB+ (fictional label)",
+      "dominantSide": "right",
+      "analogDays": 60
+    }
+  ]
+}

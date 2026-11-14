@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1000" viewBox="0 0 2400 1000" role="img" aria-labelledby="cover-title cover-description">
+  <title id="cover-title">Tala Pulse — TanawOrbit team cover</title>
+  <desc id="cover-description">Original SI-generated Filipino team cover artwork. Large Tala Pulse typography sits beside an abstract wireframe planet, an orbital path, and an illustrative pulse line. Tala means star in Filipino. Tagline: Human health. Beyond Earth. Project: TanawOrbit. Not a photograph, clinical measurement, NASA insignia, or NASA mission identifier.</desc>
+  <metadata id="provenance">{"tool":"Figma Make coding assistant","si_generated":true,"type":"Original vector cover artwork","team":"Tala Pulse","project":"TanawOrbit","contains_external_photographs":false,"visible_watermark":"SI-GENERATED ARTWORK","font_licenses":"DM Sans and IBM Plex Mono: SIL Open Font License; notices retained in public/fonts/"}</metadata>
+  <defs>
+    <style>
+      @font-face { font-family: 'DM Sans'; font-style: normal; font-weight: 400 700; src: url('data:font/woff2;base64,__DM_SANS_FONT__') format('woff2'); }
+      @font-face { font-family: 'IBM Plex Mono'; font-style: normal; font-weight: 400; src: url('data:font/woff2;base64,__IBM_PLEX_FONT__') format('woff2'); }
+      .sans { font-family: 'DM Sans', sans-serif; }
+      .mono { font-family: 'IBM Plex Mono', monospace; }
+    </style>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#0d1929"/>
+      <stop offset=".54" stop-color="#0a1421"/>
+      <stop offset="1" stop-color="#0c1e2b"/>
+    </linearGradient>
+    <radialGradient id="ambient" cx="72%" cy="48%" r="48%">
+      <stop stop-color="#24556a" stop-opacity=".2"/>
+      <stop offset="1" stop-color="#0a1421" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="planet" cx="25%" cy="20%" r="85%">
+      <stop stop-color="#1c4c61"/>
+      <stop offset=".46" stop-color="#123447"/>
+      <stop offset="1" stop-color="#0a1828"/>
+    </radialGradient>
+    <linearGradient id="orbit" x1="0" y1="1" x2="1" y2="0">
+      <stop stop-color="#3d829c" stop-opacity=".1"/>
+      <stop offset=".45" stop-color="#5abbd4" stop-opacity=".8"/>
+      <stop offset="1" stop-color="#6cb6ca" stop-opacity=".25"/>
+    </linearGradient>
+    <linearGradient id="signal" x1="0" y1="0" x2="1" y2="0">
+      <stop stop-color="#65d1df" stop-opacity="0"/>
+      <stop offset=".13" stop-color="#65d1df"/>
+      <stop offset=".75" stop-color="#a9ecf0"/>
+      <stop offset="1" stop-color="#65d1df" stop-opacity="0"/>
+    </linearGradient>
+    <clipPath id="sphere-clip">
+      <circle cx="1770" cy="476" r="268"/>
+    </clipPath>
+    <pattern id="data-grid" width="64" height="64" patternUnits="userSpaceOnUse">
+      <path d="M64 0H0V64" fill="none" stroke="#48748b" stroke-opacity=".09" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="2400" height="1000" fill="url(#background)"/>
+  <rect width="2400" height="1000" fill="url(#ambient)"/>
+  <rect x="1130" y="136" width="1138" height="674" fill="url(#data-grid)"/>
+  <rect x="42.5" y="42.5" width="2315" height="915" rx="2" fill="none" stroke="#54748b" stroke-opacity=".2"/>
+  <path d="M124 180H2276" stroke="#506c83" stroke-opacity=".26"/>
+  <path d="M124 180H202" stroke="#65c2d6" stroke-width="2"/>
+
+  <text x="124" y="111" class="mono" font-size="18" letter-spacing="3" fill="#8da8bc">FILIPINO TEAM / SPACEFLIGHT HEALTH CONCEPT</text>
+  <text x="2276" y="111" text-anchor="end" class="mono" font-size="16" letter-spacing="2.5" fill="#69879e">DESIGNED AROUND PEOPLE.</text>
+
+  <text x="124" y="263" class="mono" font-size="18" letter-spacing="6" fill="#6ec6d6">TEAM</text>
+  <text x="113" y="410" class="sans" font-size="164" font-weight="550" letter-spacing="-9" fill="#edf3fa">Tala</text>
+  <text x="113" y="562" class="sans" font-size="164" font-weight="550" letter-spacing="-9" fill="#edf3fa">Pulse<tspan fill="#75d2df">.</tspan></text>
+  <text x="124" y="636" class="sans" font-size="35" font-weight="400" letter-spacing="-.6" fill="#9cb3c9">Human health. Beyond Earth.</text>
+
+  <path d="M1260 476H2276M1770 194V758" fill="none" stroke="#6292a9" stroke-opacity=".18" stroke-width="1" stroke-dasharray="3 9"/>
+  <ellipse cx="1770" cy="476" rx="459" ry="174" transform="rotate(-24 1770 476)" fill="none" stroke="#48849b" stroke-opacity=".28" stroke-width="1.3"/>
+  <circle cx="1770" cy="476" r="306" fill="none" stroke="#4f7b93" stroke-opacity=".18"/>
+  <circle cx="1770" cy="476" r="268" fill="url(#planet)" stroke="#5a98ac" stroke-opacity=".55" stroke-width="1.5"/>
+  <g clip-path="url(#sphere-clip)" fill="none" stroke="#73afbf" stroke-width="1.2">
+    <ellipse cx="1770" cy="476" rx="98" ry="268" stroke-opacity=".35"/>
+    <ellipse cx="1770" cy="476" rx="202" ry="268" stroke-opacity=".23"/>
+    <ellipse cx="1770" cy="476" rx="268" ry="75" stroke-opacity=".3"/>
+    <ellipse cx="1770" cy="342" rx="234" ry="57" stroke-opacity=".3"/>
+    <ellipse cx="1770" cy="610" rx="234" ry="57" stroke-opacity=".23"/>
+    <path d="M1770 208V744M1502 476H2038" stroke-opacity=".25"/>
+  </g>
+  <path d="M1350 668C1424 683 1615 630 1770 563C1959 480 2156 348 2189 284" fill="none" stroke="url(#orbit)" stroke-width="2"/>
+  <circle cx="2128" cy="361" r="6" fill="#a1e0e8"/>
+  <circle cx="2128" cy="361" r="14" fill="none" stroke="#8bcedb" stroke-opacity=".3"/>
+
+  <path d="M1260 511H1438L1466 493L1496 511H1574L1603 480L1641 553L1697 352L1751 632L1804 468L1836 511H1940L1972 494L2006 511H2276" fill="none" stroke="#7bd1df" stroke-opacity=".08" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M1260 511H1438L1466 493L1496 511H1574L1603 480L1641 553L1697 352L1751 632L1804 468L1836 511H1940L1972 494L2006 511H2276" fill="none" stroke="url(#signal)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="1770" y="837" text-anchor="middle" class="mono" font-size="15" letter-spacing="2.2" fill="#728ea3">ILLUSTRATIVE HEALTH SIGNAL / NOT CLINICAL DATA</text>
+
+  <path d="M124 720H902" stroke="#536c85" stroke-opacity=".35"/>
+  <text x="124" y="773" class="mono" font-size="15" letter-spacing="3.4" fill="#7292ae">OUR PROJECT</text>
+  <text x="122" y="824" class="sans" font-size="39" font-weight="500" letter-spacing="-.8" fill="#e0ebf6">TanawOrbit</text>
+  <text x="124" y="864" class="sans" font-size="21" fill="#89a3bc">Astronaut health &amp; mission operations</text>
+
+  <text x="124" y="938" class="mono" font-size="14" letter-spacing="1.1" fill="#708da6">EDUCATIONAL CONCEPT / SYNTHETIC HEALTH DATA</text>
+  <rect x="1834" y="901" width="442" height="49" rx="4" fill="#132c3a" stroke="#507e92" stroke-opacity=".8"/>
+  <text x="2055" y="932" text-anchor="middle" class="mono" font-size="19" letter-spacing="1.4" fill="#b5dce7">SI-GENERATED ARTWORK</text>
+</svg>

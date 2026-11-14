@@ -1,0 +1,14 @@
+{
+  "meta": { "synthetic": true, "origin": "SI-generated fictional mission; not NASA telemetry" },
+  "mission": {
+    "id": "aster-07",
+    "name": "Aster Expedition VII",
+    "shortName": "ASTER VII",
+    "day": 142,
+    "durationDays": 270,
+    "altitudeKm": 408,
+    "environment": "Low Earth orbit",
+    "exampleDate": "2035-06-14",
+    "team": "Tala Pulse"
+  }
+}

@@ -1,0 +1,2298 @@
+{
+  "meta": {
+    "synthetic": true,
+    "origin": "SI-generated deterministic example records; not NASA or clinical data",
+    "units": {
+      "heart": "bpm",
+      "systolic": "mmHg",
+      "diastolic": "mmHg",
+      "sleep": "hours",
+      "fatigue": "1–5 self-report",
+      "temperatureC": "degrees Celsius",
+      "respiration": "breaths/min"
+    },
+    "warning": "All dates, people, measurements, and patterns are fictional."
+  },
+  "records": [
+    {
+      "id": "health-crew-am-113",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 113,
+      "recordedAt": "2035-05-16T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 68,
+        "systolic": 114,
+        "diastolic": 74,
+        "sleep": 7.3,
+        "fatigue": 1.7,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.6,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-am-114",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 114,
+      "recordedAt": "2035-05-17T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 70,
+        "systolic": 116,
+        "diastolic": 75,
+        "sleep": 7.5,
+        "fatigue": 2.0,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.6,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-am-115",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 115,
+      "recordedAt": "2035-05-18T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 72,
+        "systolic": 118,
+        "diastolic": 76,
+        "sleep": 7.7,
+        "fatigue": 2.3,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.6,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-am-116",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 116,
+      "recordedAt": "2035-05-19T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 70,
+        "systolic": 116,
+        "diastolic": 75,
+        "sleep": 7.5,
+        "fatigue": 2.0,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.6,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-am-117",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 117,
+      "recordedAt": "2035-05-20T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 68,
+        "systolic": 114,
+        "diastolic": 74,
+        "sleep": 7.3,
+        "fatigue": 1.7,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.6,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-am-118",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 118,
+      "recordedAt": "2035-05-21T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 72,
+        "systolic": 118,
+        "diastolic": 76,
+        "sleep": 7.7,
+        "fatigue": 2.3,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.6,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-am-119",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 119,
+      "recordedAt": "2035-05-22T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 70,
+        "systolic": 116,
+        "diastolic": 75,
+        "sleep": 7.5,
+        "fatigue": 2.0,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.6,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-am-120",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 120,
+      "recordedAt": "2035-05-23T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 68,
+        "systolic": 114,
+        "diastolic": 74,
+        "sleep": 7.3,
+        "fatigue": 1.7,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.6,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-am-121",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 121,
+      "recordedAt": "2035-05-24T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 70,
+        "systolic": 116,
+        "diastolic": 75,
+        "sleep": 7.5,
+        "fatigue": 2.0,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.6,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-am-122",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 122,
+      "recordedAt": "2035-05-25T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 72,
+        "systolic": 118,
+        "diastolic": 76,
+        "sleep": 7.7,
+        "fatigue": 2.3,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.6,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-am-123",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 123,
+      "recordedAt": "2035-05-26T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 70,
+        "systolic": 116,
+        "diastolic": 75,
+        "sleep": 7.5,
+        "fatigue": 2.0,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.6,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-am-124",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 124,
+      "recordedAt": "2035-05-27T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 68,
+        "systolic": 114,
+        "diastolic": 74,
+        "sleep": 7.3,
+        "fatigue": 1.7,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.6,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-am-125",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 125,
+      "recordedAt": "2035-05-28T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 72,
+        "systolic": 118,
+        "diastolic": 76,
+        "sleep": 7.7,
+        "fatigue": 2.3,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.6,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-am-126",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 126,
+      "recordedAt": "2035-05-29T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 70,
+        "systolic": 116,
+        "diastolic": 75,
+        "sleep": 7.5,
+        "fatigue": 2.0,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.6,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-am-127",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 127,
+      "recordedAt": "2035-05-30T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 68,
+        "systolic": 114,
+        "diastolic": 74,
+        "sleep": 7.3,
+        "fatigue": 1.7,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.6,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-am-128",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 128,
+      "recordedAt": "2035-05-31T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 70,
+        "systolic": 116,
+        "diastolic": 75,
+        "sleep": 7.5,
+        "fatigue": 2.0,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.6,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-am-129",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 129,
+      "recordedAt": "2035-06-01T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 72,
+        "systolic": 118,
+        "diastolic": 76,
+        "sleep": 7.7,
+        "fatigue": 2.3,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.6,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-am-130",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 130,
+      "recordedAt": "2035-06-02T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 70,
+        "systolic": 116,
+        "diastolic": 75,
+        "sleep": 7.5,
+        "fatigue": 2.0,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.6,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-am-131",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 131,
+      "recordedAt": "2035-06-03T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 68,
+        "systolic": 114,
+        "diastolic": 74,
+        "sleep": 7.3,
+        "fatigue": 1.7,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.6,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-am-132",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 132,
+      "recordedAt": "2035-06-04T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 72,
+        "systolic": 118,
+        "diastolic": 76,
+        "sleep": 7.7,
+        "fatigue": 2.3,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.6,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-am-133",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 133,
+      "recordedAt": "2035-06-05T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 70,
+        "systolic": 116,
+        "diastolic": 75,
+        "sleep": 7.5,
+        "fatigue": 2.0,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.6,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-am-134",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 134,
+      "recordedAt": "2035-06-06T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 68,
+        "systolic": 114,
+        "diastolic": 74,
+        "sleep": 7.3,
+        "fatigue": 1.7,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.6,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-am-135",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 135,
+      "recordedAt": "2035-06-07T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 70,
+        "systolic": 116,
+        "diastolic": 75,
+        "sleep": 7.5,
+        "fatigue": 2.0,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.6,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-am-136",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 136,
+      "recordedAt": "2035-06-08T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 72,
+        "systolic": 118,
+        "diastolic": 76,
+        "sleep": 7.7,
+        "fatigue": 2.3,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.6,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-am-137",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 137,
+      "recordedAt": "2035-06-09T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 70,
+        "systolic": 116,
+        "diastolic": 75,
+        "sleep": 7.5,
+        "fatigue": 2.0,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.6,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-am-138",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 138,
+      "recordedAt": "2035-06-10T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 68,
+        "systolic": 114,
+        "diastolic": 74,
+        "sleep": 7.3,
+        "fatigue": 1.7,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.6,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-am-139",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 139,
+      "recordedAt": "2035-06-11T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 72,
+        "systolic": 118,
+        "diastolic": 76,
+        "sleep": 7.7,
+        "fatigue": 2.3,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.6,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-am-140",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 140,
+      "recordedAt": "2035-06-12T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 72,
+        "systolic": 118,
+        "diastolic": 76,
+        "sleep": 6.8,
+        "fatigue": 3.5,
+        "mood": "Fair",
+        "notes": ""
+      },
+      "temperatureC": 36.6,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-am-141",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 141,
+      "recordedAt": "2035-06-13T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 72,
+        "systolic": 118,
+        "diastolic": 76,
+        "sleep": 6.5,
+        "fatigue": 3.5,
+        "mood": "Fair",
+        "notes": ""
+      },
+      "temperatureC": 36.6,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-am-142",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 142,
+      "recordedAt": "2035-06-14T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 72,
+        "systolic": 118,
+        "diastolic": 76,
+        "sleep": 6.2,
+        "fatigue": 4,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.6,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-jc-113",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 113,
+      "recordedAt": "2035-05-16T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 66,
+        "systolic": 110,
+        "diastolic": 71,
+        "sleep": 7.4,
+        "fatigue": 1.7,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.7,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-jc-114",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 114,
+      "recordedAt": "2035-05-17T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 68,
+        "systolic": 112,
+        "diastolic": 72,
+        "sleep": 7.6,
+        "fatigue": 2.0,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.7,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-jc-115",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 115,
+      "recordedAt": "2035-05-18T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 70,
+        "systolic": 114,
+        "diastolic": 73,
+        "sleep": 7.8,
+        "fatigue": 2.3,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.7,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-jc-116",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 116,
+      "recordedAt": "2035-05-19T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 68,
+        "systolic": 112,
+        "diastolic": 72,
+        "sleep": 7.6,
+        "fatigue": 2.0,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.7,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-jc-117",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 117,
+      "recordedAt": "2035-05-20T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 66,
+        "systolic": 110,
+        "diastolic": 71,
+        "sleep": 7.4,
+        "fatigue": 1.7,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.7,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-jc-118",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 118,
+      "recordedAt": "2035-05-21T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 70,
+        "systolic": 114,
+        "diastolic": 73,
+        "sleep": 7.8,
+        "fatigue": 2.3,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.7,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-jc-119",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 119,
+      "recordedAt": "2035-05-22T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 68,
+        "systolic": 112,
+        "diastolic": 72,
+        "sleep": 7.6,
+        "fatigue": 2.0,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.7,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-jc-120",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 120,
+      "recordedAt": "2035-05-23T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 66,
+        "systolic": 110,
+        "diastolic": 71,
+        "sleep": 7.4,
+        "fatigue": 1.7,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.7,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-jc-121",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 121,
+      "recordedAt": "2035-05-24T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 68,
+        "systolic": 112,
+        "diastolic": 72,
+        "sleep": 7.6,
+        "fatigue": 2.0,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.7,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-jc-122",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 122,
+      "recordedAt": "2035-05-25T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 70,
+        "systolic": 114,
+        "diastolic": 73,
+        "sleep": 7.8,
+        "fatigue": 2.3,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.7,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-jc-123",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 123,
+      "recordedAt": "2035-05-26T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 68,
+        "systolic": 112,
+        "diastolic": 72,
+        "sleep": 7.6,
+        "fatigue": 2.0,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.7,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-jc-124",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 124,
+      "recordedAt": "2035-05-27T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 66,
+        "systolic": 110,
+        "diastolic": 71,
+        "sleep": 7.4,
+        "fatigue": 1.7,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.7,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-jc-125",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 125,
+      "recordedAt": "2035-05-28T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 70,
+        "systolic": 114,
+        "diastolic": 73,
+        "sleep": 7.8,
+        "fatigue": 2.3,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.7,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-jc-126",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 126,
+      "recordedAt": "2035-05-29T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 68,
+        "systolic": 112,
+        "diastolic": 72,
+        "sleep": 7.6,
+        "fatigue": 2.0,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.7,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-jc-127",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 127,
+      "recordedAt": "2035-05-30T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 66,
+        "systolic": 110,
+        "diastolic": 71,
+        "sleep": 7.4,
+        "fatigue": 1.7,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.7,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-jc-128",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 128,
+      "recordedAt": "2035-05-31T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 68,
+        "systolic": 112,
+        "diastolic": 72,
+        "sleep": 7.6,
+        "fatigue": 2.0,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.7,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-jc-129",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 129,
+      "recordedAt": "2035-06-01T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 70,
+        "systolic": 114,
+        "diastolic": 73,
+        "sleep": 7.8,
+        "fatigue": 2.3,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.7,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-jc-130",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 130,
+      "recordedAt": "2035-06-02T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 68,
+        "systolic": 112,
+        "diastolic": 72,
+        "sleep": 7.6,
+        "fatigue": 2.0,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.7,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-jc-131",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 131,
+      "recordedAt": "2035-06-03T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 66,
+        "systolic": 110,
+        "diastolic": 71,
+        "sleep": 7.4,
+        "fatigue": 1.7,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.7,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-jc-132",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 132,
+      "recordedAt": "2035-06-04T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 70,
+        "systolic": 114,
+        "diastolic": 73,
+        "sleep": 7.8,
+        "fatigue": 2.3,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.7,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-jc-133",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 133,
+      "recordedAt": "2035-06-05T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 68,
+        "systolic": 112,
+        "diastolic": 72,
+        "sleep": 7.6,
+        "fatigue": 2.0,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.7,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-jc-134",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 134,
+      "recordedAt": "2035-06-06T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 66,
+        "systolic": 110,
+        "diastolic": 71,
+        "sleep": 7.4,
+        "fatigue": 1.7,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.7,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-jc-135",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 135,
+      "recordedAt": "2035-06-07T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 68,
+        "systolic": 112,
+        "diastolic": 72,
+        "sleep": 7.6,
+        "fatigue": 2.0,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.7,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-jc-136",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 136,
+      "recordedAt": "2035-06-08T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 70,
+        "systolic": 114,
+        "diastolic": 73,
+        "sleep": 7.8,
+        "fatigue": 2.3,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.7,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-jc-137",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 137,
+      "recordedAt": "2035-06-09T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 68,
+        "systolic": 112,
+        "diastolic": 72,
+        "sleep": 7.6,
+        "fatigue": 2.0,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.7,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-jc-138",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 138,
+      "recordedAt": "2035-06-10T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 66,
+        "systolic": 110,
+        "diastolic": 71,
+        "sleep": 7.4,
+        "fatigue": 1.7,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.7,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-jc-139",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 139,
+      "recordedAt": "2035-06-11T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 70,
+        "systolic": 114,
+        "diastolic": 73,
+        "sleep": 7.8,
+        "fatigue": 2.3,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.7,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-jc-140",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 140,
+      "recordedAt": "2035-06-12T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 68,
+        "systolic": 112,
+        "diastolic": 72,
+        "sleep": 7.6,
+        "fatigue": 2.0,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.7,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-jc-141",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 141,
+      "recordedAt": "2035-06-13T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 66,
+        "systolic": 110,
+        "diastolic": 71,
+        "sleep": 7.4,
+        "fatigue": 1.7,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.7,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-jc-142",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 142,
+      "recordedAt": "2035-06-14T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 68,
+        "systolic": 112,
+        "diastolic": 72,
+        "sleep": 7.6,
+        "fatigue": 2,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.7,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-sr-113",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 113,
+      "recordedAt": "2035-05-16T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 72,
+        "systolic": 118,
+        "diastolic": 77,
+        "sleep": 7.6,
+        "fatigue": 1.7,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.8,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-sr-114",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 114,
+      "recordedAt": "2035-05-17T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 74,
+        "systolic": 120,
+        "diastolic": 78,
+        "sleep": 7.8,
+        "fatigue": 2.0,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.8,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-sr-115",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 115,
+      "recordedAt": "2035-05-18T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 76,
+        "systolic": 122,
+        "diastolic": 79,
+        "sleep": 8.0,
+        "fatigue": 2.3,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.8,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-sr-116",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 116,
+      "recordedAt": "2035-05-19T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 74,
+        "systolic": 120,
+        "diastolic": 78,
+        "sleep": 7.8,
+        "fatigue": 2.0,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.8,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-sr-117",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 117,
+      "recordedAt": "2035-05-20T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 72,
+        "systolic": 118,
+        "diastolic": 77,
+        "sleep": 7.6,
+        "fatigue": 1.7,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.8,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-sr-118",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 118,
+      "recordedAt": "2035-05-21T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 76,
+        "systolic": 122,
+        "diastolic": 79,
+        "sleep": 8.0,
+        "fatigue": 2.3,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.8,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-sr-119",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 119,
+      "recordedAt": "2035-05-22T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 74,
+        "systolic": 120,
+        "diastolic": 78,
+        "sleep": 7.8,
+        "fatigue": 2.0,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.8,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-sr-120",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 120,
+      "recordedAt": "2035-05-23T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 72,
+        "systolic": 118,
+        "diastolic": 77,
+        "sleep": 7.6,
+        "fatigue": 1.7,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.8,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-sr-121",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 121,
+      "recordedAt": "2035-05-24T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 74,
+        "systolic": 120,
+        "diastolic": 78,
+        "sleep": 7.8,
+        "fatigue": 2.0,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.8,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-sr-122",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 122,
+      "recordedAt": "2035-05-25T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 76,
+        "systolic": 122,
+        "diastolic": 79,
+        "sleep": 8.0,
+        "fatigue": 2.3,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.8,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-sr-123",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 123,
+      "recordedAt": "2035-05-26T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 74,
+        "systolic": 120,
+        "diastolic": 78,
+        "sleep": 7.8,
+        "fatigue": 2.0,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.8,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-sr-124",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 124,
+      "recordedAt": "2035-05-27T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 72,
+        "systolic": 118,
+        "diastolic": 77,
+        "sleep": 7.6,
+        "fatigue": 1.7,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.8,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-sr-125",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 125,
+      "recordedAt": "2035-05-28T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 76,
+        "systolic": 122,
+        "diastolic": 79,
+        "sleep": 8.0,
+        "fatigue": 2.3,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.8,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-sr-126",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 126,
+      "recordedAt": "2035-05-29T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 74,
+        "systolic": 120,
+        "diastolic": 78,
+        "sleep": 7.8,
+        "fatigue": 2.0,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.8,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-sr-127",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 127,
+      "recordedAt": "2035-05-30T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 72,
+        "systolic": 118,
+        "diastolic": 77,
+        "sleep": 7.6,
+        "fatigue": 1.7,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.8,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-sr-128",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 128,
+      "recordedAt": "2035-05-31T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 74,
+        "systolic": 120,
+        "diastolic": 78,
+        "sleep": 7.8,
+        "fatigue": 2.0,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.8,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-sr-129",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 129,
+      "recordedAt": "2035-06-01T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 76,
+        "systolic": 122,
+        "diastolic": 79,
+        "sleep": 8.0,
+        "fatigue": 2.3,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.8,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-sr-130",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 130,
+      "recordedAt": "2035-06-02T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 74,
+        "systolic": 120,
+        "diastolic": 78,
+        "sleep": 7.8,
+        "fatigue": 2.0,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.8,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-sr-131",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 131,
+      "recordedAt": "2035-06-03T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 72,
+        "systolic": 118,
+        "diastolic": 77,
+        "sleep": 7.6,
+        "fatigue": 1.7,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.8,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-sr-132",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 132,
+      "recordedAt": "2035-06-04T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 76,
+        "systolic": 122,
+        "diastolic": 79,
+        "sleep": 8.0,
+        "fatigue": 2.3,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.8,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-sr-133",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 133,
+      "recordedAt": "2035-06-05T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 74,
+        "systolic": 120,
+        "diastolic": 78,
+        "sleep": 7.8,
+        "fatigue": 2.0,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.8,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-sr-134",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 134,
+      "recordedAt": "2035-06-06T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 72,
+        "systolic": 118,
+        "diastolic": 77,
+        "sleep": 7.6,
+        "fatigue": 1.7,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.8,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-sr-135",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 135,
+      "recordedAt": "2035-06-07T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 74,
+        "systolic": 120,
+        "diastolic": 78,
+        "sleep": 7.8,
+        "fatigue": 2.0,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.8,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-sr-136",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 136,
+      "recordedAt": "2035-06-08T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 76,
+        "systolic": 122,
+        "diastolic": 79,
+        "sleep": 8.0,
+        "fatigue": 2.3,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.8,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-sr-137",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 137,
+      "recordedAt": "2035-06-09T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 74,
+        "systolic": 120,
+        "diastolic": 78,
+        "sleep": 7.8,
+        "fatigue": 2.0,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.8,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-sr-138",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 138,
+      "recordedAt": "2035-06-10T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 72,
+        "systolic": 118,
+        "diastolic": 77,
+        "sleep": 7.6,
+        "fatigue": 1.7,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.8,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-sr-139",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 139,
+      "recordedAt": "2035-06-11T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 76,
+        "systolic": 122,
+        "diastolic": 79,
+        "sleep": 8.0,
+        "fatigue": 2.3,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.8,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-sr-140",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 140,
+      "recordedAt": "2035-06-12T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 74,
+        "systolic": 120,
+        "diastolic": 78,
+        "sleep": 7.8,
+        "fatigue": 2.0,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.8,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-sr-141",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 141,
+      "recordedAt": "2035-06-13T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 72,
+        "systolic": 118,
+        "diastolic": 77,
+        "sleep": 7.6,
+        "fatigue": 1.7,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.8,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-sr-142",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 142,
+      "recordedAt": "2035-06-14T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 74,
+        "systolic": 120,
+        "diastolic": 78,
+        "sleep": 7.8,
+        "fatigue": 2,
+        "mood": "Great",
+        "notes": ""
+      },
+      "temperatureC": 36.8,
+      "respiration": 16
+    },
+    {
+      "id": "health-crew-ew-113",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 113,
+      "recordedAt": "2035-05-16T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 74,
+        "systolic": 120,
+        "diastolic": 79,
+        "sleep": 7.1,
+        "fatigue": 2.2,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.9,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-ew-114",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 114,
+      "recordedAt": "2035-05-17T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 76,
+        "systolic": 122,
+        "diastolic": 80,
+        "sleep": 7.3,
+        "fatigue": 2.5,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.9,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-ew-115",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 115,
+      "recordedAt": "2035-05-18T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 78,
+        "systolic": 124,
+        "diastolic": 81,
+        "sleep": 7.5,
+        "fatigue": 2.8,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.9,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-ew-116",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 116,
+      "recordedAt": "2035-05-19T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 76,
+        "systolic": 122,
+        "diastolic": 80,
+        "sleep": 7.3,
+        "fatigue": 2.5,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.9,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-ew-117",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 117,
+      "recordedAt": "2035-05-20T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 74,
+        "systolic": 120,
+        "diastolic": 79,
+        "sleep": 7.1,
+        "fatigue": 2.2,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.9,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-ew-118",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 118,
+      "recordedAt": "2035-05-21T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 78,
+        "systolic": 124,
+        "diastolic": 81,
+        "sleep": 7.5,
+        "fatigue": 2.8,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.9,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-ew-119",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 119,
+      "recordedAt": "2035-05-22T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 76,
+        "systolic": 122,
+        "diastolic": 80,
+        "sleep": 7.3,
+        "fatigue": 2.5,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.9,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-ew-120",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 120,
+      "recordedAt": "2035-05-23T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 74,
+        "systolic": 120,
+        "diastolic": 79,
+        "sleep": 7.1,
+        "fatigue": 2.2,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.9,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-ew-121",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 121,
+      "recordedAt": "2035-05-24T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 76,
+        "systolic": 122,
+        "diastolic": 80,
+        "sleep": 7.3,
+        "fatigue": 2.5,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.9,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-ew-122",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 122,
+      "recordedAt": "2035-05-25T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 78,
+        "systolic": 124,
+        "diastolic": 81,
+        "sleep": 7.5,
+        "fatigue": 2.8,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.9,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-ew-123",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 123,
+      "recordedAt": "2035-05-26T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 76,
+        "systolic": 122,
+        "diastolic": 80,
+        "sleep": 7.3,
+        "fatigue": 2.5,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.9,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-ew-124",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 124,
+      "recordedAt": "2035-05-27T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 74,
+        "systolic": 120,
+        "diastolic": 79,
+        "sleep": 7.1,
+        "fatigue": 2.2,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.9,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-ew-125",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 125,
+      "recordedAt": "2035-05-28T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 78,
+        "systolic": 124,
+        "diastolic": 81,
+        "sleep": 7.5,
+        "fatigue": 2.8,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.9,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-ew-126",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 126,
+      "recordedAt": "2035-05-29T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 76,
+        "systolic": 122,
+        "diastolic": 80,
+        "sleep": 7.3,
+        "fatigue": 2.5,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.9,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-ew-127",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 127,
+      "recordedAt": "2035-05-30T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 74,
+        "systolic": 120,
+        "diastolic": 79,
+        "sleep": 7.1,
+        "fatigue": 2.2,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.9,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-ew-128",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 128,
+      "recordedAt": "2035-05-31T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 76,
+        "systolic": 122,
+        "diastolic": 80,
+        "sleep": 7.3,
+        "fatigue": 2.5,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.9,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-ew-129",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 129,
+      "recordedAt": "2035-06-01T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 78,
+        "systolic": 124,
+        "diastolic": 81,
+        "sleep": 7.5,
+        "fatigue": 2.8,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.9,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-ew-130",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 130,
+      "recordedAt": "2035-06-02T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 76,
+        "systolic": 122,
+        "diastolic": 80,
+        "sleep": 7.3,
+        "fatigue": 2.5,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.9,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-ew-131",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 131,
+      "recordedAt": "2035-06-03T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 74,
+        "systolic": 120,
+        "diastolic": 79,
+        "sleep": 7.1,
+        "fatigue": 2.2,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.9,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-ew-132",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 132,
+      "recordedAt": "2035-06-04T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 78,
+        "systolic": 124,
+        "diastolic": 81,
+        "sleep": 7.5,
+        "fatigue": 2.8,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.9,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-ew-133",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 133,
+      "recordedAt": "2035-06-05T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 76,
+        "systolic": 122,
+        "diastolic": 80,
+        "sleep": 7.3,
+        "fatigue": 2.5,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.9,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-ew-134",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 134,
+      "recordedAt": "2035-06-06T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 74,
+        "systolic": 120,
+        "diastolic": 79,
+        "sleep": 7.1,
+        "fatigue": 2.2,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.9,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-ew-135",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 135,
+      "recordedAt": "2035-06-07T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 76,
+        "systolic": 122,
+        "diastolic": 80,
+        "sleep": 7.3,
+        "fatigue": 2.5,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.9,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-ew-136",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 136,
+      "recordedAt": "2035-06-08T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 78,
+        "systolic": 124,
+        "diastolic": 81,
+        "sleep": 7.5,
+        "fatigue": 2.8,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.9,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-ew-137",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 137,
+      "recordedAt": "2035-06-09T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 76,
+        "systolic": 122,
+        "diastolic": 80,
+        "sleep": 7.3,
+        "fatigue": 2.5,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.9,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-ew-138",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 138,
+      "recordedAt": "2035-06-10T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 74,
+        "systolic": 120,
+        "diastolic": 79,
+        "sleep": 7.1,
+        "fatigue": 2.2,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.9,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-ew-139",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 139,
+      "recordedAt": "2035-06-11T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 78,
+        "systolic": 124,
+        "diastolic": 81,
+        "sleep": 7.5,
+        "fatigue": 2.8,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.9,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-ew-140",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 140,
+      "recordedAt": "2035-06-12T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 76,
+        "systolic": 122,
+        "diastolic": 80,
+        "sleep": 7.3,
+        "fatigue": 2.5,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.9,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-ew-141",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 141,
+      "recordedAt": "2035-06-13T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 74,
+        "systolic": 120,
+        "diastolic": 79,
+        "sleep": 7.1,
+        "fatigue": 2.2,
+        "mood": "Good",
+        "notes": ""
+      },
+      "temperatureC": 36.9,
+      "respiration": 17
+    },
+    {
+      "id": "health-crew-ew-142",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 142,
+      "recordedAt": "2035-06-14T08:32:00Z",
+      "source": "synthetic_fixture",
+      "reading": {
+        "heart": 76,
+        "systolic": 122,
+        "diastolic": 80,
+        "sleep": 6.5,
+        "fatigue": 4,
+        "mood": "Fair",
+        "notes": "Fictional crew-requested context review."
+      },
+      "temperatureC": 36.9,
+      "respiration": 17
+    }
+  ]
+}

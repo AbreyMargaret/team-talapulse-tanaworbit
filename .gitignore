@@ -1,0 +1,57 @@
+# Dependencies, build output, and local tool state
+node_modules/
+dist/
+.pnpm-store/
+*.tsbuildinfo
+.wrangler/
+.dev.vars
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+credentials.md
+secrets.json
+
+# Operating system
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Local skills and editor or assistant folders.
+# The public tree is the app, docs, and synthetic datasets.
+# These directories stay on this machine.
+.agent/
+.agents/
+.grok/
+.gemini/
+.claude/
+.cursor/
+.codex/
+.windsurf/
+.continue/
+.aider/
+.openai/
+.anthropic/
+.figma/
+.vscode/
+.idea/
+
+# Skill snapshots, wherever a tool drops them
+skills/
+skills-lock.json
+**/SKILL.md
+
+# Assistant instruction files. Challenge disclosure stays in docs/.
+AGENTS.md
+CLAUDE.md
+GEMINI.md
+.cursorrules
+.cursorignore
+
+# Local notes that are not required to build or run
+*.local.md
+_helpers/
+implementation_plan.md
+task.md

@@ -1,0 +1,293 @@
+{
+  "meta": {
+    "synthetic": true,
+    "contentVersion": "1.0-demo",
+    "origin": "SI-assisted educational explanations and project-authored data-entry walkthroughs",
+    "warning": "Not medical advice, device instructions, approved flight procedures, diagnosis, or treatment. Context previews never change baseline calculations or thresholds."
+  },
+  "sources": [
+    {
+      "id": "project",
+      "name": "Project-authored demo workflow",
+      "url": null,
+      "scope": "Explains this app's inputs and synthetic comparisons. Not a clinical or device-use protocol."
+    },
+    {
+      "id": "hrp",
+      "name": "NASA Human Research Program",
+      "url": "https://www.nasa.gov/hrp/",
+      "scope": "General spaceflight-health research context. Not the source of demo numbers or comparison rules."
+    },
+    {
+      "id": "body",
+      "name": "NASA — The Human Body in Space",
+      "url": "https://www.nasa.gov/humans-in-space/the-human-body-in-space/",
+      "scope": "Educational context about spaceflight hazards and adaptation. Not an individualized treatment plan."
+    },
+    {
+      "id": "hazards",
+      "name": "NASA — 5 Hazards of Human Spaceflight",
+      "url": "https://www.nasa.gov/hrp/hazards/",
+      "scope": "Framework for understanding spaceflight hazards, not a sensor feed or validated risk score."
+    }
+  ],
+  "measurements": [
+    {
+      "id": "heart",
+      "title": "Heart rate",
+      "unit": "bpm",
+      "method": "Approved monitor or an existing demo value",
+      "why": "Heart rate adds cardiovascular context, but recent exercise, measurement conditions, and individual patterns matter.",
+      "limit": "This app does not acquire a pulse, validate a sensor, or establish an emergency diagnosis.",
+      "sourceIds": ["project", "body"],
+      "steps": [
+        {
+          "title": "Confirm the person and purpose",
+          "text": "Check the selected crew member and whether the value represents rest, exercise, or another documented context."
+        },
+        {
+          "title": "Follow the instrument's instructions",
+          "text": "In real operations, use the approved monitor, placement instructions, and mission procedure. This illustration is not a sensor-placement guide."
+        },
+        {
+          "title": "Read the value and unit",
+          "text": "Use the displayed beats-per-minute value. Record instrument warnings or uncertain measurement conditions rather than assuming a valid result."
+        },
+        {
+          "title": "Record and read back",
+          "text": "For this demonstration, enter a fictional bpm value, add context in notes, and review the crew and measurement before confirming."
+        }
+      ]
+    },
+    {
+      "id": "pressure",
+      "title": "Blood pressure",
+      "unit": "mmHg",
+      "method": "Approved pressure monitor or a fictional pair",
+      "why": "Systolic and diastolic values provide cardiovascular context when measured consistently and interpreted appropriately.",
+      "limit": "Earth-based positioning advice cannot simply be assumed to apply in microgravity. This app does not select cuff size, calibrate equipment, or provide medical thresholds.",
+      "sourceIds": ["project", "body"],
+      "steps": [
+        {
+          "title": "Check the crew and equipment",
+          "text": "In real use, confirm the instrument, cuff, units, and approved procedure. Do not derive equipment instructions from this demo."
+        },
+        {
+          "title": "Document measurement conditions",
+          "text": "Use the mission-approved positioning and measurement conditions for the actual environment. Note recent activity or other relevant context."
+        },
+        {
+          "title": "Distinguish the two numbers",
+          "text": "Record systolic and diastolic separately in mmHg. The form checks that systolic is greater than diastolic as a data-consistency check only."
+        },
+        {
+          "title": "Review the pair",
+          "text": "Enter fictional values into the two labeled inputs. Verify that neither the numbers nor the units have been swapped before recording."
+        }
+      ]
+    },
+    {
+      "id": "sleep",
+      "title": "Sleep duration",
+      "unit": "hours",
+      "method": "Self-report, sleep log, or a recorded device summary",
+      "why": "Sleep supports alertness and recovery. Light cycles, noise, schedules, isolation, and workload can affect the sleep experience.",
+      "limit": "Duration alone does not diagnose a sleep condition or establish readiness for a task.",
+      "sourceIds": ["project", "body", "hrp"],
+      "steps": [
+        {
+          "title": "Choose a consistent sleep period",
+          "text": "Use the same reporting convention from one check-in to the next, following the actual mission routine where applicable."
+        },
+        {
+          "title": "Use a recorded total",
+          "text": "Refer to your log or device summary. Do not enter the current clock time or a planned sleep duration as though it were completed sleep."
+        },
+        {
+          "title": "Keep the units clear",
+          "text": "The field uses decimal hours: for example, 6.5 hours represents six and a half hours. Note interruptions or uncertainty."
+        },
+        {
+          "title": "Enter and review",
+          "text": "Use a fictional total for this demo. Compare it with the synthetic personal pattern, alongside workload and self-reported fatigue."
+        }
+      ]
+    },
+    {
+      "id": "fatigue",
+      "title": "Fatigue check-in",
+      "unit": "/ 5",
+      "method": "Subjective demo self-report",
+      "why": "A consistent self-report can add useful context to sleep and operational workload.",
+      "limit": "The app's 1–5 scale is a demo convention, not a validated clinical or fitness-for-duty test.",
+      "sourceIds": ["project", "hrp"],
+      "steps": [
+        {
+          "title": "Pause and consider the context",
+          "text": "Think about perceived effort, recent rest, and workload. The app does not measure fatigue automatically."
+        },
+        {
+          "title": "Read the scale",
+          "text": "The demo labels run from 1, very low fatigue, to 5, very high fatigue. They are not medical severity categories."
+        },
+        {
+          "title": "Choose consistently",
+          "text": "Use the same interpretation on repeated entries. Add a note if an unusual task or interruption helps explain the value."
+        },
+        {
+          "title": "Review with sleep",
+          "text": "Record the fictional self-report, then review it alongside the sleep and activity context rather than treating it as a diagnosis."
+        }
+      ]
+    },
+    {
+      "id": "mood",
+      "title": "Mood check-in",
+      "unit": "self-report",
+      "method": "Subjective description",
+      "why": "A simple check-in creates space to notice and communicate well-being changes during isolation and confinement.",
+      "limit": "The choices are not a mental-health screening instrument. This prototype does not evaluate or manage a crisis.",
+      "sourceIds": ["project", "hrp", "hazards"],
+      "steps": [
+        {
+          "title": "Use the intended reporting period",
+          "text": "Consider how the fictional crew member is feeling for this check-in, not a diagnosis or personality label."
+        },
+        {
+          "title": "Choose a description",
+          "text": "Select Low, Fair, Good, or Great as a demonstration self-report. There is no automatic inference from a face, camera, or other signal."
+        },
+        {
+          "title": "Add helpful context",
+          "text": "Optional notes can explain the demo situation. Do not enter real sensitive or identifying information into this public prototype."
+        },
+        {
+          "title": "Review and communicate appropriately",
+          "text": "Confirm the entry. For real concerns, follow the established mission support and care procedures rather than relying on this demo."
+        }
+      ]
+    },
+    {
+      "id": "exercise",
+      "title": "Exercise & effort",
+      "unit": "minutes",
+      "method": "Manual activity log",
+      "why": "Activity records connect movement with sleep, perceived effort, and recovery context during spaceflight.",
+      "limit": "The catalog's example duration is not a prescription. No calories, exercise safety, or overtraining diagnosis is calculated.",
+      "sourceIds": ["project", "body"],
+      "steps": [
+        {
+          "title": "Identify the activity",
+          "text": "Choose the matching demo activity. In real operations, use only mission-approved equipment, setup, and protocols."
+        },
+        {
+          "title": "Record completed time",
+          "text": "Enter the completed minutes, not the planned time. Edit the auto-filled example duration if it does not match the fictional session."
+        },
+        {
+          "title": "Describe effort and context",
+          "text": "Use the labeled 1–10 demo effort scale, where 1 is very light and 10 extremely hard. Add relevant interruptions or equipment context."
+        },
+        {
+          "title": "Review the session",
+          "text": "Check the crew, activity, duration, and effort before confirming. Review sleep and fatigue context without assuming that the app has cleared exercise as safe."
+        }
+      ]
+    }
+  ],
+  "hazards": [
+    {
+      "id": "radiation",
+      "title": "Space radiation",
+      "context": "Radiation exposure is a distinct spaceflight hazard.",
+      "limit": "Heart rate, mood, and blood pressure do not measure radiation dose. No dosimetry is connected.",
+      "sourceIds": ["hazards", "body"]
+    },
+    {
+      "id": "isolation",
+      "title": "Isolation & confinement",
+      "context": "Sleep, workload, communication, and well-being can be relevant to the crew experience.",
+      "limit": "Self-reports do not diagnose a behavioral-health condition.",
+      "sourceIds": ["hazards", "hrp"]
+    },
+    {
+      "id": "distance",
+      "title": "Distance from Earth",
+      "context": "Communications and available support can differ by mission environment.",
+      "limit": "This demo does not implement medical communications, emergency procedures, or a verified offline library.",
+      "sourceIds": ["hazards"]
+    },
+    {
+      "id": "gravity",
+      "title": "Gravity fields",
+      "context": "Different gravity environments change adaptation, equipment needs, and measurement context.",
+      "limit": "Choosing a scenario does not provide evidence for changing thresholds or scaling baseline values.",
+      "sourceIds": ["hazards", "body"]
+    },
+    {
+      "id": "closed",
+      "title": "Hostile closed environments",
+      "context": "A confined habitat introduces environmental and operational considerations.",
+      "limit": "This app does not measure cabin air quality or infer habitat safety from crew readings.",
+      "sourceIds": ["hazards", "body"]
+    }
+  ],
+  "contexts": [
+    {
+      "id": "orbital",
+      "title": "Orbital station",
+      "gravity": "Microgravity context",
+      "communications": "Mission-dependent contact and availability",
+      "description": "An example orbital setting, consistent with the fictional source mission. Consider scheduled routines, equipment setup, sleep conditions, and activity context.",
+      "measurementNote": "Use the approved orbital equipment and positioning instructions; ordinary Earth measurement setups are not automatically transferable.",
+      "hazardIds": ["gravity", "isolation", "closed"]
+    },
+    {
+      "id": "transit",
+      "title": "Deep-space transit",
+      "gravity": "Example coasting microgravity",
+      "communications": "Delayed or unavailable contact may occur",
+      "description": "A scenario preview emphasizing distance, isolation, and access to approved information when immediate ground contact is not available.",
+      "measurementNote": "Measurement and response procedures must be mission-approved. This demo does not replace autonomous medical training or provide a verified offline protocol.",
+      "hazardIds": ["distance", "radiation", "isolation", "gravity", "closed"]
+    },
+    {
+      "id": "lunar",
+      "title": "Lunar surface",
+      "gravity": "Partial-gravity context",
+      "communications": "Availability depends on the actual mission",
+      "description": "A scenario preview emphasizing surface operations, altered loading, equipment constraints, and environmental context.",
+      "measurementNote": "Do not rescale the displayed physiological baselines based only on gravity. Relevant procedures and evidence must be evaluated separately.",
+      "hazardIds": ["gravity", "radiation", "closed", "distance"]
+    },
+    {
+      "id": "mars",
+      "title": "Mars surface",
+      "gravity": "Partial-gravity context",
+      "communications": "Delayed contact and mission-specific support",
+      "description": "A scenario preview emphasizing long-duration habitation, isolation, equipment availability, and clear records for later review.",
+      "measurementNote": "The source measurements remain fictional orbital records. This preview changes educational explanations only, not nominal ranges or diagnostic rules.",
+      "hazardIds": ["distance", "isolation", "gravity", "radiation", "closed"]
+    }
+  ],
+  "routines": [
+    {
+      "id": "checkin",
+      "title": "Record a demo health check-in",
+      "description": "Review the selected crew member and enter fictional measurements.",
+      "action": "checkin"
+    },
+    {
+      "id": "exercise",
+      "title": "Review movement & log a demo session",
+      "description": "Record completed activity, duration, and perceived effort.",
+      "action": "exercise"
+    },
+    {
+      "id": "guidance",
+      "title": "Review measurement limits & sources",
+      "description": "Read the walkthrough and source limitations, then mark this self-review complete.",
+      "action": "measure"
+    }
+  ]
+}

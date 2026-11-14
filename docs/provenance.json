@@ -1,0 +1,183 @@
+{
+  "project": "TanawOrbit",
+  "team": "Tala Pulse",
+  "document_role": "Project-level SI and synthetic-data provenance sidecar",
+  "submission_status": "Draft; team review and unresolved pre-submission actions remain",
+  "public_project_url": null,
+  "public_demo_url": null,
+  "si_assistance": {
+    "used": true,
+    "tool": "Figma Make coding assistant",
+    "model_identifier": "Not independently recorded for submission",
+    "purposes": [
+      "Interface design and application code generation/refinement",
+      "Interface explanations and educational copy",
+      "Synthetic crew data, baseline examples, status rules, and illustrative time series",
+      "SVG charts, icons, waveforms, and original TanawOrbit vector branding",
+      "Tala Pulse team naming and original team-cover artwork",
+      "Project documentation and Mermaid diagrams",
+      "Tablet and touchscreen layout, public-PIN demo entry (not authentication), draft/review workflow, and interaction documentation",
+      "Synthetic JSON health/exercise fixtures, exercise and recovery interface, and data-model/logic documentation",
+      "Educational toolkit, non-diagnostic SVG body overview, in-page demo routines, mission-context previews and fixed answer library"
+    ],
+    "runtime_si_service": false,
+    "open_source_packaging": "The public monorepo adds p-console and a read-only Worker around the same synthetic fixtures. The Worker does not call a model and does not store check-ins.",
+    "si_generated_photographs": false,
+    "si_generated_audio_or_video_created_for_this_documentation": false,
+    "team_review_required": true
+  },
+  "artifacts": [
+    {
+      "paths": [
+        "p-console/src/App.tsx",
+        "p-console/src/index.css",
+        "p-console/index.html",
+        "p-console/src/useConsoleDisplay.ts",
+        "p-console/src/DemoSignIn.tsx",
+        "p-console/src/ExercisePanel.tsx",
+        "p-console/src/data.ts",
+        "p-console/src/demo.css",
+        "scripts/verify-datasets.mjs",
+        "p-console/src/HealthToolkit.tsx",
+        "p-console/src/NextSteps.tsx",
+        "p-console/src/TanawGuide.tsx",
+        "p-console/src/toolkitData.ts",
+        "p-console/src/useRoutineReminders.ts",
+        "p-console/src/toolkit.css",
+        "p-console/src/FeatureBoundary.tsx",
+        "scripts/verify-toolkit.mjs"
+      ],
+      "type": "Application source",
+      "origin": "SI-assisted project-specific implementation on the Figma Make scaffold"
+    },
+    {
+      "paths": ["datasets", "p-console/src/data.ts", "p-console/src/App.tsx"],
+      "type": "Synthetic data and deterministic demonstration logic",
+      "origin": "SI-assisted fictional examples; not NASA medical data",
+      "baselines": "Per-crew arithmetic means of the previous 14 synthetic JSON mission days, excluding the current day",
+      "history": "120 static synthetic health records; current-day readings may be overridden in memory",
+      "attention_status": "Scripted reviewRequested flag in crew.json"
+    },
+    {
+      "paths": [
+        "p-console/public/images/tanaworbit-mark.svg",
+        "p-console/public/images/tanaworbit-mark.png",
+        "p-console/public/images/tanaworbit-logo.svg",
+        "p-console/public/images/tanaworbit-logo.png"
+      ],
+      "type": "Original SI-assisted vector graphic and raster exports",
+      "visible_si_watermark_present": false,
+      "pre_submission_action": "Apply the event-required visible SI-generated label or watermark to submitted uses"
+    },
+    {
+      "paths": [
+        "p-console/public/images/tala-pulse-team-cover.svg",
+        "p-console/public/images/tala-pulse-team-cover.png",
+        "p-console/public/images/tala-pulse-team-cover.jpg",
+        "docs/branding/team-cover.template.svg",
+        "docs/branding/generate_cover.py"
+      ],
+      "type": "Original SI-generated team cover artwork and reproducible export source",
+      "origin": "Vector composition created with the Figma Make coding assistant; uses existing OFL font files",
+      "contains_photographs": false,
+      "visible_si_watermark_present": true,
+      "visible_watermark": "SI-GENERATED ARTWORK",
+      "provenance_metadata_in_exported_files": true,
+      "team_name_status": "Selected by team; availability not checked"
+    },
+    {
+      "paths": [
+        "p-console/public/images/crew-alex.jpg",
+        "p-console/public/images/earth.jpg",
+        "p-console/public/images/earth-orbit.jpg"
+      ],
+      "type": "Externally sourced photographs",
+      "origin": "Unsplash source records; see docs/resources.md",
+      "si_generated": false,
+      "permissions_and_original_provenance_review_required": true
+    },
+    {
+      "paths": ["p-console/public/favicon.png"],
+      "type": "Inherited scaffold image",
+      "origin": "Not established in this documentation task",
+      "pre_submission_action": "Verify provenance and permitted use, or replace"
+    },
+    {
+      "paths": ["p-console/public/fonts"],
+      "type": "Third-party fonts and license notices",
+      "origin": "DM Sans and IBM Plex Mono via Google Fonts",
+      "si_generated": false
+    },
+    {
+      "paths": ["docs"],
+      "type": "SI-assisted text, diagrams, and provenance metadata",
+      "diagram_si_labels_included": true,
+      "human_review_required": true
+    },
+    {
+      "paths": [
+        "datasets/health-toolkit.json",
+        "datasets/assistant-faq.json",
+        "docs/measurement-guides.md",
+        "docs/toolkit-and-guide.md"
+      ],
+      "type": "SI-assisted educational walkthroughs, context/source definitions, routine examples, scripted FAQ and documentation",
+      "origin": "Project-authored demo content using NASA references for general context only",
+      "clinical_review_or_nasa_approval": false,
+      "runtime_ai": false
+    }
+  ],
+  "nasa_resources": [
+    {
+      "title": "Human Research Program",
+      "url": "https://www.nasa.gov/hrp/",
+      "use": "Educational reference linked in the application"
+    },
+    {
+      "title": "The Human Body in Space",
+      "url": "https://www.nasa.gov/humans-in-space/the-human-body-in-space/",
+      "use": "Educational reference linked in the application"
+    },
+    {
+      "title": "PUMA Technology Monitors Pilots and Patients",
+      "url": "https://www.nasa.gov/technology/puma-technology-monitors-pilots-and-patients/",
+      "use": "Reviewed and cited during documentation of the physiological-monitoring inspiration"
+    },
+    {
+      "title": "5 Hazards of Human Spaceflight",
+      "url": "https://www.nasa.gov/hrp/hazards/",
+      "use": "General educational hazard framework in mission-context previews, not clinical validation"
+    }
+  ],
+  "implementation_boundaries": {
+    "browser_console_bundles_fixtures": true,
+    "console_calls_api_for_profiles_or_checkins": false,
+    "read_only_fixture_worker": "tanaworbit-api republishes datasets and rejects writes",
+    "state_storage": "React memory; reset on refresh",
+    "real_astronaut_health_data": false,
+    "nasa_numerical_dataset_ingested": false,
+    "nasa_device_connection": false,
+    "exact_puma_sensor_model": false,
+    "database": false,
+    "persistent_health_api": false,
+    "medical_diagnosis_or_treatment": false,
+    "clinical_validation_performed": false,
+    "drafts": "Per-crew React memory; cleared on refresh",
+    "demo_pin_access": "Public fictional PINs compared in the frontend; not authentication, authorization, or medical-data protection",
+    "fixture_counts": {
+      "crew": 4,
+      "health_records": 120,
+      "exercise_records": 20
+    },
+    "scripted_guide": "Fixed topic/keyword answers and narrow template insertion; not a live AI, emergency triage, medication adviser, or comprehensive safety classifier",
+    "routine_reminders": "In-page timeouts only; no reliable background delivery or medical schedule",
+    "context_previews": "Explanations/hazard highlights only; no changes to readings, baseline means, or thresholds"
+  },
+  "unresolved_pre_submission_actions": [
+    "Provide and verify actual public project and demo URLs",
+    "Confirm event year, challenge requirements, deadline, and local time zone",
+    "Apply visible SI-image labeling and review all submitted visual artifacts",
+    "Verify photograph, favicon, and other third-party provenance and permissions",
+    "Have the team review all SI-assisted content and complete declarations personally"
+  ]
+}

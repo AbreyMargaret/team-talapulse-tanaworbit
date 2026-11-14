@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "synthetic": true,
+    "origin": "SI-assisted fixed educational answer library",
+    "warning": "This is a scripted demo guide, not a live AI model or clinical decision system. No chat request is sent to a service."
+  },
+  "records": [
+    {
+      "id": "measure",
+      "question": "How do I record a measurement?",
+      "keywords": ["measure", "record", "pressure", "heart rate", "sensor", "device"],
+      "answer": "Start by checking the fictional crew profile, source, and units. The measurement walkthrough explains this demo's data-entry process. For actual equipment use, follow the device instructions and mission-approved procedure; this app does not provide sensor-placement training.",
+      "sourceIds": ["project", "body"],
+      "action": "measure",
+      "actionLabel": "Open measurement walkthroughs"
+    },
+    {
+      "id": "baseline",
+      "question": "Explain my example baseline.",
+      "keywords": ["baseline", "average", "compare", "change", "trend", "sleep"],
+      "answer": "For {{name}}, the latest demo sleep value is {{sleep}} hours and the example baseline is {{sleepBaseline}} hours. The baseline is the rounded mean of the previous {{window}} synthetic mission days for that crew member, excluding today. It is not a clinical reference range or a model trained on NASA medical records.",
+      "sourceIds": ["project"],
+      "action": "evidence",
+      "actionLabel": "Inspect data provenance"
+    },
+    {
+      "id": "exercise",
+      "question": "What does perceived effort mean?",
+      "keywords": ["exercise", "effort", "fitness", "recovery", "fatigue", "workout"],
+      "answer": "The exercise log uses a simple subjective demo scale: 1 means very light effort and 10 means extremely hard. Its mean summarizes entries; it does not establish safe exercise intensity or diagnose recovery. Review workload alongside sleep, fatigue, and the actual mission-approved exercise plan.",
+      "sourceIds": ["project", "body"],
+      "action": "exercise",
+      "actionLabel": "Open Exercise & Recovery"
+    },
+    {
+      "id": "routine",
+      "question": "How do routine reminders work?",
+      "keywords": ["remind", "routine", "schedule", "due", "checklist"],
+      "answer": "The routine checklist tracks actions completed in this demo run. Reminders use an in-page timer with selectable demo intervals, snooze, and dismiss. They do not run reliably after the page closes or the browser suspends it, and the timing is not a NASA medical schedule.",
+      "sourceIds": ["project"],
+      "action": "routine",
+      "actionLabel": "Open routine checklist"
+    },
+    {
+      "id": "context",
+      "question": "What changes in another mission environment?",
+      "keywords": [
+        "mission",
+        "environment",
+        "gravity",
+        "mars",
+        "moon",
+        "lunar",
+        "transit",
+        "radiation"
+      ],
+      "answer": "Your selected context preview is {{context}}. It changes educational notes about gravity, communication, and hazards. The recorded source mission and synthetic readings do not change, and the app does not alter baselines or thresholds merely because a different environment is selected.",
+      "sourceIds": ["project", "hazards"],
+      "action": "context",
+      "actionLabel": "Review mission context"
+    },
+    {
+      "id": "body",
+      "question": "Is the body overview a scan?",
+      "keywords": ["scan", "body", "anatom", "organ"],
+      "answer": "No. The body overview is an interactive schematic that groups available demo values by topic. It does not scan the body, measure an organ, localize disease, or derive new health findings from an image.",
+      "sourceIds": ["project"],
+      "action": "body",
+      "actionLabel": "Open body overview"
+    },
+    {
+      "id": "sources",
+      "question": "Where do these numbers and explanations come from?",
+      "keywords": ["source", "evidence", "nasa", "data", "osdr", "json", "accuracy"],
+      "answer": "The health values come from synthetic JSON fixtures and temporary demo input. NASA HRP pages provide educational context, not the fixture numbers, comparison rules, or validation of this software. OSDR, live sensors, and actual astronaut medical records are not integrated.",
+      "sourceIds": ["project", "hrp", "hazards"],
+      "action": "evidence",
+      "actionLabel": "Open evidence & sources"
+    }
+  ],
+  "safetyResponse": "This educational demo cannot assess urgent symptoms, diagnose a condition, or recommend medications or doses. In actual operations, do not rely on this prototype: follow the established mission emergency procedures and contact trained crew or mission medical support through the available channels.",
+  "fallbackResponse": "I only have the fixed educational topics listed here. I cannot provide clinical interpretation, treatment advice, or information beyond this demo library. Choose a topic or open the Health Toolkit to inspect the sources and limitations."
+}

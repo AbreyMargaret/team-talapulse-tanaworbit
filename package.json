@@ -1,0 +1,19 @@
+{
+  "name": "tanaworbit",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Educational astronaut-health console. Synthetic crew data. Not a medical device or a NASA product.",
+  "scripts": {
+    "dev": "pnpm --filter p-console dev",
+    "dev:api": "pnpm --filter tanaworbit-api dev",
+    "build": "pnpm --filter p-console build",
+    "typecheck": "pnpm -r --if-present typecheck",
+    "test:data": "node scripts/verify-datasets.mjs",
+    "test:api": "pnpm --filter tanaworbit-api test",
+    "test": "pnpm test:data && pnpm test:api"
+  },
+  "packageManager": "pnpm@11.20.0",
+  "engines": {
+    "node": ">=22"
+  }
+}

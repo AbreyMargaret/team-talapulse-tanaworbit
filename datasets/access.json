@@ -1,0 +1,20 @@
+{
+  "meta": {
+    "synthetic": true,
+    "warning": "Public demo codes for the backend door. Not accounts, not authentication, and not medical-record security."
+  },
+  "roles": [
+    {
+      "id": "admin",
+      "label": "Mission admin",
+      "demoCode": "4400",
+      "portal": "/admin"
+    },
+    {
+      "id": "tester",
+      "label": "Dataset tester",
+      "demoCode": "2200",
+      "portal": "/tester"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "meta": {
+    "synthetic": true,
+    "warning": "Unvalidated educational comparison rules, not medical thresholds or NASA recommendations"
+  },
+  "baselineWindowDays": 14,
+  "heartDifferenceBpm": 10,
+  "pressureDifferenceMmHg": 10,
+  "sleepDecreaseHours": 1,
+  "fatigueIncreasePoints": 1.5
+}

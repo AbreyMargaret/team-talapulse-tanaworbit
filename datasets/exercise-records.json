@@ -1,0 +1,229 @@
+{
+  "meta": {
+    "synthetic": true,
+    "origin": "SI-generated example exercise logs",
+    "warning": "Not NASA exercise prescriptions, live sensor output, or real fitness records."
+  },
+  "records": [
+    {
+      "id": "exercise-crew-am-136",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 136,
+      "activityId": "resistive",
+      "durationMinutes": 20,
+      "effort": 3,
+      "notes": "Synthetic example session, not a recommended exercise dose.",
+      "source": "synthetic_fixture"
+    },
+    {
+      "id": "exercise-crew-am-137",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 137,
+      "activityId": "cycling",
+      "durationMinutes": 20,
+      "effort": 4,
+      "notes": "Synthetic example session, not a recommended exercise dose.",
+      "source": "synthetic_fixture"
+    },
+    {
+      "id": "exercise-crew-am-139",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 139,
+      "activityId": "mobility",
+      "durationMinutes": 10,
+      "effort": 5,
+      "notes": "Synthetic example session, not a recommended exercise dose.",
+      "source": "synthetic_fixture"
+    },
+    {
+      "id": "exercise-crew-am-140",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 140,
+      "activityId": "treadmill",
+      "durationMinutes": 20,
+      "effort": 6,
+      "notes": "Synthetic example session, not a recommended exercise dose.",
+      "source": "synthetic_fixture"
+    },
+    {
+      "id": "exercise-crew-am-142",
+      "crewId": "crew-am",
+      "missionId": "aster-07",
+      "missionDay": 142,
+      "activityId": "cycling",
+      "durationMinutes": 20,
+      "effort": 3,
+      "notes": "Synthetic example session, not a recommended exercise dose.",
+      "source": "synthetic_fixture"
+    },
+    {
+      "id": "exercise-crew-jc-136",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 136,
+      "activityId": "resistive",
+      "durationMinutes": 25,
+      "effort": 4,
+      "notes": "Synthetic example session, not a recommended exercise dose.",
+      "source": "synthetic_fixture"
+    },
+    {
+      "id": "exercise-crew-jc-137",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 137,
+      "activityId": "cycling",
+      "durationMinutes": 25,
+      "effort": 5,
+      "notes": "Synthetic example session, not a recommended exercise dose.",
+      "source": "synthetic_fixture"
+    },
+    {
+      "id": "exercise-crew-jc-139",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 139,
+      "activityId": "mobility",
+      "durationMinutes": 10,
+      "effort": 6,
+      "notes": "Synthetic example session, not a recommended exercise dose.",
+      "source": "synthetic_fixture"
+    },
+    {
+      "id": "exercise-crew-jc-140",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 140,
+      "activityId": "treadmill",
+      "durationMinutes": 25,
+      "effort": 3,
+      "notes": "Synthetic example session, not a recommended exercise dose.",
+      "source": "synthetic_fixture"
+    },
+    {
+      "id": "exercise-crew-jc-142",
+      "crewId": "crew-jc",
+      "missionId": "aster-07",
+      "missionDay": 142,
+      "activityId": "cycling",
+      "durationMinutes": 25,
+      "effort": 4,
+      "notes": "Synthetic example session, not a recommended exercise dose.",
+      "source": "synthetic_fixture"
+    },
+    {
+      "id": "exercise-crew-sr-136",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 136,
+      "activityId": "resistive",
+      "durationMinutes": 30,
+      "effort": 5,
+      "notes": "Synthetic example session, not a recommended exercise dose.",
+      "source": "synthetic_fixture"
+    },
+    {
+      "id": "exercise-crew-sr-137",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 137,
+      "activityId": "cycling",
+      "durationMinutes": 30,
+      "effort": 6,
+      "notes": "Synthetic example session, not a recommended exercise dose.",
+      "source": "synthetic_fixture"
+    },
+    {
+      "id": "exercise-crew-sr-139",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 139,
+      "activityId": "mobility",
+      "durationMinutes": 10,
+      "effort": 3,
+      "notes": "Synthetic example session, not a recommended exercise dose.",
+      "source": "synthetic_fixture"
+    },
+    {
+      "id": "exercise-crew-sr-140",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 140,
+      "activityId": "treadmill",
+      "durationMinutes": 30,
+      "effort": 4,
+      "notes": "Synthetic example session, not a recommended exercise dose.",
+      "source": "synthetic_fixture"
+    },
+    {
+      "id": "exercise-crew-sr-142",
+      "crewId": "crew-sr",
+      "missionId": "aster-07",
+      "missionDay": 142,
+      "activityId": "cycling",
+      "durationMinutes": 30,
+      "effort": 5,
+      "notes": "Synthetic example session, not a recommended exercise dose.",
+      "source": "synthetic_fixture"
+    },
+    {
+      "id": "exercise-crew-ew-136",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 136,
+      "activityId": "resistive",
+      "durationMinutes": 35,
+      "effort": 6,
+      "notes": "Synthetic example session, not a recommended exercise dose.",
+      "source": "synthetic_fixture"
+    },
+    {
+      "id": "exercise-crew-ew-137",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 137,
+      "activityId": "cycling",
+      "durationMinutes": 35,
+      "effort": 3,
+      "notes": "Synthetic example session, not a recommended exercise dose.",
+      "source": "synthetic_fixture"
+    },
+    {
+      "id": "exercise-crew-ew-139",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 139,
+      "activityId": "mobility",
+      "durationMinutes": 10,
+      "effort": 4,
+      "notes": "Synthetic example session, not a recommended exercise dose.",
+      "source": "synthetic_fixture"
+    },
+    {
+      "id": "exercise-crew-ew-140",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 140,
+      "activityId": "treadmill",
+      "durationMinutes": 35,
+      "effort": 5,
+      "notes": "Synthetic example session, not a recommended exercise dose.",
+      "source": "synthetic_fixture"
+    },
+    {
+      "id": "exercise-crew-ew-142",
+      "crewId": "crew-ew",
+      "missionId": "aster-07",
+      "missionDay": 142,
+      "activityId": "cycling",
+      "durationMinutes": 35,
+      "effort": 6,
+      "notes": "Synthetic example session, not a recommended exercise dose.",
+      "source": "synthetic_fixture"
+    }
+  ]
+}

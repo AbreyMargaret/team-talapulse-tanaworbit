@@ -1,0 +1,27 @@
+flowchart TB
+    LABEL["SI-assisted diagram | Static JSON and browser memory only"]
+    JSON["datasets | Public synthetic JSON fixtures"]
+    DATA["p-console/src/data.ts | Types, history queries, example baselines and comparison rules"]
+    PIN["DemoSignIn | Public PIN comparison, not authentication"]
+    UI["React views | Health, exercise, trends, toolkit and guidance"]
+    KNOWLEDGE["Read-only walkthroughs, contexts, sources and FAQ library"]
+    GUIDE["Tanaw Guide | Fixed answers, not live AI"]
+    ROUTINE["In-page routine timer | Not a background medical scheduler"]
+    RAM["React memory | Drafts, latest overrides, exercise additions and review flags"]
+    CSV["Explicit CSV download"]
+    RESET["Refresh | Signed out and original fixtures restored"]
+    LABEL -.-> JSON
+    JSON --> DATA
+    DATA --> PIN
+    PIN --> UI
+    DATA --> UI
+    UI <--> RAM
+    JSON --> KNOWLEDGE
+    KNOWLEDGE --> UI
+    KNOWLEDGE --> GUIDE
+    RAM -->|Current demo values| GUIDE
+    UI --> GUIDE
+    RAM --> ROUTINE
+    ROUTINE -->|Non-blocking demo prompts| UI
+    RAM --> CSV
+    RESET -.-> RAM

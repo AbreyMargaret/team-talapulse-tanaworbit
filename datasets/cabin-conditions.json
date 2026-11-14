@@ -1,0 +1,113 @@
+{
+  "meta": {
+    "synthetic": true,
+    "origin": "Illustrative cabin samples for Aster Expedition VII",
+    "warning": "Not spacecraft telemetry and not a life-support alarm."
+  },
+  "records": [
+    {
+      "id": "cabin-135",
+      "missionId": "aster-07",
+      "missionDay": 135,
+      "recordedAt": "2035-06-07T12:00:00Z",
+      "pressureKpa": 100.8,
+      "co2MmHg": 2.6,
+      "o2Percent": 20.9,
+      "temperatureC": 21.5,
+      "humidityPercent": 40,
+      "noiseDb": 52,
+      "source": "synthetic_fixture"
+    },
+    {
+      "id": "cabin-136",
+      "missionId": "aster-07",
+      "missionDay": 136,
+      "recordedAt": "2035-06-08T12:00:00Z",
+      "pressureKpa": 101,
+      "co2MmHg": 2.8,
+      "o2Percent": 20.9,
+      "temperatureC": 21.9,
+      "humidityPercent": 42,
+      "noiseDb": 53,
+      "source": "synthetic_fixture"
+    },
+    {
+      "id": "cabin-137",
+      "missionId": "aster-07",
+      "missionDay": 137,
+      "recordedAt": "2035-06-09T12:00:00Z",
+      "pressureKpa": 101.2,
+      "co2MmHg": 3,
+      "o2Percent": 20.9,
+      "temperatureC": 22.3,
+      "humidityPercent": 44,
+      "noiseDb": 54,
+      "source": "synthetic_fixture"
+    },
+    {
+      "id": "cabin-138",
+      "missionId": "aster-07",
+      "missionDay": 138,
+      "recordedAt": "2035-06-10T12:00:00Z",
+      "pressureKpa": 100.8,
+      "co2MmHg": 3.2,
+      "o2Percent": 20.9,
+      "temperatureC": 21.5,
+      "humidityPercent": 46,
+      "noiseDb": 52,
+      "source": "synthetic_fixture"
+    },
+    {
+      "id": "cabin-139",
+      "missionId": "aster-07",
+      "missionDay": 139,
+      "recordedAt": "2035-06-11T12:00:00Z",
+      "pressureKpa": 101,
+      "co2MmHg": 2.6,
+      "o2Percent": 20.9,
+      "temperatureC": 21.9,
+      "humidityPercent": 48,
+      "noiseDb": 53,
+      "source": "synthetic_fixture"
+    },
+    {
+      "id": "cabin-140",
+      "missionId": "aster-07",
+      "missionDay": 140,
+      "recordedAt": "2035-06-12T12:00:00Z",
+      "pressureKpa": 101.2,
+      "co2MmHg": 2.8,
+      "o2Percent": 20.9,
+      "temperatureC": 22.3,
+      "humidityPercent": 40,
+      "noiseDb": 54,
+      "source": "synthetic_fixture"
+    },
+    {
+      "id": "cabin-141",
+      "missionId": "aster-07",
+      "missionDay": 141,
+      "recordedAt": "2035-06-13T12:00:00Z",
+      "pressureKpa": 100.8,
+      "co2MmHg": 3,
+      "o2Percent": 20.9,
+      "temperatureC": 21.5,
+      "humidityPercent": 42,
+      "noiseDb": 52,
+      "source": "synthetic_fixture"
+    },
+    {
+      "id": "cabin-142",
+      "missionId": "aster-07",
+      "missionDay": 142,
+      "recordedAt": "2035-06-14T12:00:00Z",
+      "pressureKpa": 101,
+      "co2MmHg": 3.2,
+      "o2Percent": 20.9,
+      "temperatureC": 21.9,
+      "humidityPercent": 44,
+      "noiseDb": 53,
+      "source": "synthetic_fixture"
+    }
+  ]
+}

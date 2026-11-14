@@ -1,0 +1,38 @@
+flowchart TB
+    LABEL["SI-assisted diagram | Implemented technology stack"]
+    subgraph AUTHOR["Authoring and documentation"]
+        MAKE["Figma Make | SI-assisted development"]
+        TS["TypeScript and TSX"]
+        CSS["CSS and Tailwind CSS 4"]
+        DOCS["Markdown, Mermaid source and JSON provenance"]
+    end
+    subgraph BUILD["Build-time tools"]
+        NODE["Node.js 22 and pnpm 10.34.3"]
+        VITE["Vite 8 | React and Tailwind plugins"]
+        TSC["TypeScript compiler | Static checking"]
+        FMT["oxfmt | Formatting"]
+    end
+    subgraph RUNTIME["Browser runtime"]
+        REACT["React 19 and React DOM 19"]
+        STATE["React useState and useEffect"]
+        SVG["Custom SVG charts, icons and waveforms"]
+        WEB["HTML forms and Blob-based CSV downloads"]
+        LOCAL["Local images and fonts"]
+    end
+    STATIC["Static dist output"]
+    LABEL -.-> REACT
+    MAKE --> TS
+    MAKE --> CSS
+    MAKE --> DOCS
+    NODE --> VITE
+    TS --> TSC
+    TS --> FMT
+    CSS --> FMT
+    TS --> VITE
+    CSS --> VITE
+    VITE --> STATIC
+    LOCAL --> STATIC
+    STATIC --> REACT
+    REACT --> STATE
+    REACT --> SVG
+    REACT --> WEB

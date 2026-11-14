@@ -1,0 +1,53 @@
+{
+  "meta": {
+    "synthetic": true,
+    "origin": "SI-generated fictional crew profiles",
+    "warning": "All demo PINs are intentionally public. These are not real credentials or authentication."
+  },
+  "records": [
+    {
+      "id": "crew-am",
+      "missionId": "aster-07",
+      "name": "Alex Morgan",
+      "role": "Mission Commander",
+      "initials": "AM",
+      "image": "/images/crew-alex.jpg",
+      "color": "#74859a",
+      "demoPin": "1420",
+      "reviewRequested": false
+    },
+    {
+      "id": "crew-jc",
+      "missionId": "aster-07",
+      "name": "James Chen",
+      "role": "Flight Engineer",
+      "initials": "JC",
+      "image": "",
+      "color": "#547c8b",
+      "demoPin": "2468",
+      "reviewRequested": false
+    },
+    {
+      "id": "crew-sr",
+      "missionId": "aster-07",
+      "name": "Sofia Reyes",
+      "role": "Mission Specialist",
+      "initials": "SR",
+      "image": "",
+      "color": "#8573a3",
+      "demoPin": "1357",
+      "reviewRequested": false
+    },
+    {
+      "id": "crew-ew",
+      "missionId": "aster-07",
+      "name": "Ethan Williams",
+      "role": "Science Officer",
+      "initials": "EW",
+      "image": "",
+      "color": "#977b64",
+      "demoPin": "8642",
+      "reviewRequested": true
+    }
+  ]
+}

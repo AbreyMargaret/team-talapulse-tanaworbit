@@ -1,0 +1,44 @@
+{
+  "meta": {
+    "synthetic": true,
+    "warning": "Example activity labels and routines, not an individualized exercise prescription"
+  },
+  "records": [
+    {
+      "id": "resistive",
+      "name": "Resistive exercise",
+      "shortName": "Resistive",
+      "exampleMinutes": 20,
+      "consideration": "In microgravity, specialized resistive equipment provides loading that ordinary free weights cannot provide in the same way.",
+      "guidance": "Follow the mission-approved equipment and exercise protocol. Record completed activity and any context for review.",
+      "source": "https://www.nasa.gov/humans-in-space/the-human-body-in-space/"
+    },
+    {
+      "id": "cycling",
+      "name": "Cycle ergometer",
+      "shortName": "Cycling",
+      "exampleMinutes": 20,
+      "consideration": "A cycle ergometer can support cardiovascular exercise without relying on ordinary standing or walking conditions.",
+      "guidance": "Use the approved setup and prescribed workload. Add notes about interruptions or unusual effort rather than treating a number as a diagnosis.",
+      "source": "https://www.nasa.gov/humans-in-space/the-human-body-in-space/"
+    },
+    {
+      "id": "treadmill",
+      "name": "Restrained treadmill",
+      "shortName": "Treadmill",
+      "exampleMinutes": 20,
+      "consideration": "Spaceflight treadmill exercise uses restraints and loading arrangements suited to the environment.",
+      "guidance": "Follow the approved restraint and equipment checks. This demo does not prescribe speed, loading, or safe operating limits.",
+      "source": "https://www.nasa.gov/humans-in-space/the-human-body-in-space/"
+    },
+    {
+      "id": "mobility",
+      "name": "Mobility & movement",
+      "shortName": "Mobility",
+      "exampleMinutes": 10,
+      "consideration": "Movement routines need to account for the spacecraft environment, available clearances, and operational tasks.",
+      "guidance": "Use mission-specific guidance and document what was completed. Follow mission procedures when discomfort or other concerns arise.",
+      "source": "https://www.nasa.gov/hrp/"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+sequenceDiagram
+    autonumber
+    actor User as Demo user
+    participant Form as CheckIn form
+    participant App as React App state
+    participant Rules as Demonstration rules
+    participant Views as Dashboard and trends
+    Note over User,Views: SI-assisted diagram | Synthetic demo data only
+    User->>Form: Select crew and enter check-in values
+    Form->>Form: Apply browser input constraints
+    User->>Form: Review check-in
+    Form-->>User: Show crew, values, units and notes
+    User->>Form: Confirm review and record
+    Form->>App: onSave draft
+    App->>App: Replace selected crew latest reading
+    App->>App: Set session check-in flag
+    App->>Rules: Recompute derived comparisons
+    Rules-->>Views: Updated values, labels and observations
+    App-->>Form: Show check-in success
+    User->>Views: Open dashboard or change trend controls
+    Views->>Views: Render synthetic history and latest value
+    Note over App,Views: Baselines use prior synthetic JSON days and fixture files remain unchanged
+    User->>App: Refresh page
+    App->>App: Reset to initial fictional demo state

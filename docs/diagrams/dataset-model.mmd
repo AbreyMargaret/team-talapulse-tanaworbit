@@ -1,0 +1,54 @@
+---
+title: SI-assisted conceptual data model (no database)
+---
+erDiagram
+    MISSION ||--o{ CREW : contains
+    MISSION ||--o{ HEALTH_RECORD : groups
+    MISSION ||--o{ EXERCISE_RECORD : groups
+    CREW ||--o{ HEALTH_RECORD : has
+    CREW ||--o{ EXERCISE_RECORD : records
+    ACTIVITY ||--o{ EXERCISE_RECORD : describes
+    MISSION {
+        string id PK
+        string name
+        int day
+        int durationDays
+        string exampleDate
+    }
+    CREW {
+        string id PK
+        string missionId FK
+        string name
+        string role
+        string demoPin "Public fixture, not a secret"
+        boolean reviewRequested
+    }
+    HEALTH_RECORD {
+        string id PK
+        string crewId FK
+        string missionId FK
+        int missionDay
+        string recordedAt "Fictional ISO date"
+        object reading
+        number temperatureC
+        number respiration
+        string source
+    }
+    ACTIVITY {
+        string id PK
+        string name
+        string consideration
+        string guidance
+        string source
+    }
+    EXERCISE_RECORD {
+        string id PK
+        string crewId FK
+        string missionId FK
+        string activityId FK
+        int missionDay
+        int durationMinutes
+        int effort
+        string notes
+        string source
+    }
