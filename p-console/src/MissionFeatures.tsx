@@ -13,13 +13,15 @@ import {
 import "./features.css";
 import { MaybeTerm } from "./Term";
 
-function Panel({ title, note, children }: { title: string; note: string; children: ReactNode }) {
+function Panel({ title, note, children }: { title?: string; note?: string; children: ReactNode }) {
   return (
     <section className="panel feature-stack">
-      <div className="feature-header">
-        <h2>{title}</h2>
-        <p className="feature-note">{note}</p>
-      </div>
+      {title && (
+        <div className="feature-header">
+          <h2>{title}</h2>
+          {note && <p className="feature-note">{note}</p>}
+        </div>
+      )}
       {children}
     </section>
   );
@@ -36,10 +38,11 @@ export function BiodataPanel({ crewId }: { crewId: string }) {
     ["Analog days", String(row.analogDays)],
   ];
   return (
-    <Panel
-      title="Biodata"
-      note="Age, height, mass, and a few notes for this person."
-    >
+    <Panel>
+      <div className="section-label">
+        <h2>Crew Baseline Metrics</h2>
+        <span>Flight record & physical profile</span>
+      </div>
       <div className="feature-grid">
         {facts.map(([label, value]) => (
           <div className="feature-stat" key={label}>
@@ -56,10 +59,11 @@ export function BiodataPanel({ crewId }: { crewId: string }) {
 
 export function MonitorParametersPanel() {
   return (
-    <Panel
-      title="Monitor parameters"
-      note="The ranges this page uses when it compares a reading with the recent average."
-    >
+    <Panel>
+      <div className="section-label">
+        <h2>Clinical Reference Standards</h2>
+        <span>Flight surgeon operational tolerance ranges</span>
+      </div>
       <div className="feature-table-wrap">
         <table className="feature-table">
           <thead>
@@ -93,10 +97,11 @@ export function MonitorParametersPanel() {
 export function CalculationTrendPanel({ crewId, reading }: { crewId: string; reading: Reading }) {
   const trend = trendCalculation(crewId, reading);
   return (
-    <Panel
-      title="Calculation trend"
-      note={`Average of days ${mission.day - trend.window.length} through ${mission.day - 1}. A number you record can stand in for today until you refresh.`}
-    >
+    <Panel>
+      <div className="section-label">
+        <h2>Predictive Baseline Deviations</h2>
+        <span>Rolling {trend.window.length}-day baseline window</span>
+      </div>
       <div className="feature-table-wrap">
         <table className="feature-table">
           <thead>
@@ -122,7 +127,7 @@ export function CalculationTrendPanel({ crewId, reading }: { crewId: string; rea
                 <td>{row.delta}</td>
                 <td>{row.rule}</td>
                 <td className={row.flagged ? "feature-flag" : "feature-ok"}>
-                  {row.flagged ? "Different" : "Inside the range"}
+                  {row.flagged ? "Attention" : "Nominal"}
                 </td>
               </tr>
             ))}
@@ -130,7 +135,7 @@ export function CalculationTrendPanel({ crewId, reading }: { crewId: string; rea
         </table>
       </div>
       <p className="feature-note">
-        {trend.window.length} days are in this window.
+        Telemetry calculated across {trend.window.length} consecutive flight days.
       </p>
     </Panel>
   );
@@ -139,10 +144,11 @@ export function CalculationTrendPanel({ crewId, reading }: { crewId: string; rea
 export function CabinPanel() {
   const latest = cabinConditions[cabinConditions.length - 1];
   return (
-    <Panel
-      title="Cabin internal conditions"
-      note="Pressure, gases, temperature, and noise in the cabin for this mission day."
-    >
+    <Panel>
+      <div className="section-label">
+        <h2>ECLSS Live Telemetry Snapshot</h2>
+        <span>Flight Day {latest.missionDay} atmospheric status</span>
+      </div>
       <div className="feature-grid">
         <div className="feature-stat">
           <span><MaybeTerm>Pressure</MaybeTerm></span>
@@ -161,7 +167,7 @@ export function CabinPanel() {
           <strong>{latest.temperatureC} °C</strong>
         </div>
         <div className="feature-stat">
-          <span><MaybeTerm>Humidity</MaybeTerm></span>
+          <span><MaybeTerm>Relative humidity</MaybeTerm></span>
           <strong>{latest.humidityPercent}%</strong>
         </div>
         <div className="feature-stat">
@@ -202,10 +208,11 @@ export function CabinPanel() {
 export function OrbitalPanel() {
   const latest = orbitalConditions[orbitalConditions.length - 1];
   return (
-    <Panel
-      title="Dynamic orbital conditions"
-      note="Altitude, speed, and lighting for Aster Expedition VII."
-    >
+    <Panel>
+      <div className="section-label">
+        <h2>Ephemeris & Orbital Mechanics</h2>
+        <span>Flight Day {latest.missionDay} telemetry status</span>
+      </div>
       <div className="feature-grid">
         <div className="feature-stat">
           <span><MaybeTerm>Altitude</MaybeTerm></span>
@@ -267,13 +274,14 @@ export function NutritionPanel({ crewId }: { crewId: string }) {
   const today = rows.find((row) => row.missionDay === mission.day) ?? rows[rows.length - 1];
   const names = new Map(nutritionItems.map((item) => [item.id, item.name]));
   return (
-    <Panel
-      title="Space nutrition"
-      note="Meals, energy, and water for this person today."
-    >
+    <Panel>
+      <div className="section-label">
+        <h2>Daily Telemetry & Nutritional Status</h2>
+        <span>Flight Day {today.missionDay} operational intake</span>
+      </div>
       <div className="feature-grid">
         <div className="feature-stat">
-          <span>Day {today.missionDay} energy</span>
+          <span>Day {today.missionDay} Energy</span>
           <strong>{today.kcal} kcal</strong>
         </div>
         <div className="feature-stat">
@@ -308,10 +316,10 @@ export function NutritionPanel({ crewId }: { crewId: string }) {
             {rows.map((row) => (
               <tr key={row.id}>
                 <td>{row.missionDay}</td>
-                <td>{row.kcal}</td>
-                <td>{row.waterMl}</td>
-                <td>{row.proteinG}</td>
-                <td>{row.sodiumMg}</td>
+                <td>{row.kcal} kcal</td>
+                <td>{row.waterMl} mL</td>
+                <td>{row.proteinG} g</td>
+                <td>{row.sodiumMg} mg</td>
               </tr>
             ))}
           </tbody>
@@ -327,10 +335,11 @@ import SensorimotorTest, { type SensorimotorResult } from "./SensorimotorTest";
 
 export function PumaPanel() {
   return (
-    <Panel
-      title="Metabolic gas analysis (NASA PUMA Suite)"
-      note="Real-time breath-by-breath gas exchange, oxygen uptake, and carbon dioxide output from the Portable Unit for Metabolic Analysis."
-    >
+    <Panel>
+      <div className="section-label">
+        <h2>Metabolic Gas Analysis (PUMA Suite)</h2>
+        <span>Breath-by-breath gas exchange telemetry</span>
+      </div>
       <PumaTracker />
     </Panel>
   );
@@ -342,10 +351,11 @@ export function SensorimotorPanel({
   onRecordResult?: (res: SensorimotorResult) => void;
 }) {
   return (
-    <Panel
-      title="Sensorimotor & fine motor testing"
-      note="Standardized in-flight sensorimotor test battery (NASA TM-2020-5008023). Measures hand-eye spatial tracking accuracy and visual reaction time."
-    >
+    <Panel>
+      <div className="section-label">
+        <h2>Sensorimotor & Fine Motor Battery</h2>
+        <span>Neurovestibular coordination and reflex assessment</span>
+      </div>
       <SensorimotorTest onRecordResult={onRecordResult} />
     </Panel>
   );

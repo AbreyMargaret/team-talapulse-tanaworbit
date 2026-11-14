@@ -554,7 +554,7 @@ export default function DemoSignIn({
 
         <div className="mt-4 text-center">
           <p className="text-[11px] text-slate-500">
-            Educational spaceflight simulation · Check-ins stay in local memory · Not a clinical medical device
+            Educational human spaceflight prototype · Check-ins stay in local memory · Not a clinical medical device
           </p>
         </div>
       </section>

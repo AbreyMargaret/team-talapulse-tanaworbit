@@ -53,6 +53,7 @@ import PumaTracker from "./PumaTracker";
 import TelemetryReportModal from "./TelemetryReportModal";
 import OnboardingModal from "./OnboardingModal";
 import LiveWaveformStream from "./LiveWaveformStream";
+import ZeroGLivingGuide from "./ZeroGLivingGuide";
 import Term from "./Term";
 import { missionContexts, routineDefinitions, type MetricId, type ToolkitTab } from "./toolkitData";
 import { useRoutineReminders } from "./useRoutineReminders";
@@ -583,31 +584,51 @@ function AccountFacts({
   onOpenBody: () => void;
 }) {
   const bio = biodataFor(person.id);
-  const facts: [string, string][] = [
+  const facts: [string, string, string?][] = [
     ["Crew ID", person.id.toUpperCase()],
     ["Mission", mission.name],
     ["Sex", bio.sex],
-    ["Age", `${bio.ageYears} years`],
-    ["Height", `${bio.statureCm} cm`],
-    ["Mass now", `${bio.massKgInflight} kg`],
-    ["Mass on the ground", `${bio.massKgGround} kg`],
-    ["Body mass index now", String(bio.bmiInflight)],
-    ["Body mass index on the ground", String(bio.bmiGround)],
-    ["Fat-free mass now", `${bio.fatFreeMassKgInflight} kg`],
-    ["Fat-free mass on the ground", `${bio.fatFreeMassKgGround} kg`],
-    ["Fat mass", `${bio.fatMassKgInflight} kg`],
-    ["Blood type", bio.bloodTypeLabel],
-    ["Dominant side", bio.dominantSide],
-    ["Training-habitat days", String(bio.analogDays)],
-    ["Mission length", bio.missionDurationType],
+    ["Age", `${bio.ageYears} years`, "Age in years."],
+    ["Height", `${bio.statureCm} cm`, "Standing height."],
+    ["Mass now", `${bio.massKgInflight} kg`, "Body mass on this mission day."],
+    ["Mass on the ground", `${bio.massKgGround} kg`, "Body mass before the mission."],
+    [
+      "Body mass index now",
+      String(bio.bmiInflight),
+      "Mass in kilograms divided by height in meters, squared. This mission day.",
+    ],
+    [
+      "Body mass index on the ground",
+      String(bio.bmiGround),
+      "The same index, using the mass from before the mission.",
+    ],
+    [
+      "Fat-free mass now",
+      `${bio.fatFreeMassKgInflight} kg`,
+      "Body mass that is not fat: muscle, bone, and water. This mission day.",
+    ],
+    [
+      "Fat-free mass on the ground",
+      `${bio.fatFreeMassKgGround} kg`,
+      "Fat-free mass before the mission.",
+    ],
+    ["Fat mass", `${bio.fatMassKgInflight} kg`, "The part of body mass that is fat."],
+    ["Blood type", bio.bloodTypeLabel, "The blood-type name stored on this profile."],
+    ["Dominant side", bio.dominantSide, "The hand this person uses most."],
+    [
+      "Training-habitat days",
+      String(bio.analogDays),
+      "Days this person has spent in a training habitat on Earth.",
+    ],
+    ["Mission length", bio.missionDurationType, "How this mission is grouped by length."],
   ];
   return (
     <>
       <p className="account-role">{person.role}</p>
       <div className="account-facts">
-        {facts.map(([label, value]) => (
+        {facts.map(([label, value, tip]) => (
           <div key={label}>
-            <span>{label}</span>
+            <span>{tip ? <Term tip={tip}>{label}</Term> : label}</span>
             <strong>{value}</strong>
           </div>
         ))}
@@ -840,7 +861,7 @@ function CheckIn({
               {person.role} · Mission day {mission.day}
             </span>
           </div>
-          <span className="duration">SIMULATED CHECK-IN</span>
+          <span className="duration">Today's check-in</span>
         </div>
         <dl className="review-values">
           {[
@@ -1290,6 +1311,11 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
   }, [noticesOpen]);
 
   useEffect(() => {
+    setAccountNote(null);
+    setAccountNoteSeen(true);
+  }, [selectedCrew]);
+
+  useEffect(() => {
     if (!tourReady.current) {
       tourReady.current = true;
       return;
@@ -1332,19 +1358,20 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
     setNoticesOpen(false);
     setModal(next);
   }
-  function openAccount() {
+  function openAccount(source?: "profile" | "notice") {
     const bio = biodataFor(person.id);
     const line = `${bio.ageYears} years · ${bio.statureCm} cm · ${bio.massKg} kg · blood type ${bio.bloodTypeLabel}`;
+    const fromNotice = source === "notice";
     setAccountNote(`${person.name}. ${line}`);
-    setAccountNoteSeen(false);
+    setAccountNoteSeen(fromNotice);
     setNoticesOpen(false);
     setSidebarOpen(false);
     setModal("account");
-    notify(`Account opened. ${line}`, "info");
+    if (!fromNotice) notify(`Account opened. ${line}`, "info");
   }
   function exportData() {
     const rows = [
-      ["TanawOrbit — simulated educational data"],
+      ["TanawOrbit health summary"],
       [
         "Crew member",
         "Mission day",
@@ -1375,7 +1402,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
     a.download = `tanaworbit-${person.name.toLowerCase().replace(" ", "-")}-day${mission.day}.csv`;
     a.click();
     URL.revokeObjectURL(url);
-    notify("Simulated health summary exported as CSV.");
+    notify("Health summary exported as CSV.");
     setModal(null);
   }
   const alerts = [
@@ -2175,7 +2202,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
               <button
                 className="account-open"
                 aria-label={`Open account for ${person.name}`}
-                onClick={openAccount}
+                onClick={() => openAccount()}
               >
                 <Avatar person={person} />
                 <div>
@@ -2298,7 +2325,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                   <div className="notice-panel" role="menu">
                     <h2>Notifications</h2>
                     {accountNote && (
-                      <button type="button" onClick={openAccount}>
+                      <button type="button" onClick={() => openAccount("notice")}>
                         Account
                         <span>{accountNote}</span>
                       </button>
@@ -2334,7 +2361,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
               <button
                 className="topbar-avatar"
                 aria-label={`Open account for ${person.name}`}
-                onClick={openAccount}
+                onClick={() => openAccount()}
               >
                 <Avatar person={person} />
               </button>
@@ -2366,53 +2393,6 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
               </div>
             </div>
 
-            <div className="mission-context-strip">
-              <label>
-                Setting
-                <select
-                  aria-label="Mission context preview"
-                  value={contextId}
-                  onChange={(event) => setContextId(event.target.value)}
-                >
-                  {missionContexts.map((item) => (
-                    <option key={item.id} value={item.id}>
-                      {item.title}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <p>This changes the notes only. The numbers stay the same.</p>
-              <button onClick={() => openToolkit("context")}>
-                Read why <Icon name="arrow" size={16} />
-              </button>
-            </div>
-            {reminder.due && routineCount < routineDefinitions.length && (
-              <div className="routine-reminder-banner" role="status">
-                <span className="reminder-banner-icon">
-                  <Icon name="clock" size={23} />
-                </span>
-                <div>
-                  <strong>A moment for today's list.</strong>
-                  <p>{routineDefinitions.length - routineCount} items are still open.</p>
-                </div>
-                <div className="reminder-banner-actions">
-                  <button className="primary-button" onClick={() => openToolkit("routine")}>
-                    Open checklist
-                  </button>
-                  <button className="secondary-button" onClick={reminder.snooze}>
-                    Snooze 5 min
-                  </button>
-                  <button
-                    aria-label="Dismiss routine reminder"
-                    className="reminder-dismiss"
-                    onClick={reminder.dismiss}
-                  >
-                    <Icon name="close" size={18} />
-                  </button>
-                </div>
-              </div>
-            )}
-
             {page !== "Mission Overview" && (
               <section className="profile-banner">
                 <div className="profile-main">
@@ -2433,6 +2413,10 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                         {mission.name}
                       </span>
                       <span>
+                        <span className="status-dot" />
+                        Low Earth Orbit · {mission.altitudeKm} km
+                      </span>
+                      <span>
                         <Icon name="clock" size={14} />
                         Last check-in:{" "}
                         {checkedIn[selectedCrew] ? "just now" : "Today, 08:32 UTC"}
@@ -2451,12 +2435,29 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                   </div>
                 </div>
                 <div className="banner-earth" />
-                <div className="earth-coordinate">
-                  <span className="status-dot" />
-                  Low Earth orbit <small>about {mission.altitudeKm} km</small>
-                </div>
               </section>
             )}
+
+            <div className="mission-context-strip">
+              <label>
+                Setting
+                <select
+                  aria-label="Mission context preview"
+                  value={contextId}
+                  onChange={(event) => setContextId(event.target.value)}
+                >
+                  {missionContexts.map((item) => (
+                    <option key={item.id} value={item.id}>
+                      {item.title}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <p>This changes the notes only. The numbers stay the same.</p>
+              <button onClick={() => openToolkit("context")}>
+                Read why <Icon name="arrow" size={16} />
+              </button>
+            </div>
 
             {page === "Astronaut Dashboard" && (
               <>
@@ -2545,7 +2546,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                   <h2>Everyone on this mission</h2>
                   <span>
                     <span className="tiny-dot" />
-                    Simulated crew data · Day {mission.day}
+                    Day {mission.day}
                   </span>
                 </div>
                 <div className="crew-grid">
@@ -2942,69 +2943,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
             )}
 
             {page === "Health Guidance" && (
-              <>
-                <div className="guidance-intro">
-                  <span className="guidance-strip-icon">
-                    <Icon name="book" size={25} />
-                  </span>
-                  <div>
-                    <h2>Knowledge for life beyond Earth.</h2>
-                    <p>
-                      Educational context to help you understand measurements, personal patterns,
-                      and the spaceflight environment.
-                    </p>
-                  </div>
-                </div>
-                <div className="guidance-layout">
-                  <section className="panel guidance-topics">
-                    <div className="panel-heading">
-                      <h2>Health topics</h2>
-                    </div>
-                    {topics.map((t, i) => (
-                      <button
-                        key={t.title}
-                        className={topic === i ? "selected" : ""}
-                        onClick={() => setTopic(i)}
-                      >
-                        <Icon name={t.icon} size={20} />
-                        <span>{t.title}</span>
-                        <Icon name="chevron" size={16} />
-                      </button>
-                    ))}
-                  </section>
-                  <section className="panel guidance-detail">
-                    <span className="topic-tag">{topics[topic].tag}</span>
-                    <h2>{topics[topic].title}</h2>
-                    <p className="guidance-lead">{topics[topic].intro}</p>
-                    <div className="guidance-block">
-                      <span className="section-icon">
-                        <Icon name="globe" size={21} />
-                      </span>
-                      <div>
-                        <h3>The spaceflight consideration</h3>
-                        <p>{topics[topic].consideration}</p>
-                      </div>
-                    </div>
-                    <div className="guidance-block">
-                      <span className="section-icon">
-                        <Icon name="book" size={21} />
-                      </span>
-                      <div>
-                        <h3>Educational guidance</h3>
-                        <p>{topics[topic].guidance}</p>
-                      </div>
-                    </div>
-                    <div className="source-area">
-                      <span className="eyebrow">RESEARCH & SOURCE REFERENCE</span>
-                      <a href={topics[topic].url} target="_blank" rel="noreferrer">
-                        {topics[topic].source}
-                        <Icon name="external" size={16} />
-                      </a>
-                      <p>A public note on the same topic.</p>
-                    </div>
-                  </section>
-                </div>
-              </>
+              <ZeroGLivingGuide onNavigate={navigate} />
             )}
 
           </main>

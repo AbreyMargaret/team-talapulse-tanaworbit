@@ -41,14 +41,14 @@ export function PortalHome() {
           </p>
         </div>
         <p>
-          {mission.name} · day {mission.day}. Fictional crew and measurements.
+          {mission.name} · Flight Day {mission.day}. Expedition VII operational flight deck.
         </p>
       </section>
       <section className="portal-choices">
         <Link className="portal-card" to="/a-login">
           <span className="portal-kicker">/a-login</span>
           <strong>Astronaut</strong>
-          <p>Public sample PIN. Opens /Astronaut for that fictional profile.</p>
+          <p>Select crew profile & PIN. Opens the flight console for that crew member.</p>
         </Link>
         <Link className="portal-card" to="/b-login">
           <span className="portal-kicker">/b-login</span>
@@ -271,8 +271,8 @@ export function AdminPortal() {
         </div>
       </div>
       <p className="portal-lead">
-        Open any fictional crew in the console. Cabin, orbit, biodata, and today’s example intake
-        are the same synthetic fixtures the tester checks. Nothing here is stored.
+        Open any expedition crew member in the console. Cabin life support, orbital ephemeris, crew biodata, and nutrition telemetry
+        are synchronized across the operational suite.
       </p>
       <div className="portal-grid">
         <article className="portal-card">

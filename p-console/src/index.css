@@ -730,29 +730,6 @@ h1 {
   border-radius: 50%;
   pointer-events: none;
 }
-.earth-coordinate {
-  position: absolute;
-  bottom: 17px;
-  right: 20px;
-  font-family: var(--font-mono);
-  font-size: 7px;
-  color: #bdceda;
-  letter-spacing: 1.3px;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.earth-coordinate .status-dot {
-  background: #8bcae8;
-  width: 3px;
-  height: 3px;
-}
-.earth-coordinate small {
-  font-size: 6px;
-  margin-left: 4px;
-  color: #91aabb;
-}
 .section-label {
   display: flex;
   align-items: center;
@@ -2987,9 +2964,6 @@ textarea::placeholder {
   }
   .mission-day strong {
     font-size: 28px;
-  }
-  .earth-coordinate {
-    display: none;
   }
   .banner-earth {
     opacity: 0.4;
@@ -5856,10 +5830,6 @@ textarea::placeholder {
 [data-theme="light"] .profile-banner .banner-earth {
   opacity: 0.08 !important;
   filter: grayscale(0.7) contrast(1.1);
-}
-
-[data-theme="light"] .profile-banner .earth-coordinate {
-  color: #64748b !important;
 }
 
 [data-theme="light"] .profile-main p {
