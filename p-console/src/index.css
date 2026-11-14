@@ -638,19 +638,19 @@ h1 {
   white-space: nowrap;
 }
 .badge.stable {
-  color: #34d399;
-  border-color: rgba(52, 211, 153, 0.25);
-  background: rgba(52, 211, 153, 0.08);
+  color: var(--green);
+  border-color: color-mix(in srgb, var(--green) 40%, transparent);
+  background: color-mix(in srgb, var(--green) 14%, transparent);
 }
 .badge.observe {
-  color: #fbbf24;
-  border-color: rgba(251, 191, 36, 0.25);
-  background: rgba(251, 191, 36, 0.08);
+  color: var(--amber);
+  border-color: color-mix(in srgb, var(--amber) 40%, transparent);
+  background: color-mix(in srgb, var(--amber) 14%, transparent);
 }
 .badge.attention {
-  color: #f87171;
-  border-color: rgba(248, 113, 113, 0.25);
-  background: rgba(248, 113, 113, 0.08);
+  color: var(--red);
+  border-color: color-mix(in srgb, var(--red) 40%, transparent);
+  background: color-mix(in srgb, var(--red) 14%, transparent);
 }
 .badge.observe .status-dot {
   background: var(--amber);
@@ -953,50 +953,50 @@ select {
   appearance: none;
   cursor: pointer;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%2338bdf8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3 4.5 3 3 3-3'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23c6b59a' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3 4.5 3 3 3-3'/%3E%3C/svg%3E");
   background-position: right 10px center;
   background-repeat: no-repeat;
 }
 
 select:focus {
   outline: none;
-  border-color: #38bdf8;
-  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 28%, transparent);
 }
 
 select option {
-  background: #0f172a;
-  color: #f1f5f9;
+  background: var(--panel);
+  color: var(--text);
   padding: 8px 12px;
   font-size: 13px;
 }
 
 [data-theme="light"] select {
-  background: #ffffff;
-  border-color: #cbd5e1;
-  color: #0f172a;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%230284c7' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3 4.5 3 3 3-3'/%3E%3C/svg%3E");
+  background-color: var(--panel);
+  border-color: var(--border);
+  color: var(--text);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%233d5344' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3 4.5 3 3 3-3'/%3E%3C/svg%3E");
 }
 
 [data-theme="light"] select option {
-  background: #ffffff;
-  color: #0f172a;
+  background: var(--panel);
+  color: var(--text);
 }
 .chart-tabs {
   display: flex;
   gap: 18px;
   margin: 17px 18px 0;
-  border-bottom: 1px solid #243043;
+  border-bottom: 1px solid var(--border);
 }
 .chart-tabs > button {
   font-size: 9px;
-  color: #8190a8;
+  color: var(--muted);
   padding: 0 1px 11px;
   position: relative;
   white-space: nowrap;
 }
 .chart-tabs > button.selected {
-  color: #83c8f5;
+  color: var(--text);
 }
 .chart-tabs > button.selected::after {
   content: "";
@@ -1005,10 +1005,10 @@ select option {
   bottom: -1px;
   left: 0;
   right: 0;
-  background: #67b7ef;
+  background: var(--accent);
 }
 .chart-tabs > button:hover {
-  color: #cde8ff;
+  color: var(--text);
 }
 .chart-meta {
   margin: 16px 18px 0;
@@ -1046,7 +1046,7 @@ select option {
   display: flex;
   gap: 12px;
   font-size: 7px;
-  color: #8394ab;
+  color: var(--muted);
 }
 .chart-legend > span {
   display: flex;
@@ -1057,10 +1057,10 @@ select option {
 .legend-line {
   width: 13px;
   display: block;
-  border-top: 2px solid #57c6df;
+  border-top: 2px solid var(--accent);
 }
 .legend-line.dashed {
-  border-top: 1px dashed #8a9ab5;
+  border-top: 1px dashed var(--subtle);
 }
 .chart-wrap {
   margin: 2px 15px 0 5px;
@@ -1073,11 +1073,11 @@ select option {
 }
 .axis-label {
   font-family: var(--font-mono);
-  fill: #70829d;
+  fill: var(--muted);
   font-size: 9px;
 }
 .grid-line {
-  stroke: #283446;
+  stroke: var(--border);
   stroke-width: 0.7;
   opacity: 0.8;
 }
@@ -1518,7 +1518,7 @@ footer button {
   justify-content: flex-end;
 }
 .legend-line.purple {
-  border-color: #aaa2e3;
+  border-color: var(--amber);
 }
 .chart-footer {
   font-size: 8px;
@@ -5653,7 +5653,7 @@ textarea::placeholder {
   --accent: #3d5344;
   --on-accent: #f7f4ee;
   --cyan: #3d5344;
-  --green: #3d5344;
+  --green: #4e6a52;
   --amber: #8a5a2a;
   --red: #8d4034;
   color: var(--text);

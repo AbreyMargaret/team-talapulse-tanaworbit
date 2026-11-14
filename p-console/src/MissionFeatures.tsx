@@ -8,6 +8,8 @@ import {
   nutritionItems,
   orbitalConditions,
   trendCalculation,
+  weekSummary,
+  type ExerciseRecord,
   type Reading,
 } from "./data";
 import "./features.css";
@@ -146,8 +148,8 @@ export function CabinPanel() {
   return (
     <Panel>
       <div className="section-label">
-        <h2>ECLSS Live Telemetry Snapshot</h2>
-        <span>Flight Day {latest.missionDay} atmospheric status</span>
+        <h2>Cabin air</h2>
+        <span>Stored sample from day {latest.missionDay}. This is not a live sensor.</span>
       </div>
       <div className="feature-grid">
         <div className="feature-stat">
@@ -266,6 +268,108 @@ export function OrbitalPanel() {
         </table>
       </div>
     </Panel>
+  );
+}
+
+function showAmount(value: number | null, suffix: string) {
+  if (value == null) return "—";
+  return `${value} ${suffix}`;
+}
+
+export function WeekBoard({
+  crewId,
+  name,
+  today,
+  exercises,
+  onOpen,
+}: {
+  crewId: string;
+  name: string;
+  today: Reading;
+  exercises: ExerciseRecord[];
+  onOpen: (
+    page: "Physiological Monitoring" | "Space Nutrition" | "Cabin Conditions" | "Exercise & Recovery",
+  ) => void;
+}) {
+  const week = weekSummary(crewId, today, exercises);
+  const links = [
+    ["Heart and breathing", "Physiological Monitoring"],
+    ["Meals", "Space Nutrition"],
+    ["Cabin air", "Cabin Conditions"],
+    ["Exercise", "Exercise & Recovery"],
+  ] as const;
+  return (
+    <section className="panel week-board" aria-labelledby="week-board-title">
+      <div>
+        <h2 id="week-board-title">This week</h2>
+        <p className="week-note">
+          Days {week.start}–{week.end} for {name}. Averages of the stored daily numbers. These are stored
+          averages, not a forecast or a medical status.
+        </p>
+      </div>
+      <div className="week-facts">
+        <div>
+          <span>Heart rate</span>
+          <strong>{showAmount(week.heart, "bpm")}</strong>
+        </div>
+        <div>
+          <span>Sleep</span>
+          <strong>{showAmount(week.sleep, "hours")}</strong>
+        </div>
+        <div>
+          <span>How tired</span>
+          <strong>{showAmount(week.fatigue, "/ 5")}</strong>
+        </div>
+        <div>
+          <span>Exercise</span>
+          <strong>{week.exerciseMinutes} minutes</strong>
+        </div>
+        <div>
+          <span>Meals</span>
+          <strong>{showAmount(week.kcal, "kcal")}</strong>
+        </div>
+        <div>
+          <span>Water</span>
+          <strong>{showAmount(week.waterMl, "mL")}</strong>
+        </div>
+        <div>
+          <span>Cabin pressure</span>
+          <strong>
+            {week.cabin ? `${week.cabin.pressureKpa} kPa` : "—"}
+          </strong>
+          {week.cabin && <small>Latest sample, day {week.cabin.missionDay}</small>}
+        </div>
+      </div>
+      <div className="week-table-wrap">
+        <table className="week-table">
+          <thead>
+            <tr>
+              <th>Day</th>
+              <th>Heart</th>
+              <th>Sleep</th>
+              <th>Tired</th>
+            </tr>
+          </thead>
+          <tbody>
+            {week.rows.map((row) => (
+              <tr key={row.day} className={row.day === week.end ? "is-today" : undefined}>
+                <td>{row.day === week.end ? `${row.day} (today)` : row.day}</td>
+                <td>{row.heart}</td>
+                <td>{row.sleep}</td>
+                <td>{row.fatigue}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="week-links">
+        {links.map(([label, page]) => (
+          <button key={page} type="button" onClick={() => onOpen(page)}>
+            {label}
+          </button>
+        ))}
+      </div>
+    </section>
   );
 }
 

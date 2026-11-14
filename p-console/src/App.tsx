@@ -44,6 +44,7 @@ import {
   OrbitalPanel,
   PumaPanel,
   SensorimotorPanel,
+  WeekBoard,
 } from "./MissionFeatures";
 import ExercisePanel from "./ExercisePanel";
 import NextSteps from "./NextSteps";
@@ -54,6 +55,7 @@ import TelemetryReportModal from "./TelemetryReportModal";
 import OnboardingModal from "./OnboardingModal";
 import LiveWaveformStream from "./LiveWaveformStream";
 import ZeroGLivingGuide from "./ZeroGLivingGuide";
+import DailyHealthCheckIn, { type CheckInDraft } from "./DailyHealthCheckIn";
 import Term from "./Term";
 import { missionContexts, routineDefinitions, type MetricId, type ToolkitTab } from "./toolkitData";
 import { useRoutineReminders } from "./useRoutineReminders";
@@ -277,7 +279,7 @@ function Icon({
   );
 }
 
-type Page =
+export type Page =
   | "Mission Overview"
   | "Astronaut Dashboard"
   | "Health Check-In"
@@ -430,13 +432,13 @@ function pageLede(page: Page): string {
     case "Physiological Monitoring":
       return "Heart rate, blood oxygen, and breathing, drawn as lines from today's numbers.";
     case "Cabin Conditions":
-      return "Cabin pressure, oxygen, carbon dioxide, temperature, and noise for this mission day.";
+      return "Stored samples of cabin pressure, oxygen, carbon dioxide, temperature, and noise.";
     case "Orbital Conditions":
       return "Altitude, speed, and lighting for this mission day.";
     case "Mission Overview":
       return "The same daily readings for each person on this mission.";
     case "Health Trends":
-      return "Heart rate, blood pressure, sleep, and fatigue across recent mission days.";
+      return "Averages from the last seven stored days, then heart rate, blood pressure, sleep, and fatigue across recent mission days.";
     case "Calculation Trend":
       return "How today compares with the average of the previous 14 days.";
     case "Sensorimotor & Reflex":
@@ -450,7 +452,7 @@ function pageLede(page: Page): string {
     case "Monitor Parameters":
       return "The differences this page treats as worth a second look.";
     case "Health Check-In":
-      return "Write down heart rate, blood pressure, sleep, fatigue, and mood. It stays until you refresh.";
+      return "Daily astronaut biometric logging, circadian rest verification, and in-flight neurovestibular symptom screening against 14-day mission baseline.";
     case "Health Toolkit":
       return "Steps for writing a number down, in the same order you would do it.";
     case "Health Guidance":
@@ -662,411 +664,7 @@ function Sparkline({ type = 0, amber = false }: { type?: number; amber?: boolean
   );
 }
 
-type MeasurementKey = "heart" | "systolic" | "diastolic" | "sleep";
-type CheckInDraft = Omit<Reading, MeasurementKey> & Record<MeasurementKey, number | "">;
 
-function NumericControl({
-  id,
-  label,
-  value,
-  onChange,
-  min,
-  max,
-  step = 1,
-  unit,
-}: {
-  id: string;
-  label: string;
-  value: number | "";
-  onChange: (value: number | "") => void;
-  min: number;
-  max: number;
-  step?: number;
-  unit: string;
-}) {
-  function adjust(direction: number) {
-    onChange(
-      value === ""
-        ? min
-        : Math.min(max, Math.max(min, Number((value + direction * step).toFixed(1)))),
-    );
-  }
-  return (
-    <div className="numeric-control">
-      <button
-        type="button"
-        aria-label={`Decrease ${label.toLowerCase()}`}
-        disabled={value !== "" && value <= min}
-        onClick={() => adjust(-1)}
-      >
-        −
-      </button>
-      <div>
-        <input
-          id={id}
-          aria-label={label}
-          type="number"
-          inputMode={step < 1 ? "decimal" : "numeric"}
-          min={min}
-          max={max}
-          step={step}
-          required
-          value={value}
-          onChange={(e) => onChange(e.target.value === "" ? "" : Number(e.target.value))}
-        />
-        <span>{unit}</span>
-      </div>
-      <button
-        type="button"
-        aria-label={`Increase ${label.toLowerCase()}`}
-        disabled={value !== "" && value >= max}
-        onClick={() => adjust(1)}
-      >
-        +
-      </button>
-    </div>
-  );
-}
-
-function CheckInSteps({ step }: { step: number }) {
-  return (
-    <ol className="checkin-steps" aria-label="Check-in progress">
-      {["Record", "Review", "Complete"].map((label, i) => (
-        <li
-          key={label}
-          className={step === i + 1 ? "current" : step > i + 1 ? "complete" : ""}
-          aria-current={step === i + 1 ? "step" : undefined}
-        >
-          <span>{step > i + 1 ? <Icon name="check" size={15} /> : `0${i + 1}`}</span>
-          {label}
-        </li>
-      ))}
-    </ol>
-  );
-}
-
-function CheckIn({
-  draft,
-  onDraftChange,
-  person,
-  navigate,
-  onSave,
-}: {
-  draft: CheckInDraft;
-  onDraftChange: (draft: CheckInDraft) => void;
-  person: (typeof crew)[number];
-  navigate: (page: Page) => void;
-  onSave: (draft: Reading) => void;
-}) {
-  const setDraft = onDraftChange;
-  const [saved, setSaved] = useState(false);
-  const [review, setReview] = useState(false);
-  const [confirmed, setConfirmed] = useState(false);
-  const [error, setError] = useState("");
-  useEffect(() => {
-    if (review || saved)
-      document.querySelector<HTMLElement>(".checkin-review h2, .check-success h2")?.focus();
-  }, [review, saved]);
-  function submit(e: FormEvent) {
-    e.preventDefault();
-    if (Number(draft.systolic) <= Number(draft.diastolic)) {
-      setError("Please check the blood-pressure entries: systolic must be greater than diastolic.");
-      return;
-    }
-    setError("");
-    setConfirmed(false);
-    setReview(true);
-  }
-  function record() {
-    if (!confirmed) return;
-    onSave({
-      ...draft,
-      heart: Number(draft.heart),
-      systolic: Number(draft.systolic),
-      diastolic: Number(draft.diastolic),
-      sleep: Number(draft.sleep),
-    });
-    setSaved(true);
-  }
-  if (saved)
-    return (
-      <section className="panel check-success">
-        <CheckInSteps step={3} />
-        <span className="success-icon">
-          <Icon name="check" size={34} />
-        </span>
-        <span className="eyebrow green-text">CHECK-IN COMPLETE</span>
-        <h2 tabIndex={-1}>You’re all checked in, {person.name.split(" ")[0]}.</h2>
-        <p>
-          Your measurements have been added to this session’s dashboard.
-          <br />
-          Thank you for taking a moment to check in with yourself.
-        </p>
-        <div className="success-summary">
-          <span>
-            Mission day <b>{mission.day}</b>
-          </span>
-          <span>
-            Heart rate <b>{draft.heart} bpm</b>
-          </span>
-          <span>
-            Sleep <b>{draft.sleep} hours</b>
-          </span>
-          <span>
-            Mood <b>{draft.mood}</b>
-          </span>
-        </div>
-        <div className="button-row">
-          <button className="primary-button" onClick={() => navigate("Astronaut Dashboard")}>
-            View updated dashboard <Icon name="arrow" size={17} />
-          </button>
-          <button
-            className="secondary-button"
-            onClick={() => {
-              setSaved(false);
-              setReview(false);
-              setConfirmed(false);
-            }}
-          >
-            Edit check-in
-          </button>
-        </div>
-        <small>Demonstration only. Entries are held in memory and reset on page refresh.</small>
-      </section>
-    );
-  if (review)
-    return (
-      <section className="panel checkin-review">
-        <CheckInSteps step={2} />
-        <div className="review-header">
-          <span className="section-icon">
-            <Icon name="check" size={26} />
-          </span>
-          <div>
-            <span className="eyebrow">ONE LAST LOOK</span>
-            <h2 tabIndex={-1}>Review before you record.</h2>
-            <p>Confirm the crew member, units, and values. Nothing has been recorded yet.</p>
-          </div>
-        </div>
-        <div className="review-crew">
-          <Avatar person={person} />
-          <div>
-            <strong>{person.name}</strong>
-            <span>
-              {person.role} · Mission day {mission.day}
-            </span>
-          </div>
-          <span className="duration">Today's check-in</span>
-        </div>
-        <dl className="review-values">
-          {[
-            ["Heart rate", `${draft.heart} bpm`],
-            ["Blood pressure", `${draft.systolic}/${draft.diastolic} mmHg`],
-            ["Sleep duration", `${draft.sleep} hours`],
-            ["Fatigue", `${draft.fatigue} / 5`],
-            ["Mood", draft.mood],
-          ].map(([label, value]) => (
-            <div key={label}>
-              <dt>{label}</dt>
-              <dd>{value}</dd>
-            </div>
-          ))}
-        </dl>
-        {draft.notes && (
-          <div className="review-note">
-            <span>YOUR NOTES</span>
-            <p>{draft.notes}</p>
-          </div>
-        )}
-        <label className="confirm-check">
-          <input
-            type="checkbox"
-            checked={confirmed}
-            onChange={(e) => setConfirmed(e.target.checked)}
-          />
-          <span>I checked the crew member and the measurements above.</span>
-        </label>
-        <div className="review-actions">
-          <button className="secondary-button" onClick={() => setReview(false)}>
-            Back to edit
-          </button>
-          <button className="primary-button" disabled={!confirmed} onClick={record}>
-            <Icon name="check" size={19} />
-            Confirm & record
-          </button>
-        </div>
-        <div className="info-banner">
-          <Icon name="info" size={17} />
-          <span>
-            This stays in the browser until you refresh.
-          </span>
-        </div>
-      </section>
-    );
-  return (
-    <div className="checkin-layout">
-      <form className="panel checkin-form" onSubmit={submit}>
-        <CheckInSteps step={1} />
-        <PanelTitle
-          title="Your daily health check-in"
-          description="A few simple measurements. A clearer picture of your day."
-          action={
-            <span className="duration">
-              <Icon name="clock" size={15} />
-              ~2 min
-            </span>
-          }
-        />
-        <div className="form-section-label">
-          <span>01</span> PHYSICAL MEASUREMENTS
-        </div>
-        <div className="form-grid">
-          <label htmlFor="checkin-heart">
-            <Term>Heart rate</Term>{" "}
-            <NumericControl
-              id="checkin-heart"
-              label="Heart rate"
-              min={30}
-              max={220}
-              value={draft.heart}
-              onChange={(heart) => setDraft({ ...draft, heart })}
-              unit="bpm"
-            />
-            <small>Record at rest using your usual method.</small>
-          </label>
-          <label htmlFor="checkin-sleep">
-            <Term>Sleep duration</Term>{" "}
-            <NumericControl
-              id="checkin-sleep"
-              label="Sleep duration"
-              min={0}
-              max={24}
-              step={0.1}
-              value={draft.sleep}
-              onChange={(sleep) => setDraft({ ...draft, sleep })}
-              unit="hours"
-            />
-            <small>Total sleep during your last sleep period.</small>
-          </label>
-          <div className="blood-label">
-            <span className="field-label">
-              <Term>Blood pressure</Term>
-            </span>
-            <div className="blood-inputs">
-              <NumericControl
-                id="checkin-systolic"
-                label="Systolic blood pressure"
-                min={60}
-                max={250}
-                value={draft.systolic}
-                onChange={(systolic) => setDraft({ ...draft, systolic })}
-                unit="systolic"
-              />
-              <span>/</span>
-              <NumericControl
-                id="checkin-diastolic"
-                label="Diastolic blood pressure"
-                min={30}
-                max={160}
-                value={draft.diastolic}
-                onChange={(diastolic) => setDraft({ ...draft, diastolic })}
-                unit="diastolic"
-              />
-              <span className="muted">mmHg</span>
-            </div>
-          </div>
-        </div>
-        <div className="form-section-label">
-          <span>02</span> HOW YOU’RE FEELING
-        </div>
-        <fieldset>
-          <legend>
-            <Term>Fatigue level</Term>
-          </legend>
-          <div className="choice-grid fatigue-choices">
-            {[1, 2, 3, 4, 5].map((n) => (
-              <button
-                type="button"
-                className={draft.fatigue === n ? "active" : ""}
-                aria-pressed={draft.fatigue === n}
-                key={n}
-                onClick={() => setDraft({ ...draft, fatigue: n })}
-              >
-                <strong>{n}</strong>
-                <small>{["Very low", "Low", "Moderate", "High", "Very high"][n - 1]}</small>
-              </button>
-            ))}
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend>How is your mood today?</legend>
-          <div className="choice-grid mood-choices">
-            {["Low", "Fair", "Good", "Great"].map((m) => (
-              <button
-                type="button"
-                className={draft.mood === m ? "active" : ""}
-                key={m}
-                aria-pressed={draft.mood === m}
-                onClick={() => setDraft({ ...draft, mood: m })}
-              >
-                <Icon name="smile" size={21} />
-                {m}
-              </button>
-            ))}
-          </div>
-        </fieldset>
-        <label className="notes-label">
-          Additional notes <span className="muted">(optional)</span>
-          <textarea
-            maxLength={1000}
-            placeholder="Anything else to note? Think workload, rest, exercise, or how you’re feeling."
-            value={draft.notes}
-            onChange={(e) => setDraft({ ...draft, notes: e.target.value })}
-            rows={3}
-          />
-        </label>
-        {error && (
-          <p className="form-error" role="alert">
-            <Icon name="info" size={17} />
-            {error}
-          </p>
-        )}
-        <div className="form-actions">
-          <span>
-            <Icon name="shield" size={16} />
-            Draft held in this session only
-          </span>
-          <button className="primary-button" type="submit">
-            <Icon name="check" size={17} />
-            Review check-in
-          </button>
-        </div>
-      </form>
-      <aside>
-        <section className="panel checkin-context">
-          <span className="section-icon">
-            <Icon name="globe" size={25} />
-          </span>
-          <h2>
-            A small check-in.
-            <br />A bigger picture.
-          </h2>
-          <p>
-            Consistent records help you and your mission team understand what’s typical for you—and
-            notice when something changes.
-          </p>
-          <hr />
-          <h3>Before you begin</h3>
-          <ul>
-            <li>Take measurements in a consistent setting.</li>
-            <li>Follow your mission’s measurement protocols.</li>
-            <li>Use the notes for anything that adds context.</li>
-          </ul>
-        </section>
-      </aside>
-    </div>
-  );
-}
 
 export type ConsoleProps = {
   crewId: string;
@@ -1105,6 +703,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
   const [period, setPeriod] = useState("7 days");
   const [alertFilter, setAlertFilter] = useState("All statuses");
   const [reviewed, setReviewed] = useState<string[]>([]);
+  const [keptNotes, setKeptNotes] = useState<Record<string, string>>({});
   const [topic, setTopic] = useState(0);
   const [modal, setModal] = useState<"about" | "settings" | "export" | "onboarding" | "account" | null>(null);
   const [tourIndex, setTourIndex] = useState(0);
@@ -1749,8 +1348,8 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
           >
             <defs>
               <linearGradient id="chartFill" x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0%" stopColor="#49c6e8" stopOpacity=".16" />
-                <stop offset="100%" stopColor="#49c6e8" stopOpacity="0" />
+                <stop offset="0%" stopColor="var(--accent)" stopOpacity=".18" />
+                <stop offset="100%" stopColor="var(--accent)" stopOpacity="0" />
               </linearGradient>
             </defs>
             {Array.from({ length: 5 }, (_, i) => {
@@ -1769,7 +1368,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
               y1={baselineY}
               x2="708"
               y2={baselineY}
-              stroke="#8a9ab5"
+              stroke="var(--subtle)"
               strokeDasharray="5 5"
               strokeWidth="1.2"
             />
@@ -1777,7 +1376,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
             <polyline
               points={points}
               fill="none"
-              stroke="#55cce8"
+              stroke="var(--accent)"
               strokeWidth="2.3"
               strokeLinejoin="round"
               strokeLinecap="round"
@@ -1789,7 +1388,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                   y1={py(baseline.diastolic)}
                   x2="708"
                   y2={py(baseline.diastolic)}
-                  stroke="#a8a1d4"
+                  stroke="var(--amber)"
                   strokeDasharray="5 5"
                   strokeWidth="1"
                   opacity=".65"
@@ -1807,8 +1406,8 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                     cx={px(i)}
                     cy={py(v)}
                     r={i === days - 1 ? 4 : 2.7}
-                    fill="#17212e"
-                    stroke="#aaa2e3"
+                    fill="var(--panel)"
+                    stroke="var(--amber)"
                     strokeWidth="1.5"
                   />
                 ))}
@@ -1830,7 +1429,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                   cy={py(v)}
                   r={i === days - 1 || hover === i ? 4 : 2.7}
                   fill={i === days - 1 ? "#d4faff" : "#14222e"}
-                  stroke="#55cce8"
+                  stroke="var(--accent)"
                   strokeWidth="1.8"
                   pointerEvents="none"
                 />
@@ -1840,7 +1439,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                     x2={px(i)}
                     y1="25"
                     y2="194"
-                    stroke="#55cce8"
+                    stroke="var(--accent)"
                     opacity=".25"
                     pointerEvents="none"
                   />
@@ -2189,7 +1788,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
               <Icon name="external" size={13} />
             </button>
             <div className="sidebar-sim-badge">
-              <span className="status-dot" style={{ backgroundColor: "#38bdf8" }} />
+              <span className="status-dot" />
               <span>Simulation 1 · Educational Prototype</span>
             </div>
             <div className="sidebar-user">
@@ -2387,7 +1986,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
               </div>
             </div>
 
-            {page !== "Mission Overview" && page !== "Health Guidance" && (
+            {page !== "Mission Overview" && page !== "Health Guidance" && page !== "Health Check-In" && (
               <section className="profile-banner">
                 <div className="profile-main">
                   <Avatar person={person} large />
@@ -2432,7 +2031,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
               </section>
             )}
 
-            {page !== "Health Guidance" && (
+            {page !== "Health Guidance" && page !== "Health Check-In" && (
               <div className="mission-context-strip">
                 <label>
                   Setting
@@ -2632,6 +2231,13 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
 
             {page === "Health Trends" && (
               <>
+                <WeekBoard
+                  crewId={person.id}
+                  name={person.name}
+                  today={reading}
+                  exercises={exerciseSessions}
+                  onOpen={navigate}
+                />
                 <div className="section-label">
                   <h2>Measurements over time</h2>
                   <span>
@@ -2673,7 +2279,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
             )}
 
             {page === "Health Check-In" && (
-              <CheckIn
+              <DailyHealthCheckIn
                 key={selectedCrew}
                 draft={drafts[selectedCrew]}
                 onDraftChange={(draft) =>
@@ -2814,6 +2420,24 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
 
             {page === "Alerts & Attention" && (
               <>
+                <section className="panel note-keep">
+                  <PanelTitle
+                    title="Note to keep"
+                    description="Write something to remember. It stays in this browser until you refresh. Nothing is sent."
+                  />
+                  <textarea
+                    aria-label="Note to keep"
+                    value={keptNotes[person.id] ?? ""}
+                    placeholder="A reminder for this person"
+                    onChange={(event) =>
+                      setKeptNotes((old) => ({ ...old, [person.id]: event.target.value }))
+                    }
+                  />
+                  <p>
+                    If something feels sudden or severe, use the crew's own emergency steps. This page
+                    only compares today's numbers with this person's recent average.
+                  </p>
+                </section>
                 <div className="alert-status-grid">
                   {(["Stable", "Observe", "Attention"] as Status[]).map((s) => (
                     <button

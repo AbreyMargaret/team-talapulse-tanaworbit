@@ -691,6 +691,130 @@ h1,
   overflow-wrap: anywhere;
 }
 
+.week-board {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.week-board h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 550;
+  letter-spacing: 0;
+}
+
+.week-board .week-note,
+.note-keep p {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.week-facts {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.week-facts div {
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--accent) 8%, var(--panel));
+}
+
+.week-facts span,
+.week-facts small {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.week-facts strong {
+  display: block;
+  margin-top: 4px;
+  color: var(--text);
+  font-size: 18px;
+  font-weight: 550;
+}
+
+.week-facts small {
+  margin-top: 4px;
+}
+
+.week-table-wrap {
+  overflow-x: auto;
+}
+
+.week-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.week-table th,
+.week-table td {
+  text-align: left;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+
+.week-table th {
+  color: var(--muted);
+  font-weight: 550;
+}
+
+.week-table tr.is-today td {
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+.week-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.week-links button {
+  min-height: 40px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.week-links button:hover,
+.week-links button:focus-visible {
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  outline: none;
+}
+
+.note-keep textarea {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 96px;
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+  resize: vertical;
+}
+
+@media (max-width: 760px) {
+  .week-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 .term-pop {
   position: fixed;
   z-index: 120;

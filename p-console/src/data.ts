@@ -133,6 +133,46 @@ export function nutritionFor(crewId: string) {
     .sort((a, b) => a.missionDay - b.missionDay);
 }
 
+function mean(values: number[], digits = 1): number | null {
+  if (!values.length) return null;
+  const factor = 10 ** digits;
+  return Math.round((values.reduce((total, value) => total + value, 0) / values.length) * factor) / factor;
+}
+
+/** Seven stored days ending on the reference mission day. Today's reading replaces that day's fixture. */
+export function weekSummary(crewId: string, today: Reading, exercises: ExerciseRecord[]) {
+  const start = mission.day - 6;
+  const days = historyFor(crewId, 7).map((row) =>
+    row.missionDay === mission.day ? { ...row, reading: { ...row.reading, ...today } } : row,
+  );
+  const meals = nutritionFor(crewId).filter((row) => row.missionDay >= start && row.missionDay <= mission.day);
+  const sessions = exercises.filter(
+    (row) =>
+      row.crewId === crewId &&
+      row.missionId === mission.id &&
+      row.missionDay >= start &&
+      row.missionDay <= mission.day,
+  );
+  const cabin = cabinConditions.filter((row) => row.missionDay >= start && row.missionDay <= mission.day);
+  return {
+    start,
+    end: mission.day,
+    heart: mean(days.map((day) => day.reading.heart)),
+    sleep: mean(days.map((day) => day.reading.sleep)),
+    fatigue: mean(days.map((day) => day.reading.fatigue)),
+    exerciseMinutes: sessions.reduce((total, session) => total + session.durationMinutes, 0),
+    kcal: mean(meals.map((meal) => meal.kcal), 0),
+    waterMl: mean(meals.map((meal) => meal.waterMl), 0),
+    cabin: cabin[cabin.length - 1] ?? null,
+    rows: days.map((day) => ({
+      day: day.missionDay,
+      heart: day.reading.heart,
+      sleep: day.reading.sleep,
+      fatigue: day.reading.fatigue,
+    })),
+  };
+}
+
 export function trendWindow(crewId: string): HealthRecord[] {
   return historyFor(crewId, rules.baselineWindowDays + 1).filter(
     (record) => record.missionDay < mission.day,
