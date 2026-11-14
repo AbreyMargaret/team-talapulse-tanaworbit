@@ -293,18 +293,25 @@ h1,
   background: var(--panel);
   border-color: var(--border);
   background-image: none;
+  border-radius: 8px;
+  margin: 0 0 12px;
 }
 
-.mini-orbit,
-.mission-mini > span,
+.mini-orbit {
+  color: var(--accent);
+}
+
+.mission-mini > span {
+  color: var(--text);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  font-size: 12px;
+}
+
 .mission-mini small {
   color: var(--muted);
   letter-spacing: 0;
-  font-size: 13px;
-}
-
-.mission-mini small {
-  font-size: 12px;
+  font-size: 11px;
 }
 
 .tanaw-guide-launcher {
@@ -454,6 +461,39 @@ h1,
   font-style: normal;
   line-height: 1;
   flex: none;
+}
+
+[data-theme="light"] .workspace-label,
+[data-theme="light"] .nav-group-label,
+[data-theme="light"] .nav-item,
+[data-theme="light"] .nav-item svg,
+[data-theme="light"] .breadcrumbs,
+[data-theme="light"] .display-control {
+  color: var(--muted) !important;
+}
+
+[data-theme="light"] .nav-item:hover,
+[data-theme="light"] .display-control:hover {
+  background: color-mix(in srgb, var(--text) 6%, transparent) !important;
+  color: var(--text) !important;
+}
+
+[data-theme="light"] .nav-item.active,
+[data-theme="light"] .nav-item.active svg {
+  background: color-mix(in srgb, var(--accent) 18%, transparent) !important;
+  color: var(--text) !important;
+  border-color: transparent !important;
+}
+
+[data-theme="light"] .topbar,
+[data-theme="light"] .sidebar,
+[data-theme="light"] .panel {
+  background: var(--panel);
+  color: var(--text);
+}
+
+[data-theme="light"] .sidebar {
+  background: var(--sidebar);
 }
 
 .term-pop {

@@ -353,22 +353,22 @@ export const PAGE_TO_HASH: Record<Page, string> = {
 };
 
 export const PAGE_DISPLAY_LABELS: Record<Page, string> = {
-  "Astronaut Dashboard": "Astronaut Dashboard",
-  "Physiological Monitoring": "Physiological Monitoring",
-  "Cabin Conditions": "Cabin Conditions",
-  "Orbital Conditions": "Orbital Conditions",
-  "Mission Overview": "Mission Overview",
-  "Health Trends": "Health Trends",
-  "Calculation Trend": "Calculation Trend",
-  "Sensorimotor & Reflex": "Sensorimotor & Reflex",
-  "Space Nutrition": "Space Nutrition",
-  "Exercise & Recovery": "Exercise & Recovery",
-  "Biodata": "Biodata",
-  "Monitor Parameters": "Monitor Parameters",
-  "Health Check-In": "Health Check-In",
-  "Health Toolkit": "Health Toolkit",
-  "Health Guidance": "Health Guidance",
-  "Alerts & Attention": "Alerts & Attention",
+  "Astronaut Dashboard": "Today",
+  "Physiological Monitoring": "Heart and breathing",
+  "Cabin Conditions": "Cabin air",
+  "Orbital Conditions": "Orbit",
+  "Mission Overview": "Crew",
+  "Health Trends": "Recent days",
+  "Calculation Trend": "Your average",
+  "Sensorimotor & Reflex": "Hands and reaction",
+  "Space Nutrition": "Meals",
+  "Exercise & Recovery": "Exercise",
+  "Biodata": "Body measurements",
+  "Monitor Parameters": "Ranges we use",
+  "Health Check-In": "Record today",
+  "Health Toolkit": "How to record",
+  "Health Guidance": "Notes",
+  "Alerts & Attention": "Flags",
 };
 
 export type NavGroup = {
@@ -378,34 +378,44 @@ export type NavGroup = {
 
 const navGroups: NavGroup[] = [
   {
-    pillar: "1. CREW MONITORING",
+    pillar: "Start here",
     items: [
-      { page: "Astronaut Dashboard", label: "Astronaut Dashboard", icon: "activity" },
-      { page: "Physiological Monitoring", label: "Physiological Monitoring", icon: "pulse" },
-      { page: "Cabin Conditions", label: "Cabin Conditions", icon: "thermometer" },
-      { page: "Orbital Conditions", label: "Orbital Conditions", icon: "globe" },
-      { page: "Mission Overview", label: "Mission Overview", icon: "grid" },
+      { page: "Astronaut Dashboard", label: "Today", icon: "activity" },
+      { page: "Health Check-In", label: "Record today", icon: "check" },
+      { page: "Alerts & Attention", label: "Flags", icon: "bell" },
     ],
   },
   {
-    pillar: "2. TRENDS & TELEMETRY",
+    pillar: "Look back",
     items: [
-      { page: "Health Trends", label: "Health Trends", icon: "chart" },
-      { page: "Calculation Trend", label: "Calculation Trend", icon: "chart" },
-      { page: "Sensorimotor & Reflex", label: "Sensorimotor & Reflex", icon: "check" },
-      { page: "Exercise & Recovery", label: "Exercise & Recovery", icon: "activity" },
-      { page: "Space Nutrition", label: "Space Nutrition", icon: "battery" },
-      { page: "Biodata", label: "Biodata", icon: "activity" },
-      { page: "Monitor Parameters", label: "Monitor Parameters", icon: "pulse" },
+      { page: "Health Trends", label: "Recent days", icon: "chart" },
+      { page: "Calculation Trend", label: "Your average", icon: "chart" },
     ],
   },
   {
-    pillar: "3. CREW CARE & GUIDANCE",
+    pillar: "Your body",
     items: [
-      { page: "Health Check-In", label: "Health Check-In", icon: "check" },
-      { page: "Alerts & Attention", label: "Alerts & Attention", icon: "bell" },
-      { page: "Health Toolkit", label: "Health Toolkit", icon: "help" },
-      { page: "Health Guidance", label: "Health Guidance", icon: "book" },
+      { page: "Physiological Monitoring", label: "Heart and breathing", icon: "pulse" },
+      { page: "Exercise & Recovery", label: "Exercise", icon: "activity" },
+      { page: "Space Nutrition", label: "Meals", icon: "battery" },
+      { page: "Sensorimotor & Reflex", label: "Hands and reaction", icon: "check" },
+      { page: "Biodata", label: "Body measurements", icon: "activity" },
+    ],
+  },
+  {
+    pillar: "Around you",
+    items: [
+      { page: "Cabin Conditions", label: "Cabin air", icon: "thermometer" },
+      { page: "Orbital Conditions", label: "Orbit", icon: "globe" },
+      { page: "Mission Overview", label: "Crew", icon: "grid" },
+    ],
+  },
+  {
+    pillar: "Keep nearby",
+    items: [
+      { page: "Health Toolkit", label: "How to record", icon: "help" },
+      { page: "Health Guidance", label: "Notes", icon: "book" },
+      { page: "Monitor Parameters", label: "Ranges we use", icon: "pulse" },
     ],
   },
 ];
@@ -419,39 +429,39 @@ function pageTitle(page: Page): string {
 function pageLede(page: Page): string {
   switch (page) {
     case "Astronaut Dashboard":
-      return "Continuous health telemetry summary, interactive anatomical map, and today's vital indicators.";
+      return "Heart rate, blood pressure, sleep, and how tired you feel, next to your average from the last 14 days.";
     case "Physiological Monitoring":
-      return "Continuous heart rhythm (ECG), blood oxygen (SpO₂), respiration, and NASA PUMA lung gas exchange.";
+      return "Heart rate, blood oxygen, and breathing, drawn as lines from today's numbers.";
     case "Cabin Conditions":
-      return "Spacecraft atmospheric pressure (14.7 psi), oxygen levels (3.1 psi), temperature, and ventilation velocity.";
+      return "Cabin pressure, oxygen, carbon dioxide, temperature, and noise for this mission day.";
     case "Orbital Conditions":
-      return "Real-time space radiation dosimeter, microgravity acceleration levels, and orbital trajectory.";
+      return "Altitude, speed, and lighting for this mission day.";
     case "Mission Overview":
-      return "Simultaneous health, workload, and flight readiness status across all 5 flight crew members.";
+      return "The same daily readings for each person on this mission.";
     case "Health Trends":
-      return "Longitudinal 14-day telemetry trends and physiological adaptation patterns.";
+      return "Heart rate, blood pressure, sleep, and fatigue across recent mission days.";
     case "Calculation Trend":
-      return "Mathematical rolling baselines, standard deviations, and metric shift thresholds.";
+      return "How today compares with the average of the previous 14 days.";
     case "Sensorimotor & Reflex":
-      return "In-flight neuro-vestibular assessment, spatial hand-eye tracking accuracy, and visual reaction time.";
-    case "Exercise & Recovery":
-      return "Daily zero-G countermeasure sessions on T2 Treadmill, CEVIS cycle, and ARED resistance device.";
+      return "A short tapping test and a reaction-time test. Scores stay in this browser until you refresh.";
     case "Space Nutrition":
-      return "Daily caloric intake, macronutrient breakdown, and hydration tracking.";
+      return "Meals logged for this mission day, with energy and water beside them.";
+    case "Exercise & Recovery":
+      return "Minutes of exercise on this mission, and a place to write down a session.";
     case "Biodata":
-      return "Flight crew anthropometrics, baseline physiological profiles, and body composition.";
+      return "Age, height, mass, and a few body notes for this person.";
     case "Monitor Parameters":
-      return "Standard operational health boundaries and flight surgeon threshold criteria.";
+      return "The differences this page treats as worth a second look.";
     case "Health Check-In":
-      return "Astronaut daily self-reported subjective health, sleep quality, and physical symptoms.";
+      return "Write down heart rate, blood pressure, sleep, fatigue, and mood. It stays until you refresh.";
     case "Health Toolkit":
-      return "Actionable clinical countermeasure protocols, routine checklists, and in-flight health procedures.";
+      return "Steps for writing a number down, in the same order you would do it.";
     case "Health Guidance":
-      return "Evidence-based flight medicine documentation, operational guidelines, and adaptation strategies.";
+      return "Short notes on sleep, tiredness, and living with less gravity.";
     case "Alerts & Attention":
-      return "Operational telemetry flags, baseline deviations, and review status.";
+      return "Readings that differ from your 14-day average, and anything marked for a second look.";
     default:
-      return "Continuous health telemetry summary and operational mission health records.";
+      return "Health notes for a long mission.";
   }
 }
 

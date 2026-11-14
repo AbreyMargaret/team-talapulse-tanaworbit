@@ -95,19 +95,19 @@
 }
 
 :root {
-  --bg: #090d16;
-  --sidebar: #060910;
-  --text: #f1f5f9;
-  --muted: #94a3b8;
-  --subtle: #64748b;
-  --border: #1e293b;
-  --panel: #0f172a;
-  --accent: #38bdf8;
-  --on-accent: #0f172a;
-  --cyan: #38bdf8;
-  --green: #22c55e;
-  --amber: #f59e0b;
-  --red: #ef4444;
+  --bg: #191a1d;
+  --sidebar: #141516;
+  --text: #e7e4dc;
+  --muted: #a39e93;
+  --subtle: #7c776e;
+  --border: #2e2d2a;
+  --panel: #212226;
+  --accent: #c6b59a;
+  --on-accent: #1c1a16;
+  --cyan: #c6b59a;
+  --green: #8ea184;
+  --amber: #d2a86a;
+  --red: #d08a7a;
 }
 .app-shell {
   min-height: 100vh;
@@ -168,11 +168,6 @@
   padding: 12px 10px;
   border-top: 1px solid var(--border);
   background: var(--sidebar);
-}
-  font-size: 8px;
-  letter-spacing: 1.8px;
-  margin-top: 6px;
-  font-weight: 500;
 }
 .brand-mark {
   width: 43px;
@@ -483,33 +478,35 @@ main {
 }
 .eyebrow {
   font-family: var(--font-mono);
-  font-size: 8px;
-  letter-spacing: 1.5px;
-  color: #7793b8;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
   display: flex;
   align-items: center;
   gap: 6px;
-  font-weight: 450;
+  font-weight: 600;
 }
 .eyebrow > span {
   display: inline-block;
-  width: 4px;
-  height: 4px;
-  border-radius: 1px;
-  background: #5ca1e9;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
 }
 h1 {
-  font-size: clamp(24px, 2.2vw, 33px);
+  font-size: clamp(24px, 2.2vw, 32px);
   line-height: 1.2;
-  font-weight: 550;
-  letter-spacing: -0.9px;
-  margin-top: 9px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-top: 8px;
+  color: var(--text);
 }
 .page-heading p {
-  color: #8996ac;
-  font-size: 11px;
-  margin-top: 9px;
-  line-height: 1.6;
+  color: var(--muted);
+  font-size: 14px;
+  margin-top: 6px;
+  line-height: 1.55;
 }
 .heading-actions {
   display: flex;
@@ -3464,31 +3461,31 @@ textarea::placeholder {
     font-size: 18px;
   }
   .profile-name .badge {
-    font-size: 6px;
-    padding: 4px 5px;
+    font-size: 10px;
+    padding: 3px 6px;
     margin-top: 2px;
   }
   .profile-main p {
-    font-size: 8px;
-    margin-top: 6px;
+    font-size: 11px;
+    margin-top: 4px;
   }
   .profile-meta {
-    font-size: 7px;
-    margin-top: 12px;
+    font-size: 11px;
+    margin-top: 8px;
   }
   .profile-meta svg {
-    width: 12px;
+    width: 13px;
   }
   .mission-day {
-    padding-left: 13px;
-    min-width: 75px;
+    padding-left: 14px;
+    min-width: 85px;
   }
   .mission-day > span {
-    font-size: 6px;
+    font-size: 9px;
     letter-spacing: 0.8px;
   }
   .mission-day strong {
-    font-size: 24px;
+    font-size: 22px;
   }
   .mission-day strong > span {
     font-size: 8px;
@@ -5305,16 +5302,16 @@ textarea::placeholder {
     padding: 5px 6px;
   }
   .touch-mode .profile-main p {
-    font-size: 9px;
+    font-size: 12px;
   }
   .touch-mode .profile-meta {
-    font-size: 8px;
+    font-size: 11px;
   }
   .touch-mode .section-label h2 {
-    font-size: 14px;
+    font-size: 16px;
   }
   .touch-mode .section-label > span {
-    font-size: 8px;
+    font-size: 12px;
   }
   .touch-mode .metric-grid {
     gap: 12px;
@@ -5645,19 +5642,19 @@ textarea::placeholder {
 
 [data-theme="light"] {
   color-scheme: light;
-  --bg: #f8fafc;
-  --sidebar: #ffffff;
-  --text: #0f172a;
-  --muted: #475569;
-  --subtle: #64748b;
-  --border: #e2e8f0;
-  --panel: #ffffff;
-  --accent: #0284c7;
-  --on-accent: #ffffff;
-  --cyan: #0284c7;
-  --green: #16a34a;
-  --amber: #d97706;
-  --red: #dc2626;
+  --bg: #f4f1ea;
+  --sidebar: #efeae2;
+  --text: #1e1c17;
+  --muted: #5c574e;
+  --subtle: #8a8478;
+  --border: #ddd6c8;
+  --panel: #fbf9f4;
+  --accent: #3d5344;
+  --on-accent: #f7f4ee;
+  --cyan: #3d5344;
+  --green: #3d5344;
+  --amber: #8a5a2a;
+  --red: #8d4034;
   color: var(--text);
   background: var(--bg);
 }
@@ -5800,6 +5797,52 @@ textarea::placeholder {
 [data-theme="light"] .crew-card-link {
   border-top-color: #e2e8f0 !important;
   color: #0284c7 !important;
+}
+
+[data-theme="light"] .page-heading h1,
+[data-theme="light"] h1 {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .page-heading p {
+  color: #475569 !important;
+}
+
+[data-theme="light"] .page-note {
+  color: #64748b !important;
+}
+
+[data-theme="light"] .eyebrow {
+  color: #0284c7 !important;
+}
+
+[data-theme="light"] .section-label h2 {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .section-label span {
+  color: #64748b !important;
+}
+
+[data-theme="light"] .secondary-button {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .secondary-button:hover {
+  background: #f1f5f9 !important;
+  border-color: #94a3b8 !important;
+}
+
+[data-theme="light"] .primary-button {
+  background: #0284c7 !important;
+  color: #ffffff !important;
+  border-color: transparent !important;
+}
+
+[data-theme="light"] .primary-button:hover {
+  background: #0369a1 !important;
 }
 
 [data-theme="light"] .profile-banner {
