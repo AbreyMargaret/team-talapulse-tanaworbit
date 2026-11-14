@@ -999,10 +999,6 @@ function CheckIn({
             <li>Follow your mission’s measurement protocols.</li>
             <li>Use the notes for anything that adds context.</li>
           </ul>
-          <div className="info-banner">
-            <Icon name="info" size={18} />
-            <span>This is an educational concept. Do not use it to make medical decisions.</span>
-          </div>
         </section>
       </aside>
     </div>
@@ -2113,10 +2109,6 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                 <Icon name="chevron" size={16} />
               </button>
             </div>
-            <div className="px-3 py-2 text-[10px] font-mono text-slate-400/90 border-t border-slate-800/80 mt-2 flex items-center gap-1.5">
-              <span className="size-1.5 rounded-full bg-cyan-400 animate-pulse" />
-              <span>Simulation Runtime · Educational Prototype</span>
-            </div>
           </div>
         </aside>
         <div className="main-shell">
@@ -2141,38 +2133,34 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
               <strong>{pageTitle(page)}</strong>
             </div>
             <div className="topbar-right">
-              <span className="system-status">
-                <span className="status-dot" />
-                Telemetry Link: NOMINAL (99.8%)
-              </span>
               <div className="display-controls">
                 <button
                   className={`display-control ${display.touch ? "is-on" : ""}`}
-                  aria-label={display.touch ? "Use workstation layout" : "Use tactical tablet layout"}
+                  aria-label={display.touch ? "Use desk layout" : "Use tablet layout"}
                   aria-pressed={display.touch}
-                  title="Switch between Workstation and Tactical Tablet mode"
+                  title="Switch between desk and tablet layout"
                   onClick={() => display.setMode(display.touch ? "desktop" : "touch")}
                 >
                   {display.touch ? <Tablet size={15} /> : <Monitor size={15} />}
-                  <span>{display.touch ? "Tactical Tablet" : "Workstation"}</span>
+                  <span>{display.touch ? "Tablet" : "Desk"}</span>
                 </button>
                 <button
                   className="display-control"
                   aria-label="Toggle visual theme"
-                  title={theme === "dark" ? "Switch to Daylight Mode" : "Switch to Dark Ops Mode"}
+                  title={theme === "dark" ? "Switch to light" : "Switch to dark"}
                   onClick={() => setTheme((t) => (t === "dark" ? "light" : "dark"))}
                 >
-                  {theme === "dark" ? <Sun size={15} className="text-amber-400" /> : <Moon size={15} className="text-cyan-300" />}
-                  <span>{theme === "dark" ? "Daylight" : "Dark Ops"}</span>
+                  {theme === "dark" ? <Sun size={15} /> : <Moon size={15} />}
+                  <span>{theme === "dark" ? "Light" : "Dark"}</span>
                 </button>
                 <button
                   className={`display-control ${liveStream ? "is-on" : ""}`}
-                  aria-label="Toggle continuous live telemetry stream (4 Hz)"
-                  title="Toggle continuous live biometric telemetry waveform stream (4 Hz)"
+                  aria-label="Toggle the moving lines"
+                  title="Show or hide the moving lines."
                   onClick={() => setLiveStream((v) => !v)}
                 >
-                  <Radio size={14} className={liveStream ? "text-cyan-400 animate-pulse" : "text-slate-400"} />
-                  <span>{liveStream ? "Live 4 Hz" : "Standby"}</span>
+                  <Radio size={14} />
+                  <span>{liveStream ? "Lines on" : "Lines off"}</span>
                 </button>
                 <button
                   className="display-control"
@@ -2349,7 +2337,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                 <div className="section-label">
                   <h2>Today's numbers</h2>
                   <span>
-                    {checkedIn[selectedCrew] ? "Recorded just now" : "Sample for 08:32 UTC"}
+                    {checkedIn[selectedCrew] ? "just now" : "Today, 08:32 UTC"}
                   </span>
                 </div>
                 <MetricCards />
