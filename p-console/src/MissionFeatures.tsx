@@ -11,11 +11,12 @@ import {
   type Reading,
 } from "./data";
 import "./features.css";
+import { MaybeTerm } from "./Term";
 
 function Panel({ title, note, children }: { title: string; note: string; children: ReactNode }) {
   return (
     <section className="panel feature-stack">
-      <div>
+      <div className="feature-header">
         <h2>{title}</h2>
         <p className="feature-note">{note}</p>
       </div>
@@ -37,12 +38,14 @@ export function BiodataPanel({ crewId }: { crewId: string }) {
   return (
     <Panel
       title="Biodata"
-      note="Fictional body description for this profile. It is not a clinical record and it does not change the health comparison."
+      note="Age, height, mass, and a few notes for this person."
     >
       <div className="feature-grid">
         {facts.map(([label, value]) => (
           <div className="feature-stat" key={label}>
-            <span>{label}</span>
+            <span>
+              <MaybeTerm>{label}</MaybeTerm>
+            </span>
             <strong>{value}</strong>
           </div>
         ))}
@@ -55,7 +58,7 @@ export function MonitorParametersPanel() {
   return (
     <Panel
       title="Monitor parameters"
-      note="These are the demonstration fields and bounds the tester checks. A bound is not a clinical limit or a NASA alarm."
+      note="The ranges this page uses when it compares a reading with the recent average."
     >
       <div className="feature-table-wrap">
         <table className="feature-table">
@@ -64,7 +67,7 @@ export function MonitorParametersPanel() {
               <th>Parameter</th>
               <th>Group</th>
               <th>Unit</th>
-              <th>Demo range</th>
+              <th>Range</th>
               <th>Comparison</th>
             </tr>
           </thead>
@@ -92,7 +95,7 @@ export function CalculationTrendPanel({ crewId, reading }: { crewId: string; rea
   return (
     <Panel
       title="Calculation trend"
-      note={`Baseline = arithmetic mean of mission days ${mission.day - trend.window.length} through ${mission.day - 1}, rounded to one decimal. The current reading can replace today's fixture in this browser session only.`}
+      note={`Average of days ${mission.day - trend.window.length} through ${mission.day - 1}. A number you record can stand in for today until you refresh.`}
     >
       <div className="feature-table-wrap">
         <table className="feature-table">
@@ -102,7 +105,7 @@ export function CalculationTrendPanel({ crewId, reading }: { crewId: string; rea
               <th>Current</th>
               <th>14-day mean</th>
               <th>Difference</th>
-              <th>Demo rule</th>
+              <th>Range</th>
               <th>Flag</th>
             </tr>
           </thead>
@@ -119,7 +122,7 @@ export function CalculationTrendPanel({ crewId, reading }: { crewId: string; rea
                 <td>{row.delta}</td>
                 <td>{row.rule}</td>
                 <td className={row.flagged ? "feature-flag" : "feature-ok"}>
-                  {row.flagged ? "Observe" : "Within demo rule"}
+                  {row.flagged ? "Different" : "Inside the range"}
                 </td>
               </tr>
             ))}
@@ -127,8 +130,7 @@ export function CalculationTrendPanel({ crewId, reading }: { crewId: string; rea
         </table>
       </div>
       <p className="feature-note">
-        {trend.window.length} synthetic days are in the window. Stable does not mean healthy. Observe
-        does not mean a diagnosis.
+        {trend.window.length} days are in this window.
       </p>
     </Panel>
   );
@@ -139,31 +141,31 @@ export function CabinPanel() {
   return (
     <Panel
       title="Cabin internal conditions"
-      note="Scripted samples for the shared fictional cabin. They are not life-support telemetry and they do not change a crew member's health flags."
+      note="Pressure, gases, temperature, and noise in the cabin for this mission day."
     >
       <div className="feature-grid">
         <div className="feature-stat">
-          <span>Pressure</span>
+          <span><MaybeTerm>Pressure</MaybeTerm></span>
           <strong>{latest.pressureKpa} kPa</strong>
         </div>
         <div className="feature-stat">
-          <span>Carbon dioxide</span>
+          <span><MaybeTerm>Carbon dioxide</MaybeTerm></span>
           <strong>{latest.co2MmHg} mmHg</strong>
         </div>
         <div className="feature-stat">
-          <span>Oxygen</span>
+          <span><MaybeTerm>Oxygen</MaybeTerm></span>
           <strong>{latest.o2Percent}%</strong>
         </div>
         <div className="feature-stat">
-          <span>Temperature</span>
+          <span><MaybeTerm>Temperature</MaybeTerm></span>
           <strong>{latest.temperatureC} °C</strong>
         </div>
         <div className="feature-stat">
-          <span>Humidity</span>
+          <span><MaybeTerm>Humidity</MaybeTerm></span>
           <strong>{latest.humidityPercent}%</strong>
         </div>
         <div className="feature-stat">
-          <span>Noise</span>
+          <span><MaybeTerm>Noise</MaybeTerm></span>
           <strong>{latest.noiseDb} dB</strong>
         </div>
       </div>
@@ -202,27 +204,27 @@ export function OrbitalPanel() {
   return (
     <Panel
       title="Dynamic orbital conditions"
-      note="A short scripted series for Aster Expedition VII. Altitude and lighting change by sample. They do not alter baselines or comparison rules."
+      note="Altitude, speed, and lighting for Aster Expedition VII."
     >
       <div className="feature-grid">
         <div className="feature-stat">
-          <span>Altitude</span>
+          <span><MaybeTerm>Altitude</MaybeTerm></span>
           <strong>{latest.altitudeKm} km</strong>
         </div>
         <div className="feature-stat">
-          <span>Velocity</span>
+          <span><MaybeTerm>Velocity</MaybeTerm></span>
           <strong>{latest.velocityKms} km/s</strong>
         </div>
         <div className="feature-stat">
-          <span>Lighting</span>
+          <span><MaybeTerm>Lighting</MaybeTerm></span>
           <strong>{latest.lighting}</strong>
         </div>
         <div className="feature-stat">
-          <span>Beta angle</span>
+          <span><MaybeTerm>Beta angle</MaybeTerm></span>
           <strong>{latest.betaAngleDeg}°</strong>
         </div>
         <div className="feature-stat">
-          <span>Eclipse</span>
+          <span><MaybeTerm>Eclipse</MaybeTerm></span>
           <strong>{latest.eclipseMinutes} min</strong>
         </div>
         <div className="feature-stat">
@@ -267,7 +269,7 @@ export function NutritionPanel({ crewId }: { crewId: string }) {
   return (
     <Panel
       title="Space nutrition"
-      note="Example intake for this fictional profile. It is not a diet order, a fluid prescription, or a clinical target."
+      note="Meals, energy, and water for this person today."
     >
       <div className="feature-grid">
         <div className="feature-stat">
@@ -275,7 +277,7 @@ export function NutritionPanel({ crewId }: { crewId: string }) {
           <strong>{today.kcal} kcal</strong>
         </div>
         <div className="feature-stat">
-          <span>Water</span>
+          <span><MaybeTerm>Water</MaybeTerm></span>
           <strong>{today.waterMl} mL</strong>
         </div>
         <div className="feature-stat">
@@ -287,9 +289,10 @@ export function NutritionPanel({ crewId }: { crewId: string }) {
           <strong>{today.sodiumMg} mg</strong>
         </div>
       </div>
-      <p className="feature-note">
-        Menu on that day: {today.itemIds.map((id) => names.get(id) ?? id).join(", ")}.
-      </p>
+      <div className="feature-menu-callout">
+        <strong>Planned Menu · FD {today.missionDay}</strong>
+        <p>{today.itemIds.map((id) => names.get(id) ?? id).join(", ")}</p>
+      </div>
       <div className="feature-table-wrap">
         <table className="feature-table">
           <thead>

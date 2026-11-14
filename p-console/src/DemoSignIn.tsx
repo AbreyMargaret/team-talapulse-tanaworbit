@@ -28,7 +28,6 @@ export default function DemoSignIn({
   const [error, setError] = useState("");
   const [checking, setChecking] = useState(false);
   const [utcTime, setUtcTime] = useState("");
-  const [showKeypad, setShowKeypad] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const person = crew[selected] || crew[0];
 
@@ -43,6 +42,45 @@ export default function DemoSignIn({
     const interval = setInterval(updateClock, 1000);
     return () => clearInterval(interval);
   }, []);
+
+  // Keyboard navigation & direct digit typing support
+  useEffect(() => {
+    inputRef.current?.focus();
+
+    function handleKeyDown(e: KeyboardEvent) {
+      if (checking) return;
+      const target = e.target as HTMLElement | null;
+      if (target && target.tagName === "INPUT" && target !== inputRef.current) return;
+      if (target && (target.tagName === "TEXTAREA" || target.isContentEditable)) return;
+
+      if (/^[0-9]$/.test(e.key)) {
+        e.preventDefault();
+        setError("");
+        setPin((prev) => (prev.length < 4 ? prev + e.key : prev));
+      } else if (e.key === "Backspace") {
+        e.preventDefault();
+        setError("");
+        setPin((prev) => prev.slice(0, -1));
+      } else if (e.key === "Escape" || e.key === "Delete") {
+        e.preventDefault();
+        setError("");
+        setPin("");
+      } else if (e.key === "Enter") {
+        e.preventDefault();
+        if (pin.length === 4) {
+          if (pin === person.demoPin) {
+            onEnter(selected);
+          } else {
+            setError("Security code mismatch. Try the designated mission PIN.");
+            setPin("");
+          }
+        }
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [checking, pin, person.demoPin, onEnter, selected]);
 
   useEffect(() => {
     if (pin.length !== 4) return;
@@ -64,12 +102,14 @@ export default function DemoSignIn({
     setSelected(index);
     setPin("");
     setError("");
+    inputRef.current?.focus();
   }
 
   function digit(value: string) {
     if (checking) return;
     setError("");
     setPin((current) => (current + value).slice(0, 4));
+    inputRef.current?.focus();
   }
 
   function quickAuthorize() {
@@ -94,53 +134,105 @@ export default function DemoSignIn({
         </div>
 
         <div className="access-story-copy">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-300 text-xs font-mono mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/70 border border-cyan-500/40 text-cyan-300 text-xs font-mono mb-4">
             <Radio size={13} className="text-cyan-400 animate-pulse" />
             <span>DEEP-SPACE HEALTH OPERATIONS</span>
           </div>
 
-          <h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-white leading-[1.15]">
+          <h1 className="text-3xl lg:text-4xl xl:text-5xl font-semibold tracking-tight text-white leading-[1.15]">
             One crew.
             <br />
             <span className="text-cyan-300">A connected perspective.</span>
           </h1>
 
-          <p className="text-slate-300 text-sm md:text-base leading-relaxed mt-4 max-w-[420px]">
+          <p className="text-slate-300 text-xs lg:text-sm leading-relaxed mt-3 max-w-[440px]">
             Autonomous physiological telemetry, cabin environment life-support correlation,
             and individualized clinical countermeasures for long-duration human spaceflight.
           </p>
 
-          <div className="access-mission mt-6 p-4 rounded-xl bg-slate-900/70 border border-slate-700/60 backdrop-blur-md">
-            <div className="flex items-center gap-3">
-              <div className="size-10 rounded-lg bg-cyan-950/80 border border-cyan-500/30 grid place-items-center text-cyan-300">
-                <Orbit size={22} />
+          <div className="access-mission mt-5 p-3.5 rounded-xl bg-slate-900/80 border border-slate-700/80 backdrop-blur-md">
+            <div className="flex items-center justify-between gap-3 mb-2.5 pb-2 border-b border-slate-800">
+              <div className="flex items-center gap-2">
+                <span className="size-2 rounded-full bg-emerald-400 animate-pulse" />
+                <strong className="text-white text-sm font-semibold">{mission.name}</strong>
               </div>
-              <div>
-                <div className="flex items-center gap-2">
-                  <span className="size-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <strong className="text-white text-sm font-semibold">{mission.name}</strong>
-                  <span className="text-[11px] font-mono text-cyan-400 px-2 py-0.5 rounded bg-cyan-950/50 border border-cyan-800/40">
-                    FD {mission.day} / {mission.durationDays}
-                  </span>
-                </div>
-                <span className="block text-xs text-slate-400 mt-1">
-                  Low-Earth Orbit Expedition · All 5 Crew Telemetry Channels Active
-                </span>
+              <span className="text-[11px] font-mono text-cyan-400 px-2 py-0.5 rounded bg-cyan-950/60 border border-cyan-800/40">
+                FLIGHT DAY {mission.day} / {mission.durationDays}
+              </span>
+            </div>
+            <div className="grid grid-cols-3 gap-2 text-center font-mono text-xs">
+              <div className="p-1.5 rounded bg-slate-950/60 border border-slate-800/80">
+                <span className="text-[9px] text-slate-400 block uppercase">Altitude</span>
+                <strong className="text-slate-200 text-xs">408 km</strong>
+              </div>
+              <div className="p-1.5 rounded bg-slate-950/60 border border-slate-800/80">
+                <span className="text-[9px] text-slate-400 block uppercase">Velocity</span>
+                <strong className="text-cyan-300 text-xs">7.66 km/s</strong>
+              </div>
+              <div className="p-1.5 rounded bg-slate-950/60 border border-slate-800/80">
+                <span className="text-[9px] text-slate-400 block uppercase">Telemetry</span>
+                <strong className="text-emerald-400 text-xs">5/5 Active</strong>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="access-earth" />
+        {/* Seamless Planetary Horizon Vista & Orbital Trajectory (Zero hard oval edges) */}
+        <div className="access-orbital-vista" aria-hidden="true">
+          <div className="vista-horizon">
+            <div className="vista-atmosphere-glow" />
+          </div>
 
-        <div className="access-story-footer">
-          <div className="flex items-center justify-between text-xs text-slate-400">
-            <span>TEAM TALA PULSE · NASA SPACE APPS 2026</span>
+          <svg
+            className="vista-orbit-svg"
+            viewBox="0 0 600 220"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            {/* Orbital Trajectory Path */}
+            <path
+              d="M -20 170 Q 260 50 620 110"
+              stroke="rgba(56, 189, 248, 0.45)"
+              strokeWidth="1.5"
+              strokeDasharray="5 5"
+            />
+            {/* Spacecraft Node */}
+            <circle cx="320" cy="85" r="5" fill="#38bdf8" />
+            <circle cx="320" cy="85" r="10" stroke="rgba(56, 189, 248, 0.5)" strokeWidth="1" />
+
+            {/* Floating Aerospace Telemetry Vector */}
+            <g transform="translate(340, 68)">
+              <rect
+                x="0"
+                y="0"
+                width="130"
+                height="28"
+                rx="6"
+                fill="rgba(8, 15, 28, 0.88)"
+                stroke="rgba(56, 189, 248, 0.35)"
+              />
+              <text x="8" y="13" fill="#f1f5f9" fontSize="8.5" fontFamily="monospace" fontWeight="bold">
+                ASTER VII · 408 KM
+              </text>
+              <text x="8" y="23" fill="#38bdf8" fontSize="8" fontFamily="monospace">
+                7.66 KM/S · 51.6° INC
+              </text>
+            </g>
+          </svg>
+        </div>
+
+        {/* Clean Grounded Footer (Never overlaps or clips against graphics) */}
+        <div className="access-story-footer relative z-10 pt-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 p-3 rounded-xl bg-slate-950/85 border border-slate-800/90 backdrop-blur-md">
+            <span className="font-mono text-[11px] tracking-wider text-slate-400">
+              TEAM TALA PULSE · NASA SPACE APPS 2026
+            </span>
             <Link
               to="/b-login"
-              className="text-cyan-400 hover:text-cyan-300 underline underline-offset-4 flex items-center gap-1"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-cyan-300 hover:text-cyan-200 font-mono text-xs transition"
             >
-              Backend Review Door <ArrowRight size={12} />
+              <span>Backend Review Door</span>
+              <ArrowRight size={12} />
             </Link>
           </div>
         </div>
@@ -152,7 +244,7 @@ export default function DemoSignIn({
           <div className="flex items-center gap-2">
             <span className="size-2 rounded-full bg-emerald-400 animate-pulse" />
             <span className="text-[11px] font-mono tracking-wider text-slate-300 font-medium">
-              SIMULATION GATEWAY · ACTIVE
+              FLIGHT CREW GATEWAY · OPERATIONAL
             </span>
           </div>
           <div className="flex items-center gap-2 font-mono text-xs text-cyan-400">
@@ -262,26 +354,53 @@ export default function DemoSignIn({
                 <KeyRound size={13} className="text-cyan-400" />
                 Manual PIN Verification (Assigned: <code className="text-cyan-300 font-mono font-bold">{person.demoPin}</code>)
               </span>
-              <button
-                type="button"
-                onClick={() => setShowKeypad((v) => !v)}
-                className="text-cyan-400 hover:text-cyan-300 text-[11px] underline underline-offset-2 cursor-pointer"
-              >
-                {showKeypad ? "Hide keypad" : "Show numeric keypad"}
-              </button>
+              <span className="text-[11px] font-mono text-slate-500">
+                Keyboard or keypad
+              </span>
             </div>
 
-            {/* Discrete 4-digit code slots */}
-            <div className="flex items-center gap-3 justify-center my-3">
+            {/* Hidden accessible input to support physical keyboard & mobile entry */}
+            <input
+              ref={inputRef}
+              type="text"
+              inputMode="numeric"
+              pattern="[0-9]*"
+              autoComplete="off"
+              autoFocus
+              maxLength={4}
+              value={pin}
+              disabled={checking}
+              onChange={(e) => {
+                setError("");
+                setPin(e.target.value.replace(/\D/g, "").slice(0, 4));
+              }}
+              className="sr-only"
+              aria-label="4-digit mission PIN input"
+            />
+
+            {/* Discrete 4-digit code slots (clickable to focus) */}
+            <div
+              className="flex items-center gap-3 justify-center my-3 cursor-pointer group"
+              onClick={() => inputRef.current?.focus()}
+              role="button"
+              tabIndex={0}
+              aria-label="Focus PIN input"
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") inputRef.current?.focus();
+              }}
+            >
               {[0, 1, 2, 3].map((slot) => {
                 const char = pin[slot];
+                const isCurrent = pin.length === slot;
                 return (
                   <div
                     key={slot}
                     className={`size-12 rounded-lg border text-lg font-mono font-bold grid place-items-center transition ${
                       char
                         ? "border-cyan-400 bg-cyan-950/40 text-cyan-300 shadow-[0_0_12px_rgba(34,211,238,0.2)]"
-                        : "border-slate-700 bg-slate-950/60 text-slate-500"
+                        : isCurrent
+                        ? "border-cyan-500/60 bg-slate-950/80 text-cyan-400 ring-2 ring-cyan-500/20 animate-pulse"
+                        : "border-slate-700 bg-slate-950/60 text-slate-500 group-hover:border-slate-600"
                     }`}
                   >
                     {char ? "•" : ""}
@@ -290,49 +409,51 @@ export default function DemoSignIn({
               })}
             </div>
 
-            {/* Optional Touch/Click Numeric Keypad */}
-            {showKeypad && (
-              <div className="grid grid-cols-3 gap-2 max-w-[260px] mx-auto mt-3">
-                {["1", "2", "3", "4", "5", "6", "7", "8", "9"].map((n) => (
-                  <button
-                    key={n}
-                    type="button"
-                    disabled={checking}
-                    onClick={() => digit(n)}
-                    className="h-10 rounded-lg bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-sm font-mono font-medium text-slate-200 transition active:scale-95 cursor-pointer"
-                  >
-                    {n}
-                  </button>
-                ))}
+            {/* Always-visible Numeric Keypad */}
+            <div className="grid grid-cols-3 gap-2 max-w-[260px] mx-auto mt-3">
+              {["1", "2", "3", "4", "5", "6", "7", "8", "9"].map((n) => (
                 <button
-                  type="button"
-                  disabled={checking || !pin}
-                  onClick={() => setPin("")}
-                  className="h-10 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-mono text-slate-400 transition cursor-pointer"
-                >
-                  Clear
-                </button>
-                <button
+                  key={n}
                   type="button"
                   disabled={checking}
-                  onClick={() => digit("0")}
+                  onClick={() => digit(n)}
                   className="h-10 rounded-lg bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-sm font-mono font-medium text-slate-200 transition active:scale-95 cursor-pointer"
                 >
-                  0
+                  {n}
                 </button>
-                <button
-                  type="button"
-                  disabled={checking || pin.length !== 4}
-                  onClick={() => {
-                    if (pin === person.demoPin) onEnter(selected);
-                    else setError("Invalid code. Please try again.");
-                  }}
-                  className="h-10 rounded-lg bg-cyan-900/60 hover:bg-cyan-800/70 border border-cyan-700/50 text-xs font-mono text-cyan-200 transition cursor-pointer"
-                >
-                  Enter
-                </button>
-              </div>
-            )}
+              ))}
+              <button
+                type="button"
+                disabled={checking || !pin}
+                onClick={() => {
+                  setPin("");
+                  setError("");
+                  inputRef.current?.focus();
+                }}
+                className="h-10 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-800 text-xs font-mono text-slate-400 transition cursor-pointer"
+              >
+                Clear
+              </button>
+              <button
+                type="button"
+                disabled={checking}
+                onClick={() => digit("0")}
+                className="h-10 rounded-lg bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-sm font-mono font-medium text-slate-200 transition active:scale-95 cursor-pointer"
+              >
+                0
+              </button>
+              <button
+                type="button"
+                disabled={checking || pin.length !== 4}
+                onClick={() => {
+                  if (pin === person.demoPin) onEnter(selected);
+                  else setError("Security code mismatch. Try the designated mission PIN.");
+                }}
+                className="h-10 rounded-lg bg-cyan-900/60 hover:bg-cyan-800/70 border border-cyan-700/50 text-xs font-mono text-cyan-200 transition cursor-pointer disabled:opacity-40"
+              >
+                Enter
+              </button>
+            </div>
 
             {error && (
               <p className="text-rose-400 text-xs text-center mt-2 font-medium" role="alert">

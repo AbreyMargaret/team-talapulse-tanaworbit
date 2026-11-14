@@ -181,36 +181,27 @@ export default function AnatomicalAvatar({
   }
 
   return (
-    <div className="p-5 md:p-6 rounded-2xl bg-slate-900/80 border border-slate-800 shadow-xl backdrop-blur-xl">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-slate-800/80 pb-4 mb-5">
+    <div className="quiet-card panel">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-[var(--border)] pb-4 mb-5">
         <div>
-          <div className="flex items-center gap-2">
-            <span className="size-2 rounded-full bg-cyan-400 animate-pulse" />
-            <span className="text-[11px] font-mono tracking-wider text-cyan-400 uppercase font-semibold">
-              Interactive Body Telemetry & In-Flight Symptoms
-            </span>
-          </div>
-          <h3 className="text-lg md:text-xl font-semibold text-white tracking-tight mt-0.5">
-            Body Area Health Map
-          </h3>
-          <p className="text-xs text-slate-400">
-            Click any body region to learn how zero gravity affects it, see normal baselines, and log symptoms.
+          <h3 className="text-lg font-semibold">Where you feel it</h3>
+          <p className="text-sm text-[var(--muted)]">
+            Pick an area and note what you feel.
           </p>
         </div>
 
         <div className="flex items-center gap-2 text-xs font-mono">
           <span className="px-2.5 py-1 rounded-full bg-emerald-950/70 border border-emerald-500/30 text-emerald-300 flex items-center gap-1.5">
             <span className="size-1.5 rounded-full bg-emerald-400" />
-            Normal
+            Usual
           </span>
           <span className="px-2.5 py-1 rounded-full bg-amber-950/70 border border-amber-500/30 text-amber-300 flex items-center gap-1.5">
             <span className="size-1.5 rounded-full bg-amber-400" />
-            Attention
+            Different
           </span>
           <span className="px-2.5 py-1 rounded-full bg-rose-950/70 border border-rose-500/30 text-rose-300 flex items-center gap-1.5">
             <span className="size-1.5 rounded-full bg-rose-400" />
-            Action Required
+            Flagged
           </span>
         </div>
       </div>
@@ -421,27 +412,15 @@ export default function AnatomicalAvatar({
         <div className="lg:col-span-7 flex flex-col gap-4">
           {/* Card: What Zero Gravity Does Here */}
           <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800">
-            <div className="flex items-center justify-between">
-              <div>
-                <span className="text-[10px] font-mono uppercase tracking-wider text-cyan-400 font-bold block">
-                  SELECTED REGION
-                </span>
-                <h4 className="text-base font-semibold text-white">
-                  {zoneInfo.laymanLabel} <span className="text-slate-400 font-normal text-xs">({zoneInfo.title})</span>
-                </h4>
-              </div>
-              <span className="px-2.5 py-1 rounded-full bg-emerald-950/70 border border-emerald-500/30 text-emerald-300 text-xs font-mono">
-                Baseline: {zoneInfo.status}
-              </span>
-            </div>
+            <h4 className="text-base font-semibold">{zoneInfo.laymanLabel}</h4>
 
-            <div className="mt-3 p-3 rounded-lg bg-slate-900/80 border border-slate-800/80 text-xs leading-relaxed text-slate-300">
-              <strong className="text-cyan-300 block mb-1">How Microgravity Affects This:</strong>
+            <div className="mt-3 p-3 rounded-lg text-sm leading-relaxed">
+              <strong className="block mb-1">With less gravity:</strong>
               {zoneInfo.spacePhenomenon}
             </div>
 
             <div className="mt-2.5 text-xs text-slate-400">
-              <span className="text-slate-500 font-mono text-[10px] uppercase block">Typical Normal Baseline:</span>
+              <span className="block mb-1">What is usual:</span>
               {zoneInfo.normalBaseline}
             </div>
           </div>
@@ -450,9 +429,7 @@ export default function AnatomicalAvatar({
           <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800">
             <div className="flex items-center gap-2 mb-2">
               <Shield size={15} className="text-emerald-400" />
-              <strong className="text-xs font-semibold text-emerald-300 uppercase tracking-wider font-mono">
-                In-Flight Action Protocol
-              </strong>
+              <strong className="text-sm font-semibold">What people sometimes do</strong>
             </div>
             <p className="text-xs text-slate-200 leading-relaxed bg-emerald-950/30 border border-emerald-500/20 p-3 rounded-lg">
               {zoneInfo.countermeasure}
@@ -463,7 +440,7 @@ export default function AnatomicalAvatar({
           <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800">
             <div className="flex items-center justify-between mb-2">
               <label htmlFor="symptom-select" className="text-xs font-semibold text-slate-200 block">
-                Log Observed Spaceflight Symptom
+                Note what you feel
               </label>
               {loggedNotice && (
                 <span className="text-[11px] font-mono text-emerald-400 animate-fade-in">

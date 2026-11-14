@@ -30,52 +30,51 @@ body .app-shell.touch-mode main {
   display: flex;
   align-items: center;
   gap: 18px;
-  padding: 14px 17px;
-  border: 1px solid #2d455c;
-  border-left: 3px solid #5b9eba;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
   border-radius: 8px;
-  background: #10233580;
-  margin: -7px 0 23px;
+  background: var(--panel);
+  margin: 0 0 22px;
 }
 .mission-context-strip > label {
   display: flex;
   align-items: center;
-  gap: 13px;
-  font-family: var(--font-mono);
-  font-size: 7px;
-  letter-spacing: 1px;
-  color: #7395b7;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--muted);
   flex-shrink: 0;
 }
 .mission-context-strip select {
-  min-height: 42px;
+  min-height: 36px;
   min-width: 170px;
   font-family: var(--font-sans);
-  font-size: 12px;
-  color: #badcf4;
+  font-size: 13px;
+  color: var(--text);
   letter-spacing: 0;
-  border-color: #365675;
-  background-color: #172e44;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background-color: var(--bg);
+  padding: 0 8px;
 }
 .mission-context-strip > p {
-  color: #708ca9;
-  font-size: 10px;
-  line-height: 1.8;
-  max-width: 380px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+  max-width: 420px;
 }
 .mission-context-strip > button {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 9px;
+  gap: 8px;
   margin-left: auto;
-  min-height: 44px;
-  color: #93bce1;
+  min-height: 36px;
+  color: var(--text);
   white-space: nowrap;
-  font-size: 10px;
+  font-size: 13px;
 }
 .mission-context-strip > button:hover {
-  color: #c9eaff;
+  color: var(--accent);
 }
 .next-step-section {
   margin-top: 25px;
@@ -88,15 +87,13 @@ body .app-shell.touch-mode main {
   margin-bottom: 13px;
 }
 .next-step-heading h2 {
-  font-size: 14px;
-  font-weight: 500;
-  color: #c7d8ed;
+  font-size: 16px;
+  font-weight: 550;
+  color: var(--text);
 }
 .next-step-heading > span {
-  color: #587796;
-  font-family: var(--font-mono);
-  font-size: 6px;
-  letter-spacing: 0.9px;
+  color: var(--muted);
+  font-size: 13px;
   text-align: right;
 }
 .next-step-grid {
@@ -108,60 +105,52 @@ body .app-shell.touch-mode main {
   display: flex;
   align-items: flex-start;
   text-align: left;
-  gap: 13px;
-  padding: 20px 17px;
-  border: 1px solid #2a4058;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--border);
   border-radius: 8px;
-  background: linear-gradient(140deg, #152538, #111d2b);
-  transition:
-    border-color 0.2s,
-    background 0.2s;
+  background: var(--panel);
 }
 .next-step-card:hover {
-  background: #1a3048;
-  border-color: #4f789e;
+  border-color: var(--accent);
 }
 .next-step-number {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: #7caed1;
-  background: #375b761f;
-  border: 1px solid #52809f28;
-  border-radius: 5px;
+  font-size: 13px;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: 6px;
   display: grid;
   place-items: center;
-  width: 29px;
-  height: 29px;
+  width: 28px;
+  height: 28px;
   flex-shrink: 0;
 }
 .next-step-kicker {
   display: block;
-  font-family: var(--font-mono);
-  font-size: 6px;
-  color: #6185a8;
-  letter-spacing: 0.65px;
-  line-height: 1.9;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.4;
 }
 .next-step-card h3 {
-  font-size: 11px;
-  color: #c7d9ec;
-  margin-top: 7px;
-  font-weight: 500;
-  line-height: 1.7;
+  font-size: 15px;
+  color: var(--text);
+  margin-top: 0;
+  font-weight: 550;
+  line-height: 1.35;
 }
 .next-step-card p {
-  color: #7d98b6;
-  font-size: 10px;
-  line-height: 1.9;
-  margin: 7px 0 13px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+  margin: 6px 0 12px;
 }
 .next-step-card strong {
-  font-size: 9px;
-  color: #8dbce8;
-  font-weight: 450;
+  font-size: 13px;
+  color: var(--text);
+  font-weight: 550;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 .alert-next-step {
   display: inline-flex;

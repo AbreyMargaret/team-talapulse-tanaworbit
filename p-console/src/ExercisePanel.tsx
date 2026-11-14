@@ -53,7 +53,7 @@ export default function ExercisePanel({
     });
     setReview(false);
     setNotes("");
-    setMessage("Exercise session added to this in-memory demo. Nothing was written to a file.");
+    setMessage("Exercise session added. It stays until you refresh.");
   }
   return (
     <div className="exercise-workspace">
@@ -91,9 +91,8 @@ export default function ExercisePanel({
           <div className="panel-heading">
             <div>
               <h2>Movement over the last 7 days</h2>
-              <p>Recorded minutes, not an assessment of exercise safety.</p>
+              <p>Minutes recorded over the last 7 days.</p>
             </div>
-            <span className="simulation-label">JSON + DEMO INPUT</span>
           </div>
           <div
             className="exercise-bars"
@@ -128,8 +127,7 @@ export default function ExercisePanel({
               </p>
             </div>
             <small>
-              Review effort alongside sleep and fatigue. These values do not determine fitness to
-              exercise.
+              Read effort next to sleep and how tired you felt.
             </small>
           </div>
         </section>
@@ -162,8 +160,7 @@ export default function ExercisePanel({
               </dl>
               {notes && <p className="exercise-note">{notes}</p>}
               <p>
-                Confirm these are fictional or demonstration values. This adds a temporary entry
-                only.
+                This adds an entry for this session. It stays until you refresh.
               </p>
               <div className="button-row">
                 <button className="secondary-button" onClick={() => setReview(false)}>
@@ -224,8 +221,7 @@ export default function ExercisePanel({
                 </label>
               </div>
               <small>
-                Self-report: 1 = very light, 10 = extremely hard. Not a clinical score. Activity
-                selection fills an editable example duration, not a prescribed dose.
+                1 is very light, 10 is extremely hard. Picking an activity fills in a duration you can change.
               </small>
               <label>
                 Session notes (optional)
@@ -253,7 +249,7 @@ export default function ExercisePanel({
         <div className="panel-heading">
           <div>
             <h2>Exercise in the spaceflight environment</h2>
-            <p>Educational context. Follow the actual mission-approved protocol, not this demo.</p>
+            <p>A short note on why this movement is on the list.</p>
           </div>
         </div>
         <div className="exercise-topic-grid">
@@ -274,7 +270,7 @@ export default function ExercisePanel({
         <div className="panel-heading">
           <div>
             <h2>Recent activity log</h2>
-            <p>Newest entries first · synthetic fixture and manual demo records</p>
+            <p>Newest entries first</p>
           </div>
         </div>
         <div className="exercise-log-table" role="table" aria-label="Exercise session log">
@@ -297,7 +293,7 @@ export default function ExercisePanel({
                 <span role="cell">{item.durationMinutes} min</span>
                 <span role="cell">{item.effort} / 10</span>
                 <span role="cell" className="exercise-source">
-                  {item.source === "manual_demo" ? "Demo input" : "JSON fixture"}
+                  {item.source === "manual_demo" ? "Typed" : "Already listed"}
                 </span>
               </div>
             ))}

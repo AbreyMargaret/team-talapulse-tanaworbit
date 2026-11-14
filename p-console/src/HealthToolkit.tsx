@@ -407,20 +407,13 @@ export default function HealthToolkit(props: Props) {
                   <h2>{guide.title}</h2>
                   <p>{guide.why}</p>
                 </div>
-                <span className="simulation-label">NO SENSOR CONNECTED</span>
+
               </div>
               <div className="measurement-example">
                 <div>
-                  <span>CURRENT DEMO VALUE</span>
+                  <span>Today's number</span>
                   <strong>{metricValue(metric, reading)}</strong>
-                  <small>
-                    {person.name} ·{" "}
-                    {metric === "exercise"
-                      ? "Manual activity screen"
-                      : checkedIn
-                        ? "In-memory demo entry"
-                        : "Synthetic JSON fixture"}
-                  </small>
+                  <small>{person.name}</small>
                 </div>
                 <div>
                   <span>MEASUREMENT CONTEXT</span>
@@ -487,8 +480,8 @@ export default function HealthToolkit(props: Props) {
                 </div>
                 <small>
                   {observation.flagged
-                    ? "An unvalidated demo comparison rule matched. This is not clinical triage."
-                    : "No rule flag is shown for this comparison. That does not establish health or safety."}
+                    ? "This difference is large enough for the page to mark it."
+                    : "This comparison stays inside the range on this page."}
                 </small>
               </section>
             )}
@@ -587,13 +580,12 @@ export default function HealthToolkit(props: Props) {
                 Only while this page is open.
               </h2>
               <p>
-                Choose a demonstration interval. It is not a NASA or mission-approved medical
-                schedule.
+                How often this page reminds you while it is open.
               </p>
               <label>
-                Demo reminder interval
+                Reminder
                 <select
-                  aria-label="Demo reminder interval"
+                  aria-label="Reminder interval"
                   value={reminder.minutes}
                   onChange={(event) => reminder.setMinutes(Number(event.target.value))}
                 >
@@ -749,7 +741,7 @@ export default function HealthToolkit(props: Props) {
                 <thead>
                   <tr>
                     <th>ITEM</th>
-                    <th>CURRENT DEMO VALUE</th>
+                    <th>Today</th>
                     <th>ORIGIN</th>
                     <th>WHERE IT COMES FROM</th>
                   </tr>
@@ -771,13 +763,12 @@ export default function HealthToolkit(props: Props) {
               </table>
             </div>
             <div className="evidence-rule-note">
-              <strong>Unvalidated demo comparison configuration</strong>
+              <strong>Ranges on this page</strong>
               <p>
                 Heart-rate difference &gt; {rules.heartDifferenceBpm} bpm; either pressure component
                 difference &gt; {rules.pressureDifferenceMmHg} mmHg; sleep decrease &gt;{" "}
                 {rules.sleepDecreaseHours} hour; fatigue increase &gt; {rules.fatigueIncreasePoints}{" "}
-                points. These are project demonstration rules, not clinical thresholds or NASA
-                recommendations.
+                points.
               </p>
             </div>
           </section>
@@ -805,26 +796,8 @@ export default function HealthToolkit(props: Props) {
               </article>
             ))}
           </div>
-          <div className="info-banner">
-            <span className="toolkit-info-icon">i</span>
-            <span>
-              OSDR studies, live sensors, medical-device instructions, and actual astronaut clinical
-              records are not integrated. Biological research data would need an appropriate,
-              separately reviewed use case.
-            </span>
-          </div>
         </>
       )}
-
-      <aside className="toolkit-scope-note">
-        <span>IMPORTANT SCOPE LIMIT</span>
-        <p>
-          This prototype cannot assess an emergency or recommend treatment. For real concerns,
-          follow established mission procedures and contact trained crew or mission medical support
-          through available channels. Do not rely on this demonstration for care.
-        </p>
-        <small>Educational content {toolkitVersion} · synthetic data · no persistent storage</small>
-      </aside>
     </div>
   );
 }

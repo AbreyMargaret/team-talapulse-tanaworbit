@@ -20,7 +20,7 @@ type Message = {
 const welcome: Message = {
   id: 0,
   role: "guide",
-  text: "Hello, I'm Tanaw Guide. I can help explain this demo's measurements, routines, exercise logs, and sources. My answers come from a fixed educational library—not a live AI model. I cannot diagnose a condition or recommend treatment.",
+  text: "I can explain the numbers, the daily list, exercise, and where a figure came from. The answers are written ahead of time. I am not a doctor, and I do not diagnose or tell you what to take.",
 };
 
 export default function TanawGuide({
