@@ -90,4 +90,4 @@ The guide contains focus, closes with Escape, makes the console behind it inert 
 
 ## Storage and security scope
 
-All context selections, task acknowledgements, timers, chat messages, and current-run entries are temporary React memory. JSON files remain unchanged. Public demo PINs still do not authenticate or protect records. No backend, paid registry, API key, AI provider, database, localStorage, or sessionStorage was added.
+All context selections, task acknowledgements, timers, chat messages, and current-run entries are temporary React memory. JSON files remain unchanged. Public demo PINs still do not authenticate or protect records. The read-only Worker republishes fixtures and does not store these entries. The demo gate may keep the chosen public profile in `sessionStorage`. Check-ins and guide messages reset on refresh. No AI provider, database, or localStorage health record was added.

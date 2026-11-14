@@ -14,13 +14,13 @@ flowchart TB
     JSON["datasets | Public synthetic JSON fixtures"]
     DATA["p-console/src/data.ts | Types, history queries, example baselines and comparison rules"]
     PIN["DemoSignIn | Public PIN comparison, not authentication"]
-    UI["React views | Health, exercise, trends, toolkit and guidance"]
+    UI["React views | Health, biodata, cabin, orbit, nutrition, toolkit and guidance"]
     KNOWLEDGE["Read-only walkthroughs, contexts, sources and FAQ library"]
     GUIDE["Tanaw Guide | Fixed answers, not live AI"]
     ROUTINE["In-page routine timer | Not a background medical scheduler"]
     RAM["React memory | Drafts, latest overrides, exercise additions and review flags"]
     CSV["Explicit CSV download"]
-    RESET["Refresh | Signed out and original fixtures restored"]
+    RESET["Refresh | Check-ins reset. The demo gate can remain"]
     LABEL -.-> JSON
     JSON --> DATA
     DATA --> PIN
@@ -46,7 +46,7 @@ The PIN screen demonstrates profile selection only. All sample codes are public,
 
 | File                            | Responsibility                                                                                                        |
 | ------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
-| `p-console/src/App.tsx`                   | Nine console views, selected crew, latest-reading overrides, drafts, alerts, and export confirmation.                 |
+| `p-console/src/App.tsx`                   | Crew console views, selected crew, latest-reading overrides, drafts, alerts, and export confirmation.                 |
 | `p-console/src/DemoSignIn.tsx`            | Preloaded crew selection, keypad/keyboard input, public-PIN comparison, and auto-continue.                            |
 | `p-console/src/data.ts`                   | JSON imports, types, history selection, per-crew synthetic baseline means, and comparison rules.                      |
 | `p-console/src/ExercisePanel.tsx`         | Exercise input/review, activity history, temporary session additions, and recovery context.                           |
@@ -62,7 +62,7 @@ The initial latest readings come from JSON. A confirmed check-in replaces the la
 
 Exercise fixtures are copied into memory. Confirming a session adds a temporary entry and updates activity totals, bars, and the log. Recovery context reads the current in-memory sleep/fatigue values. No exercise prescription or diagnosis is generated.
 
-Drafts and temporary changes survive navigation and demo sign-out while the page remains mounted. Refresh returns to the demo PIN screen and reloads the original fixtures. No interaction writes to the JSON files.
+Drafts and temporary changes survive navigation while the page remains mounted. Refresh clears check-ins and reloads the original fixtures. The public demo choice can remain in `sessionStorage` until sign-out. No interaction writes to the JSON files.
 
 ## Documentation
 
@@ -74,8 +74,10 @@ Drafts and temporary changes survive navigation and demo sign-out while the page
 
 ## Trust and scientific limits
 
-- The frontend PIN gate can be bypassed; it does not authenticate users or protect records.
-- There are no real credentials, private medical records, secure sessions, localStorage, database, API, or cross-device synchronization.
+- The frontend demo gate can be bypassed. It does not authenticate users or protect records.
+- The gate stores the chosen public profile or role in `sessionStorage`. It does not store a measurement.
+- There are no real credentials, private medical records, secure sessions, localStorage health records, database, or cross-device synchronization.
+- `tanaworbit-api` republishes the same synthetic JSON and rejects writes. It is not a medical-record API.
 - Fixture dates and mission details are fictional. Display notices must remain visible.
 - Earlier health points are synthetic JSON records; waveform drawings and decorative sparklines remain illustrative.
 - Observe rules are unvalidated comparison differences. Stable does not establish health, and Attention is a scripted review-request flag.

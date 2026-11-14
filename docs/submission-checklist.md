@@ -4,11 +4,13 @@
 
 ## Required public links
 
-- [ ] Publish the project or make the final source repository public.
-- [ ] Replace `TODO_PUBLIC_PROJECT_URL` in `submission.md` with the real URL.
-- [ ] Export/upload a presentation of at most seven slides or a video of at most 30 seconds.
-- [ ] Replace `TODO_PUBLIC_DEMO_URL` with the real demo URL.
-- [ ] Open both links signed out. No password, registration, request-access screen, or account should be required.
+- [x] The source repository is public: https://github.com/greeklx/team-talapulse-tanaworbit
+- [x] The project URL in `submission.md` is https://tanaw-orbit.app
+- [x] The Space Apps team page is https://www.spaceappschallenge.org/2026/find-a-team/tala-pulse/
+- [ ] Open https://tanaw-orbit.app signed out. It did not resolve when this checklist was updated. No password, registration, or account should be required.
+- [ ] Export or upload a presentation of at most seven slides, or a video of at most 30 seconds. Drafts are in `demo.md`.
+- [ ] Replace `TODO_PUBLIC_DEMO_URL` in `submission.md` with that public demonstration URL.
+- [ ] Open the demonstration link signed out.
 
 ## SI use and branding — resolve before recording the final demo
 

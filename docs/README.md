@@ -1,8 +1,22 @@
 # TanawOrbit — Project documentation
 
-**SI disclosure:** These documents and diagrams were drafted with the Figma Make coding assistant. The team must review the final submission for accuracy, attribution, and event-rule compliance.
+**SI disclosure:** These documents and diagrams were drafted with the Figma Make coding assistant. The team must review the final submission for accuracy, attribution, and event-rule compliance. That disclosure stays in the public repository because the challenge asks for it.
 
-TanawOrbit is an educational astronaut-health and mission-health operations prototype. It uses fictional crew members and synthetic measurements. It is not a medical device, diagnostic system, NASA product, or working spacecraft integration.
+TanawOrbit is an educational astronaut-health and mission-health operations prototype by **Tala Pulse**. It uses fictional crew members and synthetic measurements. It is not a medical device, diagnostic system, NASA product, or working spacecraft integration.
+
+Official site: [https://tanaw-orbit.app](https://tanaw-orbit.app)
+
+Space Apps team: [https://www.spaceappschallenge.org/2026/find-a-team/tala-pulse/](https://www.spaceappschallenge.org/2026/find-a-team/tala-pulse/)
+
+Public source: [https://github.com/greeklx/team-talapulse-tanaworbit](https://github.com/greeklx/team-talapulse-tanaworbit)
+
+## What the team should publish
+
+These documents are the shared explanation. Teammates and judges should read the same story, so this folder stays in the public repository.
+
+Publish the running prototype, the synthetic datasets, the credits, and the SI disclosure. Tala means “star,” and Pulse represents health and human life. Tanaw represents observation and perspective, and Orbit establishes the spaceflight context. Together, TanawOrbit can be read as “a clear view of health in orbit.” The longer wording is in [branding.md](branding.md).
+
+Do not publish `docs/privatedocs`. That folder is a local challenge note. It is excluded from Git. Its interpretation describes diagnosis, treatment, and validated spaceflight data. This prototype does not do those things. Do not paste that note into the submission form.
 
 ## Start here
 
@@ -30,11 +44,12 @@ The form text and technical documentation are drafted. **This does not mean the 
 
 Before submitting:
 
-1. Replace `TODO_PUBLIC_DEMO_URL` and `TODO_PUBLIC_PROJECT_URL` in [submission.md](submission.md) with real, publicly accessible HTTPS links. No published URL was provided, and this documentation does not invent one.
-2. Review the challenge-specific requirements, official event year, deadline, and local-event time zone. The pasted form does not establish which challenge or event year applies.
-3. Review the SI-image watermark requirements and the independent fictional mission name in the [checklist](submission-checklist.md). Documentation alone does not change the current UI or logo files.
-4. Verify image provenance, permissions, and all resource links before making the originality declaration.
-5. Have the team owner review and confirm the terms and originality statements personally.
+1. Confirm [https://tanaw-orbit.app](https://tanaw-orbit.app) opens with no login. That address is the project link in [submission.md](submission.md). It did not resolve when these docs were updated.
+2. Upload a presentation of at most seven slides or a video of at most 30 seconds, then replace `TODO_PUBLIC_DEMO_URL` in [submission.md](submission.md). The live site is not that demonstration file. Draft slides and a short script are in [demo.md](demo.md).
+3. Review the challenge requirements, the 2026 event page, the deadline, and the local-event time zone.
+4. Review the SI-image watermark requirements and the fictional mission name in the [checklist](submission-checklist.md). Documentation alone does not change the current UI or logo files.
+5. Verify image provenance, permissions, and all resource links before making the originality declaration.
+6. Have the team owner review and confirm the terms and originality statements personally.
 
 ## Mermaid diagrams
 
@@ -58,4 +73,4 @@ Open a source file in a Mermaid-compatible editor to render or export it. Mermai
 - Tanaw Guide uses fixed answers and limited keyword matching. It cannot diagnose, prescribe, or provide validated emergency support.
 - Public demo profiles and PINs are preloaded. No real authentication, database, device integration, machine-learning model, or runtime SI service is implemented. The optional `tanaworbit-api` Worker only republishes the synthetic JSON and does not store check-ins.
 
-The project is named **TanawOrbit**, by team **Tala Pulse**. The application, exported logo assets, team cover, and submission documents use this identity. Cover assets are documented in [branding.md](branding.md); the rename does not change the prototype's capabilities or resolve outstanding submission checks.
+The application, logo, team cover, and submission text use **TanawOrbit** and **Tala Pulse**. Cover assets are documented in [branding.md](branding.md). The name does not change the prototype's limits or finish the open checklist items.

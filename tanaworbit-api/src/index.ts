@@ -29,22 +29,75 @@ const READ_ONLY = {
   disclaimer: DISCLAIMER,
 };
 
+const ALLOWED_ORIGIN_PATTERNS = [
+  /^https:\/\/(www\.)?tanaw-orbit\.app$/,
+  /^https:\/\/tanaworbit-console\.robotics8051\.workers\.dev$/,
+  /^http:\/\/localhost:\d+$/,
+  /^http:\/\/127\.0.0\.1:\d+$/,
+];
+
+// In-memory sliding rate limiter (120 req/min per IP)
+const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
+const RATE_LIMIT_WINDOW_MS = 60_000;
+const MAX_REQUESTS_PER_WINDOW = 120;
+
 const app = new Hono<{ Bindings: Env }>();
 
 app.use(
   "*",
   cors({
-    origin: "*",
+    origin: (origin) => {
+      if (!origin) return "*";
+      return ALLOWED_ORIGIN_PATTERNS.some((pattern) => pattern.test(origin)) ? origin : null;
+    },
     allowMethods: ["GET", "HEAD", "OPTIONS"],
+    maxAge: 86400,
   }),
 );
 
+// Security & Rate Limiting Middleware
 app.use("*", async (c, next) => {
   if (!["GET", "HEAD", "OPTIONS"].includes(c.req.method)) {
+    c.header("Allow", "GET, HEAD, OPTIONS");
     return c.json(READ_ONLY, 405);
   }
+
+  // Rate Limiting
+  const ip = c.req.header("cf-connecting-ip") || c.req.header("x-forwarded-for") || "unknown";
+  const now = Date.now();
+  const entry = rateLimitMap.get(ip);
+  if (!entry || now > entry.resetAt) {
+    rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
+  } else {
+    entry.count += 1;
+    if (entry.count > MAX_REQUESTS_PER_WINDOW) {
+      c.header("Retry-After", "60");
+      return c.json(
+        { error: "rate_limit_exceeded", message: "Too many requests. Please retry in 1 minute." },
+        429,
+      );
+    }
+  }
+
+  // Periodic cleanup
+  if (rateLimitMap.size > 2000) {
+    for (const [key, val] of rateLimitMap.entries()) {
+      if (now > val.resetAt) rateLimitMap.delete(key);
+    }
+  }
+
   await next();
+
+  // Defense-in-depth HTTP Security Headers
   c.header("X-Content-Type-Options", "nosniff");
+  c.header("X-Frame-Options", "DENY");
+  c.header("Referrer-Policy", "strict-origin-when-cross-origin");
+  c.header("Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload");
+  c.header("Permissions-Policy", "camera=(), microphone=(), geolocation=(), payment=()");
+  c.header("Content-Security-Policy", "default-src 'none'; frame-ancestors 'none'; base-uri 'none'");
+  c.header("Cross-Origin-Resource-Policy", "cross-origin");
+  c.header("Cross-Origin-Opener-Policy", "same-origin");
+  c.header("X-Permitted-Cross-Domain-Policies", "none");
   c.header("X-TanawOrbit-Data", "synthetic");
   c.header("Cache-Control", "public, max-age=300");
 });

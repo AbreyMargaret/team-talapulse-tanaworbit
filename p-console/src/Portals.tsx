@@ -310,7 +310,13 @@ export function AdminPortal() {
 }
 
 async function fetchApi(path: string): Promise<Response> {
-  const bases = ["http://127.0.0.1:8787", ""];
+  const bases = [
+    import.meta.env.VITE_API_URL,
+    "https://api.tanaw-orbit.app",
+    "https://tanaworbit-api.robotics8051.workers.dev",
+    "http://127.0.0.1:8787",
+    "",
+  ].filter(Boolean) as string[];
   let lastStatus = 0;
   for (const base of bases) {
     try {

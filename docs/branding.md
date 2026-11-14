@@ -1,29 +1,33 @@
 # Tala Pulse — Team identity and cover artwork
 
-**SI disclosure:** These name suggestions, copy, and the original cover graphic were created with the Figma Make coding assistant. Tala Pulse is the team-selected cover name; availability and trademark clearance have not been checked.
+**SI disclosure:** The cover graphic and earlier naming drafts were created with the Figma Make coding assistant. The team selected the names and the explanation below. Trademark clearance has not been established by choosing a name or a domain.
 
 ## Team and project
 
-| Field                                  | Recommendation                                        |
-| -------------------------------------- | ----------------------------------------------------- |
-| Team name                              | **Tala Pulse**                                        |
-| Project name                           | **TanawOrbit**                                        |
-| Descriptive project title for the form | **TanawOrbit: Astronaut Health & Mission Operations** |
-| Team tagline                           | **Human health. Beyond Earth.**                       |
+| Field                                  | Selected                                                |
+| -------------------------------------- | ------------------------------------------------------- |
+| Team name                              | **Tala Pulse**                                          |
+| Project name                           | **TanawOrbit**                                          |
+| Descriptive project title for the form | **TanawOrbit: Astronaut Health & Mission Operations**   |
+| Team tagline                           | **Human health. Beyond Earth.**                         |
+| Official site                          | **https://tanaw-orbit.app**                             |
+| Space Apps team page                   | **https://www.spaceappschallenge.org/2026/find-a-team/tala-pulse/** |
 
-**Why it works:** “Tala” means “star” in Filipino, connecting the team's Philippine identity to space exploration. “Pulse” connects health awareness, human presence, and the rhythm of teamwork. The project name **TanawOrbit** combines “tanaw,” meaning “view” or “sight,” with “orbit,” connecting observation with spaceflight. TanawOrbit is used consistently in the application, logo, cover, and submission documents.
+**Team: Tala Pulse.** Tala means “star,” while Pulse represents health and human life.
+
+**Project: TanawOrbit.** Tanaw represents observation and perspective, while Orbit establishes the spaceflight context.
+
+TanawOrbit combines a Filipino word with an English spaceflight term.
+
+**Tanaw.** In Filipino, tanaw relates to a view or something visible from a distance, the act of looking toward or observing something, and a wider perspective or outlook. In “tanaw sa hinaharap,” it means looking toward the future. This connects to the system’s purpose: helping astronauts observe, understand, and reflect on their health information.
+
+**Orbit.** Orbit is the path of an object around a celestial body. It connects the name to spaceflight, space stations and spacecraft, mission operations, and repeated cycles, similar to recurring health check-ins and routines.
+
+**Combined meaning.** TanawOrbit can be interpreted as “a clear view of health in orbit.”
 
 ### Copy-ready team introduction
 
-> We are Tala Pulse, a Filipino team bringing the spirit of bayanihan to space-health innovation. Our project, TanawOrbit, explores how thoughtful design and technology can make complex spaceflight-health information easier to understand. It connects simulated measurements, example baseline comparisons, and educational guidance. Our focus is human-centered understanding—not medical diagnosis.
-
-### Alternative team names
-
-- **CrewSignal** — emphasizes clear information and communication.
-- **Aster Collective** — a broader space-and-exploration identity.
-- **Beyond Baseline** — emphasizes understanding change in context.
-
-**TanawOrbit** is the selected project name. Search visibility, domain availability, and trademark clearance have not been verified; selecting a name does not establish exclusive rights to it.
+> We are Tala Pulse. Tala means “star,” and Pulse represents health and human life. Our project, TanawOrbit, joins tanaw, a Filipino word for looking and perspective, with orbit. It can be read as “a clear view of health in orbit.” The prototype uses simulated measurements, example baseline comparisons, and educational guidance. Our focus is human-centered understanding, not medical diagnosis.
 
 ## Cover image
 

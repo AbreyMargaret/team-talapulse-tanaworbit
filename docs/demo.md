@@ -2,6 +2,12 @@
 
 **SI-assisted presentation/script draft.** No public presentation upload or video has been created by this document. Choose **one** of the following demo formats and provide its actual public URL in the submission form.
 
+Official site for the project link: https://tanaw-orbit.app
+
+Space Apps team page: https://www.spaceappschallenge.org/2026/find-a-team/tala-pulse/
+
+On the title slide, Tala means “star,” and Pulse represents health and human life. Tanaw represents observation and perspective. Orbit establishes the spaceflight context. The combined line is “a clear view of health in orbit.”
+
 Before capturing the application, resolve the mission-name and generated-image labeling items in [submission-checklist.md](submission-checklist.md). Keep “simulated data” and “not a medical device” visible. Avoid NASA insignia, flags, or generated NASA mission identifiers.
 
 ## Option A — Seven-slide presentation

@@ -3,13 +3,13 @@ flowchart TB
     JSON["datasets | Public synthetic JSON fixtures"]
     DATA["p-console/src/data.ts | Types, history queries, example baselines and comparison rules"]
     PIN["DemoSignIn | Public PIN comparison, not authentication"]
-    UI["React views | Health, exercise, trends, toolkit and guidance"]
+    UI["React views | Health, biodata, cabin, orbit, nutrition, toolkit and guidance"]
     KNOWLEDGE["Read-only walkthroughs, contexts, sources and FAQ library"]
     GUIDE["Tanaw Guide | Fixed answers, not live AI"]
     ROUTINE["In-page routine timer | Not a background medical scheduler"]
     RAM["React memory | Drafts, latest overrides, exercise additions and review flags"]
     CSV["Explicit CSV download"]
-    RESET["Refresh | Signed out and original fixtures restored"]
+    RESET["Refresh | Check-ins reset. The demo gate can remain"]
     LABEL -.-> JSON
     JSON --> DATA
     DATA --> PIN

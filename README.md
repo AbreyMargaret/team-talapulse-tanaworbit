@@ -2,7 +2,25 @@
 
 Educational web prototype for astronaut health and mission-health operations, by team **Tala Pulse**.
 
+Official site: [https://tanaw-orbit.app](https://tanaw-orbit.app)
+
+Space Apps team: [Tala Pulse](https://www.spaceappschallenge.org/2026/find-a-team/tala-pulse/)
+
 TanawOrbit uses fictional crew members and synthetic measurements. It is not a medical device, not a diagnostic system, not a NASA product, and not a spacecraft integration. Demo PINs are public sample codes. They are not authentication.
+
+## Name
+
+**Team: Tala Pulse.** Tala means “star,” while Pulse represents health and human life.
+
+**Project: TanawOrbit.** Tanaw represents observation and perspective, while Orbit establishes the spaceflight context.
+
+TanawOrbit combines a Filipino word with an English spaceflight term.
+
+**Tanaw.** In Filipino, tanaw relates to a view or something visible from a distance, the act of looking toward or observing something, and a wider perspective or outlook. In “tanaw sa hinaharap,” it means looking toward the future. This connects to the system’s purpose: helping astronauts observe, understand, and reflect on their health information.
+
+**Orbit.** Orbit is the path of an object around a celestial body. It connects the name to spaceflight, space stations and spacecraft, mission operations, and repeated cycles, similar to recurring health check-ins and routines.
+
+**Combined meaning.** TanawOrbit can be interpreted as “a clear view of health in orbit.”
 
 ## What is in this repository
 
@@ -61,7 +79,7 @@ No account id, token, or secret is stored in this repository.
 - Tanaw Guide uses fixed answers. It does not call a model, diagnose, or prescribe.
 - Do not add NASA logos, mission identifiers, or claims of NASA endorsement.
 - Photograph credits, font licenses, and the SI disclosure for the prototype are in [docs/resources.md](docs/resources.md) and [docs/provenance.json](docs/provenance.json).
-- Public submission links are still `TODO` in [docs/submission.md](docs/submission.md). Replace them only with real HTTPS URLs.
+- The official site is [https://tanaw-orbit.app](https://tanaw-orbit.app). The Space Apps team page is [Tala Pulse](https://www.spaceappschallenge.org/2026/find-a-team/tala-pulse/).
 - The team owner still has to confirm the event terms and the originality declaration.
 
 ## License

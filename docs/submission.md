@@ -20,28 +20,38 @@ Length: **163 words / 1,271 characters** for the paragraph alone, within the sug
 
 ### Project Demonstration
 
-**Team action required:** Replace the token below with the full public HTTPS URL of your uploaded presentation or video:
+**Team action required:** Upload one public demonstration, then replace the token below.
 
 ```text
 TODO_PUBLIC_DEMO_URL
 ```
 
-Use the [seven-slide demo draft or short-video script](demo.md). The token above is not a valid submission link.
+Use the [seven-slide demo draft or short-video script](demo.md). The token above is not a valid submission link. The official site is the project link, not this demonstration file. Do not submit the challenge briefing video as the team demo.
 
 - Presentation: no more than seven slides, including the title and introduction.
 - Video: no more than 30 seconds.
-- Open the uploaded artifact in a signed-out/private browser window. It must not require permission, registration, a password, or an account.
-- A private Figma editing link or local preview address is not a substitute for a publicly accessible demo.
+- Open the uploaded artifact in a signed-out browser window. It must not require permission, registration, a password, or an account.
+- A private editing link or a local preview address is not a substitute.
 
 ### Project
 
-**Team action required:** Replace the token below with the full public HTTPS URL of your published application or public source repository:
-
 ```text
-TODO_PUBLIC_PROJECT_URL
+https://tanaw-orbit.app
 ```
 
-The prototype can be distributed as a static Vite build, but a public deployment is not created by adding these docs. If using a repository, ensure it is public and includes the source and this documentation. Verify the actual URL signed out.
+Public source repository:
+
+```text
+https://github.com/greeklx/team-talapulse-tanaworbit
+```
+
+Space Apps team page:
+
+```text
+https://www.spaceappschallenge.org/2026/find-a-team/tala-pulse/
+```
+
+Open the site signed out before pasting it into the form. Confirm that it loads without an account.
 
 ## Project Information
 
@@ -53,7 +63,9 @@ Copy the following sections into the Project Details editor:
 
 TanawOrbit is an interactive educational prototype for astronaut health monitoring and mission-health operations. It explores a practical question: how can a crew member understand a changing measurement in the context of their own recent pattern, rather than seeing an isolated number?
 
-The interface connects nine views: Mission Overview, Astronaut Dashboard, Daily Health Check-In, Personal Health Trends, Exercise & Recovery, Physiological Monitoring, Health Monitoring Alerts, Health Toolkit, and Astronaut Health Guidance. Users can select one of four fictional crew members, review measurements, enter a daily check-in, compare trends, acknowledge observations, explore educational guidance, and export a CSV summary.
+The team name Tala Pulse uses tala, “star,” and pulse for health and human life. TanawOrbit joins tanaw, a Filipino word for a view, the act of looking, and a wider outlook, with orbit, the spaceflight path and the rhythm of repeated check-ins. The name can be read as “a clear view of health in orbit.”
+
+The crew console includes Mission Overview, Astronaut Dashboard, Biodata, Daily Health Check-In, Personal Health Trends, Calculation Trend, Exercise & Recovery, Physiological Monitoring, Monitor Parameters, Cabin Conditions, Orbital Conditions, Space Nutrition, Health Monitoring Alerts, Health Toolkit, and Astronaut Health Guidance. An astronaut enters at `/a-login` with a public sample PIN and stays on that fictional profile. Admin and tester enter at `/b-login`. Admin can open any profile. Tester asks the read-only API to recheck the synthetic fixtures. Cabin, orbit, and nutrition figures do not change health thresholds. They are not prescriptions or live telemetry. Users can review measurements, enter a daily check-in, compare trends, acknowledge observations, explore educational guidance, and export a CSV summary.
 
 An additional touchscreen layout supports handheld tablets and front-facing displays with larger controls, a bottom navigation dock, fullscreen where the browser permits it, touch/keyboard trend inspection, and review-before-recording check-ins. Drafts remain in memory while navigating. A profile-entry screen auto-continues when a public sample PIN matches the chosen fictional crew member; it is explicitly a demo, not authentication or medical-record security. The previous inactivity shield is removed. CSV downloads also require confirmation.
 
@@ -131,7 +143,7 @@ Review the source/resource inventory, permitted use of third-party material, SI 
 ### Save and submit
 
 1. Coordinate with the team owner and use the form's editing lock if multiple members are editing.
-2. Paste the reviewed text, add the two actual public URLs, and add the resource entries.
+2. Paste the reviewed text, add the demonstration URL, confirm `https://tanaw-orbit.app`, and add the resource entries.
 3. Use **Save Progress** while editing.
 4. Recheck all URLs in a signed-out window and verify demo duration or slide count.
 5. Confirm the event year and local deadline on the official event page; do not rely solely on the pasted “Sunday, November 15” text.
