@@ -36,21 +36,21 @@ describe("tanaworbit-api", () => {
     expect(response.headers.get("X-TanawOrbit-Data")).toBe("synthetic");
   });
 
-  it("publishes the four fictional crew profiles", async () => {
+  it("publishes the simulation crew profiles", async () => {
     const response = await app.request("/api/crew", {}, env);
     expect(response.status).toBe(200);
     const body = await read<CrewBody>(response);
     expect(body.synthetic).toBe(true);
-    expect(body.records).toHaveLength(4);
-    expect(body.records.map((record) => record.id)).toContain("crew-am");
+    expect(body.records).toHaveLength(5);
+    expect(body.records.map((record) => record.id)).toContain("crew-ef");
   });
 
   it("filters health records by crew id", async () => {
-    const response = await app.request("/api/health-records?crewId=crew-am", {}, env);
+    const response = await app.request("/api/health-records?crewId=crew-ef", {}, env);
     const body = await read<CrewBody>(response);
     expect(response.status).toBe(200);
     expect(body.records.length).toBeGreaterThan(0);
-    expect(body.records.every((record) => record.crewId === "crew-am")).toBe(true);
+    expect(body.records.every((record) => record.crewId === "crew-ef")).toBe(true);
   });
 
   it("returns no records for a malformed crew id", async () => {
@@ -81,7 +81,7 @@ describe("tanaworbit-api", () => {
   });
 
   it("publishes a 14-day baseline for one crew member", async () => {
-    const response = await app.request("/api/trends?crewId=crew-am", {}, env);
+    const response = await app.request("/api/trends?crewId=crew-ef", {}, env);
     const body = await read<{
       trend: { sampleCount: number; baseline: { heart: number } };
     }>(response);
@@ -94,10 +94,10 @@ describe("tanaworbit-api", () => {
     const cabin = await app.request("/api/cabin", {}, env);
     const orbit = await app.request("/api/orbital", {}, env);
     const bio = await app.request("/api/biodata", {}, env);
-    const food = await app.request("/api/nutrition?crewId=crew-am", {}, env);
+    const food = await app.request("/api/nutrition?crewId=crew-ef", {}, env);
     expect(cabin.status).toBe(200);
     expect(orbit.status).toBe(200);
-    expect((await read<{ records: unknown[] }>(bio)).records).toHaveLength(4);
+    expect((await read<{ records: unknown[] }>(bio)).records).toHaveLength(5);
     expect((await read<{ records: unknown[] }>(food)).records.length).toBeGreaterThan(0);
   });
 });

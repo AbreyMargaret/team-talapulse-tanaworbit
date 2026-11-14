@@ -1,12 +1,12 @@
 {
   "meta": {
     "synthetic": true,
-    "warning": "Public demo codes for the backend door. Not accounts, not authentication, and not medical-record security."
+    "warning": "Public simulation codes for the backend door. Not accounts, not authentication, and not medical-record security."
   },
   "roles": [
     {
       "id": "admin",
-      "label": "Mission admin",
+      "label": "Mission operations",
       "demoCode": "4400",
       "portal": "/admin"
     },

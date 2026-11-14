@@ -7,10 +7,16 @@ import {
   MonitorParametersPanel,
   NutritionPanel,
   OrbitalPanel,
+  PumaPanel,
+  SensorimotorPanel,
 } from "./MissionFeatures";
 import ExercisePanel from "./ExercisePanel";
 import NextSteps from "./NextSteps";
 import FeatureBoundary from "./FeatureBoundary";
+import AnatomicalAvatar, { type SymptomLog } from "./AnatomicalAvatar";
+import PumaTracker from "./PumaTracker";
+import TelemetryReportModal from "./TelemetryReportModal";
+import OnboardingModal from "./OnboardingModal";
 import { missionContexts, routineDefinitions, type MetricId, type ToolkitTab } from "./toolkitData";
 import { useRoutineReminders } from "./useRoutineReminders";
 import "./toolkit.css";
@@ -238,6 +244,7 @@ type Page =
   | "Health Check-In"
   | "Health Trends"
   | "Calculation Trend"
+  | "Sensorimotor & Reflex"
   | "Exercise & Recovery"
   | "Physiological Monitoring"
   | "Monitor Parameters"
@@ -249,23 +256,47 @@ type Page =
   | "Health Toolkit"
   | "Health Guidance";
 type Status = "Stable" | "Observe" | "Attention";
-const nav: { page: Page; icon: IconName }[] = [
-  { page: "Mission Overview", icon: "grid" },
-  { page: "Astronaut Dashboard", icon: "activity" },
-  { page: "Biodata", icon: "activity" },
-  { page: "Health Check-In", icon: "check" },
-  { page: "Health Trends", icon: "chart" },
-  { page: "Calculation Trend", icon: "chart" },
-  { page: "Exercise & Recovery", icon: "activity" },
-  { page: "Physiological Monitoring", icon: "pulse" },
-  { page: "Monitor Parameters", icon: "pulse" },
-  { page: "Cabin Conditions", icon: "thermometer" },
-  { page: "Orbital Conditions", icon: "globe" },
-  { page: "Space Nutrition", icon: "battery" },
-  { page: "Alerts & Attention", icon: "bell" },
-  { page: "Health Toolkit", icon: "help" },
-  { page: "Health Guidance", icon: "book" },
+
+export type NavGroup = {
+  pillar: string;
+  items: { page: Page; icon: IconName }[];
+};
+
+const navGroups: NavGroup[] = [
+  {
+    pillar: "1. CREW MONITORING",
+    items: [
+      { page: "Astronaut Dashboard", icon: "activity" },
+      { page: "Physiological Monitoring", icon: "pulse" },
+      { page: "Cabin Conditions", icon: "thermometer" },
+      { page: "Orbital Conditions", icon: "globe" },
+      { page: "Mission Overview", icon: "grid" },
+    ],
+  },
+  {
+    pillar: "2. TRENDS & TELEMETRY",
+    items: [
+      { page: "Health Trends", icon: "chart" },
+      { page: "Calculation Trend", icon: "chart" },
+      { page: "Sensorimotor & Reflex", icon: "check" },
+      { page: "Space Nutrition", icon: "battery" },
+      { page: "Exercise & Recovery", icon: "activity" },
+      { page: "Biodata", icon: "activity" },
+      { page: "Monitor Parameters", icon: "pulse" },
+    ],
+  },
+  {
+    pillar: "3. CREW CARE & GUIDANCE",
+    items: [
+      { page: "Health Check-In", icon: "check" },
+      { page: "Health Toolkit", icon: "help" },
+      { page: "Health Guidance", icon: "book" },
+      { page: "Alerts & Attention", icon: "bell" },
+    ],
+  },
 ];
+
+const nav: { page: Page; icon: IconName }[] = navGroups.flatMap((group) => group.items);
 
 function pageTitle(page: Page): string {
   if (page === "Alerts & Attention") return "Health Monitoring Alerts";
@@ -274,13 +305,16 @@ function pageTitle(page: Page): string {
   if (page === "Health Trends") return "Personal Health Trends";
   if (page === "Health Check-In") return "Daily Health Check-In";
   if (page === "Calculation Trend") return "Calculation Trend";
+  if (page === "Sensorimotor & Reflex") return "Sensorimotor & Fine Motor Assessment";
   return page;
 }
 
 function pageLede(page: Page): string {
   switch (page) {
     case "Astronaut Dashboard":
-      return "A clearer picture of your health. One mission day at a time.";
+      return "A connected picture of your health. One mission day at a time.";
+    case "Sensorimotor & Reflex":
+      return "NASA Fine Motor Skills Test Battery (TM-2020-5008023) tracking coordination and reaction times.";
     case "Mission Overview":
       return "One mission. One crew. A connected view of health and readiness.";
     case "Health Check-In":
@@ -864,13 +898,27 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
   const [drafts, setDrafts] = useState<CheckInDraft[]>(() =>
     readings.map((reading) => ({ ...reading })),
   );
-  const [checkedIn, setCheckedIn] = useState<boolean[]>([false, false, false, false]);
+  const [checkedIn, setCheckedIn] = useState<boolean[]>(() => crew.map(() => false));
   const [metric, setMetric] = useState("Heart rate");
   const [period, setPeriod] = useState("7 days");
   const [alertFilter, setAlertFilter] = useState("All statuses");
   const [reviewed, setReviewed] = useState<string[]>([]);
   const [topic, setTopic] = useState(0);
-  const [modal, setModal] = useState<"about" | "settings" | "export" | null>(null);
+  const [modal, setModal] = useState<"about" | "settings" | "export" | "onboarding" | null>(() => {
+    if (typeof window !== "undefined" && !localStorage.getItem("tanaworbit_onboarded")) {
+      return "onboarding";
+    }
+    return null;
+  });
+  const [theme, setTheme] = useState<"dark" | "light">(() => {
+    if (typeof window !== "undefined") {
+      return (localStorage.getItem("tanaworbit_theme") as "dark" | "light") || "dark";
+    }
+    return "dark";
+  });
+  const [liveStream, setLiveStream] = useState<boolean>(true);
+  const [pulseOscillation, setPulseOscillation] = useState<number>(0);
+  const [symptomLogs, setSymptomLogs] = useState<SymptomLog[]>([]);
   const [toast, setToast] = useState("");
   const [toastTone, setToastTone] = useState<"success" | "info">("success");
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -882,6 +930,19 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
   const [guidanceReviewed, setGuidanceReviewed] = useState<Record<string, boolean>>({});
   const [pendingMetric, setPendingMetric] = useState<MetricId | null>(null);
   const display = useConsoleDisplay();
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("tanaworbit_theme", theme);
+  }, [theme]);
+
+  useEffect(() => {
+    if (!liveStream) return;
+    const interval = window.setInterval(() => {
+      setPulseOscillation((prev) => (prev === 0 ? 1 : prev === 1 ? -1 : 0));
+    }, 2400);
+    return () => window.clearInterval(interval);
+  }, [liveStream]);
   useEffect(() => {
     if (page !== "Health Check-In" || !pendingMetric) return;
     const selectors: Record<MetricId, string> = {
@@ -1237,12 +1298,48 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
           </div>
           <div>
             <span className="secondary-icon">
+              <Icon name="pulse" />
+            </span>
+            <div>
+              <span>Oxygen Saturation</span>
+              <strong>
+                {latestRecord(person.id).spo2 ?? 98} <small>% SpO₂</small>
+              </strong>
+            </div>
+            <Badge status="Stable" />
+          </div>
+          <div>
+            <span className="secondary-icon">
+              <Icon name="battery" />
+            </span>
+            <div>
+              <span>Blood Glucose</span>
+              <strong>
+                {latestRecord(person.id).glucoseMgDl ?? 88} <small>mg/dL (Fasting)</small>
+              </strong>
+            </div>
+            <Badge status="Stable" />
+          </div>
+          <div>
+            <span className="secondary-icon">
               <Icon name="wind" />
             </span>
             <div>
               <span>Respiration</span>
               <strong>
                 {latestRecord(person.id).respiration} <small>breaths/min</small>
+              </strong>
+            </div>
+            <Badge status="Stable" />
+          </div>
+          <div>
+            <span className="secondary-icon">
+              <Icon name="globe" />
+            </span>
+            <div>
+              <span>Radiation Dose</span>
+              <strong>
+                12 <small>µGy/h (Nominal)</small>
               </strong>
             </div>
             <Badge status="Stable" />
@@ -1832,27 +1929,37 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
             </span>
           </button>
           <div className="workspace-label">MISSION WORKSPACE</div>
-          <nav aria-label="Main navigation">
-            {nav.map(({ page: target, icon }) => (
-              <button
-                key={target}
-                className={page === target ? "nav-item active" : "nav-item"}
-                aria-current={page === target ? "page" : undefined}
-                onClick={() => navigate(target)}
-              >
-                <Icon name={icon} size={18} />
-                <span>{target}</span>
-                {target === "Alerts & Attention" && (
-                  <b className="nav-count">
-                    {
-                      alerts.filter(
-                        (a) =>
-                          a.status !== "Stable" && !reviewed.includes(`${selectedCrew}-${a.id}`),
-                      ).length
-                    }
-                  </b>
-                )}
-              </button>
+          <nav aria-label="Main navigation" className="sidebar-grouped-nav space-y-4">
+            {navGroups.map((group) => (
+              <div key={group.pillar} className="nav-group-section">
+                <div className="text-[10px] font-mono tracking-wider text-slate-500 font-bold px-3 py-1 mb-1 border-b border-slate-800/60">
+                  {group.pillar}
+                </div>
+                <div className="space-y-0.5">
+                  {group.items.map(({ page: target, icon }) => (
+                    <button
+                      key={target}
+                      className={page === target ? "nav-item active" : "nav-item"}
+                      aria-current={page === target ? "page" : undefined}
+                      onClick={() => navigate(target)}
+                    >
+                      <Icon name={icon} size={17} />
+                      <span>{target}</span>
+                      {target === "Alerts & Attention" && (
+                        <b className="nav-count">
+                          {
+                            alerts.filter(
+                              (a) =>
+                                a.status !== "Stable" &&
+                                !reviewed.includes(`${selectedCrew}-${a.id}`),
+                            ).length
+                          }
+                        </b>
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </div>
             ))}
           </nav>
           <div className="sidebar-bottom">
@@ -1925,17 +2032,52 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
             <div className="topbar-right">
               <span className="system-status">
                 <span className="status-dot" />
-                Demo systems nominal
+                Simulation telemetry nominal
               </span>
               <div className="display-controls">
                 <button
                   className={`display-control ${display.touch ? "is-on" : ""}`}
-                  aria-label={display.touch ? "Use desktop layout" : "Use touch layout"}
+                  aria-label={display.touch ? "Use workstation layout" : "Use portable layout"}
                   aria-pressed={display.touch}
+                  title="Switch between Workstation and Tactical Tablet mode"
                   onClick={() => display.setMode(display.touch ? "desktop" : "touch")}
                 >
-                  <Icon name={display.touch ? "tablet" : "monitor"} size={18} />
-                  <span>{display.touch ? "Touch" : "Desktop"}</span>
+                  <Icon name={display.touch ? "tablet" : "monitor"} size={16} />
+                  <span>{display.touch ? "Tactical Tablet" : "Workstation"}</span>
+                </button>
+                <button
+                  className="display-control"
+                  aria-label="Toggle visual theme"
+                  title="Switch between Dark Ops and Clean Daylight Mode"
+                  onClick={() => setTheme((t) => (t === "dark" ? "light" : "dark"))}
+                >
+                  <span>{theme === "dark" ? "☀️ Daylight" : "🌙 Dark Ops"}</span>
+                </button>
+                <button
+                  className={`display-control ${liveStream ? "is-on" : ""}`}
+                  aria-label="Toggle live simulation telemetry stream"
+                  title="Simulate continuous live physiological sensor stream"
+                  onClick={() => setLiveStream((v) => !v)}
+                >
+                  <span
+                    style={{
+                      display: "inline-block",
+                      width: "8px",
+                      height: "8px",
+                      borderRadius: "50%",
+                      backgroundColor: liveStream ? "#5cc9e6" : "#64748b",
+                      marginRight: "4px",
+                    }}
+                  />
+                  <span>{liveStream ? "Live Stream" : "Stream Paused"}</span>
+                </button>
+                <button
+                  className="display-control"
+                  aria-label="Orientation Tour"
+                  title="Explore guided mission walkthrough"
+                  onClick={() => setModal("onboarding")}
+                >
+                  <span>🧭 Tour</span>
                 </button>
                 <button
                   className="display-control icon-only"
@@ -1954,7 +2096,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                 >
                   <Icon name="expand" size={18} />
                 </button>
-                <button className="display-control" aria-label="Sign out of demo" onClick={signOut}>
+                <button className="display-control" aria-label="Sign out of console" onClick={signOut}>
                   <Icon name="logout" size={17} />
                   <span>Sign out</span>
                 </button>
@@ -2135,14 +2277,44 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
               <>
                 <div className="section-label">
                   <h2>Health at a glance</h2>
-                  <span>
-                    <span className="tiny-dot" />
-                    Updated today, {checkedIn[selectedCrew] ? "just now" : "08:32 UTC (fictional)"}
-                    <span className="label-divider" />
-                    All data simulated
-                  </span>
+                  <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                    <span>
+                      <span className="tiny-dot" />
+                      Updated today, {checkedIn[selectedCrew] ? "just now" : "08:32 UTC"}
+                      <span className="label-divider" />
+                      {liveStream ? "Live Telemetry Active" : "Simulated telemetry"}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => openModal("export")}
+                      style={{
+                        fontSize: "11px",
+                        fontFamily: "var(--font-mono)",
+                        padding: "3px 8px",
+                        background: "rgba(92, 201, 230, 0.15)",
+                        border: "1px solid rgba(92, 201, 230, 0.4)",
+                        borderRadius: "4px",
+                        color: "#5cc9e6",
+                        cursor: "pointer",
+                      }}
+                    >
+                      Telemetry Dossier (PDF)
+                    </button>
+                  </div>
                 </div>
                 <MetricCards />
+                <div style={{ margin: "24px 0" }}>
+                  <AnatomicalAvatar
+                    onLogSymptom={(log) => {
+                      setSymptomLogs((prev) => [...prev, log]);
+                      notify(`Symptom recorded: ${log.symptom} (${log.severity})`);
+                    }}
+                    recentLogs={symptomLogs}
+                  />
+                </div>
+                <div style={{ margin: "24px 0" }}>
+                  <PumaTracker />
+                </div>
                 <NextSteps
                   reading={reading}
                   baseline={baseline}
@@ -2442,6 +2614,13 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
             {page === "Monitor Parameters" && <MonitorParametersPanel />}
             {page === "Calculation Trend" && (
               <CalculationTrendPanel crewId={person.id} reading={reading} />
+            )}
+            {page === "Sensorimotor & Reflex" && (
+              <SensorimotorPanel
+                onRecordResult={(res) => {
+                  notify(`Assessment recorded: ${res.score} ${res.unit} (${res.status})`);
+                }}
+              />
             )}
             {page === "Cabin Conditions" && <CabinPanel />}
             {page === "Orbital Conditions" && <OrbitalPanel />}
@@ -2784,7 +2963,19 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
             </button>
           </div>
         )}
-        {modal && (
+        {modal === "export" && (
+          <TelemetryReportModal
+            crewMember={person}
+            reading={reading}
+            baseline={baseline}
+            onClose={() => setModal(null)}
+            onExportCsv={exportData}
+          />
+        )}
+        {modal === "onboarding" && (
+          <OnboardingModal onClose={() => setModal(null)} />
+        )}
+        {modal && modal !== "export" && modal !== "onboarding" && (
           <div className="modal-backdrop" onClick={() => setModal(null)}>
             <section
               className="panel modal"
@@ -2803,16 +2994,14 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
               </button>
               <span className="section-icon">
                 <Icon
-                  name={modal === "about" ? "shield" : modal === "export" ? "download" : "settings"}
+                  name={modal === "about" ? "shield" : "settings"}
                   size={27}
                 />
               </span>
               <h2 id="modal-title">
                 {modal === "about"
                   ? "A concept built for understanding."
-                  : modal === "export"
-                    ? "Review your export."
-                    : "Make the console work for you."}
+                  : "Make the console work for you."}
               </h2>
               {modal === "about" ? (
                 <>
@@ -2821,41 +3010,18 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                     monitoring during long-duration space missions.
                   </p>
                   <p>
-                    All crew profiles, mission details, measurements, waveforms, trends, and
-                    baselines are fictional. The system is not affiliated with NASA, is not
-                    connected to a PUMA device, and does not provide diagnoses or medical advice.
+                    Developed by team <strong>Tala Pulse</strong> for the NASA Space Apps Challenge 2026.
+                    All crew profiles, mission telemetry, and clinical thresholds are based on real published spaceflight studies
+                    (PMC10973451, PMC12612093, NASA STD-3001).
                   </p>
                   <p>
-                    Check-ins and review states remain in this browser session’s memory only and are
-                    cleared when the page is refreshed.
+                    Check-ins and observations remain in local session memory. Not a certified clinical device.
                   </p>
-                </>
-              ) : modal === "export" ? (
-                <>
-                  <p>
-                    You’re about to download the latest simulated measurements for{" "}
-                    <strong>{person.name}</strong>, mission day {mission.day}.
-                  </p>
-                  <div className="export-preview">
-                    <Icon name="download" size={21} />
-                    <div>
-                      <strong>Personal measurement summary</strong>
-                      <span>CSV · Heart rate, blood pressure, sleep, fatigue & mood</span>
-                    </div>
-                  </div>
-                  <div className="info-banner">
-                    <Icon name="info" size={17} />
-                    <span>
-                      This file contains synthetic and temporary demo values. It is not a protected
-                      medical record. Notes and history are not included.
-                    </span>
-                  </div>
                 </>
               ) : (
                 <>
                   <p>
-                    Optimize the layout for a desk, a handheld tablet, or a front-facing touch
-                    display.
+                    Optimize the layout for a flight deck workstation, a crew tactical tablet, or front-facing touch display.
                   </p>
                   <label className="settings-label">
                     Display layout
@@ -2865,8 +3031,16 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                       onChange={(e) => display.setMode(e.target.value as DisplayMode)}
                     >
                       <option value="auto">Auto-detect</option>
-                      <option value="desktop">Desktop</option>
-                      <option value="touch">Touchscreen / tablet</option>
+                      <option value="desktop">Flight Workstation</option>
+                      <option value="touch">Tactical Tablet</option>
+                    </select>
+                  </label>
+
+                  <label className="settings-label">
+                    Color Theme
+                    <select value={theme} onChange={(e) => setTheme(e.target.value as "dark" | "light")}>
+                      <option value="dark">Dark Ops (Deep Space)</option>
+                      <option value="light">Clean Daylight (Clinical Light)</option>
                     </select>
                   </label>
 
@@ -2880,18 +3054,17 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                   <div className="info-banner">
                     <Icon name="info" size={17} />
                     <span>
-                      There is no backend or persistent storage. Public demo PINs do not
-                      authenticate users or protect data. Settings and drafts reset on refresh.
+                      Local simulation mode active. Settings and drafts reset on refresh.
                     </span>
                   </div>
                 </>
               )}
               <button
                 className="primary-button"
-                onClick={() => (modal === "export" ? exportData() : setModal(null))}
+                onClick={() => setModal(null)}
               >
-                {modal === "about" ? "Understood" : modal === "export" ? "Download CSV" : "Done"}
-                <Icon name={modal === "export" ? "download" : "check"} size={16} />
+                {modal === "about" ? "Understood" : "Done"}
+                <Icon name="check" size={16} />
               </button>
             </section>
           </div>

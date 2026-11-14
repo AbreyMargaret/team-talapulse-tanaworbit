@@ -1,30 +1,103 @@
 # Dependencies
 node_modules/
 .pnpm-store/
+package-lock.json
+yarn.lock
 
-# Build
+# Build & compiled output
 dist/
+build/
 *.tsbuildinfo
+.vite/
+.vite-temp/
 
-# Environment and secrets
+# Environment, secrets & credentials (CRITICAL FOR OPEN-SOURCE)
 .env
 .env.*
 !.env.example
 .dev.vars
+.dev.vars.*
+!.dev.vars.example
 *.pem
 *.key
-credentials.json
+*.pkcs12
+*.pfx
+*.p12
+*.crt
+*.cer
+*.der
+*.keystore
+*.jks
+id_rsa*
+id_ecdsa*
+id_ed25519*
+*credentials*.json
+*credentials*.yaml
+*credentials*.yml
 credentials.md
-secrets.json
+*secret*.json
+*secret*.yaml
+*secret*.yml
+*secrets*.json
+service-account*.json
+token.json
 
-# Cloudflare Wrangler
+# Cloudflare Wrangler & Serverless
 .wrangler/
+.mf/
+wrangler.log
+.cloudflare/
 
-# Operating system
+# Logs & diagnostics
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Operating system artifacts
 .DS_Store
+.DS_Store?
+._*
 Thumbs.db
 Desktop.ini
+ehthumbs.db
 
-# Editors
+# Editors & IDEs
 .vscode/
 .idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# Local development notes & private documents
+docs/privatedocs/
+*.local.md
+task.md
+implementation_plan.md
+scratch/
+
+# Local AI agents and assistant configs
+.agent/
+.agents/
+.gemini/
+.claude/
+.cursor/
+.codex/
+.windsurf/
+.continue/
+.aider/
+.openai/
+.anthropic/
+.figma/
+skills/
+skills-lock.json
+.cursorrules
+.cursorignore

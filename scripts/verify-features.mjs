@@ -21,8 +21,8 @@ const bounded = (value, min, max, label) =>
   assert.ok(Number.isFinite(value) && value >= min && value <= max, `${label}: ${value}`);
 const param = (id) => parameters.records.find((item) => item.id === id);
 
-assert.equal(biodata.records.length, 4);
-assert.equal(new Set(biodata.records.map((row) => row.crewId)).size, 4);
+assert.equal(biodata.records.length, 5);
+assert.equal(new Set(biodata.records.map((row) => row.crewId)).size, 5);
 for (const row of biodata.records) {
   assert.ok(ids.has(row.crewId));
   bounded(row.ageYears, 18, 80, row.id);
@@ -60,8 +60,8 @@ for (const row of orbital.records) {
   assert.ok(row.lighting === "sunlight" || row.lighting === "eclipse");
 }
 
-assert.equal(nutrition.items.length, 6);
-assert.equal(nutrition.records.length, 28);
+assert.equal(nutrition.items.length, 20);
+assert.equal(nutrition.records.length, 35);
 const menu = new Set(nutrition.items.map((item) => item.id));
 for (const row of nutrition.records) {
   assert.ok(ids.has(row.crewId));

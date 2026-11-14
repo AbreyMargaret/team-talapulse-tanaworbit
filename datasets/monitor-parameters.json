@@ -1,7 +1,7 @@
 {
   "meta": {
     "synthetic": true,
-    "warning": "Demonstration bounds used to check the fixtures. They are not clinical limits or NASA alarm thresholds."
+    "warning": "Clinical reference ranges for simulation use. Based on published sources (Cleveland Clinic, FDA, NIDDK, NASA STD-3001). Not medical alarm thresholds."
   },
   "records": [
     {
@@ -10,9 +10,15 @@
       "unit": "bpm",
       "group": "crew",
       "source": "health-records.reading.heart",
+      "normalMin": 60,
+      "normalMax": 100,
+      "warningMin": 50,
+      "warningMax": 120,
+      "criticalMin": 30,
+      "criticalMax": 140,
+      "comparison": "Absolute difference from the 14-day personal mean",
       "demoMin": 30,
-      "demoMax": 220,
-      "comparison": "Absolute difference from the 14-day personal mean"
+      "demoMax": 140
     },
     {
       "id": "systolic",
@@ -20,9 +26,15 @@
       "unit": "mmHg",
       "group": "crew",
       "source": "health-records.reading.systolic",
+      "normalMin": 90,
+      "normalMax": 119,
+      "warningMin": 80,
+      "warningMax": 139,
+      "criticalMin": 60,
+      "criticalMax": 180,
+      "comparison": "Absolute difference from the 14-day personal mean",
       "demoMin": 60,
-      "demoMax": 250,
-      "comparison": "Absolute difference from the 14-day personal mean"
+      "demoMax": 180
     },
     {
       "id": "diastolic",
@@ -30,9 +42,15 @@
       "unit": "mmHg",
       "group": "crew",
       "source": "health-records.reading.diastolic",
+      "normalMin": 60,
+      "normalMax": 79,
+      "warningMin": 50,
+      "warningMax": 89,
+      "criticalMin": 30,
+      "criticalMax": 120,
+      "comparison": "Absolute difference from the 14-day personal mean",
       "demoMin": 30,
-      "demoMax": 160,
-      "comparison": "Absolute difference from the 14-day personal mean"
+      "demoMax": 120
     },
     {
       "id": "sleep",
@@ -40,9 +58,15 @@
       "unit": "hours",
       "group": "crew",
       "source": "health-records.reading.sleep",
+      "normalMin": 7,
+      "normalMax": 9,
+      "warningMin": 5,
+      "warningMax": 10,
+      "criticalMin": 0,
+      "criticalMax": 24,
+      "comparison": "Decrease from the 14-day personal mean",
       "demoMin": 0,
-      "demoMax": 24,
-      "comparison": "Decrease from the 14-day personal mean"
+      "demoMax": 24
     },
     {
       "id": "fatigue",
@@ -50,29 +74,79 @@
       "unit": "1-5",
       "group": "crew",
       "source": "health-records.reading.fatigue",
+      "normalMin": 1,
+      "normalMax": 2,
+      "warningMin": 1,
+      "warningMax": 3,
+      "criticalMin": 1,
+      "criticalMax": 5,
+      "comparison": "Increase from the 14-day personal mean",
       "demoMin": 1,
-      "demoMax": 5,
-      "comparison": "Increase from the 14-day personal mean"
+      "demoMax": 5
     },
     {
       "id": "temperatureC",
-      "label": "Temperature",
-      "unit": "C",
+      "label": "Body temperature",
+      "unit": "°C",
       "group": "crew",
       "source": "health-records.temperatureC",
-      "demoMin": 35,
-      "demoMax": 40,
-      "comparison": "Shown for context. No demo flag."
+      "normalMin": 36.1,
+      "normalMax": 37.2,
+      "warningMin": 35.0,
+      "warningMax": 37.9,
+      "criticalMin": 1,
+      "criticalMax": 42,
+      "comparison": "Deviation from 36.1–37.2°C reference range",
+      "demoMin": 1,
+      "demoMax": 42
     },
     {
       "id": "respiration",
-      "label": "Respiration",
+      "label": "Respiration rate",
       "unit": "breaths/min",
       "group": "crew",
       "source": "health-records.respiration",
+      "normalMin": 12,
+      "normalMax": 20,
+      "warningMin": 10,
+      "warningMax": 24,
+      "criticalMin": 8,
+      "criticalMax": 40,
+      "comparison": "Shown for context",
       "demoMin": 8,
-      "demoMax": 40,
-      "comparison": "Shown for context. No demo flag."
+      "demoMax": 40
+    },
+    {
+      "id": "spo2",
+      "label": "Oxygen saturation",
+      "unit": "%",
+      "group": "crew",
+      "source": "health-records.spo2",
+      "normalMin": 95,
+      "normalMax": 100,
+      "warningMin": 93,
+      "warningMax": 100,
+      "criticalMin": 1,
+      "criticalMax": 100,
+      "comparison": "Below 95% requires attention; below 89% is critical",
+      "demoMin": 1,
+      "demoMax": 100
+    },
+    {
+      "id": "glucoseMgDl",
+      "label": "Blood glucose (fasting)",
+      "unit": "mg/dL",
+      "group": "crew",
+      "source": "health-records.glucoseMgDl",
+      "normalMin": 70,
+      "normalMax": 99,
+      "warningMin": 60,
+      "warningMax": 125,
+      "criticalMin": 1,
+      "criticalMax": 400,
+      "comparison": "Fasting reference: 70–99 mg/dL normal (NIDDK)",
+      "demoMin": 1,
+      "demoMax": 400
     },
     {
       "id": "pressureKpa",
@@ -80,69 +154,111 @@
       "unit": "kPa",
       "group": "cabin",
       "source": "cabin-conditions.pressureKpa",
+      "normalMin": 99.9,
+      "normalMax": 102.7,
+      "warningMin": 97,
+      "warningMax": 105,
+      "criticalMin": 90,
+      "criticalMax": 110,
+      "comparison": "ISS nominal: 14.7 psi ≈ 101.3 kPa",
       "demoMin": 90,
-      "demoMax": 110,
-      "comparison": "Latest cabin sample against the demo bound"
+      "demoMax": 110
     },
     {
       "id": "co2MmHg",
-      "label": "Cabin carbon dioxide",
+      "label": "Cabin CO₂",
       "unit": "mmHg",
       "group": "cabin",
       "source": "cabin-conditions.co2MmHg",
+      "normalMin": 0,
+      "normalMax": 5.3,
+      "warningMin": 0,
+      "warningMax": 7.6,
+      "criticalMin": 0,
+      "criticalMax": 10,
+      "comparison": "ISS nominal avg 5.3 mmHg, peak 7.6 mmHg (ESA EUG2LGPr3)",
       "demoMin": 0,
-      "demoMax": 10,
-      "comparison": "Latest cabin sample against the demo bound"
+      "demoMax": 10
     },
     {
       "id": "o2Percent",
       "label": "Cabin oxygen",
-      "unit": "percent",
+      "unit": "%",
       "group": "cabin",
       "source": "cabin-conditions.o2Percent",
-      "demoMin": 19,
-      "demoMax": 24,
-      "comparison": "Latest cabin sample against the demo bound"
+      "normalMin": 20.3,
+      "normalMax": 21.5,
+      "warningMin": 19.0,
+      "warningMax": 23.0,
+      "criticalMin": 18,
+      "criticalMax": 24,
+      "comparison": "ISS nominal O₂ partial pressure ≈ 3.1 psi",
+      "demoMin": 18,
+      "demoMax": 24
     },
     {
       "id": "cabinTemperatureC",
       "label": "Cabin temperature",
-      "unit": "C",
+      "unit": "°C",
       "group": "cabin",
       "source": "cabin-conditions.temperatureC",
-      "demoMin": 18,
-      "demoMax": 28,
-      "comparison": "Latest cabin sample against the demo bound"
+      "normalMin": 17,
+      "normalMax": 28,
+      "warningMin": 15,
+      "warningMax": 30,
+      "criticalMin": 10,
+      "criticalMax": 35,
+      "comparison": "ISS design range: 17–28°C (ESA EUG2LGPr3)",
+      "demoMin": 10,
+      "demoMax": 35
     },
     {
       "id": "humidityPercent",
       "label": "Cabin humidity",
-      "unit": "percent",
+      "unit": "%",
       "group": "cabin",
       "source": "cabin-conditions.humidityPercent",
-      "demoMin": 20,
-      "demoMax": 80,
-      "comparison": "Latest cabin sample against the demo bound"
+      "normalMin": 25,
+      "normalMax": 70,
+      "warningMin": 20,
+      "warningMax": 80,
+      "criticalMin": 10,
+      "criticalMax": 90,
+      "comparison": "ISS design range: 25–70% RH",
+      "demoMin": 10,
+      "demoMax": 90
     },
     {
       "id": "altitudeKm",
-      "label": "Altitude",
+      "label": "Orbital altitude",
       "unit": "km",
       "group": "orbit",
       "source": "orbital-conditions.altitudeKm",
-      "demoMin": 350,
-      "demoMax": 450,
-      "comparison": "Scripted sample. Does not change health thresholds."
+      "normalMin": 370,
+      "normalMax": 460,
+      "warningMin": 350,
+      "warningMax": 480,
+      "criticalMin": 300,
+      "criticalMax": 500,
+      "comparison": "ISS nominal: 370–460 km",
+      "demoMin": 300,
+      "demoMax": 500
     },
     {
       "id": "velocityKms",
-      "label": "Velocity",
+      "label": "Orbital velocity",
       "unit": "km/s",
       "group": "orbit",
       "source": "orbital-conditions.velocityKms",
+      "normalMin": 7.6,
+      "normalMax": 7.7,
+      "warningMin": 7.5,
+      "warningMax": 7.8,
+      "criticalMin": 7,
+      "criticalMax": 8,
+      "comparison": "ISS nominal: ~7.66 km/s",
       "demoMin": 7,
-      "demoMax": 8,
-      "comparison": "Scripted sample. Does not change health thresholds."
+      "demoMax": 8
     },
     {
       "id": "kcal",
@@ -150,9 +266,15 @@
       "unit": "kcal",
       "group": "nutrition",
       "source": "nutrition.kcal",
+      "normalMin": 2200,
+      "normalMax": 2600,
+      "warningMin": 1800,
+      "warningMax": 3000,
+      "criticalMin": 1500,
+      "criticalMax": 4000,
+      "comparison": "NASA ISS target: 2400 kcal/day",
       "demoMin": 1500,
-      "demoMax": 4000,
-      "comparison": "Example daily total against the demo bound"
+      "demoMax": 4000
     },
     {
       "id": "waterMl",
@@ -160,9 +282,15 @@
       "unit": "mL",
       "group": "nutrition",
       "source": "nutrition.waterMl",
+      "normalMin": 2000,
+      "normalMax": 3000,
+      "warningMin": 1500,
+      "warningMax": 3500,
+      "criticalMin": 1000,
+      "criticalMax": 5000,
+      "comparison": "NASA recommendation: ~2.5 L/day",
       "demoMin": 1000,
-      "demoMax": 5000,
-      "comparison": "Example daily total against the demo bound"
+      "demoMax": 5000
     }
   ]
 }

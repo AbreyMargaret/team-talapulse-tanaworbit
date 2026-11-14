@@ -5565,3 +5565,472 @@ textarea::placeholder {
     scroll-behavior: auto !important;
   }
 }
+
+
+/* ========================================================
+   LIGHT MODE & COMPONENT THEME EXTENSIONS
+   ======================================================== */
+
+[data-theme="light"] {
+  color: #0f172a !important;
+  background: #f1f5f9 !important;
+  color-scheme: light;
+  --muted: #475569;
+  --subtle: #64748b;
+  --border: #cbd5e1;
+  --panel: #ffffff;
+}
+
+[data-theme="light"] body {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .sidebar {
+  background: #e2e8f0 !important;
+  border-right-color: #cbd5e1 !important;
+}
+
+[data-theme="light"] .nav-item {
+  color: #334155;
+}
+
+[data-theme="light"] .nav-item.active {
+  background: #ffffff;
+  color: #0284c7;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .panel,
+[data-theme="light"] .stat-card,
+[data-theme="light"] .card,
+[data-theme="light"] .feature-stack,
+[data-theme="light"] .metric-card,
+[data-theme="light"] .overview-panel,
+[data-theme="light"] .modal-sheet {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .feature-stat,
+[data-theme="light"] .stat-box {
+  background: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+}
+
+[data-theme="light"] .feature-table th {
+  background: #e2e8f0 !important;
+  color: #334155 !important;
+}
+
+[data-theme="light"] .feature-table td {
+  border-color: #e2e8f0 !important;
+  color: #1e293b !important;
+}
+
+[data-theme="light"] .feature-table tr:hover td {
+  background: #f8fafc !important;
+}
+
+[data-theme="light"] .top-bar {
+  background: rgba(241, 245, 249, 0.9) !important;
+  border-bottom-color: #cbd5e1 !important;
+}
+
+[data-theme="light"] .console-wordmark {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .console-wordmark > small {
+  color: #0284c7 !important;
+}
+
+/* ========================================================
+   ANATOMICAL AVATAR & SYMPTOM MAPPER STYLES
+   ======================================================== */
+.avatar-symptom-mapper {
+  background: #111925;
+  border: 1px solid #222d3d;
+  border-radius: 14px;
+  padding: 20px;
+}
+[data-theme="light"] .avatar-symptom-mapper {
+  background: #ffffff;
+  border-color: #cbd5e1;
+}
+
+.avatar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 1px solid #1f2b3c;
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+}
+[data-theme="light"] .avatar-header {
+  border-bottom-color: #e2e8f0;
+}
+
+.avatar-body-grid {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 20px;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .avatar-body-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.avatar-svg-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.avatar-human-silhouette {
+  width: 140px;
+  height: 290px;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+}
+
+.body-part {
+  fill: #1e2c3d;
+  stroke: #384d66;
+  stroke-width: 1.5;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+[data-theme="light"] .body-part {
+  fill: #e2e8f0;
+  stroke: #94a3b8;
+}
+
+.body-part:hover {
+  fill: #2a415a;
+  stroke: #5cc9e6;
+  filter: drop-shadow(0 0 6px rgba(92, 201, 230, 0.5));
+}
+
+.body-part.active {
+  fill: #1a425c !important;
+  stroke: #5cc9e6 !important;
+  stroke-width: 2.5;
+  filter: drop-shadow(0 0 8px rgba(92, 201, 230, 0.7));
+}
+
+.spine-line {
+  stroke: #5cc9e688;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.spine-line.active {
+  stroke: #5cc9e6 !important;
+  stroke-width: 8;
+}
+
+.pulse-dot {
+  fill: #5cc9e6;
+  opacity: 0.8;
+  animation: pulse-glow 2s infinite ease-in-out;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.4); opacity: 1; }
+}
+
+.avatar-caption {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 1.4px;
+  color: #64748b;
+  margin-top: 8px;
+}
+
+.zone-summary-card {
+  background: #0d141e;
+  border: 1px solid #1e2b3c;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+[data-theme="light"] .zone-summary-card {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+.zone-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: #5cc9e6;
+  letter-spacing: 0.5px;
+}
+
+.zone-status-pill {
+  font-size: 9px;
+  font-family: var(--font-mono);
+  padding: 2px 7px;
+  border-radius: 10px;
+  background: rgba(86, 198, 154, 0.15);
+  color: #56c69a;
+  border: 1px solid rgba(86, 198, 154, 0.3);
+}
+
+.zone-normal-text {
+  font-size: 11px;
+  color: #94a3b8;
+  margin-top: 4px;
+}
+
+.symptom-select {
+  width: 100%;
+  padding: 8px 10px;
+  background: #0d141e;
+  border: 1px solid #233145;
+  border-radius: 6px;
+  color: #e2e8f0;
+  font-size: 12px;
+}
+[data-theme="light"] .symptom-select {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  color: #0f172a;
+}
+
+.severity-chip {
+  padding: 3px 10px;
+  font-size: 10px;
+  font-family: var(--font-mono);
+  border-radius: 12px;
+  border: 1px solid #2c3c50;
+  background: #101826;
+  color: #94a3b8;
+  transition: all 0.2s;
+}
+
+.severity-chip.selected.mild {
+  background: #044b36;
+  border-color: #56c69a;
+  color: #56c69a;
+}
+.severity-chip.selected.moderate {
+  background: #523b09;
+  border-color: #e7b15b;
+  color: #e7b15b;
+}
+.severity-chip.selected.severe {
+  background: #551617;
+  border-color: #ed7c7f;
+  color: #ed7c7f;
+}
+
+.countermeasure-card {
+  background: rgba(14, 22, 33, 0.9);
+  border: 1px solid #1f2e42;
+  border-radius: 6px;
+  padding: 10px;
+}
+[data-theme="light"] .countermeasure-card {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.log-symptom-btn {
+  width: 100%;
+  padding: 8px 12px;
+  background: #0284c7;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.log-symptom-btn:hover {
+  background: #0369a1;
+}
+.log-symptom-btn:disabled {
+  background: #1e293b;
+  color: #475569;
+  cursor: not-allowed;
+}
+
+.log-success-banner {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  color: #56c69a;
+  background: rgba(86, 198, 154, 0.15);
+  padding: 5px 8px;
+  border-radius: 4px;
+}
+
+/* ========================================================
+   SENSORIMOTOR ARENA & TEST STYLES
+   ======================================================== */
+.sensorimotor-panel-container {
+  background: #111925;
+  border: 1px solid #222d3d;
+  border-radius: 14px;
+  padding: 20px;
+}
+[data-theme="light"] .sensorimotor-panel-container {
+  background: #ffffff;
+  border-color: #cbd5e1;
+}
+
+.tapping-grid-arena {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  max-width: 320px;
+  margin: 16px auto;
+}
+
+.tap-cell {
+  aspect-ratio: 1;
+  background: #0a0f18;
+  border: 1px solid #1e2b3c;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.15s;
+}
+
+[data-theme="light"] .tap-cell {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.tap-cell.active-target {
+  background: #0c3349;
+  border-color: #5cc9e6;
+  box-shadow: 0 0 16px rgba(92, 201, 230, 0.4);
+}
+
+.target-reticle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 3px solid #5cc9e6;
+  background: rgba(92, 201, 230, 0.4);
+  animation: target-pulse 0.8s infinite alternate;
+}
+
+@keyframes target-pulse {
+  from { transform: scale(0.85); }
+  to { transform: scale(1.15); }
+}
+
+.rx-indicator {
+  width: 100%;
+  max-width: 360px;
+  margin: 20px auto;
+  aspect-ratio: 2 / 1;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.rx-indicator.idle {
+  background: #1e293b;
+  color: #94a3b8;
+  border-color: #334155;
+}
+
+.rx-indicator.waiting {
+  background: #7f1d1d;
+  color: #fca5a5;
+  border-color: #ef4444;
+  animation: waiting-pulse 1s infinite alternate;
+}
+
+.rx-indicator.ready {
+  background: #065f46;
+  color: #6ee7b7;
+  border-color: #10b981;
+  box-shadow: 0 0 24px rgba(16, 185, 129, 0.6);
+}
+
+@keyframes waiting-pulse {
+  from { opacity: 0.8; }
+  to { opacity: 1; }
+}
+
+.btn-primary-aerospace {
+  background: #0284c7;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 12px;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-mono);
+}
+.btn-primary-aerospace:hover {
+  background: #0369a1;
+}
+
+.btn-secondary-aerospace {
+  background: #1e293b;
+  color: #cbd5e1;
+  border: 1px solid #334155;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+/* ========================================================
+   PRINT MEDIA STYLES FOR OFFICIAL DOSSIER PDF
+   ======================================================== */
+@media print {
+  body, .app-shell, .content-area {
+    background: #ffffff !important;
+    color: #000000 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .sidebar, .top-bar, .tanaw-guide-launcher, .modal-controls, button {
+    display: none !important;
+  }
+  .telemetry-dossier-modal {
+    position: static !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+  }
+  .printable-report {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border: 1px solid #999999 !important;
+  }
+  .printable-report h1, .printable-report h2, .printable-report strong, .printable-report td {
+    color: #000000 !important;
+  }
+  .printable-report table {
+    border-color: #999999 !important;
+  }
+}

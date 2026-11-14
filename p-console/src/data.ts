@@ -36,6 +36,8 @@ export type HealthRecord = {
   reading: Reading;
   temperatureC: number;
   respiration: number;
+  spo2?: number;
+  glucoseMgDl?: number;
 };
 export type ExerciseRecord = {
   id: string;

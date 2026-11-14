@@ -317,3 +317,33 @@ export function NutritionPanel({ crewId }: { crewId: string }) {
     </Panel>
   );
 }
+
+
+import PumaTracker from "./PumaTracker";
+import SensorimotorTest, { type SensorimotorResult } from "./SensorimotorTest";
+
+export function PumaPanel() {
+  return (
+    <Panel
+      title="Metabolic gas analysis (NASA PUMA Suite)"
+      note="Real-time breath-by-breath gas exchange, oxygen uptake, and carbon dioxide output from the Portable Unit for Metabolic Analysis."
+    >
+      <PumaTracker />
+    </Panel>
+  );
+}
+
+export function SensorimotorPanel({
+  onRecordResult,
+}: {
+  onRecordResult?: (res: SensorimotorResult) => void;
+}) {
+  return (
+    <Panel
+      title="Sensorimotor & fine motor testing"
+      note="Standardized in-flight sensorimotor test battery (NASA TM-2020-5008023). Measures hand-eye spatial tracking accuracy and visual reaction time."
+    >
+      <SensorimotorTest onRecordResult={onRecordResult} />
+    </Panel>
+  );
+}

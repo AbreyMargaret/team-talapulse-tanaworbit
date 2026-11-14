@@ -1,52 +1,63 @@
 {
   "meta": {
     "synthetic": true,
-    "origin": "SI-generated fictional crew profiles",
+    "origin": "Simulation crew profiles based on team Tala Pulse biodata research (PMC10973451, PMC12612093)",
     "warning": "All demo PINs are intentionally public. These are not real credentials or authentication."
   },
   "records": [
     {
-      "id": "crew-am",
+      "id": "crew-ef",
       "missionId": "aster-07",
-      "name": "Alex Morgan",
-      "role": "Mission Commander",
-      "initials": "AM",
-      "image": "/images/crew-alex.jpg",
-      "color": "#74859a",
-      "demoPin": "1420",
-      "reviewRequested": false
-    },
-    {
-      "id": "crew-jc",
-      "missionId": "aster-07",
-      "name": "James Chen",
-      "role": "Flight Engineer",
-      "initials": "JC",
+      "name": "Ella Nicole Fabro",
+      "role": "Flight Engineer / Biomedical Research Specialist",
+      "initials": "EF",
       "image": "",
-      "color": "#547c8b",
-      "demoPin": "2468",
+      "color": "#6b8fa3",
+      "demoPin": "3801",
       "reviewRequested": false
     },
     {
-      "id": "crew-sr",
+      "id": "crew-ab",
       "missionId": "aster-07",
-      "name": "Sofia Reyes",
-      "role": "Mission Specialist",
-      "initials": "SR",
+      "name": "Abrey Diane Barcellano",
+      "role": "Payload Specialist / Geologist",
+      "initials": "AB",
       "image": "",
       "color": "#8573a3",
-      "demoPin": "1357",
+      "demoPin": "4202",
       "reviewRequested": false
     },
     {
-      "id": "crew-ew",
+      "id": "crew-hl",
       "missionId": "aster-07",
-      "name": "Ethan Williams",
-      "role": "Science Officer",
-      "initials": "EW",
+      "name": "Hannah Faith Lopez",
+      "role": "Medical Officer / Human Physiology Researcher",
+      "initials": "HL",
+      "image": "",
+      "color": "#7b9a7d",
+      "demoPin": "4503",
+      "reviewRequested": false
+    },
+    {
+      "id": "crew-gm",
+      "missionId": "aster-07",
+      "name": "Gary Kenp Marasigan",
+      "role": "Mission Commander / Aerospace Systems Engineer",
+      "initials": "GM",
+      "image": "",
+      "color": "#547c8b",
+      "demoPin": "4804",
+      "reviewRequested": false
+    },
+    {
+      "id": "crew-gl",
+      "missionId": "aster-07",
+      "name": "Greek William Legaspi",
+      "role": "Flight Engineer / Robotics Specialist",
+      "initials": "GL",
       "image": "",
       "color": "#977b64",
-      "demoPin": "8642",
+      "demoPin": "5005",
       "reviewRequested": true
     }
   ]

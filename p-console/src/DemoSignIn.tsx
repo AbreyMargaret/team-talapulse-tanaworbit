@@ -25,7 +25,7 @@ export default function DemoSignIn({
       else {
         setChecking(false);
         setPin("");
-        setError("That sample PIN does not match this profile. Use the demo PIN shown below.");
+        setError("Invalid credentials. Enter the designated 4-digit mission PIN.");
         input.current?.focus();
       }
     }, 350);
@@ -43,6 +43,11 @@ export default function DemoSignIn({
     setPin((current) => (current + value).slice(0, 4));
   }
 
+  function quickVerify() {
+    setChecking(true);
+    setTimeout(() => onEnter(selected), 250);
+  }
+
   return (
     <main className="demo-access">
       <section className="access-story">
@@ -53,42 +58,45 @@ export default function DemoSignIn({
           </span>
         </div>
         <div className="access-story-copy">
-          <span className="eyebrow">HUMAN HEALTH. BEYOND EARTH.</span>
+          <span className="eyebrow">HUMAN HEALTH TELEMETRY BEYOND EARTH</span>
           <h2>
             One crew.
-            <br />A clearer perspective.
+            <br />A connected perspective.
           </h2>
-          <p>A connected view of health, movement, and daily life beyond Earth.</p>
+          <p>
+            Autonomous physiological telemetry, cabin environment correlation, and personalized
+            biomedical baselines for long-duration spaceflight.
+          </p>
           <div className="access-mission">
             <span className="status-dot" />
             <div>
               <strong>{mission.name}</strong>
               <span>
-                Fictional mission · Day {mission.day} of {mission.durationDays}
+                LEO Expedition · Flight Day {mission.day} of {mission.durationDays}
               </span>
             </div>
           </div>
         </div>
         <div className="access-earth" />
         <div className="access-story-footer">
-          <span>EDUCATIONAL CONCEPT</span>
-          <Link to="/b-login">Backend door</Link>
+          <span>TEAM TALA PULSE · NASA SPACE APPS 2026</span>
+          <Link to="/b-login">Operations Door</Link>
         </div>
       </section>
       <section className="access-console" aria-labelledby="access-title">
         <div className="access-console-top">
           <span className="simulation-label">
             <span />
-            LOCAL DEMONSTRATION
+            SIMULATION RUNTIME · ACTIVE
           </span>
-          <span>{crew.length} CREW PROFILES LOADED</span>
+          <span>{crew.length} CREW PROFILES READY</span>
         </div>
         <div className="access-heading">
-          <span className="eyebrow">CREW ACCESS</span>
-          <h1 id="access-title">Welcome to the console.</h1>
-          <p>Choose a fictional crew member, then enter their sample PIN.</p>
+          <span className="eyebrow">CREW SESSION LOGIN</span>
+          <h1 id="access-title">Flight Deck Console</h1>
+          <p>Select your flight crew profile, then authenticate with your 4-digit mission PIN.</p>
         </div>
-        <div className="access-crew-grid" role="group" aria-label="Choose a fictional crew profile">
+        <div className="access-crew-grid" role="group" aria-label="Choose a flight crew profile">
           {crew.map((member, index) => (
             <button
               key={member.id}
@@ -109,10 +117,20 @@ export default function DemoSignIn({
           ))}
         </div>
         <form className="access-pin-form" onSubmit={(event) => event.preventDefault()}>
-          <label htmlFor="demo-pin">
-            <span>4-digit demo PIN</span>
-            <small>Auto-continue when the four digits match</small>
-          </label>
+          <div className="flex items-center justify-between mb-1">
+            <label htmlFor="demo-pin" className="block m-0">
+              <span className="font-semibold text-xs">4-digit Mission PIN</span>
+              <small className="block text-[10px] text-slate-400">Assigned code: {person.demoPin}</small>
+            </label>
+            <button
+              type="button"
+              onClick={quickVerify}
+              disabled={checking}
+              className="text-[11px] font-mono px-2.5 py-1 bg-cyan-600/30 hover:bg-cyan-600/50 text-cyan-300 border border-cyan-500/40 rounded transition"
+            >
+              ⚡ Quick Authenticate
+            </button>
+          </div>
           <input
             ref={input}
             id="demo-pin"
@@ -130,7 +148,7 @@ export default function DemoSignIn({
               setPin(event.target.value.replace(/\D/g, "").slice(0, 4));
             }}
           />
-          <div className="access-keypad" aria-label="Demo PIN keypad">
+          <div className="access-keypad" aria-label="Mission PIN keypad">
             {["1", "2", "3", "4", "5", "6", "7", "8", "9"].map((value) => (
               <button
                 type="button"
@@ -161,68 +179,27 @@ export default function DemoSignIn({
             <button
               type="button"
               className="keypad-utility"
-              disabled={checking || !pin}
-              aria-label="Delete last PIN digit"
-              onClick={() => setPin((value) => value.slice(0, -1))}
+              disabled={checking || pin.length !== 4}
+              onClick={() => {
+                if (pin === person.demoPin) onEnter(selected);
+                else setError("PIN does not match.");
+              }}
             >
-              <svg
-                width="23"
-                height="23"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                aria-hidden="true"
-              >
-                <path d="m9 5-7 7 7 7h12V5ZM12 9l6 6m0-6-6 6" />
-              </svg>
+              Enter
             </button>
           </div>
+          <p id="demo-pin-help" className="access-form-help">
+            Mission PIN for {person.name}: <code>{person.demoPin}</code>.
+          </p>
           {error && (
-            <p className="access-error" role="alert">
+            <p className="access-form-error" role="alert">
               {error}
             </p>
           )}
-          <div className="access-demo-code" id="demo-pin-help">
-            <span>
-              Public demo PIN for {person.name.split(" ")[0]}: <b>{person.demoPin}</b>
-            </span>
-            <button
-              type="button"
-              disabled={checking}
-              onClick={() => {
-                setError("");
-                setPin(person.demoPin);
-              }}
-            >
-              Fill demo PIN <span aria-hidden="true">→</span>
-            </button>
-          </div>
-          <p className="access-checking" role="status">
-            {checking
-              ? "Matching the public demo profile…"
-              : "No account creation or personal information needed."}
+          <p id="demo-access-warning" className="access-form-warning">
+            Educational spaceflight prototype. Check-ins stay in local memory. Not a certified medical device.
           </p>
         </form>
-        <div className="access-disclaimer" id="demo-access-warning">
-          <svg
-            width="19"
-            height="19"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            aria-hidden="true"
-          >
-            <circle cx="12" cy="12" r="9" />
-            <path d="M12 11v6m0-10h.01" />
-          </svg>
-          <p>
-            <strong>Demo access, not secure authentication.</strong> PINs and JSON data are public
-            fixtures. This door does not store a check-in. Refreshing clears console edits. Backend
-            review uses /b-login.
-          </p>
-        </div>
       </section>
     </main>
   );

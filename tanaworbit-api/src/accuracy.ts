@@ -93,16 +93,16 @@ export function accuracyReport(): { ok: boolean; checks: AccuracyCheck[] } {
   push(
     check(
       "crew-count",
-      "Four fictional crew profiles",
-      crew.length === 4 && new Set(crew.map((person) => person.demoPin)).size === 4,
+      "Simulation crew profiles",
+      crew.length === 5 && new Set(crew.map((person) => person.demoPin)).size === 5,
       `${crew.length} profiles, ${new Set(crew.map((person) => person.demoPin)).size} public demo PINs`,
     ),
   );
   push(
     check(
       "health-count",
-      "120 health records, 30 days each",
-      healthRecords.length === 120 &&
+      "150 health records, 30 days each",
+      healthRecords.length === 150 &&
         crew.every(
           (person) => healthRecords.filter((record) => record.crewId === person.id).length === 30,
         ),
@@ -121,7 +121,7 @@ export function accuracyReport(): { ok: boolean; checks: AccuracyCheck[] } {
     check(
       "exercise-links",
       "Exercise records point at real crew and activities",
-      exerciseRecords.length === 20 &&
+      exerciseRecords.length === 25 &&
         exerciseRecords.every(
           (record) =>
             crewIds.has(record.crewId) &&
@@ -209,7 +209,7 @@ export function accuracyReport(): { ok: boolean; checks: AccuracyCheck[] } {
 
   const itemIds = new Set(nutritionItems.map((item) => item.id));
   const nutritionOk =
-    nutritionRecords.length === 28 &&
+    nutritionRecords.length === 35 &&
     nutritionRecords.every((row) => {
       const energy = parameter("kcal");
       const water = parameter("waterMl");

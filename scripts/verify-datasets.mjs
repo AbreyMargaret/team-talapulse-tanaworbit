@@ -32,9 +32,9 @@ unique(crew, "Crew");
 unique(health, "Health");
 unique(exercises, "Exercise");
 unique(catalog, "Activity");
-assert.equal(crew.length, 4);
-assert.equal(health.length, 120);
-assert.equal(exercises.length, 20);
+assert.equal(crew.length, 5);
+assert.equal(health.length, 150);
+assert.equal(exercises.length, 25);
 assert.equal(new Set(crew.map((person) => person.demoPin)).size, crew.length);
 const ids = new Set(crew.map((person) => person.id));
 const activities = new Set(catalog.map((activity) => activity.id));
@@ -72,6 +72,9 @@ for (const record of health) {
   bounded(r.fatigue, 1, 5, record.id);
   assert.equal(typeof r.mood, "string");
   assert.equal(typeof r.notes, "string");
+  // New fields
+  bounded(record.spo2, 1, 100, `${record.id} spo2`);
+  bounded(record.glucoseMgDl, 1, 400, `${record.id} glucose`);
 }
 for (const record of exercises) {
   assert.ok(ids.has(record.crewId));
@@ -90,7 +93,7 @@ for (const value of [
 ])
   assert.ok(value > 0);
 console.log(
-  "PASS: 4 public demo profiles, 120 synthetic health records, 20 exercise records, unique IDs, relationships, units/ranges, dates, and complete baseline/chart windows.",
+  "PASS: 5 simulation crew profiles, 150 synthetic health records, 25 exercise records, unique IDs, relationships, units/ranges, dates, and complete baseline/chart windows.",
 );
 await import("./verify-toolkit.mjs");
 await import("./verify-features.mjs");
