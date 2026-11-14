@@ -5709,9 +5709,16 @@ textarea::placeholder {
 }
 
 [data-theme="light"] .mission-mini strong,
-[data-theme="light"] .mission-mini span,
+[data-theme="light"] .mission-mini span {
+  color: #0f172a !important;
+}
+
 [data-theme="light"] .mission-mini small {
-  color: #334155 !important;
+  color: #475569 !important;
+}
+
+[data-theme="light"] .mission-mini .mini-orbit {
+  color: #0284c7 !important;
 }
 
 [data-theme="light"] .panel,
@@ -5729,6 +5736,70 @@ textarea::placeholder {
   border-color: var(--border);
   color: var(--text);
   box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+}
+
+[data-theme="light"] .mission-overview-banner {
+  background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%) !important;
+  border-color: #e2e8f0 !important;
+  color: #0f172a !important;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+}
+
+[data-theme="light"] .mission-overview-banner h2 {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .mission-overview-banner p {
+  color: #475569 !important;
+}
+
+[data-theme="light"] .overview-mission-stats strong {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .overview-mission-stats span,
+[data-theme="light"] .overview-mission-stats small {
+  color: #64748b !important;
+}
+
+[data-theme="light"] .crew-card {
+  background: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+}
+
+[data-theme="light"] .crew-card:hover {
+  border-color: #0284c7 !important;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.12) !important;
+}
+
+[data-theme="light"] .crew-card h2 {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .crew-card > p {
+  color: #475569 !important;
+}
+
+[data-theme="light"] .crew-metrics {
+  border-top-color: #e2e8f0 !important;
+}
+
+[data-theme="light"] .crew-metrics > div > span {
+  color: #64748b !important;
+}
+
+[data-theme="light"] .crew-metrics strong {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .crew-check {
+  color: #475569 !important;
+}
+
+[data-theme="light"] .crew-card-link {
+  border-top-color: #e2e8f0 !important;
+  color: #0284c7 !important;
 }
 
 [data-theme="light"] .profile-banner {
