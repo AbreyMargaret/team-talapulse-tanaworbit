@@ -118,6 +118,16 @@
   color: #6b85a1;
   font-size: 10px;
 }
+.access-story-footer a {
+  color: #79cce8;
+  font-size: 11px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  width: fit-content;
+}
+.access-story-footer a:hover {
+  color: #bbebff;
+}
 .access-console {
   padding: 39px 50px 30px;
   max-width: 670px;

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { crew, mission } from "./data";
 import "./demo.css";
 
@@ -71,7 +72,7 @@ export default function DemoSignIn({
         <div className="access-earth" />
         <div className="access-story-footer">
           <span>EDUCATIONAL CONCEPT</span>
-          <span>All profiles and health records are fictional.</span>
+          <Link to="/b-login">Backend door</Link>
         </div>
       </section>
       <section className="access-console" aria-labelledby="access-title">

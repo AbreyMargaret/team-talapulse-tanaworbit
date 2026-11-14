@@ -1,4 +1,5 @@
 # Dependencies, build output, and local tool state
+docs/privatedocs
 node_modules/
 dist/
 .pnpm-store/
@@ -37,6 +38,7 @@ Desktop.ini
 .figma/
 .vscode/
 .idea/
+.gitignore
 
 # Skill snapshots, wherever a tool drops them
 skills/
