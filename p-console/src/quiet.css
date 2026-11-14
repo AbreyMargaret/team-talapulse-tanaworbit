@@ -496,6 +496,112 @@ h1,
   background: var(--sidebar);
 }
 
+.sidebar-user > .account-open {
+  margin-left: 0;
+  padding: 0;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  background: none;
+  border: 0;
+  color: inherit;
+}
+
+.account-open small {
+  display: block;
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.account-modal {
+  max-width: 560px;
+}
+
+.account-role {
+  margin: -6px 0 14px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.account-facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 18px;
+  margin: 0 0 18px;
+}
+
+.account-facts div {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+
+.account-facts span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.account-facts strong {
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 550;
+}
+
+.notice-wrap {
+  position: relative;
+}
+
+.notice-panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  width: min(320px, calc(100vw - 24px));
+  padding: 12px 14px;
+  background: var(--panel);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 16px 40px color-mix(in srgb, #000 28%, transparent);
+  z-index: 70;
+  text-align: left;
+}
+
+.notice-panel h2 {
+  margin: 0 0 8px;
+  font-size: 14px;
+}
+
+.notice-panel p,
+.notice-panel button span {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.notice-panel button {
+  display: block;
+  width: 100%;
+  padding: 8px 0;
+  border: 0;
+  border-top: 1px solid var(--border);
+  background: none;
+  color: var(--text);
+  text-align: left;
+  font-size: 14px;
+}
+
+.notice-panel button span {
+  display: block;
+  margin-top: 3px;
+}
+
 .term-pop {
   position: fixed;
   z-index: 80;

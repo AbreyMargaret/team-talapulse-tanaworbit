@@ -1,12 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
 import { crew, mission } from "./data";
 import {
   ShieldCheck,
   KeyRound,
   UserCheck,
   Radio,
-  ArrowRight,
   Clock,
   Sparkles,
   CheckCircle2,
@@ -28,8 +26,37 @@ export default function DemoSignIn({
   const [error, setError] = useState("");
   const [checking, setChecking] = useState(false);
   const [utcTime, setUtcTime] = useState("");
+  const [orbitProgress, setOrbitProgress] = useState(0.42);
+  const [liveAlt, setLiveAlt] = useState(408.2);
+  const [liveVel, setLiveVel] = useState(7.662);
   const inputRef = useRef<HTMLInputElement>(null);
   const person = crew[selected] || crew[0];
+
+  // Live real-time spacecraft orbital trajectory animation & fluctuating telemetry
+  useEffect(() => {
+    let animId: number;
+    let last = performance.now();
+
+    function loop(now: number) {
+      const delta = (now - last) / 1000;
+      last = now;
+      setOrbitProgress((prev) => {
+        // Continuous orbital revolution sweep across horizon (~32s period)
+        const next = (prev + delta * 0.031) % 1;
+        // Fine microgravity orbital altitude micro-fluctuation (407.7 - 408.4 km)
+        const alt = 408.0 + Math.sin(next * Math.PI * 2) * 0.35;
+        // Orbital velocity variation (7.658 - 7.665 km/s)
+        const vel = 7.660 + Math.cos(next * Math.PI * 2) * 0.004;
+        setLiveAlt(Number(alt.toFixed(1)));
+        setLiveVel(Number(vel.toFixed(3)));
+        return next;
+      });
+      animId = requestAnimationFrame(loop);
+    }
+
+    animId = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(animId);
+  }, []);
 
   useEffect(() => {
     function updateClock() {
@@ -163,77 +190,139 @@ export default function DemoSignIn({
             <div className="grid grid-cols-3 gap-2 text-center font-mono text-xs">
               <div className="p-1.5 rounded bg-slate-950/60 border border-slate-800/80">
                 <span className="text-[9px] text-slate-400 block uppercase">Altitude</span>
-                <strong className="text-slate-200 text-xs">408 km</strong>
+                <strong className="text-slate-200 text-xs tabular-nums">{liveAlt.toFixed(1)} km</strong>
               </div>
               <div className="p-1.5 rounded bg-slate-950/60 border border-slate-800/80">
                 <span className="text-[9px] text-slate-400 block uppercase">Velocity</span>
-                <strong className="text-cyan-300 text-xs">7.66 km/s</strong>
+                <strong className="text-cyan-300 text-xs tabular-nums">{liveVel.toFixed(3)} km/s</strong>
               </div>
               <div className="p-1.5 rounded bg-slate-950/60 border border-slate-800/80">
                 <span className="text-[9px] text-slate-400 block uppercase">Telemetry</span>
-                <strong className="text-emerald-400 text-xs">5/5 Active</strong>
+                <strong className="text-emerald-400 text-xs flex items-center justify-center gap-1">
+                  <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  5/5 Active
+                </strong>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Seamless Planetary Horizon Vista & Orbital Trajectory (Zero hard oval edges) */}
-        <div className="access-orbital-vista" aria-hidden="true">
-          <div className="vista-horizon">
-            <div className="vista-atmosphere-glow" />
-          </div>
+        {/* Seamless Planetary Horizon Vista & Moving Orbital Telemetry */}
+        {(() => {
+          // Precise quadratic bezier trajectory interpolation: M -20 170 Q 270 45 620 115
+          const s = 0.05 + 0.90 * orbitProgress;
+          const u = 1 - s;
+          const craftX = u * u * -20 + 2 * u * s * 270 + s * s * 620;
+          const craftY = u * u * 170 + 2 * u * s * 45 + s * s * 115;
+          const tagWidth = 142;
+          const tagHeight = 32;
+          const tagX = craftX < 420 ? craftX + 16 : craftX - (tagWidth + 16);
+          const tagY = Math.max(14, Math.min(160, craftY - 38));
 
-          <svg
-            className="vista-orbit-svg"
-            viewBox="0 0 600 220"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            {/* Orbital Trajectory Path */}
-            <path
-              d="M -20 170 Q 260 50 620 110"
-              stroke="rgba(56, 189, 248, 0.45)"
-              strokeWidth="1.5"
-              strokeDasharray="5 5"
-            />
-            {/* Spacecraft Node */}
-            <circle cx="320" cy="85" r="5" fill="#38bdf8" />
-            <circle cx="320" cy="85" r="10" stroke="rgba(56, 189, 248, 0.5)" strokeWidth="1" />
+          return (
+            <div className="access-orbital-vista" aria-hidden="true">
+              <div className="vista-horizon">
+                <div className="vista-atmosphere-glow" />
+              </div>
 
-            {/* Floating Aerospace Telemetry Vector */}
-            <g transform="translate(340, 68)">
-              <rect
-                x="0"
-                y="0"
-                width="130"
-                height="28"
-                rx="6"
-                fill="rgba(8, 15, 28, 0.88)"
-                stroke="rgba(56, 189, 248, 0.35)"
-              />
-              <text x="8" y="13" fill="#f1f5f9" fontSize="8.5" fontFamily="monospace" fontWeight="bold">
-                ASTER VII · 408 KM
-              </text>
-              <text x="8" y="23" fill="#38bdf8" fontSize="8" fontFamily="monospace">
-                7.66 KM/S · 51.6° INC
-              </text>
-            </g>
-          </svg>
-        </div>
+              <svg
+                className="vista-orbit-svg"
+                viewBox="0 0 600 220"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                {/* Orbital Trajectory Arc Track */}
+                <path
+                  d="M -20 170 Q 270 45 620 115"
+                  stroke="rgba(56, 189, 248, 0.4)"
+                  strokeWidth="1.5"
+                  strokeDasharray="5 5"
+                />
 
-        {/* Clean Grounded Footer (Never overlaps or clips against graphics) */}
+                {/* Connecting telemetry line between moving spacecraft and callout HUD */}
+                <line
+                  x1={craftX.toFixed(1)}
+                  y1={craftY.toFixed(1)}
+                  x2={craftX < 420 ? tagX.toFixed(1) : (tagX + tagWidth).toFixed(1)}
+                  y2={(tagY + 16).toFixed(1)}
+                  stroke="rgba(56, 189, 248, 0.45)"
+                  strokeWidth="1"
+                  strokeDasharray="2 2"
+                />
+
+                {/* Moving Spacecraft Radar Ping Waves */}
+                <circle
+                  cx={craftX.toFixed(1)}
+                  cy={craftY.toFixed(1)}
+                  r="18"
+                  stroke="rgba(56, 189, 248, 0.3)"
+                  strokeWidth="1"
+                  fill="none"
+                  opacity="0.8"
+                />
+                <circle
+                  cx={craftX.toFixed(1)}
+                  cy={craftY.toFixed(1)}
+                  r="9"
+                  stroke="#38bdf8"
+                  strokeWidth="1.5"
+                  fill="rgba(8, 20, 42, 0.7)"
+                  opacity="0.95"
+                />
+                <circle
+                  cx={craftX.toFixed(1)}
+                  cy={craftY.toFixed(1)}
+                  r="4"
+                  fill="#38bdf8"
+                />
+
+                {/* Dynamic Telemetry HUD Tag (Follows craft with live numbers) */}
+                <g transform={`translate(${tagX.toFixed(1)}, ${tagY.toFixed(1)})`}>
+                  <rect
+                    x="0"
+                    y="0"
+                    width={tagWidth}
+                    height={tagHeight}
+                    rx="6"
+                    fill="rgba(6, 13, 24, 0.92)"
+                    stroke="rgba(56, 189, 248, 0.45)"
+                  />
+                  <circle cx="10" cy="12" r="3" fill="#38bdf8" />
+                  <text
+                    x="18"
+                    y="14"
+                    fill="#f8fafc"
+                    fontSize="9"
+                    fontFamily="monospace"
+                    fontWeight="bold"
+                  >
+                    ASTER VII · {liveAlt.toFixed(1)} KM
+                  </text>
+                  <text
+                    x="18"
+                    y="25"
+                    fill="#38bdf8"
+                    fontSize="8"
+                    fontFamily="monospace"
+                  >
+                    {liveVel.toFixed(3)} KM/S · 51.6° INC
+                  </text>
+                </g>
+              </svg>
+            </div>
+          );
+        })()}
+
+        {/* Clean Grounded Footer (Backend Review Door removed) */}
         <div className="access-story-footer relative z-10 pt-4">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 p-3 rounded-xl bg-slate-950/85 border border-slate-800/90 backdrop-blur-md">
             <span className="font-mono text-[11px] tracking-wider text-slate-400">
               TEAM TALA PULSE · NASA SPACE APPS 2026
             </span>
-            <Link
-              to="/b-login"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-cyan-300 hover:text-cyan-200 font-mono text-xs transition"
-            >
-              <span>Backend Review Door</span>
-              <ArrowRight size={12} />
-            </Link>
+            <div className="flex items-center gap-2 text-xs font-mono text-emerald-400">
+              <span className="size-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>ORBITAL TELEMETRY: ACTIVE (4 Hz)</span>
+            </div>
           </div>
         </div>
       </section>

@@ -60,6 +60,7 @@ import "./toolkit.css";
 const HealthToolkit = lazy(() => import("./HealthToolkit"));
 const TanawGuide = lazy(() => import("./TanawGuide"));
 import {
+  biodataFor,
   crew,
   crewStatus,
   historyFor,
@@ -573,6 +574,52 @@ function Avatar({
     </div>
   );
 }
+
+function AccountFacts({
+  person,
+  onOpenBody,
+}: {
+  person: (typeof crew)[number];
+  onOpenBody: () => void;
+}) {
+  const bio = biodataFor(person.id);
+  const facts: [string, string][] = [
+    ["Crew ID", person.id.toUpperCase()],
+    ["Mission", mission.name],
+    ["Sex", bio.sex],
+    ["Age", `${bio.ageYears} years`],
+    ["Height", `${bio.statureCm} cm`],
+    ["Mass now", `${bio.massKgInflight} kg`],
+    ["Mass on the ground", `${bio.massKgGround} kg`],
+    ["Body mass index now", String(bio.bmiInflight)],
+    ["Body mass index on the ground", String(bio.bmiGround)],
+    ["Fat-free mass now", `${bio.fatFreeMassKgInflight} kg`],
+    ["Fat-free mass on the ground", `${bio.fatFreeMassKgGround} kg`],
+    ["Fat mass", `${bio.fatMassKgInflight} kg`],
+    ["Blood type", bio.bloodTypeLabel],
+    ["Dominant side", bio.dominantSide],
+    ["Training-habitat days", String(bio.analogDays)],
+    ["Mission length", bio.missionDurationType],
+  ];
+  return (
+    <>
+      <p className="account-role">{person.role}</p>
+      <div className="account-facts">
+        {facts.map(([label, value]) => (
+          <div key={label}>
+            <span>{label}</span>
+            <strong>{value}</strong>
+          </div>
+        ))}
+      </div>
+      <button className="primary-button" type="button" onClick={onOpenBody}>
+        Body measurements
+        <Icon name="arrow" size={16} />
+      </button>
+    </>
+  );
+}
+
 function Sparkline({ type = 0, amber = false }: { type?: number; amber?: boolean }) {
   const lines = [
     "0,28 9,25 17,30 27,19 36,24 45,21 53,27 63,17 72,23 81,12 91,21 100,13 110,20 120,15",
@@ -1043,7 +1090,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
   const [alertFilter, setAlertFilter] = useState("All statuses");
   const [reviewed, setReviewed] = useState<string[]>([]);
   const [topic, setTopic] = useState(0);
-  const [modal, setModal] = useState<"about" | "settings" | "export" | "onboarding" | null>(() => {
+  const [modal, setModal] = useState<"about" | "settings" | "export" | "onboarding" | "account" | null>(() => {
     if (typeof window !== "undefined" && !localStorage.getItem("tanaworbit_onboarded")) {
       return "onboarding";
     }
@@ -1054,6 +1101,10 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
   const [narrow, setNarrow] = useState(() =>
     typeof window !== "undefined" ? window.matchMedia("(max-width: 760px)").matches : false,
   );
+  const [noticesOpen, setNoticesOpen] = useState(false);
+  const [accountNote, setAccountNote] = useState<string | null>(null);
+  const [accountNoteSeen, setAccountNoteSeen] = useState(true);
+  const noticeRef = useRef<HTMLDivElement>(null);
   const [theme, setTheme] = useState<"dark" | "light">(() => {
     if (typeof window !== "undefined") {
       return (localStorage.getItem("tanaworbit_theme") as "dark" | "light") || "dark";
@@ -1229,6 +1280,16 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
   }, []);
 
   useEffect(() => {
+    if (!noticesOpen) return;
+    function onPointer(event: MouseEvent) {
+      if (noticeRef.current?.contains(event.target as Node)) return;
+      setNoticesOpen(false);
+    }
+    document.addEventListener("mousedown", onPointer);
+    return () => document.removeEventListener("mousedown", onPointer);
+  }, [noticesOpen]);
+
+  useEffect(() => {
     if (!tourReady.current) {
       tourReady.current = true;
       return;
@@ -1268,7 +1329,18 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
   }
   function openModal(next: "about" | "settings" | "export") {
     setSidebarOpen(false);
+    setNoticesOpen(false);
     setModal(next);
+  }
+  function openAccount() {
+    const bio = biodataFor(person.id);
+    const line = `${bio.ageYears} years · ${bio.statureCm} cm · ${bio.massKg} kg · blood type ${bio.bloodTypeLabel}`;
+    setAccountNote(`${person.name}. ${line}`);
+    setAccountNoteSeen(false);
+    setNoticesOpen(false);
+    setSidebarOpen(false);
+    setModal("account");
+    notify(`Account opened. ${line}`, "info");
   }
   function exportData() {
     const rows = [
@@ -2100,11 +2172,17 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
               <Icon name="external" size={13} />
             </button>
             <div className="sidebar-user">
-              <Avatar person={person} />
-              <div>
-                {person.name}
-                <small>{person.role}</small>
-              </div>
+              <button
+                className="account-open"
+                aria-label={`Open account for ${person.name}`}
+                onClick={openAccount}
+              >
+                <Avatar person={person} />
+                <div>
+                  {person.name}
+                  <small>{person.role}</small>
+                </div>
+              </button>
               <button aria-label="Switch crew member" onClick={() => navigate("Mission Overview")}>
                 <Icon name="chevron" size={16} />
               </button>
@@ -2197,18 +2275,66 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                   <span>Sign out</span>
                 </button>
               </div>
-              <button
-                className="notification-button"
-                aria-label="Open flags"
-                onClick={() => navigate("Alerts & Attention")}
-              >
-                <Icon name="bell" size={19} />
-                <i />
-              </button>
+              <div className="notice-wrap" ref={noticeRef}>
+                <button
+                  className="notification-button"
+                  aria-label="Open notifications"
+                  aria-expanded={noticesOpen}
+                  onClick={() => {
+                    setAccountNoteSeen(true);
+                    setNoticesOpen((open) => !open);
+                  }}
+                >
+                  <Icon name="bell" size={19} />
+                  {(accountNote && !accountNoteSeen) ||
+                  alerts.some(
+                    (item) =>
+                      item.status !== "Stable" && !reviewed.includes(`${selectedCrew}-${item.id}`),
+                  ) ? (
+                    <i />
+                  ) : null}
+                </button>
+                {noticesOpen && (
+                  <div className="notice-panel" role="menu">
+                    <h2>Notifications</h2>
+                    {accountNote && (
+                      <button type="button" onClick={openAccount}>
+                        Account
+                        <span>{accountNote}</span>
+                      </button>
+                    )}
+                    {alerts
+                      .filter(
+                        (item) =>
+                          item.status !== "Stable" &&
+                          !reviewed.includes(`${selectedCrew}-${item.id}`),
+                      )
+                      .map((item) => (
+                        <button
+                          type="button"
+                          key={item.id}
+                          onClick={() => {
+                            setNoticesOpen(false);
+                            navigate("Alerts & Attention");
+                          }}
+                        >
+                          {item.title}
+                          <span>{item.text}</span>
+                        </button>
+                      ))}
+                    {!accountNote &&
+                      !alerts.some(
+                        (item) =>
+                          item.status !== "Stable" &&
+                          !reviewed.includes(`${selectedCrew}-${item.id}`),
+                      ) && <p>No notifications yet. Open the account to see this crew member.</p>}
+                  </div>
+                )}
+              </div>
               <button
                 className="topbar-avatar"
-                aria-label="Open mission crew"
-                onClick={() => navigate("Mission Overview")}
+                aria-label={`Open account for ${person.name}`}
+                onClick={openAccount}
               >
                 <Avatar person={person} />
               </button>
@@ -2965,7 +3091,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
         {modal && modal !== "export" && modal !== "onboarding" && (
           <div className="modal-backdrop" onClick={() => setModal(null)}>
             <section
-              className="panel modal"
+              className={modal === "account" ? "panel modal account-modal" : "panel modal"}
               role="dialog"
               aria-modal="true"
               aria-labelledby="modal-title"
@@ -2979,18 +3105,22 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
               >
                 <Icon name="close" />
               </button>
-              <span className="section-icon">
-                <Icon
-                  name={modal === "about" ? "shield" : "settings"}
-                  size={27}
-                />
-              </span>
+              {modal === "account" ? (
+                <Avatar person={person} large />
+              ) : (
+                <span className="section-icon">
+                  <Icon name={modal === "about" ? "shield" : "settings"} size={27} />
+                </span>
+              )}
               <h2 id="modal-title">
-                {modal === "about"
-                  ? "What this is"
-                  : "Display"}
+                {modal === "account" ? person.name : modal === "about" ? "What this is" : "Display"}
               </h2>
-              {modal === "about" ? (
+              {modal === "account" ? (
+                <AccountFacts person={person} onOpenBody={() => {
+                  setModal(null);
+                  navigate("Biodata");
+                }} />
+              ) : modal === "about" ? (
                 <>
                   <p>
                     TanawOrbit is a practice page for reading health numbers on a long mission.
@@ -3037,13 +3167,12 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                   </div>
                 </>
               )}
-              <button
-                className="primary-button"
-                onClick={() => setModal(null)}
-              >
-                {modal === "about" ? "Understood" : "Done"}
-                <Icon name="check" size={16} />
-              </button>
+              {modal !== "account" && (
+                <button className="primary-button" onClick={() => setModal(null)}>
+                  {modal === "about" ? "Understood" : "Done"}
+                  <Icon name="check" size={16} />
+                </button>
+              )}
             </section>
           </div>
         )}
