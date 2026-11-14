@@ -944,16 +944,43 @@ h1 {
   margin-top: 5px;
 }
 select {
-  border: 1px solid #2c394e;
-  background: #151f2e;
-  border-radius: 4px;
-  font-size: 9px;
-  color: #acbbcf;
-  padding: 7px 25px 7px 9px;
+  border: 1px solid var(--border);
+  background: var(--panel, #0f172a);
+  border-radius: 8px;
+  font-size: 12px;
+  color: var(--text, #e2e8f0);
+  padding: 8px 30px 8px 12px;
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='none' stroke='%2395a6be' stroke-width='1.2'%3E%3Cpath d='m2 4 3 3 3-3'/%3E%3C/svg%3E");
-  background-position: right 8px center;
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%2338bdf8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3 4.5 3 3 3-3'/%3E%3C/svg%3E");
+  background-position: right 10px center;
   background-repeat: no-repeat;
+}
+
+select:focus {
+  outline: none;
+  border-color: #38bdf8;
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+}
+
+select option {
+  background: #0f172a;
+  color: #f1f5f9;
+  padding: 8px 12px;
+  font-size: 13px;
+}
+
+[data-theme="light"] select {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  color: #0f172a;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%230284c7' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3 4.5 3 3 3-3'/%3E%3C/svg%3E");
+}
+
+[data-theme="light"] select option {
+  background: #ffffff;
+  color: #0f172a;
 }
 .chart-tabs {
   display: flex;

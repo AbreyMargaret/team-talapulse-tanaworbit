@@ -355,22 +355,22 @@ export const PAGE_TO_HASH: Record<Page, string> = {
 };
 
 export const PAGE_DISPLAY_LABELS: Record<Page, string> = {
-  "Astronaut Dashboard": "Today",
-  "Physiological Monitoring": "Heart and breathing",
-  "Cabin Conditions": "Cabin air",
-  "Orbital Conditions": "Orbit",
-  "Mission Overview": "Crew",
-  "Health Trends": "Recent days",
-  "Calculation Trend": "Your average",
-  "Sensorimotor & Reflex": "Hands and reaction",
-  "Space Nutrition": "Meals",
-  "Exercise & Recovery": "Exercise",
-  "Biodata": "Body measurements",
-  "Monitor Parameters": "Ranges we use",
-  "Health Check-In": "Record today",
-  "Health Toolkit": "How to record",
-  "Health Guidance": "Notes",
-  "Alerts & Attention": "Flags",
+  "Astronaut Dashboard": "Astronaut Flight Deck",
+  "Physiological Monitoring": "Physiological Telemetry",
+  "Cabin Conditions": "Cabin Environment (ECLSS)",
+  "Orbital Conditions": "Orbital Parameters",
+  "Mission Overview": "Expedition Whole Crew",
+  "Health Trends": "Biometric Health Trends",
+  "Calculation Trend": "Baseline Variance Analytics",
+  "Sensorimotor & Reflex": "Sensorimotor & Reflex Testing",
+  "Space Nutrition": "Space Nutrition & Hydration",
+  "Exercise & Recovery": "Exercise Countermeasures",
+  "Biodata": "Crew Baseline & Biodata",
+  "Monitor Parameters": "Clinical Safety Thresholds",
+  "Health Check-In": "Daily Health Check-In",
+  "Health Toolkit": "Clinical Diagnostic Toolkit",
+  "Health Guidance": "Zero-G Living & Clinical Guide",
+  "Alerts & Attention": "Clinical Alerts & Observations",
 };
 
 export type NavGroup = {
@@ -380,44 +380,39 @@ export type NavGroup = {
 
 const navGroups: NavGroup[] = [
   {
-    pillar: "Start here",
+    pillar: "Flight Deck & Operations",
     items: [
-      { page: "Astronaut Dashboard", label: "Today", icon: "activity" },
-      { page: "Health Check-In", label: "Record today", icon: "check" },
-      { page: "Alerts & Attention", label: "Flags", icon: "bell" },
+      { page: "Astronaut Dashboard", label: "Flight Deck", icon: "activity" },
+      { page: "Health Check-In", label: "Daily Check-In", icon: "check" },
+      { page: "Alerts & Attention", label: "Clinical Alerts", icon: "bell" },
+      { page: "Mission Overview", label: "Crew Overview", icon: "grid" },
     ],
   },
   {
-    pillar: "Look back",
+    pillar: "Physiological Telemetry",
     items: [
-      { page: "Health Trends", label: "Recent days", icon: "chart" },
-      { page: "Calculation Trend", label: "Your average", icon: "chart" },
+      { page: "Physiological Monitoring", label: "Biometric Telemetry", icon: "pulse" },
+      { page: "Health Trends", label: "Health Trends", icon: "chart" },
+      { page: "Calculation Trend", label: "Baseline Analytics", icon: "chart" },
+      { page: "Sensorimotor & Reflex", label: "Sensorimotor Testing", icon: "check" },
+      { page: "Biodata", label: "Crew Medical Record", icon: "activity" },
     ],
   },
   {
-    pillar: "Your body",
+    pillar: "Life Support & Habitat",
     items: [
-      { page: "Physiological Monitoring", label: "Heart and breathing", icon: "pulse" },
-      { page: "Exercise & Recovery", label: "Exercise", icon: "activity" },
-      { page: "Space Nutrition", label: "Meals", icon: "battery" },
-      { page: "Sensorimotor & Reflex", label: "Hands and reaction", icon: "check" },
-      { page: "Biodata", label: "Body measurements", icon: "activity" },
+      { page: "Cabin Conditions", label: "Cabin Life Support", icon: "thermometer" },
+      { page: "Orbital Conditions", label: "Orbital Flight Parameters", icon: "globe" },
     ],
   },
   {
-    pillar: "Around you",
+    pillar: "Countermeasures & Guidance",
     items: [
-      { page: "Cabin Conditions", label: "Cabin air", icon: "thermometer" },
-      { page: "Orbital Conditions", label: "Orbit", icon: "globe" },
-      { page: "Mission Overview", label: "Crew", icon: "grid" },
-    ],
-  },
-  {
-    pillar: "Keep nearby",
-    items: [
-      { page: "Health Toolkit", label: "How to record", icon: "help" },
-      { page: "Health Guidance", label: "Notes", icon: "book" },
-      { page: "Monitor Parameters", label: "Ranges we use", icon: "pulse" },
+      { page: "Health Guidance", label: "Zero-G Living Guide", icon: "book" },
+      { page: "Health Toolkit", label: "Clinical Diagnostic Toolkit", icon: "help" },
+      { page: "Exercise & Recovery", label: "Exercise Countermeasures", icon: "activity" },
+      { page: "Space Nutrition", label: "Nutrition & Hydration", icon: "battery" },
+      { page: "Monitor Parameters", label: "Safety Thresholds", icon: "pulse" },
     ],
   },
 ];
@@ -1111,12 +1106,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
   const [alertFilter, setAlertFilter] = useState("All statuses");
   const [reviewed, setReviewed] = useState<string[]>([]);
   const [topic, setTopic] = useState(0);
-  const [modal, setModal] = useState<"about" | "settings" | "export" | "onboarding" | "account" | null>(() => {
-    if (typeof window !== "undefined" && !localStorage.getItem("tanaworbit_onboarded")) {
-      return "onboarding";
-    }
-    return null;
-  });
+  const [modal, setModal] = useState<"about" | "settings" | "export" | "onboarding" | "account" | null>(null);
   const [tourIndex, setTourIndex] = useState(0);
   const tourReady = useRef(false);
   const [narrow, setNarrow] = useState(() =>
@@ -2198,6 +2188,10 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
               About
               <Icon name="external" size={13} />
             </button>
+            <div className="sidebar-sim-badge">
+              <span className="status-dot" style={{ backgroundColor: "#38bdf8" }} />
+              <span>Simulation 1 · Educational Prototype</span>
+            </div>
             <div className="sidebar-user">
               <button
                 className="account-open"

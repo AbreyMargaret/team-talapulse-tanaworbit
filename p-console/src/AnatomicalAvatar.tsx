@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   Activity,
   Heart,
@@ -10,6 +10,8 @@ import {
   HelpCircle,
   Shield,
   Sparkles,
+  ChevronDown,
+  Check,
 } from "lucide-react";
 
 export type BodyZone =
@@ -162,8 +164,40 @@ export default function AnatomicalAvatar({
   const [selectedSymptom, setSelectedSymptom] = useState<string>("");
   const [severity, setSeverity] = useState<"Mild" | "Moderate" | "Severe">("Mild");
   const [loggedNotice, setLoggedNotice] = useState<string | null>(null);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   const zoneInfo = ZONE_DATA[activeZone];
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setDropdownOpen(false);
+      }
+    }
+    if (dropdownOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => document.removeEventListener("mousedown", handleClickOutside);
+    }
+  }, [dropdownOpen]);
+
+  // Close dropdown on Escape key
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") setDropdownOpen(false);
+    }
+    if (dropdownOpen) {
+      document.addEventListener("keydown", handleKeyDown);
+      return () => document.removeEventListener("keydown", handleKeyDown);
+    }
+  }, [dropdownOpen]);
+
+  // Reset selected symptom & close dropdown when user clicks a different body zone
+  useEffect(() => {
+    setSelectedSymptom("");
+    setDropdownOpen(false);
+  }, [activeZone]);
 
   function handleLog() {
     if (!selectedSymptom) return;
@@ -184,24 +218,24 @@ export default function AnatomicalAvatar({
     <div className="quiet-card panel">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-[var(--border)] pb-4 mb-5">
         <div>
-          <h3 className="text-lg font-semibold">Where you feel it</h3>
+          <h3 className="text-lg font-semibold">Anatomical Somatic Mapping & Telemetry</h3>
           <p className="text-sm text-[var(--muted)]">
-            Pick an area and note what you feel.
+            Interactive crew somatic assessment: select body region to inspect microgravity physiological adaptation and record clinical observations.
           </p>
         </div>
 
         <div className="flex items-center gap-2 text-xs font-mono">
           <span className="px-2.5 py-1 rounded-full bg-emerald-950/70 border border-emerald-500/30 text-emerald-300 flex items-center gap-1.5">
             <span className="size-1.5 rounded-full bg-emerald-400" />
-            Usual
+            Nominal
           </span>
           <span className="px-2.5 py-1 rounded-full bg-amber-950/70 border border-amber-500/30 text-amber-300 flex items-center gap-1.5">
             <span className="size-1.5 rounded-full bg-amber-400" />
-            Different
+            Observation
           </span>
           <span className="px-2.5 py-1 rounded-full bg-rose-950/70 border border-rose-500/30 text-rose-300 flex items-center gap-1.5">
             <span className="size-1.5 rounded-full bg-rose-400" />
-            Flagged
+            Attention
           </span>
         </div>
       </div>
@@ -408,91 +442,178 @@ export default function AnatomicalAvatar({
           </div>
         </div>
 
-        {/* Right: Layman Space Medicine Protocol & Countermeasure */}
+        {/* Right: Space Medicine Protocols & Clinical Countermeasure */}
         <div className="lg:col-span-7 flex flex-col gap-4">
-          {/* Card: What Zero Gravity Does Here */}
+          {/* Card: Microgravity Physiological Adaptation */}
           <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800">
-            <h4 className="text-base font-semibold">{zoneInfo.laymanLabel}</h4>
+            <div className="flex items-center justify-between gap-2 mb-1">
+              <h4 className="text-base font-semibold text-white">{zoneInfo.title}</h4>
+              <span className="text-[11px] font-mono text-cyan-400 bg-cyan-950/60 border border-cyan-800/40 px-2 py-0.5 rounded">
+                {zoneInfo.laymanLabel}
+              </span>
+            </div>
 
-            <div className="mt-3 p-3 rounded-lg text-sm leading-relaxed">
-              <strong className="block mb-1">With less gravity:</strong>
+            <div className="mt-3 p-3 rounded-lg bg-slate-900/60 border border-slate-800 text-xs sm:text-sm text-slate-300 leading-relaxed">
+              <strong className="block text-cyan-300 text-xs font-mono uppercase tracking-wider mb-1">
+                Microgravity Adaptation Phenomenon:
+              </strong>
               {zoneInfo.spacePhenomenon}
             </div>
 
-            <div className="mt-2.5 text-xs text-slate-400">
-              <span className="block mb-1">What is usual:</span>
+            <div className="mt-2.5 text-xs text-slate-400 px-1">
+              <span className="text-slate-500 font-mono text-[11px] uppercase tracking-wider block mb-0.5">
+                Nominal 1G Clinical Baseline:
+              </span>
               {zoneInfo.normalBaseline}
             </div>
           </div>
 
-          {/* Card: Actionable Countermeasures */}
+          {/* Card: In-Flight Clinical Protocols & Countermeasures */}
           <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800">
             <div className="flex items-center gap-2 mb-2">
               <Shield size={15} className="text-emerald-400" />
-              <strong className="text-sm font-semibold">What people sometimes do</strong>
+              <strong className="text-sm font-semibold text-white">
+                Flight Protocol & Clinical Countermeasure
+              </strong>
             </div>
             <p className="text-xs text-slate-200 leading-relaxed bg-emerald-950/30 border border-emerald-500/20 p-3 rounded-lg">
               {zoneInfo.countermeasure}
             </p>
           </div>
 
-          {/* Quick Symptom Logger */}
-          <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800">
-            <div className="flex items-center justify-between mb-2">
-              <label htmlFor="symptom-select" className="text-xs font-semibold text-slate-200 block">
-                Note what you feel
+          {/* Bespoke Interactive Symptom Logger */}
+          <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 backdrop-blur-md">
+            <div className="flex items-center justify-between mb-2.5">
+              <label className="text-xs font-semibold text-slate-200 flex items-center gap-1.5">
+                <Activity size={13} className="text-cyan-400" />
+                Record Clinical Observation ({zoneInfo.laymanLabel})
               </label>
               {loggedNotice && (
-                <span className="text-[11px] font-mono text-emerald-400 animate-fade-in">
+                <span className="text-[11px] font-mono text-emerald-400 animate-fade-in bg-emerald-950/80 border border-emerald-500/40 px-2 py-0.5 rounded">
                   ✓ {loggedNotice}
                 </span>
               )}
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-2">
-              <select
-                id="symptom-select"
-                value={selectedSymptom}
-                onChange={(e) => setSelectedSymptom(e.target.value)}
-                className="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-xs text-slate-200 focus:border-cyan-400 cursor-pointer"
+            {/* Custom Aerospace Floating Dropdown */}
+            <div className="relative" ref={dropdownRef}>
+              <button
+                type="button"
+                onClick={() => setDropdownOpen((prev) => !prev)}
+                className={`w-full flex items-center justify-between gap-3 px-3.5 py-2.5 rounded-xl border text-left text-xs transition duration-150 cursor-pointer shadow-sm ${
+                  dropdownOpen
+                    ? "bg-slate-900 border-cyan-400/80 ring-2 ring-cyan-500/20 text-white"
+                    : selectedSymptom
+                      ? "bg-slate-900/90 border-slate-700 text-slate-100 hover:border-slate-600"
+                      : "bg-slate-900/60 border-slate-700/80 text-slate-400 hover:border-slate-600 hover:text-slate-200"
+                }`}
+                aria-haspopup="listbox"
+                aria-expanded={dropdownOpen}
               >
-                <option value="">-- Choose symptom observed --</option>
-                {zoneInfo.symptoms.map((s) => (
-                  <option key={s} value={s}>
-                    {s}
-                  </option>
-                ))}
-              </select>
+                <div className="flex items-center gap-2.5 truncate">
+                  <Activity
+                    size={14}
+                    className={selectedSymptom ? "text-cyan-400 shrink-0" : "text-slate-500 shrink-0"}
+                  />
+                  <span className="truncate">
+                    {selectedSymptom || `Select observed symptom for ${zoneInfo.laymanLabel}...`}
+                  </span>
+                </div>
+                <ChevronDown
+                  size={14}
+                  className={`text-slate-400 transition-transform duration-200 shrink-0 ${
+                    dropdownOpen ? "rotate-180 text-cyan-400" : ""
+                  }`}
+                />
+              </button>
 
-              <div className="flex gap-1.5">
-                {(["Mild", "Moderate", "Severe"] as const).map((sev) => (
-                  <button
-                    key={sev}
-                    type="button"
-                    onClick={() => setSeverity(sev)}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium border transition cursor-pointer ${
-                      severity === sev
-                        ? sev === "Severe"
-                          ? "bg-rose-950 border-rose-500 text-rose-300"
-                          : sev === "Moderate"
-                            ? "bg-amber-950 border-amber-500 text-amber-300"
-                            : "bg-cyan-950 border-cyan-400 text-cyan-300"
-                        : "bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200"
-                    }`}
-                  >
-                    {sev}
-                  </button>
-                ))}
-
-                <button
-                  type="button"
-                  onClick={handleLog}
-                  disabled={!selectedSymptom}
-                  className="px-4 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 disabled:opacity-40 text-white font-medium text-xs transition cursor-pointer"
+              {dropdownOpen && (
+                <div
+                  role="listbox"
+                  className="absolute left-0 right-0 top-full mt-1.5 z-50 p-1.5 bg-slate-900/98 border border-slate-700/90 rounded-xl shadow-[0_16px_36px_rgba(0,0,0,0.65)] backdrop-blur-xl max-h-60 overflow-y-auto space-y-1 animate-in fade-in zoom-in-95 duration-100"
                 >
-                  Record
-                </button>
+                  <div className="px-2.5 py-1 text-[10px] font-mono uppercase tracking-wider text-slate-500 border-b border-slate-800/80 mb-1">
+                    Select Symptom · {zoneInfo.laymanLabel}
+                  </div>
+                  {zoneInfo.symptoms.map((symptom) => {
+                    const isSelected = selectedSymptom === symptom;
+                    return (
+                      <button
+                        key={symptom}
+                        type="button"
+                        role="option"
+                        aria-selected={isSelected}
+                        onClick={() => {
+                          setSelectedSymptom(symptom);
+                          setDropdownOpen(false);
+                        }}
+                        className={`w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg text-xs text-left transition cursor-pointer ${
+                          isSelected
+                            ? "bg-cyan-950/80 border border-cyan-500/40 text-cyan-200 font-medium shadow-inner"
+                            : "text-slate-200 hover:bg-slate-800/80 hover:text-white"
+                        }`}
+                      >
+                        <span className="flex-1 leading-snug">{symptom}</span>
+                        {isSelected && <Check size={14} className="text-cyan-400 shrink-0" />}
+                      </button>
+                    );
+                  })}
+                  {selectedSymptom && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectedSymptom("");
+                        setDropdownOpen(false);
+                      }}
+                      className="w-full text-center py-1.5 text-[11px] font-mono text-slate-400 hover:text-rose-400 transition border-t border-slate-800/80 mt-1 cursor-pointer"
+                    >
+                      Clear selection
+                    </button>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Severity Rating Selector & Action Row */}
+            <div className="mt-3 pt-3 border-t border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="flex items-center gap-2">
+                <span className="text-[11px] font-mono text-slate-400 uppercase tracking-wider shrink-0">
+                  Severity:
+                </span>
+                <div className="flex items-center gap-1.5">
+                  {(["Mild", "Moderate", "Severe"] as const).map((sev) => {
+                    const isCurrent = severity === sev;
+                    return (
+                      <button
+                        key={sev}
+                        type="button"
+                        onClick={() => setSeverity(sev)}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium border transition cursor-pointer ${
+                          isCurrent
+                            ? sev === "Severe"
+                              ? "bg-rose-950/90 border-rose-500 text-rose-300 ring-1 ring-rose-500/40 shadow-[0_0_12px_rgba(244,63,94,0.2)]"
+                              : sev === "Moderate"
+                                ? "bg-amber-950/90 border-amber-500 text-amber-300 ring-1 ring-amber-500/40 shadow-[0_0_12px_rgba(245,158,11,0.2)]"
+                                : "bg-cyan-950/90 border-cyan-400 text-cyan-300 ring-1 ring-cyan-400/40 shadow-[0_0_12px_rgba(34,211,238,0.2)]"
+                            : "bg-slate-900/80 border-slate-800 text-slate-400 hover:text-slate-200 hover:border-slate-700"
+                        }`}
+                      >
+                        {sev}
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
+
+              <button
+                type="button"
+                onClick={handleLog}
+                disabled={!selectedSymptom}
+                className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 disabled:from-slate-800 disabled:to-slate-800 disabled:text-slate-500 disabled:border-slate-700/50 text-white font-medium text-xs shadow-md shadow-cyan-950/50 transition cursor-pointer border border-cyan-400/30 disabled:cursor-not-allowed"
+              >
+                <CheckCircle2 size={14} className={selectedSymptom ? "text-cyan-300" : "text-slate-500"} />
+                <span>Record Observation</span>
+              </button>
             </div>
           </div>
         </div>
