@@ -336,28 +336,27 @@ h1,
   padding-bottom: 72px;
 }
 
-.simulation-pin {
-  position: fixed;
-  left: 248px;
-  bottom: 14px;
-  z-index: 45;
-  margin: 0;
+.sidebar-sim-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  margin: 8px 0 12px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--panel) 75%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 25%, var(--border));
+  font-size: 11px;
+  font-family: var(--font-mono, monospace);
   color: var(--muted);
-  font-size: 12px;
-  letter-spacing: 0;
-  pointer-events: none;
+  letter-spacing: 0.02em;
 }
 
-.simulation-pin.above-dock {
-  left: 16px;
-  bottom: 84px;
-}
-
-@media (max-width: 760px) {
-  .simulation-pin {
-    left: 16px;
-    bottom: 14px;
-  }
+.sidebar-sim-badge span.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.6);
 }
 
 .nav-item.is-tour-target,

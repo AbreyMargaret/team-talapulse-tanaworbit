@@ -345,32 +345,26 @@ Clinical Reference: ${activeTopic.researchSource}`;
 
   return (
     <div className="zero-g-living-guide space-y-6 animate-fade-in">
-      {/* Top Header Card */}
-      <div className="p-6 rounded-2xl bg-gradient-to-r from-slate-900 via-slate-900/90 to-slate-950 border border-slate-800 shadow-xl backdrop-blur-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2 mb-2">
-            <span className="px-2.5 py-0.5 rounded-full bg-cyan-950/70 border border-cyan-500/40 text-cyan-300 font-mono text-xs flex items-center gap-1.5">
-              <BookOpen size={13} className="text-cyan-400" />
-              FLIGHT SURGEON CLINICAL PROTOCOLS
-            </span>
-            <span className="text-xs text-slate-400 font-mono">
-              AST-EX-VII · FD 142
-            </span>
-          </div>
-          <h2 className="text-2xl font-bold tracking-tight text-white">
-            Zero-G Health & Operational Medicine Guides
-          </h2>
-          <p className="text-xs md:text-sm text-slate-400 mt-1 max-w-2xl leading-relaxed">
-            Evidence-based clinical countermeasures, interactive action protocols, and physiological adaptation references compiled from NASA Human Research Program flight data.
-          </p>
+      {/* Flight Operations Toolbar & Quick Actions */}
+      <div className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 shadow-lg backdrop-blur-xl flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="px-2.5 py-1 rounded-md bg-cyan-950/80 border border-cyan-500/40 text-cyan-300 font-mono text-xs flex items-center gap-1.5">
+            <BookOpen size={13} className="text-cyan-400" />
+            CLINICAL COUNTERMEASURE PROTOCOLS
+          </span>
+          <span className="px-2 py-0.5 rounded-md bg-slate-800/80 border border-slate-700/60 text-slate-300 font-mono text-xs">
+            FD 142 · LEO 408 KM
+          </span>
+          <span className="px-2 py-0.5 rounded-md bg-emerald-950/60 border border-emerald-600/40 text-emerald-300 font-mono text-xs">
+            6 PROTOCOLS LOADED
+          </span>
         </div>
 
-        {/* Global Progress & Quick Action */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <button
             type="button"
             onClick={copySummary}
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-mono text-cyan-300 transition active:scale-98 shadow-sm cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-cyan-950/80 hover:bg-cyan-900/80 border border-cyan-500/50 text-xs font-mono text-cyan-200 transition active:scale-98 shadow-sm cursor-pointer"
             title="Copy operational briefing for flight surgeon log"
           >
             {copied ? <Check size={14} className="text-emerald-400" /> : <Copy size={14} />}

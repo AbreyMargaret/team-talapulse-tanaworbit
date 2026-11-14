@@ -454,7 +454,7 @@ function pageLede(page: Page): string {
     case "Health Toolkit":
       return "Steps for writing a number down, in the same order you would do it.";
     case "Health Guidance":
-      return "Short notes on sleep, tiredness, and living with less gravity.";
+      return "Evidence-based clinical countermeasures, circadian entrainment protocols, and physiological adaptation tools compiled from NASA Human Research Program flight data.";
     case "Alerts & Attention":
       return "Readings that differ from your 14-day average, and anything marked for a second look.";
     default:
@@ -2387,7 +2387,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
               </div>
             </div>
 
-            {page !== "Mission Overview" && (
+            {page !== "Mission Overview" && page !== "Health Guidance" && (
               <section className="profile-banner">
                 <div className="profile-main">
                   <Avatar person={person} large />
@@ -2432,26 +2432,28 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
               </section>
             )}
 
-            <div className="mission-context-strip">
-              <label>
-                Setting
-                <select
-                  aria-label="Mission context preview"
-                  value={contextId}
-                  onChange={(event) => setContextId(event.target.value)}
-                >
-                  {missionContexts.map((item) => (
-                    <option key={item.id} value={item.id}>
-                      {item.title}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <p>This changes the notes only. The numbers stay the same.</p>
-              <button onClick={() => openToolkit("context")}>
-                Read why <Icon name="arrow" size={16} />
-              </button>
-            </div>
+            {page !== "Health Guidance" && (
+              <div className="mission-context-strip">
+                <label>
+                  Setting
+                  <select
+                    aria-label="Mission context preview"
+                    value={contextId}
+                    onChange={(event) => setContextId(event.target.value)}
+                  >
+                    {missionContexts.map((item) => (
+                      <option key={item.id} value={item.id}>
+                        {item.title}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <p>This changes the notes only. The numbers stay the same.</p>
+                <button onClick={() => openToolkit("context")}>
+                  Read why <Icon name="arrow" size={16} />
+                </button>
+              </div>
+            )}
 
             {page === "Astronaut Dashboard" && (
               <>
@@ -3110,7 +3112,6 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
           </div>
         )}
       </div>
-      <p className={`simulation-pin ${display.touch ? "above-dock" : ""}`}>This is a simulation.</p>
       <button
         className={`tanaw-guide-launcher ${display.touch ? "above-dock" : ""}`}
         aria-label="Open Tanaw Guide"
