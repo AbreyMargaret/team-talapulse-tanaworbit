@@ -132,14 +132,14 @@ export default function SensorimotorTest({
             className={`tab-btn ${activeTab === "tapping" ? "active" : ""}`}
             onClick={() => setActiveTab("tapping")}
           >
-            Target Tapping Task
+            Tapping
           </button>
           <button
             type="button"
             className={`tab-btn ${activeTab === "reaction" ? "active" : ""}`}
             onClick={() => setActiveTab("reaction")}
           >
-            Visual Reaction Time
+            Reaction time
           </button>
         </div>
       </div>
@@ -158,16 +158,16 @@ export default function SensorimotorTest({
           </div>
 
           {tapStage === "idle" && (
-            <div className="text-center py-10 bg-slate-900/60 rounded-xl border border-slate-800">
-              <p className="text-sm text-slate-300 mb-4">
-                Ready to assess hand-eye coordination & fine motor control.
+            <div className="text-center py-10 bg-slate-50 dark:bg-slate-900/60 rounded-xl border border-slate-200 dark:border-slate-800">
+              <p className="text-sm text-slate-700 dark:text-slate-300 mb-4">
+                Tap each square when it lights up.
               </p>
               <button
                 type="button"
                 className="btn-primary-aerospace"
                 onClick={startTappingTest}
               >
-                Initiate Target Tapping Protocol
+                Start tapping
               </button>
             </div>
           )}
@@ -188,12 +188,12 @@ export default function SensorimotorTest({
           )}
 
           {tapStage === "complete" && tapResults && (
-            <div className="test-results-card bg-emerald-950/40 border border-emerald-500/40 p-5 rounded-xl text-center">
-              <span className="text-xs font-mono text-emerald-400">ASSESSMENT COMPLETE</span>
-              <h3 className="text-2xl font-bold text-white mt-1">
+            <div className="test-results-card bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-500/40 p-5 rounded-xl text-center">
+              <span className="text-xs font-mono text-emerald-600 dark:text-emerald-400 font-semibold">Practice finished</span>
+              <h3 className="text-2xl font-bold text-slate-900 dark:text-white mt-1">
                 Accuracy: {tapResults.accuracy}% · Time: {tapResults.timeSec}s
               </h3>
-              <p className="text-xs text-slate-300 mt-2">
+              <p className="text-xs text-slate-600 dark:text-slate-300 mt-2">
                 This score stays in this browser until you refresh. It is not compared with a study table.
               </p>
               <button
@@ -201,7 +201,7 @@ export default function SensorimotorTest({
                 className="btn-secondary-aerospace mt-4"
                 onClick={startTappingTest}
               >
-                Repeat Trial
+                Try again
               </button>
             </div>
           )}
@@ -210,7 +210,7 @@ export default function SensorimotorTest({
         <div className="test-content">
           <div className="test-instructions mb-3 text-xs text-slate-300">
             <span>
-              <strong>Protocol:</strong> Click 'Start Trial', wait until the indicator turns <strong>GREEN</strong>, then click as fast as possible.
+              Click Start, wait until the indicator turns green, then click as fast as you can.
             </span>
           </div>
 
@@ -221,7 +221,7 @@ export default function SensorimotorTest({
                 className="rx-indicator idle"
                 onClick={startReactionTrial}
               >
-                <span>Click to Arm Reaction Sensor</span>
+                <span>Start</span>
               </button>
             )}
 
@@ -247,7 +247,7 @@ export default function SensorimotorTest({
 
             {rxStage === "clicked" && (
               <div className="text-center py-6">
-                <span className="text-xs font-mono text-cyan-400">TRIAL RECORDED</span>
+                <span className="text-xs font-mono text-cyan-400">Recorded</span>
                 <p className="text-3xl font-mono font-bold text-white my-2">
                   {rxTimes[rxTimes.length - 1]} ms
                 </p>
@@ -256,16 +256,16 @@ export default function SensorimotorTest({
                   className="btn-secondary-aerospace mt-2"
                   onClick={startReactionTrial}
                 >
-                  {rxTimes.length < 3 ? `Next Trial (${rxTimes.length}/3)` : "New 3-Trial Set"}
+                  {rxTimes.length < 3 ? `Next (${rxTimes.length}/3)` : "Start over"}
                 </button>
               </div>
             )}
           </div>
 
           {rxTimes.length > 0 && (
-            <div className="rx-history mt-4 p-3 bg-slate-900/60 rounded border border-slate-800 text-xs">
-              <span className="text-slate-400 font-mono">TRIAL HISTORY:</span>
-              <div className="flex gap-4 mt-1 font-mono text-slate-200">
+            <div className="rx-history mt-4 p-3 bg-slate-50 dark:bg-slate-900/60 rounded-xl border border-slate-200 dark:border-slate-800 text-xs">
+              <span className="text-slate-500 dark:text-slate-400 font-mono">Times:</span>
+              <div className="flex gap-4 mt-1 font-mono text-slate-900 dark:text-slate-200">
                 {rxTimes.map((t, idx) => (
                   <span key={idx}>
                     Trial {idx + 1}: <strong>{t} ms</strong>

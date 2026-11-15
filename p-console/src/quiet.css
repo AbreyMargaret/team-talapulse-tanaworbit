@@ -606,27 +606,27 @@ h1,
   position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 4px;
-  border-bottom: 1px dotted color-mix(in srgb, var(--accent) 50%, var(--muted));
+  border-bottom: 1.5px dashed color-mix(in srgb, var(--accent) 45%, var(--muted));
   cursor: help;
   text-transform: none;
   letter-spacing: 0;
   vertical-align: middle;
+  padding: 0 4px;
+  border-radius: 4px;
+  transition: all 0.15s ease;
+}
+
+.term:hover,
+.term:focus-visible,
+.term.is-open {
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+  border-bottom-color: var(--accent);
+  color: var(--text);
+  outline: none;
 }
 
 .term-mark {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  color: var(--muted);
-  font-size: 10px;
-  font-style: normal;
-  line-height: 1;
-  flex: none;
-  text-transform: none !important;
+  display: none !important;
 }
 
 [data-theme="light"] .workspace-label,
@@ -742,27 +742,49 @@ h1,
 .account-facts {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px 18px;
-  margin: 0 0 18px;
+  gap: 10px 14px;
+  margin: 12px 0 20px;
 }
 
 .account-facts div {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  padding-top: 8px;
-  border-top: 1px solid var(--border);
+  gap: 3px;
+  padding: 10px 14px;
+  background: color-mix(in srgb, var(--text) 3%, var(--panel));
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  transition: all 0.15s ease;
+}
+
+.account-facts div:hover {
+  border-color: color-mix(in srgb, var(--accent) 30%, var(--border));
 }
 
 .account-facts span {
   color: var(--muted);
-  font-size: 12px;
+  font-size: 11px;
+  font-family: var(--font-mono, monospace);
+  font-weight: 550;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 
 .account-facts strong {
   color: var(--text);
   font-size: 15px;
-  font-weight: 550;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+[data-theme="light"] .account-facts div {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+[data-theme="light"] .account-facts div:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
 }
 
 @media (max-width: 640px) {
@@ -1108,18 +1130,26 @@ h1,
 .term-pop {
   position: fixed;
   z-index: 120;
-  width: min(260px, calc(100vw - 24px));
-  padding: 10px 12px;
+  width: min(280px, calc(100vw - 24px));
+  padding: 10px 14px;
   background: var(--panel);
   color: var(--text);
   border: 1px solid var(--border);
-  border-radius: 8px;
-  box-shadow: 0 12px 28px color-mix(in srgb, #000 24%, transparent);
-  font-size: 13px;
+  border-radius: 10px;
+  box-shadow: 0 16px 36px -4px rgba(0, 0, 0, 0.35);
+  font-size: 12px;
   font-weight: 450;
-  line-height: 1.45;
+  line-height: 1.5;
   letter-spacing: 0;
   text-transform: none;
+  pointer-events: none;
+}
+
+[data-theme="light"] .term-pop {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 12px 30px -4px rgba(0, 0, 0, 0.12) !important;
 }
 
 .text-button {

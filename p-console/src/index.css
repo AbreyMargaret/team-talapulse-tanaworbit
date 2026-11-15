@@ -996,41 +996,51 @@ h1 {
 select {
   border: 1px solid var(--border);
   background: var(--panel, #0f172a);
-  border-radius: 8px;
-  font-size: 12px;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 500;
   color: var(--text, #e2e8f0);
-  padding: 8px 30px 8px 12px;
+  padding: 8px 34px 8px 12px;
   appearance: none;
   cursor: pointer;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%23c6b59a' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3 4.5 3 3 3-3'/%3E%3C/svg%3E");
-  background-position: right 10px center;
+  transition: all 0.15s ease;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' stroke='%2338bdf8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3.5 5.5 3.5 3.5 3.5-3.5'/%3E%3C/svg%3E");
+  background-position: right 12px center;
   background-repeat: no-repeat;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+select:hover {
+  border-color: var(--accent, #0284c7);
 }
 
 select:focus {
   outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 28%, transparent);
+  border-color: var(--accent, #0284c7);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 24%, transparent);
 }
 
 select option {
-  background: var(--panel);
-  color: var(--text);
+  background: var(--panel, #0f172a);
+  color: var(--text, #e2e8f0);
   padding: 8px 12px;
   font-size: 13px;
 }
 
 [data-theme="light"] select {
-  background-color: var(--panel);
-  border-color: var(--border);
-  color: var(--text);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%233d5344' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3 4.5 3 3 3-3'/%3E%3C/svg%3E");
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' stroke='%230284c7' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3.5 5.5 3.5 3.5 3.5-3.5'/%3E%3C/svg%3E");
+}
+
+[data-theme="light"] select:hover {
+  border-color: #0284c7 !important;
 }
 
 [data-theme="light"] select option {
-  background: var(--panel);
-  color: var(--text);
+  background: #ffffff;
+  color: #0f172a;
 }
 .chart-tabs {
   display: flex;
@@ -2741,20 +2751,30 @@ textarea::placeholder {
   justify-content: space-between;
   align-items: center;
   gap: 20px;
-  padding: 16px 0;
+  padding: 14px 18px;
   color: var(--text);
   font-size: 13px;
-  border-top: 1px solid var(--border);
-  margin-top: 16px;
+  font-weight: 550;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--text) 3%, var(--panel));
+  border: 1px solid var(--border);
+  margin-top: 10px;
 }
 .settings-label select {
-  font-size: 12px;
-  min-width: 140px;
-  padding: 8px 12px;
-  background: var(--panel);
-  border: 1px solid var(--border);
-  color: var(--text);
-  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 550;
+  min-width: 150px;
+  padding: 8px 34px 8px 14px;
+}
+[data-theme="light"] .settings-label {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+  color: #0f172a;
+}
+[data-theme="light"] .settings-label select {
+  background-color: #ffffff;
+  border-color: #cbd5e1;
+  color: #0f172a;
 }
 .mobile-menu {
   display: none;

@@ -384,7 +384,7 @@ export type NavGroup = {
 
 const navGroups: NavGroup[] = [
   {
-    pillar: "Flight Deck & Operations",
+    pillar: "Today and the crew",
     items: [
       { page: "Astronaut Dashboard", label: "Flight Deck", icon: "activity" },
       { page: "Health Check-In", label: "Daily Check-In", icon: "check" },
@@ -393,7 +393,7 @@ const navGroups: NavGroup[] = [
     ],
   },
   {
-    pillar: "Physiological Telemetry",
+    pillar: "Readings",
     items: [
       { page: "Physiological Monitoring", label: "Heart and breathing", icon: "pulse" },
       { page: "Health Trends", label: "Recent days", icon: "chart" },
@@ -403,14 +403,14 @@ const navGroups: NavGroup[] = [
     ],
   },
   {
-    pillar: "Life Support & Habitat",
+    pillar: "Around the cabin",
     items: [
       { page: "Cabin Conditions", label: "Cabin air", icon: "thermometer" },
       { page: "Orbital Conditions", label: "Orbit", icon: "globe" },
     ],
   },
   {
-    pillar: "Countermeasures & Guidance",
+    pillar: "Notes and routines",
     items: [
       { page: "Health Guidance", label: "Living notes", icon: "book" },
       { page: "Health Toolkit", label: "How to record", icon: "help" },
@@ -537,50 +537,50 @@ const tourSteps: TourStep<Page>[] = [
   {
     page: "Astronaut Dashboard",
     selector: "[data-tour='today-numbers']",
-    tag: "BIOMETRIC TELEMETRY",
-    title: "1. Today's Numbers & 14-Day Baseline Delta",
+    tag: "TODAY",
+    title: "Today's numbers",
     description:
-      "Continuous vitals monitoring: resting heart rate, blood pressure, circadian sleep duration, and self-reported fatigue compared with each astronaut's personal 14-day running average.",
+      "Heart rate, blood pressure, sleep, and how tired you feel, next to the average of the previous 14 days.",
   },
   {
     page: "Astronaut Dashboard",
     selector: "[data-tour='somatic-avatar']",
-    tag: "SOMATIC ADAPTATION",
-    title: "2. Somatic Wireframe Mapping & Clinical Logs",
+    tag: "BODY NOTES",
+    title: "Body notes",
     description:
-      "Interactive 3D medical silhouette. Click any anatomical hot zone (Cranial/SANS, Torso/Cardio, Musculoskeletal) to review microgravity adaptations and record clinical flight notes.",
+      "Pick a region to read a stored note. These notes are not a medical check.",
   },
   {
     page: "Astronaut Dashboard",
     selector: "[data-tour='puma-tracker']",
-    tag: "COUNTERMEASURES",
-    title: "3. PUMA Exercise & Microgravity Tracker",
+    tag: "EXERCISE",
+    title: "Exercise on this visit",
     description:
-      "Real-time countermeasure compliance tracking for aerobic (T2 Treadmill) and resistive (ARED) regimens to prevent bone mineral loss and postural ataxia.",
+      "A stored exercise note for this person. It is not a live tracker and not a health score.",
   },
   {
     page: "Health Check-In",
     selector: "[data-tour='checkin-suite']",
-    tag: "IN-FLIGHT PROTOCOL",
-    title: "4. Autonomous In-Flight Clinical Check-In",
+    tag: "RECORD",
+    title: "Record today",
     description:
-      "Three-step guided protocol: 1) Biometric vitals sync, 2) Neuro-ocular & space motion sickness screening, 3) Telemetry cryptographic review and store-and-forward transmission.",
+      "Write down today's numbers for this visit. What you type stays in this browser until you refresh. This form is not the same check as the flags on Today.",
   },
   {
     page: "Alerts & Attention",
     selector: "[data-tour='alerts-console']",
-    tag: "CLINICAL TRIAGE",
-    title: "5. Operational Alerts & Clinical Triage Log",
+    tag: "FLAGS",
+    title: "Flags",
     description:
-      "Multi-tiered clinical triage (Stable, Observe, Attention) with chronological event logs. Flight surgeons and crew can review trends and trigger evidence-based countermeasures.",
+      "Readings that differ from the 14-day average, and anything marked for a second look. Usual, Different, and Flagged are labels in this console, not a medical status.",
   },
   {
     page: "Health Guidance",
     selector: "[data-tour='zero-g-guide']",
-    tag: "LIVING GUIDELINES",
-    title: "6. Countermeasure Action Protocols & Tools",
+    tag: "NOTES",
+    title: "Living notes",
     description:
-      "Evidence-based countermeasures compiled from NASA HRP flight data. Includes actionable verification checklists, circadian lighting calculation, and hypercapnia micro-pocket safety.",
+      "Notes about sleep, air, and living in a cabin. This is not medical advice and not a NASA manual.",
   },
 ];
 const topics = [

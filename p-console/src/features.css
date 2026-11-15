@@ -73,15 +73,19 @@
 .feature-stat .term {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  border-bottom: 1px dashed color-mix(in srgb, var(--accent) 45%, var(--muted));
+  padding: 1px 4px;
+  border-radius: 4px;
+  transition: all 0.15s ease;
+}
+
+.feature-stat .term:hover {
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+  border-bottom-color: var(--accent);
 }
 
 .feature-stat .term-label {
   text-transform: uppercase;
-}
-
-.feature-stat .term-mark {
-  text-transform: none !important;
 }
 
 [data-theme="light"] .feature-stat {

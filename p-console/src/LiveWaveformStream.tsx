@@ -47,41 +47,41 @@ const METRIC_INSIGHTS = {
     title: "Carbon dioxide in a breath",
     layman: "How much carbon dioxide is in the air you breathe out",
     unit: "mmHg",
-    normal: "35 – 45 mmHg (Nominal)",
+    normal: "35 – 45 mmHg is a common exhaled range",
     whatItMeans:
-      "The partial pressure of carbon dioxide measured at the very end of your exhaled breath.",
+      "Carbon dioxide at the end of a breath.",
     spaceSignificance:
-      "The gold standard for assessing cabin air scrubbers. High PetCO₂ (>45 mmHg) causes hypercapnia, severe headache, confusion, and visual disturbances. Normal ISS cabin target is kept below 5.3 mmHg ambient.",
+      "The 38 mmHg number on this drawing is an example. It is not today's cabin sample. Cabin carbon dioxide is on the Cabin air page.",
   },
   airflow: {
-    title: "PUMA Minute Ventilation (V_E)",
-    layman: "Total Lung Airflow Per Minute",
+    title: "Airflow",
+    layman: "Air moved in a minute",
     unit: "L/min",
-    normal: "5.0 – 8.5 L/min (Resting)",
+    normal: "About 5–8 L/min at rest",
     whatItMeans:
-      "The total volume of air moving through your lungs every minute (Tidal Volume × Breathing Rate).",
+      "How much air moves in and out in one minute.",
     spaceSignificance:
-      "Tracked by NASA's Portable Unit for Metabolic Analysis (PUMA) to calculate oxygen uptake (VO₂) and caloric burn during mission tasks and cycle workouts.",
+      "The 6.4 L/min number on this drawing is an example. It is not a reading from a device.",
   },
   temperature: {
-    title: "Core Body Temperature (T_core)",
-    layman: "Internal Body Temperature",
+    title: "Temperature",
+    layman: "How warm the body is",
     unit: "°C",
-    normal: "36.1 – 37.2 °C (Nominal)",
+    normal: "A common range on Earth is about 36.1–37.2 °C",
     whatItMeans:
-      "Your deep internal thermal core temperature, regulated by the hypothalamus.",
+      "Temperature stored for this person on this mission day.",
     spaceSignificance:
-      "Astronauts experience 'Space Fever' (core temp ~1°C higher than on Earth). In microgravity, sweat doesn't drip or evaporate normally—it clings to your skin in a sticky film, significantly reducing convective cooling.",
+      "The number above is today's stored temperature. This drawing does not diagnose a fever.",
   },
   pressure: {
-    title: "Cabin Atmospheric Pressure",
-    layman: "Spacecraft Air Pressure",
-    unit: "kPa / psi",
-    normal: "101.3 kPa (14.7 psi sea-level)",
+    title: "Cabin pressure",
+    layman: "Air pressure in the cabin",
+    unit: "kPa",
+    normal: "About 101 kPa is sea-level pressure",
     whatItMeans:
-      "The total barometric pressure of the air inside the pressurized spacecraft habitat.",
+      "How hard the air in the cabin presses on you.",
     spaceSignificance:
-      "Maintained at 1 Earth atmosphere (101.3 kPa / 14.7 psi) with 21% O₂ and 78% N₂. This prevents decompression sickness ('the bends') and eliminates the need for pre-breathe protocols inside the module.",
+      "The 101.3 kPa number on this drawing is an example. The stored cabin sample is on the Cabin air page.",
   },
 };
 
@@ -221,22 +221,22 @@ export default function LiveWaveformStream({
           onClick={() => setActiveInfo(activeInfo === "heartRate" ? null : "heartRate")}
           className={`p-3.5 rounded-xl border relative overflow-hidden group cursor-pointer transition ${
             activeInfo === "heartRate"
-              ? "bg-slate-900 border-emerald-500 shadow-md shadow-emerald-950/40"
-              : "bg-slate-950/70 border-slate-800/90 hover:border-slate-700"
+              ? "bg-emerald-50/50 dark:bg-slate-900 border-emerald-500 shadow-md ring-2 ring-emerald-500/20"
+              : "bg-slate-50 dark:bg-slate-950/70 border-slate-200 dark:border-slate-800/90 hover:border-slate-300 dark:hover:border-slate-700"
           }`}
         >
           <div className="flex items-center justify-between mb-1.5">
             <div className="flex items-center gap-2">
-              <Heart size={15} className="text-emerald-400" />
-              <span className="text-xs font-semibold text-slate-200">
+              <Heart size={15} className="text-emerald-500 dark:text-emerald-400" />
+              <span className="text-xs font-semibold text-slate-800 dark:text-slate-200">
                 <Term>Heart rate</Term>
               </span>
             </div>
             <div className="flex items-baseline gap-1 font-mono">
-              <strong className="text-lg font-bold text-emerald-300 tabular-nums">
+              <strong className="text-lg font-bold text-emerald-600 dark:text-emerald-300 tabular-nums">
                 {heartRate}
               </strong>
-              <small className="text-xs text-slate-400">bpm</small>
+              <small className="text-xs text-slate-500 dark:text-slate-400">bpm</small>
             </div>
           </div>
 
@@ -294,22 +294,22 @@ export default function LiveWaveformStream({
           onClick={() => setActiveInfo(activeInfo === "spo2" ? null : "spo2")}
           className={`p-3.5 rounded-xl border relative overflow-hidden group cursor-pointer transition ${
             activeInfo === "spo2"
-              ? "bg-slate-900 border-cyan-400 shadow-md shadow-cyan-950/40"
-              : "bg-slate-950/70 border-slate-800/90 hover:border-slate-700"
+              ? "bg-sky-50/50 dark:bg-slate-900 border-cyan-500 shadow-md ring-2 ring-cyan-500/20"
+              : "bg-slate-50 dark:bg-slate-950/70 border-slate-200 dark:border-slate-800/90 hover:border-slate-300 dark:hover:border-slate-700"
           }`}
         >
           <div className="flex items-center justify-between mb-1.5">
             <div className="flex items-center gap-2">
-              <Activity size={15} className="text-cyan-400" />
-              <span className="text-xs font-semibold text-slate-200">
+              <Activity size={15} className="text-cyan-500 dark:text-cyan-400" />
+              <span className="text-xs font-semibold text-slate-800 dark:text-slate-200">
                 <Term>Blood oxygen</Term>
               </span>
             </div>
             <div className="flex items-baseline gap-1 font-mono">
-              <strong className="text-lg font-bold text-cyan-300 tabular-nums">
+              <strong className="text-lg font-bold text-cyan-600 dark:text-cyan-300 tabular-nums">
                 {spo2}
               </strong>
-              <small className="text-xs text-slate-400">% SpO₂</small>
+              <small className="text-xs text-slate-500 dark:text-slate-400">% SpO₂</small>
             </div>
           </div>
 
@@ -362,22 +362,22 @@ export default function LiveWaveformStream({
           onClick={() => setActiveInfo(activeInfo === "respiration" ? null : "respiration")}
           className={`p-3.5 rounded-xl border relative overflow-hidden group cursor-pointer transition ${
             activeInfo === "respiration"
-              ? "bg-slate-900 border-purple-400 shadow-md shadow-purple-950/40"
-              : "bg-slate-950/70 border-slate-800/90 hover:border-slate-700"
+              ? "bg-purple-50/50 dark:bg-slate-900 border-purple-500 shadow-md ring-2 ring-purple-500/20"
+              : "bg-slate-50 dark:bg-slate-950/70 border-slate-200 dark:border-slate-800/90 hover:border-slate-300 dark:hover:border-slate-700"
           }`}
         >
           <div className="flex items-center justify-between mb-1.5">
             <div className="flex items-center gap-2">
-              <Wind size={15} className="text-purple-400" />
-              <span className="text-xs font-semibold text-slate-200">
+              <Wind size={15} className="text-purple-500 dark:text-purple-400" />
+              <span className="text-xs font-semibold text-slate-800 dark:text-slate-200">
                 <Term>Breathing</Term>
               </span>
             </div>
             <div className="flex items-baseline gap-1 font-mono">
-              <strong className="text-lg font-bold text-purple-300 tabular-nums">
+              <strong className="text-lg font-bold text-purple-600 dark:text-purple-300 tabular-nums">
                 {respiration}
               </strong>
-              <small className="text-xs text-slate-400">breaths/min</small>
+              <small className="text-xs text-slate-500 dark:text-slate-400">breaths/min</small>
             </div>
           </div>
 
@@ -447,7 +447,7 @@ export default function LiveWaveformStream({
             <small className="text-[10px] text-slate-400">mmHg</small>
           </div>
           <p className="text-[10px] text-slate-400 mt-0.5 line-clamp-1">
-            Exhaled breath CO₂ level
+            Example, not today's record
           </p>
         </div>
 
@@ -470,7 +470,7 @@ export default function LiveWaveformStream({
             <small className="text-[10px] text-slate-400">L/min</small>
           </div>
           <p className="text-[10px] text-slate-400 mt-0.5 line-clamp-1">
-            Volume of air inhaled/min
+            Example, not today's record
           </p>
         </div>
 
@@ -493,7 +493,7 @@ export default function LiveWaveformStream({
             <small className="text-[10px] text-slate-400">°C</small>
           </div>
           <p className="text-[10px] text-slate-400 mt-0.5 line-clamp-1">
-            Internal thermal baseline
+            Today's stored temperature
           </p>
         </div>
 
@@ -517,7 +517,7 @@ export default function LiveWaveformStream({
             <small className="text-[10px] text-slate-400">kPa (14.7 psi)</small>
           </div>
           <p className="text-[10px] text-slate-400 mt-0.5 line-clamp-1">
-            Sea-level module pressure
+            Example, not the stored cabin sample
           </p>
         </div>
       </div>

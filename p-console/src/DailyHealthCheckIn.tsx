@@ -102,40 +102,42 @@ export default function DailyHealthCheckIn({
     if (sansVisualBlur || cephaladShift >= 2) {
       list.push({
         type: "alert",
-        text: "SANS / Cephalad Hypertension Indication: Visual blurring or elevated intracranial fullness reported.",
-        action: "Schedule 30-min Lower Body Negative Pressure (LBNP at -25 mmHg) & verify habitat pCO₂ < 3.0 mmHg.",
+        text: "This form has a note about vision or a full feeling in the head.",
+        action: "This note stays on the form. It is not a medical finding, and it is not the same check as the flags on Today.",
       });
     }
 
     if (sleepVal < 6.0) {
+      const sleepSign = sleepDelta >= 0 ? `+${sleepDelta}` : `${sleepDelta}`;
       list.push({
         type: "warning",
-        text: `Circadian Deficit: Sleep recorded at ${sleepVal} hrs (${Math.abs(sleepDelta)} hrs below nominal baseline).`,
-        action: "Switch crew quarters SSLA to blue-depleted mode 60 min prior to sleep epoch. Micro-dose melatonin (0.5mg) if needed.",
+        text: `Sleep on this form is ${sleepVal} hrs, under 6 hours. Compared with the 14-day average, that is ${sleepSign} hrs.`,
+        action: "The flags on Today mark sleep only when it is more than 1 hour under the 14-day average.",
       });
     }
 
     if (hrVal > 95 || hrDelta > 18) {
+      const hrSign = hrDelta >= 0 ? `+${hrDelta}` : `${hrDelta}`;
       list.push({
         type: "warning",
-        text: `Resting Tachycardia: Heart rate is +${hrDelta} bpm above 14-day rolling baseline.`,
-        action: "Verify hydration status (target 2.5 L/day) and review morning CEVIS aerobic exercise load.",
+        text: `Heart rate on this form is ${hrVal} bpm (${hrSign} bpm from the 14-day average).`,
+        action: "The flags on Today mark heart rate when it differs by more than 10 bpm.",
       });
     }
 
     if (sysVal >= 135 || diaVal >= 88) {
       list.push({
         type: "warning",
-        text: `Elevated Systemic Pressure: ${sysVal}/${diaVal} mmHg exceeds nominal resting window.`,
-        action: "Repeat blood pressure reading post-rest in seated microgravity posture.",
+        text: `Blood pressure on this form is ${sysVal}/${diaVal} mmHg. This form adds a note at 135 or higher, or 88 or higher.`,
+        action: "The flags on Today mark blood pressure when it differs by more than 10 mmHg from the 14-day average.",
       });
     }
 
     if (coreTemp >= 37.4) {
       list.push({
         type: "alert",
-        text: `Elevated Core Body Temperature (${coreTemp}°C) indicates microgravity 'Space Fever' response.`,
-        action: "Check sleep pod ventilation diffuser air velocity (>0.08 m/s) and drink chilled electrolyte solution.",
+        text: `Temperature on this form is ${coreTemp}°C. This form adds a note at 37.4°C or higher.`,
+        action: "This is not a fever diagnosis.",
       });
     }
 
@@ -174,7 +176,7 @@ export default function DailyHealthCheckIn({
   function handleNextStep() {
     if (step === 1) {
       if (Number(draft.systolic) <= Number(draft.diastolic)) {
-        setError("Clinical validation error: Systolic pressure must be greater than diastolic pressure.");
+        setError("Systolic pressure must be greater than diastolic pressure.");
         return;
       }
       setError("");
@@ -187,9 +189,9 @@ export default function DailyHealthCheckIn({
   function handleSaveCheckIn() {
     // Format full clinical note with in-flight symptoms for medical record
     const symptomsSummary = [
-      `SAS Rating: ${["Adapted", "Mild Disorientation", "Moderate Nausea", "Severe"][sasRating]}`,
-      `Cephalad Fullness: ${["None", "Mild Puffiness", "Head Fullness", "Heavy Congestion"][cephaladShift]}`,
-      sansVisualBlur ? "SANS Near-Vision Blur: YES" : "SANS Near-Vision Blur: NONE",
+      `Balance and stomach: ${["Steady", "Mild unease", "Nausea", "Strong nausea"][sasRating]}`,
+      `Full feeling in the head: ${["None", "Mild", "Full", "Heavy"][cephaladShift]}`,
+      sansVisualBlur ? "Near vision blur: yes" : "Near vision blur: no",
       `Core Temp: ${coreTemp}°C`,
       `SpO2: ${spo2}%`,
       `Sleep Quality: ${sleepQuality}`,
@@ -211,27 +213,27 @@ export default function DailyHealthCheckIn({
   }
 
   function copyFlightBriefing() {
-    const text = `TANAWORBIT ASTRONAUT CLINICAL LOG
+    const text = `TanawOrbit check-in note
 Mission: ${mission.name} · Day ${mission.day} of ${mission.durationDays}
-Astronaut: ${person.name} (${person.id.toUpperCase()}) · ${person.role}
-Timestamp: ${new Date().toISOString()}
+Person: ${person.name} (${person.id.toUpperCase()}) · ${person.role}
+Saved in this browser. This is not a medical record.
 
-BIOMETRIC VITALS:
-- Heart Rate: ${hrVal} bpm (Baseline: ${baseline.heart} bpm, Δ ${hrDelta >= 0 ? "+" : ""}${hrDelta} bpm)
-- Blood Pressure: ${sysVal}/${diaVal} mmHg (MAP: ${mapValue} mmHg)
-- Sleep Duration: ${sleepVal} hrs (${sleepQuality})
-- Core Temp: ${coreTemp}°C · SpO2: ${spo2}%
+Numbers:
+- Heart rate: ${hrVal} bpm (14-day average ${baseline.heart} bpm, ${hrDelta >= 0 ? "+" : ""}${hrDelta} bpm)
+- Blood pressure: ${sysVal}/${diaVal} mmHg
+- Sleep: ${sleepVal} hrs (${sleepQuality})
+- Temperature: ${coreTemp}°C · Blood oxygen: ${spo2}%
 
-IN-FLIGHT ADAPTATION & SYMPTOMS:
-- Neurovestibular (SAS): ${["Adapted", "Mild Disorientation", "Moderate Nausea", "Severe"][sasRating]}
-- Cephalad Fluid Shift: ${["None", "Mild Puffiness", "Head Fullness", "Heavy Congestion"][cephaladShift]}
-- Near-Vision Impairment (SANS): ${sansVisualBlur ? "REPORTED (Blurring/strain)" : "None"}
-- Fatigue Score: ${draft.fatigue}/5 · Mood: ${draft.mood}
+How you feel:
+- Balance and stomach: ${["Steady", "Mild unease", "Nausea", "Strong nausea"][sasRating]}
+- Full feeling in the head: ${["None", "Mild", "Full", "Heavy"][cephaladShift]}
+- Near vision blur: ${sansVisualBlur ? "Yes" : "No"}
+- How tired: ${draft.fatigue}/5 · Mood: ${draft.mood}
 
-OPERATIONAL FLIGHT SURGEON NOTE:
-${clinicalAdvisories.map((a) => `[${a.type.toUpperCase()}] ${a.text} -> ${a.action}`).join("\n")}
+Notes from this form:
+${clinicalAdvisories.map((a) => `${a.text} ${a.action}`).join("\n")}
 
-Notes: ${draft.notes || "No additional crew notes."}`;
+Your note: ${draft.notes || "None."}`;
 
     navigator.clipboard.writeText(text);
     setCopied(true);
@@ -251,7 +253,7 @@ Notes: ${draft.notes || "No additional crew notes."}`;
             </span>
             <div>
               <span className="text-[11px] font-mono uppercase tracking-wider text-emerald-700 dark:text-emerald-400 font-semibold block">
-                FLIGHT LOG TRANSMITTED & VERIFIED
+                Saved for this visit
               </span>
               <h2 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
                 Daily Check-In Recorded for {person.name.split(" ")[0]}
@@ -260,7 +262,7 @@ Notes: ${draft.notes || "No additional crew notes."}`;
           </div>
 
           <p className="text-sm text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed">
-            Your physiological telemetry, circadian rest period, and spaceflight symptom screen have been verified and integrated into the active mission flight health record.
+            Saved in this browser until you refresh. This is not sent to a medical team.
           </p>
 
           {/* Quick Metrics Badge Row */}
@@ -271,7 +273,7 @@ Notes: ${draft.notes || "No additional crew notes."}`;
                 {hrVal} <span className="text-xs text-slate-500 dark:text-slate-400 font-normal">bpm</span>
               </div>
               <span className="text-[10px] font-mono text-sky-600 dark:text-cyan-400 font-medium">
-                {hrDelta >= 0 ? `+${hrDelta}` : hrDelta} vs baseline
+                {hrDelta >= 0 ? `+${hrDelta}` : hrDelta} vs 14-day average
               </span>
             </div>
 
@@ -301,7 +303,7 @@ Notes: ${draft.notes || "No additional crew notes."}`;
                 {draft.fatigue}<span className="text-xs text-slate-500 dark:text-slate-400 font-normal"> / 5</span>
               </div>
               <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
-                Fatigue: {draft.fatigue}/5
+                1 low, 5 high
               </span>
             </div>
           </div>
@@ -313,7 +315,7 @@ Notes: ${draft.notes || "No additional crew notes."}`;
               onClick={() => navigate("Astronaut Dashboard")}
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs font-mono transition shadow-md active:scale-98 cursor-pointer"
             >
-              <span>Return to Flight Deck</span>
+              <span>Back to Flight Deck</span>
               <ArrowRight size={15} />
             </button>
 
@@ -358,7 +360,7 @@ Notes: ${draft.notes || "No additional crew notes."}`;
         <div className="flex flex-wrap items-center gap-2">
           <span className="px-2.5 py-1 rounded-md bg-sky-50 dark:bg-cyan-950/80 border border-sky-300 dark:border-cyan-500/40 text-sky-800 dark:text-cyan-300 font-mono text-xs flex items-center gap-1.5 font-semibold">
             <Stethoscope size={13} className="text-sky-600 dark:text-cyan-400" />
-            FLIGHT DECK CLINICAL LOG
+            This visit
           </span>
           <span className="px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/60 text-slate-600 dark:text-slate-300 font-mono text-xs">
             AST-EX-VII · FD {mission.day}
@@ -400,7 +402,7 @@ Notes: ${draft.notes || "No additional crew notes."}`;
           }`}
         >
           <span className="size-5 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 grid place-items-center text-[10px] font-bold">1</span>
-          <span className="hidden sm:inline">Biometric Vitals</span>
+          <span className="hidden sm:inline">Today's numbers</span>
         </button>
 
         <button
@@ -420,7 +422,7 @@ Notes: ${draft.notes || "No additional crew notes."}`;
           }`}
         >
           <span className="size-5 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 grid place-items-center text-[10px] font-bold">2</span>
-          <span className="hidden sm:inline">Symptoms & Neuro-Ocular</span>
+          <span className="hidden sm:inline">How you feel</span>
         </button>
 
         <button
@@ -440,7 +442,7 @@ Notes: ${draft.notes || "No additional crew notes."}`;
           }`}
         >
           <span className="size-5 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 grid place-items-center text-[10px] font-bold">3</span>
-          <span className="hidden sm:inline">Review & Transmit</span>
+          <span className="hidden sm:inline">Review</span>
         </button>
       </div>
 
@@ -460,10 +462,10 @@ Notes: ${draft.notes || "No additional crew notes."}`;
               <div className="flex items-center justify-between">
                 <label htmlFor="checkin-heart-input" className="text-xs font-mono uppercase tracking-wider text-slate-700 dark:text-slate-300 font-semibold flex items-center gap-2">
                   <Heart size={16} className="text-rose-500" />
-                  Resting Heart Rate
+                  Heart rate
                 </label>
                 <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
-                  Baseline: <b className="text-slate-800 dark:text-slate-200">{baseline.heart} bpm</b>
+                  14-day average: <b className="text-slate-800 dark:text-slate-200">{baseline.heart} bpm</b>
                 </span>
               </div>
 
@@ -502,9 +504,9 @@ Notes: ${draft.notes || "No additional crew notes."}`;
 
               <div className="flex items-center justify-between text-[11px] font-mono pt-1">
                 <span className={Math.abs(hrDelta) <= 8 ? "text-emerald-600 dark:text-emerald-400 font-medium" : "text-amber-600 dark:text-amber-400 font-medium"}>
-                  {hrDelta === 0 ? "±0 bpm vs baseline" : hrDelta > 0 ? `+${hrDelta} bpm vs baseline` : `${hrDelta} bpm vs baseline`}
+                  {hrDelta === 0 ? "±0 bpm vs 14-day average" : hrDelta > 0 ? `+${hrDelta} bpm vs 14-day average` : `${hrDelta} bpm vs 14-day average`}
                 </span>
-                <span className="text-slate-500">Nominal Rest: 55–85 bpm</span>
+                <span className="text-slate-500">Flags use a 10 bpm difference</span>
               </div>
             </div>
 
@@ -513,10 +515,10 @@ Notes: ${draft.notes || "No additional crew notes."}`;
               <div className="flex items-center justify-between">
                 <label className="text-xs font-mono uppercase tracking-wider text-slate-700 dark:text-slate-300 font-semibold flex items-center gap-2">
                   <Activity size={16} className="text-sky-600 dark:text-cyan-400" />
-                  Systemic Blood Pressure
+                  Blood pressure
                 </label>
                 <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
-                  Baseline: <b className="text-slate-800 dark:text-slate-200">{baseline.systolic}/{baseline.diastolic}</b>
+                  14-day average: <b className="text-slate-800 dark:text-slate-200">{baseline.systolic}/{baseline.diastolic}</b>
                 </span>
               </div>
 
@@ -554,7 +556,7 @@ Notes: ${draft.notes || "No additional crew notes."}`;
 
               <div className="flex items-center justify-between text-[11px] font-mono pt-1">
                 <span className="text-sky-700 dark:text-cyan-300 font-medium">MAP: {mapValue} mmHg</span>
-                <span className="text-slate-500">Unit: mmHg (Seated Zero-G)</span>
+                <span className="text-slate-500">mmHg</span>
               </div>
             </div>
 
@@ -566,7 +568,7 @@ Notes: ${draft.notes || "No additional crew notes."}`;
                   Sleep Duration
                 </label>
                 <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
-                  Target: <b className="text-slate-800 dark:text-slate-200">≥ 7.0 hrs</b>
+                  14-day average: <b className="text-slate-800 dark:text-slate-200">{baseline.sleep} hrs</b>
                 </span>
               </div>
 
@@ -607,7 +609,7 @@ Notes: ${draft.notes || "No additional crew notes."}`;
               {/* Sleep Quality Selector */}
               <div className="pt-2">
                 <span className="text-[10px] font-mono uppercase text-slate-500 dark:text-slate-400 block mb-1.5">
-                  Sleep Pod Microgravity Quality
+                  How you slept
                 </span>
                 <div className="grid grid-cols-3 gap-2">
                   {(["Sound", "Fragmented", "Restless"] as const).map((q) => (
@@ -633,19 +635,19 @@ Notes: ${draft.notes || "No additional crew notes."}`;
               <div className="flex items-center justify-between">
                 <span className="text-xs font-mono uppercase tracking-wider text-slate-700 dark:text-slate-300 font-semibold flex items-center gap-2">
                   <Thermometer size={16} className="text-amber-500" />
-                  Core Biomarkers
+                  Temperature and oxygen
                 </span>
                 <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
-                  HRP In-Flight Screen
+                  Entered on this form
                 </span>
               </div>
 
               <div className="grid grid-cols-2 gap-3 items-center">
                 <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
                   <div className="text-[10px] font-mono uppercase text-slate-500 dark:text-slate-400 mb-1 flex items-center justify-between">
-                    <span>CORE TEMP</span>
-                    <span className={coreTemp > 37.3 ? "text-amber-600 dark:text-amber-400 font-semibold" : "text-emerald-600 dark:text-emerald-400 font-semibold"}>
-                      {coreTemp > 37.3 ? "Elevated" : "Normal"}
+                    <span>Temperature</span>
+                    <span className={coreTemp >= 37.4 ? "text-amber-600 dark:text-amber-400 font-semibold" : "text-emerald-600 dark:text-emerald-400 font-semibold"}>
+                      {coreTemp >= 37.4 ? "Noted" : "No note"}
                     </span>
                   </div>
                   <div className="flex items-center gap-1.5">
@@ -664,8 +666,7 @@ Notes: ${draft.notes || "No additional crew notes."}`;
 
                 <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
                   <div className="text-[10px] font-mono uppercase text-slate-500 dark:text-slate-400 mb-1 flex items-center justify-between">
-                    <span>SPO2 OXYGEN</span>
-                    <span className="text-emerald-600 dark:text-emerald-400 font-semibold">Nominal</span>
+                    <span>Blood oxygen</span>
                   </div>
                   <div className="flex items-center gap-1.5">
                     <input
@@ -682,8 +683,8 @@ Notes: ${draft.notes || "No additional crew notes."}`;
               </div>
 
               <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 pt-1 flex items-center justify-between">
-                <span>Space Fever Threshold: 37.4°C</span>
-                <span>SpO2 Target: ≥96%</span>
+                <span>This form notes 37.4°C or higher</span>
+                <span>Blood oxygen is entered here</span>
               </div>
             </div>
           </div>
@@ -698,7 +699,7 @@ Notes: ${draft.notes || "No additional crew notes."}`;
               onClick={handleNextStep}
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs font-mono transition shadow-md active:scale-98 cursor-pointer"
             >
-              <span>Next: Symptoms & Neuro-Ocular</span>
+              <span>Next: How you feel</span>
               <ChevronRight size={16} />
             </button>
           </div>
@@ -714,19 +715,18 @@ Notes: ${draft.notes || "No additional crew notes."}`;
               <div className="flex items-center justify-between">
                 <span className="text-xs font-mono uppercase tracking-wider text-slate-700 dark:text-slate-300 font-semibold flex items-center gap-2">
                   <Compass size={16} className="text-sky-600 dark:text-cyan-400" />
-                  Space Adaptation Syndrome (SAS)
+                  Balance and stomach
                 </span>
-                <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">Neurovestibular</span>
               </div>
               <p className="text-xs text-slate-500 dark:text-slate-400">
-                Otolith-ocular recalibration rating in zero-G:
+                How steady you feel today.
               </p>
               <div className="grid grid-cols-2 gap-2">
                 {[
-                  { val: 0, label: "0 · Fully Adapted", desc: "No dizziness" },
-                  { val: 1, label: "1 · Mild", desc: "Head movement lag" },
-                  { val: 2, label: "2 · Moderate", desc: "Stomach awareness" },
-                  { val: 3, label: "3 · Severe", desc: "Emesis risk" },
+                  { val: 0, label: "0 · Steady", desc: "No dizziness" },
+                  { val: 1, label: "1 · Mild", desc: "Uneasy when you turn" },
+                  { val: 2, label: "2 · Moderate", desc: "Nausea" },
+                  { val: 3, label: "3 · Severe", desc: "Strong nausea" },
                 ].map((item) => (
                   <button
                     key={item.val}
@@ -750,12 +750,11 @@ Notes: ${draft.notes || "No additional crew notes."}`;
               <div className="flex items-center justify-between">
                 <span className="text-xs font-mono uppercase tracking-wider text-slate-700 dark:text-slate-300 font-semibold flex items-center gap-2">
                   <Eye size={16} className="text-purple-600 dark:text-purple-400" />
-                  Cephalad Fluid Shift & SANS
+                  Head and eyes
                 </span>
-                <span className="text-[10px] font-mono text-purple-600 dark:text-purple-400 font-semibold">Critical Monitor</span>
               </div>
               <p className="text-xs text-slate-500 dark:text-slate-400">
-                Intracranial venous congestion and visual acuity:
+                A full feeling in the head, and whether near vision looks blurry.
               </p>
 
               {/* Cephalad shift scale */}
@@ -800,14 +799,14 @@ Notes: ${draft.notes || "No additional crew notes."}`;
                     {sansVisualBlur && <Check size={12} strokeWidth={3} />}
                   </button>
                   <div>
-                    <strong className="text-xs font-semibold block text-slate-900 dark:text-white">Near-Vision Blurring / Eye Strain (SANS)</strong>
-                    <span className="text-[10px] text-slate-500 dark:text-slate-400">Check if Jaeger card reading indicates visual acuity degradation</span>
+                    <strong className="text-xs font-semibold block text-slate-900 dark:text-white">Near vision looks blurry</strong>
+                    <span className="text-[10px] text-slate-500 dark:text-slate-400">Check this if reading up close looks blurry today.</span>
                   </div>
                 </div>
                 <span className={`text-[10px] font-mono px-2 py-0.5 rounded border font-semibold ${
                   sansVisualBlur ? "bg-rose-100 dark:bg-rose-950 border-rose-300 dark:border-rose-700 text-rose-700 dark:text-rose-300" : "bg-slate-100 dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-500 dark:text-slate-400"
                 }`}>
-                  {sansVisualBlur ? "FLAGGED" : "CLEAR"}
+                  {sansVisualBlur ? "Noted" : "No note"}
                 </span>
               </div>
             </div>
@@ -817,9 +816,9 @@ Notes: ${draft.notes || "No additional crew notes."}`;
               <div className="flex items-center justify-between">
                 <span className="text-xs font-mono uppercase tracking-wider text-slate-700 dark:text-slate-300 font-semibold flex items-center gap-2">
                   <Zap size={16} className="text-amber-500" />
-                  Operational Fatigue Rating
+                  How tired
                 </span>
-                <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">Samn-Perelli Scale</span>
+                <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">1 low, 5 high</span>
               </div>
               <div className="grid grid-cols-5 gap-1.5">
                 {[1, 2, 3, 4, 5].map((n) => (
@@ -841,7 +840,7 @@ Notes: ${draft.notes || "No additional crew notes."}`;
                 ))}
               </div>
               <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 text-right">
-                Current: <b className="text-amber-700 dark:text-amber-300">{draft.fatigue} / 5</b> ({["Fully Alert", "Very Lively", "Nominal Rested", "Substantial Fatigue", "Exhausted"][draft.fatigue - 1]})
+                Current: <b className="text-amber-700 dark:text-amber-300">{draft.fatigue} / 5</b> ({["Very low", "Low", "Moderate", "High", "Very high"][draft.fatigue - 1]})
               </p>
             </div>
 
@@ -850,9 +849,8 @@ Notes: ${draft.notes || "No additional crew notes."}`;
               <div className="flex items-center justify-between">
                 <span className="text-xs font-mono uppercase tracking-wider text-slate-700 dark:text-slate-300 font-semibold flex items-center gap-2">
                   <Smile size={16} className="text-emerald-500" />
-                  Crew Morale & Subjective State
+                  Mood
                 </span>
-                <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">Psychological Wellness</span>
               </div>
               <div className="grid grid-cols-4 gap-2">
                 {["Great", "Good", "Fair", "Low"].map((m) => (
@@ -878,12 +876,12 @@ Notes: ${draft.notes || "No additional crew notes."}`;
           <div className="p-5 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 shadow-sm space-y-2">
             <label htmlFor="checkin-notes" className="text-xs font-mono uppercase tracking-wider text-slate-700 dark:text-slate-300 font-semibold flex items-center gap-2">
               <FileText size={16} className="text-slate-400" />
-              Astronaut Flight Journal & Clinical Observations (Optional)
+              Note (optional)
             </label>
             <textarea
               id="checkin-notes"
               maxLength={1000}
-              placeholder="Record subjective sensations, EVA exertion feedback, cabin acoustic levels, or personal comments for flight surgeon..."
+              placeholder="Anything you want to remember about today."
               value={draft.notes}
               onChange={(e) => onDraftChange({ ...draft, notes: e.target.value })}
               rows={3}
@@ -898,14 +896,14 @@ Notes: ${draft.notes || "No additional crew notes."}`;
               onClick={() => setStep(1)}
               className="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-xs font-mono transition cursor-pointer"
             >
-              Back to Vitals
+              Back to today's numbers
             </button>
             <button
               type="button"
               onClick={handleNextStep}
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs font-mono transition shadow-md active:scale-98 cursor-pointer"
             >
-              <span>Next: Clinical Verification</span>
+              <span>Next: Review</span>
               <ChevronRight size={16} />
             </button>
           </div>
@@ -920,10 +918,10 @@ Notes: ${draft.notes || "No additional crew notes."}`;
             <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
               <div>
                 <span className="text-[10px] font-mono uppercase text-sky-700 dark:text-cyan-400 tracking-wider font-semibold">
-                  FLIGHT SURGEON PRE-TRANSMIT AUDIT
+                  Review
                 </span>
                 <h3 className="text-lg font-bold text-slate-900 dark:text-white tracking-tight">
-                  Verify Today's In-Flight Health Record
+                  Check today's numbers
                 </h3>
               </div>
               <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
@@ -936,18 +934,18 @@ Notes: ${draft.notes || "No additional crew notes."}`;
               <table className="w-full text-left text-xs font-mono">
                 <thead>
                   <tr className="border-b border-slate-200 dark:border-slate-800 text-[10px] uppercase text-slate-500 dark:text-slate-400">
-                    <th className="pb-2">Physiological Parameter</th>
-                    <th className="pb-2">Today's Value</th>
-                    <th className="pb-2">Personal Baseline</th>
-                    <th className="pb-2">Baseline Variance</th>
-                    <th className="pb-2">Clinical Status</th>
+                    <th className="pb-2">Measure</th>
+                    <th className="pb-2">Today</th>
+                    <th className="pb-2">14-day average</th>
+                    <th className="pb-2">Difference</th>
+                    <th className="pb-2">This form</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-200 dark:divide-slate-800/60">
                   <tr>
                     <td className="py-2.5 text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
                       <Heart size={14} className="text-rose-500" />
-                      Resting Heart Rate
+                      Heart rate
                     </td>
                     <td className="py-2.5 font-bold text-slate-900 dark:text-white">{hrVal} bpm</td>
                     <td className="py-2.5 text-slate-500 dark:text-slate-400">{baseline.heart} bpm</td>
@@ -956,7 +954,7 @@ Notes: ${draft.notes || "No additional crew notes."}`;
                       <span className={`px-2 py-0.5 rounded text-[10px] border font-semibold ${
                         Math.abs(hrDelta) <= 8 ? "bg-emerald-50 dark:bg-emerald-950/80 border-emerald-300 dark:border-emerald-600/40 text-emerald-700 dark:text-emerald-300" : "bg-amber-50 dark:bg-amber-950/80 border-amber-300 dark:border-amber-600/40 text-amber-700 dark:text-amber-300"
                       }`}>
-                        {Math.abs(hrDelta) <= 8 ? "NOMINAL" : "OBSERVE"}
+                        {Math.abs(hrDelta) <= 8 ? "No note" : "Noted"}
                       </span>
                     </td>
                   </tr>
@@ -964,14 +962,18 @@ Notes: ${draft.notes || "No additional crew notes."}`;
                   <tr>
                     <td className="py-2.5 text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
                       <Activity size={14} className="text-sky-600 dark:text-cyan-400" />
-                      Systemic Blood Pressure
+                      Blood pressure
                     </td>
                     <td className="py-2.5 font-bold text-slate-900 dark:text-white">{sysVal}/{diaVal} mmHg</td>
                     <td className="py-2.5 text-slate-500 dark:text-slate-400">{baseline.systolic}/{baseline.diastolic} mmHg</td>
-                    <td className="py-2.5 text-sky-600 dark:text-cyan-400 font-medium">MAP {mapValue} mmHg</td>
+                    <td className="py-2.5 text-sky-600 dark:text-cyan-400 font-medium">{sysDelta >= 0 ? `+${sysDelta}` : sysDelta} / {diaDelta >= 0 ? `+${diaDelta}` : diaDelta}</td>
                     <td className="py-2.5">
-                      <span className="px-2 py-0.5 rounded text-[10px] border font-semibold bg-emerald-50 dark:bg-emerald-950/80 border-emerald-300 dark:border-emerald-600/40 text-emerald-700 dark:text-emerald-300">
-                        NOMINAL
+                      <span className={`px-2 py-0.5 rounded text-[10px] border font-semibold ${
+                        sysVal >= 135 || diaVal >= 88
+                          ? "bg-amber-50 dark:bg-amber-950/80 border-amber-300 dark:border-amber-600/40 text-amber-700 dark:text-amber-300"
+                          : "bg-emerald-50 dark:bg-emerald-950/80 border-emerald-300 dark:border-emerald-600/40 text-emerald-700 dark:text-emerald-300"
+                      }`}>
+                        {sysVal >= 135 || diaVal >= 88 ? "Noted" : "No note"}
                       </span>
                     </td>
                   </tr>
@@ -979,7 +981,7 @@ Notes: ${draft.notes || "No additional crew notes."}`;
                   <tr>
                     <td className="py-2.5 text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
                       <Moon size={14} className="text-indigo-500 dark:text-indigo-400" />
-                      Circadian Sleep Duration
+                      Sleep
                     </td>
                     <td className="py-2.5 font-bold text-slate-900 dark:text-white">{sleepVal} hrs ({sleepQuality})</td>
                     <td className="py-2.5 text-slate-500 dark:text-slate-400">{baseline.sleep} hrs</td>
@@ -988,7 +990,7 @@ Notes: ${draft.notes || "No additional crew notes."}`;
                       <span className={`px-2 py-0.5 rounded text-[10px] border font-semibold ${
                         sleepVal >= 6.5 ? "bg-emerald-50 dark:bg-emerald-950/80 border-emerald-300 dark:border-emerald-600/40 text-emerald-700 dark:text-emerald-300" : "bg-amber-50 dark:bg-amber-950/80 border-amber-300 dark:border-amber-600/40 text-amber-700 dark:text-amber-300"
                       }`}>
-                        {sleepVal >= 6.5 ? "NOMINAL" : "DEFICIT"}
+                        {sleepVal >= 6.5 ? "No note" : "Noted"}
                       </span>
                     </td>
                   </tr>
@@ -996,14 +998,18 @@ Notes: ${draft.notes || "No additional crew notes."}`;
                   <tr>
                     <td className="py-2.5 text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
                       <Thermometer size={14} className="text-amber-500" />
-                      Core Biomarkers
+                      Temperature and oxygen
                     </td>
-                    <td className="py-2.5 font-bold text-slate-900 dark:text-white">{coreTemp}°C · {spo2}% SpO2</td>
-                    <td className="py-2.5 text-slate-500 dark:text-slate-400">36.6°C · 98%</td>
-                    <td className="py-2.5 text-slate-500 dark:text-slate-400">Normal range</td>
+                    <td className="py-2.5 font-bold text-slate-900 dark:text-white">{coreTemp}°C · {spo2}%</td>
+                    <td className="py-2.5 text-slate-500 dark:text-slate-400">Not in the 14-day average</td>
+                    <td className="py-2.5 text-slate-500 dark:text-slate-400">Form note</td>
                     <td className="py-2.5">
-                      <span className="px-2 py-0.5 rounded text-[10px] border font-semibold bg-emerald-50 dark:bg-emerald-950/80 border-emerald-300 dark:border-emerald-600/40 text-emerald-700 dark:text-emerald-300">
-                        NOMINAL
+                      <span className={`px-2 py-0.5 rounded text-[10px] border font-semibold ${
+                        coreTemp >= 37.4
+                          ? "bg-amber-50 dark:bg-amber-950/80 border-amber-300 dark:border-amber-600/40 text-amber-700 dark:text-amber-300"
+                          : "bg-emerald-50 dark:bg-emerald-950/80 border-emerald-300 dark:border-emerald-600/40 text-emerald-700 dark:text-emerald-300"
+                      }`}>
+                        {coreTemp >= 37.4 ? "Noted" : "No note"}
                       </span>
                     </td>
                   </tr>
@@ -1011,16 +1017,16 @@ Notes: ${draft.notes || "No additional crew notes."}`;
                   <tr>
                     <td className="py-2.5 text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
                       <Eye size={14} className="text-purple-600 dark:text-purple-400" />
-                      Neuro-Ocular & SANS
+                      Vision and fullness
                     </td>
-                    <td className="py-2.5 font-bold text-slate-900 dark:text-white">{sansVisualBlur ? "Visual Blur Present" : "Clear 20/20"}</td>
-                    <td className="py-2.5 text-slate-500 dark:text-slate-400">None</td>
-                    <td className="py-2.5 text-slate-500 dark:text-slate-400">Cephalad Shift: {cephaladShift}/3</td>
+                    <td className="py-2.5 font-bold text-slate-900 dark:text-white">{sansVisualBlur ? "Blur noted" : "No blur noted"}</td>
+                    <td className="py-2.5 text-slate-500 dark:text-slate-400">Not in the 14-day average</td>
+                    <td className="py-2.5 text-slate-500 dark:text-slate-400">Fullness {cephaladShift}/3</td>
                     <td className="py-2.5">
                       <span className={`px-2 py-0.5 rounded text-[10px] border font-semibold ${
-                        sansVisualBlur ? "bg-rose-50 dark:bg-rose-950/80 border-rose-300 dark:border-rose-600/40 text-rose-700 dark:text-rose-300" : "bg-emerald-50 dark:bg-emerald-950/80 border-emerald-300 dark:border-emerald-600/40 text-emerald-700 dark:text-emerald-300"
+                        sansVisualBlur || cephaladShift >= 2 ? "bg-amber-50 dark:bg-amber-950/80 border-amber-300 dark:border-amber-600/40 text-amber-700 dark:text-amber-300" : "bg-emerald-50 dark:bg-emerald-950/80 border-emerald-300 dark:border-emerald-600/40 text-emerald-700 dark:text-emerald-300"
                       }`}>
-                        {sansVisualBlur ? "ATTENTION" : "NOMINAL"}
+                        {sansVisualBlur || cephaladShift >= 2 ? "Noted" : "No note"}
                       </span>
                     </td>
                   </tr>
@@ -1031,7 +1037,7 @@ Notes: ${draft.notes || "No additional crew notes."}`;
             {/* Dynamic Clinical Advisories */}
             <div className="space-y-2 pt-2">
               <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold block">
-                Automated Clinical Countermeasure Advisories
+                Notes from this form
               </span>
               {clinicalAdvisories.map((adv, idx) => (
                 <div
@@ -1048,7 +1054,7 @@ Notes: ${draft.notes || "No additional crew notes."}`;
                     {adv.text}
                   </strong>
                   <span className="text-[11px] text-slate-600 dark:text-slate-300 block font-mono">
-                    Protocol Action: {adv.action}
+                    {adv.action}
                   </span>
                 </div>
               ))}
@@ -1061,7 +1067,7 @@ Notes: ${draft.notes || "No additional crew notes."}`;
                 onClick={() => setStep(2)}
                 className="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-xs font-mono transition cursor-pointer"
               >
-                Back to Symptoms
+                Back
               </button>
 
               <button
@@ -1070,7 +1076,7 @@ Notes: ${draft.notes || "No additional crew notes."}`;
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs font-mono transition shadow-md active:scale-98 cursor-pointer"
               >
                 <CheckCircle2 size={16} />
-                <span>Confirm & Transmit Check-In</span>
+                <span>Save this check-in</span>
               </button>
             </div>
           </div>
