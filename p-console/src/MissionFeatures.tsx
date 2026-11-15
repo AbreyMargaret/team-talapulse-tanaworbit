@@ -443,7 +443,7 @@ export function PumaPanel() {
     <Panel>
       <div className="section-label">
         <h2>Breathing gas</h2>
-        <span>An example. Not a connected device, and not the example sketch.</span>
+        <span>An example of one breath. Not this person's stored day, and not the cabin air sample.</span>
       </div>
       <PumaTracker />
     </Panel>
@@ -466,7 +466,7 @@ export function SensorimotorPanel({
   onRecordResult?: (res: SensorimotorResult) => void;
 }) {
   return (
-    <>
+    <div className="flex flex-col gap-6">
       <CognitionBattery
         key={crewId}
         crewName={crewName}
@@ -474,9 +474,7 @@ export function SensorimotorPanel({
         entries={cognitionEntries}
         onRecord={onCognition}
       />
-      <Panel>
-        <SensorimotorTest onRecordResult={onRecordResult} />
-      </Panel>
-    </>
+      <SensorimotorTest onRecordResult={onRecordResult} />
+    </div>
   );
 }

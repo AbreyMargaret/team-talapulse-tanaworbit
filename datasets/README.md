@@ -9,16 +9,16 @@ This directory contains static, editable JSON files bundled into the frontend th
 | File                    | Content                                                                                                     |
 | ----------------------- | ----------------------------------------------------------------------------------------------------------- |
 | `mission.json`          | One fictional mission: Aster Expedition VII; reference mission day 142 and a fictional 2035 example date.   |
-| `crew.json`             | Four fictional profiles, profile-image references, public demo PINs, and a scripted review-request flag.    |
-| `health-records.json`   | 120 synthetic records: 30 consecutive mission days for each crew member.                                    |
+| `crew.json`             | Five fictional profiles, profile-image references, public demo PINs, and a scripted review-request flag.    |
+| `health-records.json`   | 150 synthetic records: 30 consecutive mission days for each crew member.                                    |
 | `monitoring-rules.json` | A 14-day baseline window and unvalidated demonstration comparison differences.                              |
 | `exercise-catalog.json` | Activity IDs, labels, educational context, and NASA reference links. Example minutes are not prescriptions. |
-| `exercise-records.json` | 20 synthetic exercise sessions, five per crew member during the last seven mission days.                    |
+| `exercise-records.json` | 25 synthetic exercise sessions, five per crew member.                                                       |
 | `biodata.json`          | One fictional body description per crew member. Not a clinical record.                                      |
 | `monitor-parameters.json` | Demonstration fields and bounds for crew, cabin, orbit, and nutrition checks.                             |
 | `cabin-conditions.json` | Eight scripted cabin samples through mission day 142.                                                       |
 | `orbital-conditions.json` | Eight scripted altitude, velocity, and lighting samples.                                                   |
-| `nutrition.json`        | Menu items and 28 example intake rows. Not a diet order.                                                    |
+| `nutrition.json`        | Menu items and 35 example intake rows, seven days for each crew member. Not a diet order.                   |
 | `access.json`           | Public demo codes for the admin and tester doors. Not accounts.                                             |
 
 Each file has a `meta` section describing its synthetic origin. No measurement, PIN, medical threshold, exercise duration, or mission detail comes from actual NASA operations.
@@ -34,12 +34,13 @@ Context previews do not alter health values or thresholds. Walkthroughs explain 
 
 ## Public demonstration PINs
 
-| Profile        | Public sample PIN |
-| -------------- | ----------------- |
-| Alex Morgan    | `1420`            |
-| James Chen     | `2468`            |
-| Sofia Reyes    | `1357`            |
-| Ethan Williams | `8642`            |
+| Profile                  | Public sample PIN |
+| ------------------------ | ----------------- |
+| Ella Nicole Fabro        | `3801`            |
+| Abrey Diane Barcellano   | `4202`            |
+| Hannah Faith Lopez       | `4503`            |
+| Gary Kenp Marasigan      | `4804`            |
+| Greek William Legaspi    | `5005`            |
 
 The sign-in screen exposes the selected profile's PIN and provides **Fill demo PIN**. Entering the matching four digits automatically opens the console. This is a navigation demonstration, **not authentication**. Do not replace these with real passwords, PINs, secrets, or personal information.
 

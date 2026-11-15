@@ -36,7 +36,7 @@ Use the [seven-slide demo draft or short-video script](demo.md). The token above
 ### Project
 
 ```text
-https://tanaw-orbit.app
+https://www.tanaw-orbit.app/
 ```
 
 Public source repository:
@@ -143,7 +143,7 @@ Review the source/resource inventory, permitted use of third-party material, SI 
 ### Save and submit
 
 1. Coordinate with the team owner and use the form's editing lock if multiple members are editing.
-2. Paste the reviewed text, add the demonstration URL, confirm `https://tanaw-orbit.app`, and add the resource entries.
+2. Paste the reviewed text, add the demonstration URL, confirm `https://www.tanaw-orbit.app/`, and add the resource entries.
 3. Use **Save Progress** while editing.
 4. Recheck all URLs in a signed-out window and verify demo duration or slide count.
 5. Confirm the event year and local deadline on the official event page; do not rely solely on the pasted “Sunday, November 15” text.

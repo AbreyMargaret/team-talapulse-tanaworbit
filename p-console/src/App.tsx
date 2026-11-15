@@ -2,7 +2,6 @@ import { lazy, Suspense, useEffect, useRef, useState, type FormEvent, type React
 import {
   Sun,
   Moon,
-  Radio,
   Compass,
   Monitor,
   Tablet,
@@ -368,7 +367,7 @@ export const PAGE_DISPLAY_LABELS: Record<Page, string> = {
   "Mission Overview": "Crew Overview",
   "Health Trends": "Recent days",
   "Calculation Trend": "Your average",
-  "Sensorimotor & Reflex": "Hands and reaction",
+  "Sensorimotor & Reflex": "Practice",
   "Space Nutrition": "Nutrition & Hydration",
   "Exercise & Recovery": "Exercise",
   "Biodata": "Body measurements",
@@ -390,6 +389,7 @@ const navGroups: NavGroup[] = [
     items: [
       { page: "Astronaut Dashboard", label: "Today", icon: "activity" },
       { page: "Health Check-In", label: "Daily Check-In", icon: "check" },
+      { page: "Sensorimotor & Reflex", label: "Practice", icon: "check" },
       { page: "Alerts & Attention", label: "Flags", icon: "bell" },
       { page: "Mission Overview", label: "Crew Overview", icon: "grid" },
     ],
@@ -400,7 +400,6 @@ const navGroups: NavGroup[] = [
       { page: "Physiological Monitoring", label: "Heart and breathing", icon: "pulse" },
       { page: "Health Trends", label: "Recent days", icon: "chart" },
       { page: "Calculation Trend", label: "Your average", icon: "chart" },
-      { page: "Sensorimotor & Reflex", label: "Hands and reaction", icon: "check" },
       { page: "Biodata", label: "Body measurements", icon: "activity" },
     ],
   },
@@ -505,7 +504,7 @@ function pageLede(page: Page): string {
     case "Astronaut Dashboard":
       return "Heart rate, blood pressure, sleep, and how tired you feel, next to your average from the last 14 days.";
     case "Physiological Monitoring":
-      return "Today's heart rate, blood oxygen, and breathing. The sketch under them is an example, not a sensor.";
+      return "Today's heart rate, blood oxygen, and breathing. The lines follow those stored numbers.";
     case "Cabin Conditions":
       return "Stored samples of cabin pressure, oxygen, carbon dioxide, temperature, and noise.";
     case "Orbital Conditions":
@@ -838,8 +837,6 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
     }
     return "dark";
   });
-  const [liveStream, setLiveStream] = useState<boolean>(true);
-  const [pulseOscillation, setPulseOscillation] = useState<number>(0);
   const [symptomLogs, setSymptomLogs] = useState<SymptomLog[]>([]);
   const [toast, setToast] = useState("");
   const [toastTone, setToastTone] = useState<"success" | "info">("success");
@@ -858,13 +855,6 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
     localStorage.setItem("tanaworbit_theme", theme);
   }, [theme]);
 
-  useEffect(() => {
-    if (!liveStream) return;
-    const interval = window.setInterval(() => {
-      setPulseOscillation((prev) => (prev === 0 ? 1 : prev === 1 ? -1 : 0));
-    }, 2400);
-    return () => window.clearInterval(interval);
-  }, [liveStream]);
   useEffect(() => {
     if (page !== "Health Check-In" || !pendingMetric) return;
     const selectors: Record<MetricId, string> = {
@@ -1718,15 +1708,12 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
     );
   }
 
-  function Physiology({ full = false }: { full?: boolean }) {
+  function Physiology() {
     return (
       <LiveWaveformStream
         heartRate={reading.heart}
         spo2={samples[selectedCrew].spo2}
         respiration={samples[selectedCrew].respiration}
-        temperatureC={samples[selectedCrew].temperatureC}
-        liveStream={liveStream}
-        full={full}
       />
     );
   }
@@ -2076,15 +2063,6 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                 >
                   {theme === "dark" ? <Sun size={15} /> : <Moon size={15} />}
                   <span>{theme === "dark" ? "Light" : "Dark"}</span>
-                </button>
-                <button
-                  className={`display-control ${liveStream ? "is-on" : ""}`}
-                  aria-label="Play or pause the example sketch"
-                  title="Play or pause the example sketch. It is not a sensor."
-                  onClick={() => setLiveStream((v) => !v)}
-                >
-                  <Radio size={14} />
-                  <span>{liveStream ? "Sketch playing" : "Sketch paused"}</span>
                 </button>
                 <button
                   className="display-control"
@@ -2642,15 +2620,15 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
 
             {page === "Physiological Monitoring" && (
               <>
-                <Physiology full />
+                <Physiology />
                 <div className="dashboard-bottom">
                   <section className="panel monitoring-context">
                     <PanelTitle
                       title="What belongs on this page"
-                      description="The numbers are stored. The sketch is an example."
+                      description="Heart rate, blood oxygen, and breathing for this stored day."
                     />
                     <p>
-                      Read heart rate, blood oxygen, and breathing here. The example sketch is not a sensor, and it is not the breathing-gas card.
+                      The lines follow today's heart rate and breathing. Blood oxygen is the number beside its line.
                     </p>
                     <div className="context-row">
                       <Icon name="pulse" />
@@ -2666,7 +2644,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                       <div>
                         <strong>Cabin air is a different page</strong>
                         <p>
-                          Carbon dioxide and cabin pressure on the sketch are examples. The stored cabin sample is on Cabin air.
+                          Cabin pressure, oxygen, and carbon dioxide are on Cabin air.
                         </p>
                       </div>
                     </div>

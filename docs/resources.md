@@ -111,7 +111,7 @@ The current event's official rules and organizer guidance govern the final submi
 
 ## Synthetic JSON and demo entry
 
-`datasets/` contains four fictional crew profiles with public sample PINs, one independent fictional mission, 120 example health records, comparison configuration, an exercise catalog, and 20 exercise records. These were SI-generated for this prototype, not supplied by NASA or a clinical study. `p-console/src/data.ts` computes example baselines and chart series from those files. The app does not write to JSON or a database. See [dataset provenance](../datasets/README.md) and [logic](logic.md).
+`datasets/` contains five fictional crew profiles with public sample PINs, one independent fictional mission, 150 example health records, comparison configuration, an exercise catalog, and 25 exercise records. These were SI-generated for this prototype, not supplied by NASA or a clinical study. `p-console/src/data.ts` computes example baselines and chart series from those files. The app does not write to JSON or a database. See [dataset provenance](../datasets/README.md) and [logic](logic.md).
 
 New source files `p-console/src/DemoSignIn.tsx`, `p-console/src/ExercisePanel.tsx`, `p-console/src/data.ts`, and `p-console/src/demo.css` were created with SI assistance. The entry screen reuses the already credited Earth and portrait photographs; it does not introduce new photographs. NASA's existing Human Body in Space and HRP links support general exercise context, not the example durations, effort scales, or comparison thresholds.
 

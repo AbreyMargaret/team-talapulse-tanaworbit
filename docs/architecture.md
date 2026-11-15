@@ -52,7 +52,7 @@ The PIN screen demonstrates profile selection only. All sample codes are public,
 | `p-console/src/ExercisePanel.tsx`         | Exercise input/review, activity history, temporary session additions, and recovery context.                           |
 | `p-console/src/useConsoleDisplay.ts`      | Auto/desktop/touch layout and browser fullscreen behavior. No privacy or inactivity shield remains.                   |
 | `p-console/src/index.css`, `p-console/src/demo.css` | Main console, responsive touch layout, demo entry, and exercise styles.                                               |
-| `datasets/`                     | Public synthetic profiles, mission, 120 health records, comparison rules, activity catalog, and 20 exercise sessions. |
+| `datasets/`                     | Public synthetic profiles, mission, 150 health records, comparison rules, activity catalog, and 25 exercise sessions. |
 | `tanaworbit-api/src/index.ts`   | Read-only GET routes for those same files. Write methods return 405. The console does not call this Worker.         |
 | `scripts/verify-datasets.mjs`   | Read-only fixture integrity checks, run with `pnpm test:data`.                                                        |
 

@@ -4,7 +4,7 @@
 
 TanawOrbit is an educational astronaut-health and mission-health operations prototype by **Tala Pulse**. It uses fictional crew members and synthetic measurements. It is not a medical device, diagnostic system, NASA product, or working spacecraft integration.
 
-Official site: [https://tanaw-orbit.app](https://tanaw-orbit.app)
+Official site: [https://www.tanaw-orbit.app/](https://www.tanaw-orbit.app/)
 
 Space Apps team: [https://www.spaceappschallenge.org/2026/find-a-team/tala-pulse/](https://www.spaceappschallenge.org/2026/find-a-team/tala-pulse/)
 
@@ -44,7 +44,7 @@ The form text and technical documentation are drafted. **This does not mean the 
 
 Before submitting:
 
-1. Confirm [https://tanaw-orbit.app](https://tanaw-orbit.app) opens with no login. That address is the project link in [submission.md](submission.md). It did not resolve when these docs were updated.
+1. The project link is [https://www.tanaw-orbit.app/](https://www.tanaw-orbit.app/). It opens with no account. The apex host `https://tanaw-orbit.app/` serves the same console.
 2. Upload a presentation of at most seven slides or a video of at most 30 seconds, then replace `TODO_PUBLIC_DEMO_URL` in [submission.md](submission.md). The live site is not that demonstration file. Draft slides and a short script are in [demo.md](demo.md).
 3. Review the challenge requirements, the 2026 event page, the deadline, and the local-event time zone.
 4. Review the SI-image watermark requirements and the fictional mission name in the [checklist](submission-checklist.md). Documentation alone does not change the current UI or logo files.

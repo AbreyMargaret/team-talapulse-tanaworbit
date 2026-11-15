@@ -4,11 +4,11 @@
 
 ## Enter the demo
 
-1. Choose one of four fictional crew profiles on the entry screen.
+1. Choose one of the five fictional crew profiles on the entry screen: Ella Nicole Fabro, Abrey Diane Barcellano, Hannah Faith Lopez, Gary Kenp Marasigan, or Greek William Legaspi.
 2. Enter the selected profile's displayed four-digit sample PIN, or select **Fill demo PIN**.
 3. The console opens automatically when the four digits match. A mismatch displays an error and clears the input.
 
-Sample codes: Alex `1420`, James `2468`, Sofia `1357`, Ethan `8642`. They are intentionally public and bundled with the app. Never put real PINs or passwords in these JSON files.
+The sample codes are the public `demoPin` values in `datasets/crew.json`. They are intentionally public and bundled with the app. Never put real PINs or passwords in these JSON files.
 
 **Sign out of demo** returns to profile entry. Choosing a different crew member in Mission Overview opens the entry screen with that profile selected. This is not protected access control. In-memory demo changes remain until a page refresh; refresh reloads the original fixtures and starts signed out.
 

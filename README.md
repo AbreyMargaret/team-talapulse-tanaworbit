@@ -2,7 +2,7 @@
 
 Educational web prototype for astronaut health and mission-health operations, by team **Tala Pulse**.
 
-Official site: [https://tanaw-orbit.app](https://tanaw-orbit.app)
+Official site: [https://www.tanaw-orbit.app/](https://www.tanaw-orbit.app/)
 
 Space Apps team: [Tala Pulse](https://www.spaceappschallenge.org/2026/find-a-team/tala-pulse/)
 
@@ -79,7 +79,7 @@ No account id, token, or secret is stored in this repository.
 - Tanaw Guide uses fixed answers. It does not call a model, diagnose, or prescribe.
 - Do not add NASA logos, mission identifiers, or claims of NASA endorsement.
 - Photograph credits, font licenses, and the SI disclosure for the prototype are in [docs/resources.md](docs/resources.md) and [docs/provenance.json](docs/provenance.json).
-- The official site is [https://tanaw-orbit.app](https://tanaw-orbit.app). The Space Apps team page is [Tala Pulse](https://www.spaceappschallenge.org/2026/find-a-team/tala-pulse/).
+- The official site is [https://www.tanaw-orbit.app/](https://www.tanaw-orbit.app/). The Space Apps team page is [Tala Pulse](https://www.spaceappschallenge.org/2026/find-a-team/tala-pulse/).
 - The team owner still has to confirm the event terms and the originality declaration.
 
 ## License
