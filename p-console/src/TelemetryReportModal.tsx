@@ -189,7 +189,7 @@ export default function TelemetryReportModal({
           {/* Section 3: Environmental Life Support Correlation */}
           <div className="mb-6">
             <h2 className="text-xs font-mono font-bold tracking-wider text-cyan-400 border-b border-slate-800 pb-1 mb-2">
-              3. ENVIRONMENTAL LIFE SUPPORT (ECLSS) CO-VARIANCE
+              3. CABIN AIR, STORED SAMPLE
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs bg-slate-900/50 p-3 rounded border border-slate-800 font-mono">
               <div>

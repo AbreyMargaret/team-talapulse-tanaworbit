@@ -360,21 +360,21 @@ export const PAGE_TO_HASH: Record<Page, string> = {
 
 export const PAGE_DISPLAY_LABELS: Record<Page, string> = {
   "Astronaut Dashboard": "Astronaut Flight Deck",
-  "Physiological Monitoring": "Physiological Telemetry",
-  "Cabin Conditions": "Cabin Environment (ECLSS)",
-  "Orbital Conditions": "Orbital Parameters",
+  "Physiological Monitoring": "Heart and breathing",
+  "Cabin Conditions": "Cabin air",
+  "Orbital Conditions": "Orbit",
   "Mission Overview": "Expedition Whole Crew",
-  "Health Trends": "Biometric Health Trends",
-  "Calculation Trend": "Baseline Variance Analytics",
-  "Sensorimotor & Reflex": "Sensorimotor & Reflex Testing",
+  "Health Trends": "Recent days",
+  "Calculation Trend": "Your average",
+  "Sensorimotor & Reflex": "Hands and reaction",
   "Space Nutrition": "Space Nutrition & Hydration",
   "Exercise & Recovery": "Exercise Countermeasures",
-  "Biodata": "Crew Baseline & Biodata",
-  "Monitor Parameters": "Clinical Safety Thresholds",
+  "Biodata": "Body measurements",
+  "Monitor Parameters": "Ranges we use",
   "Health Check-In": "Daily Health Check-In",
-  "Health Toolkit": "Clinical Diagnostic Toolkit",
-  "Health Guidance": "Zero-G Living & Clinical Guide",
-  "Alerts & Attention": "Clinical Alerts & Observations",
+  "Health Toolkit": "How to record",
+  "Health Guidance": "Living notes",
+  "Alerts & Attention": "Flags",
 };
 
 export type NavGroup = {
@@ -388,35 +388,35 @@ const navGroups: NavGroup[] = [
     items: [
       { page: "Astronaut Dashboard", label: "Flight Deck", icon: "activity" },
       { page: "Health Check-In", label: "Daily Check-In", icon: "check" },
-      { page: "Alerts & Attention", label: "Clinical Alerts", icon: "bell" },
+      { page: "Alerts & Attention", label: "Flags", icon: "bell" },
       { page: "Mission Overview", label: "Crew Overview", icon: "grid" },
     ],
   },
   {
     pillar: "Physiological Telemetry",
     items: [
-      { page: "Physiological Monitoring", label: "Biometric Telemetry", icon: "pulse" },
-      { page: "Health Trends", label: "14-Day Vitals Trends", icon: "chart" },
-      { page: "Calculation Trend", label: "Baseline Analytics", icon: "chart" },
-      { page: "Sensorimotor & Reflex", label: "Reflex & Coordination", icon: "check" },
-      { page: "Biodata", label: "Personal Medical Baseline", icon: "activity" },
+      { page: "Physiological Monitoring", label: "Heart and breathing", icon: "pulse" },
+      { page: "Health Trends", label: "Recent days", icon: "chart" },
+      { page: "Calculation Trend", label: "Your average", icon: "chart" },
+      { page: "Sensorimotor & Reflex", label: "Hands and reaction", icon: "check" },
+      { page: "Biodata", label: "Body measurements", icon: "activity" },
     ],
   },
   {
     pillar: "Life Support & Habitat",
     items: [
-      { page: "Cabin Conditions", label: "Cabin Atmosphere & CO₂", icon: "thermometer" },
-      { page: "Orbital Conditions", label: "Orbital Flight Parameters", icon: "globe" },
+      { page: "Cabin Conditions", label: "Cabin air", icon: "thermometer" },
+      { page: "Orbital Conditions", label: "Orbit", icon: "globe" },
     ],
   },
   {
     pillar: "Countermeasures & Guidance",
     items: [
-      { page: "Health Guidance", label: "Zero-G Living Guide", icon: "book" },
-      { page: "Health Toolkit", label: "Clinical Diagnostic Toolkit", icon: "help" },
+      { page: "Health Guidance", label: "Living notes", icon: "book" },
+      { page: "Health Toolkit", label: "How to record", icon: "help" },
       { page: "Exercise & Recovery", label: "Exercise Countermeasures", icon: "activity" },
       { page: "Space Nutrition", label: "Nutrition & Hydration", icon: "battery" },
-      { page: "Monitor Parameters", label: "Safety Thresholds", icon: "pulse" },
+      { page: "Monitor Parameters", label: "Ranges we use", icon: "pulse" },
     ],
   },
 ];
@@ -499,7 +499,7 @@ function pageLede(page: Page): string {
     case "Astronaut Dashboard":
       return "Heart rate, blood pressure, sleep, and how tired you feel, next to your average from the last 14 days.";
     case "Physiological Monitoring":
-      return "Heart rate, blood oxygen, and breathing, drawn as lines from today's numbers.";
+      return "Today's heart rate, blood oxygen, and breathing. The moving line is a drawing, not a live sensor.";
     case "Cabin Conditions":
       return "Stored samples of cabin pressure, oxygen, carbon dioxide, temperature, and noise.";
     case "Orbital Conditions":
@@ -519,13 +519,13 @@ function pageLede(page: Page): string {
     case "Biodata":
       return "Age, height, mass, and a few body notes for this person.";
     case "Monitor Parameters":
-      return "The differences this page treats as worth a second look.";
+      return "Reference ranges stored for this console. Today's flags use the 14-day comparison, not these ranges.";
     case "Health Check-In":
-      return "Daily astronaut biometric logging, circadian rest verification, and in-flight neurovestibular symptom screening against 14-day mission baseline.";
+      return "Write down today's numbers for this visit. The notes on this form are not a medical check.";
     case "Health Toolkit":
       return "Steps for writing a number down, in the same order you would do it.";
     case "Health Guidance":
-      return "Evidence-based clinical countermeasures, circadian entrainment protocols, and physiological adaptation tools compiled from NASA Human Research Program flight data.";
+      return "Notes about sleep, air, and living in a cabin. This is not medical advice and not a NASA manual.";
     case "Alerts & Attention":
       return "Readings that differ from your 14-day average, and anything marked for a second look.";
     default:
@@ -1242,7 +1242,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                     ? "Fatigue"
                     : card.name === "Sleep"
                       ? "Sleep"
-                      : card.name === "Blood Pressure"
+                      : card.name === "Blood pressure"
                         ? "Blood pressure"
                         : "Heart rate",
                 );
@@ -1993,7 +1993,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                   onClick={() => setLiveStream((v) => !v)}
                 >
                   <Radio size={14} />
-                  <span>{liveStream ? "Lines on" : "Lines off"}</span>
+                  <span>{liveStream ? "Drawing on" : "Drawing off"}</span>
                 </button>
                 <button
                   className="display-control"

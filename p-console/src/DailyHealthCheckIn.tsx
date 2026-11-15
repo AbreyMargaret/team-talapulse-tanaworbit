@@ -142,8 +142,8 @@ export default function DailyHealthCheckIn({
     if (list.length === 0) {
       list.push({
         type: "nominal",
-        text: "Telemetry Nominal: All cardiovascular, circadian, and neurovestibular metrics within nominal baseline ranges.",
-        action: "Cleared for full flight operations and scheduled extravehicular / scientific payload duties.",
+        text: "No extra note from this form. This is not a duty clearance, and it is not the same check as the flags on Today.",
+        action: "The flags on Today use the 14-day comparison.",
       });
     }
 
@@ -296,9 +296,9 @@ Notes: ${draft.notes || "No additional crew notes."}`;
             </div>
 
             <div className="p-3.5 rounded-xl bg-white dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800 shadow-sm">
-              <span className="text-[10px] font-mono uppercase text-slate-500 dark:text-slate-400 block mb-0.5">Mission Readiness</span>
-              <div className="text-lg font-mono font-bold text-emerald-600 dark:text-emerald-400">
-                GO FOR DUTY
+              <span className="text-[10px] font-mono uppercase text-slate-500 dark:text-slate-400 block mb-0.5">How tired</span>
+              <div className="text-lg font-mono font-bold text-slate-900 dark:text-white">
+                {draft.fatigue}<span className="text-xs text-slate-500 dark:text-slate-400 font-normal"> / 5</span>
               </div>
               <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
                 Fatigue: {draft.fatigue}/5
@@ -323,7 +323,7 @@ Notes: ${draft.notes || "No additional crew notes."}`;
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-mono transition active:scale-98 cursor-pointer"
             >
               <Activity size={15} className="text-sky-600 dark:text-cyan-400" />
-              <span>Inspect Biometric Telemetry</span>
+              <span>Heart and breathing</span>
             </button>
 
             <button
@@ -332,7 +332,7 @@ Notes: ${draft.notes || "No additional crew notes."}`;
               className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-white hover:bg-slate-50 dark:bg-slate-900 dark:hover:bg-slate-800 border border-slate-300 dark:border-slate-800 text-slate-700 dark:text-slate-300 text-xs font-mono transition cursor-pointer ml-auto"
             >
               {copied ? <Check size={14} className="text-emerald-500 dark:text-emerald-400" /> : <Copy size={14} />}
-              <span>{copied ? "Log Copied" : "Copy Medical Note"}</span>
+              <span>{copied ? "Copied" : "Copy this note"}</span>
             </button>
 
             <button
@@ -373,10 +373,10 @@ Notes: ${draft.notes || "No additional crew notes."}`;
             type="button"
             onClick={syncWearableSensors}
             className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-sky-50 hover:bg-sky-100 dark:bg-cyan-950/80 dark:hover:bg-cyan-900/90 border border-sky-300 dark:border-cyan-500/50 text-sky-800 dark:text-cyan-200 font-mono text-xs font-semibold transition active:scale-98 shadow-sm cursor-pointer group"
-            title="Auto-fill vitals from active wearable Bio-Harness"
+            title="Fill the form with a sample. This does not read a wearable."
           >
             <Zap size={14} className="text-sky-600 dark:text-cyan-400 group-hover:scale-110 transition" />
-            <span>Sync Wearable Telemetry</span>
+            <span>Fill a sample reading</span>
           </button>
         </div>
       </div>
@@ -384,7 +384,7 @@ Notes: ${draft.notes || "No additional crew notes."}`;
       {syncToast && (
         <div className="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/80 border border-emerald-300 dark:border-emerald-500/50 text-emerald-800 dark:text-emerald-200 text-xs font-mono flex items-center gap-2 animate-fade-in shadow-sm">
           <CheckCircle2 size={16} className="text-emerald-600 dark:text-emerald-400" />
-          <span>Biometric telemetry synchronized from {person.name}'s active Bio-Harness array.</span>
+          <span>Filled with a sample for {person.name}. This did not come from a wearable.</span>
         </div>
       )}
 

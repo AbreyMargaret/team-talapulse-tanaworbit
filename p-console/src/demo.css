@@ -975,3 +975,60 @@
     transition: none;
   }
 }
+
+
+/* ==========================================================================
+   Light Mode Overrides for Exercise & Recovery
+   ========================================================================== */
+
+[data-theme="light"] .exercise-workspace .panel,
+[data-theme="light"] .exercise-stat,
+[data-theme="light"] .exercise-context,
+[data-theme="light"] .exercise-topic-grid article,
+[data-theme="light"] .exercise-history,
+[data-theme="light"] .exercise-form-panel {
+  background: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .exercise-bar-track {
+  background: #e2e8f0 !important;
+}
+
+[data-theme="light"] .exercise-form-panel input,
+[data-theme="light"] .exercise-form-panel select,
+[data-theme="light"] .exercise-form-panel textarea {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .exercise-review > .exercise-note {
+  background: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+  color: #334155 !important;
+}
+
+[data-theme="light"] .exercise-saved {
+  background: #f0fdf4 !important;
+  border-color: #86efac !important;
+  color: #166534 !important;
+}
+
+[data-theme="light"] .exercise-log-table .exercise-log-head {
+  background: #f8fafc !important;
+  border-top-color: #e2e8f0 !important;
+  border-bottom-color: #e2e8f0 !important;
+  color: #64748b !important;
+}
+
+[data-theme="light"] .exercise-log-row {
+  border-bottom-color: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .exercise-info-symbol {
+  border-color: #0284c7 !important;
+  color: #0284c7 !important;
+}

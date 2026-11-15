@@ -577,7 +577,7 @@ export default function AnatomicalAvatar({
             {/* Severity Rating Selector & Action Row */}
             <div className="mt-3 pt-3 border-t border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div className="flex items-center gap-2">
-                <span className="text-[11px] font-mono text-slate-400 uppercase tracking-wider shrink-0">
+                <span className="text-[11px] font-mono text-slate-600 dark:text-slate-400 uppercase tracking-wider shrink-0">
                   Severity:
                 </span>
                 <div className="flex items-center gap-1.5">
@@ -591,11 +591,11 @@ export default function AnatomicalAvatar({
                         className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium border transition cursor-pointer ${
                           isCurrent
                             ? sev === "Severe"
-                              ? "bg-rose-950/90 border-rose-500 text-rose-300 ring-1 ring-rose-500/40 shadow-[0_0_12px_rgba(244,63,94,0.2)]"
+                              ? "bg-rose-100 dark:bg-rose-950/90 border-rose-500 text-rose-800 dark:text-rose-300 ring-1 ring-rose-500/40 shadow-sm"
                               : sev === "Moderate"
-                                ? "bg-amber-950/90 border-amber-500 text-amber-300 ring-1 ring-amber-500/40 shadow-[0_0_12px_rgba(245,158,11,0.2)]"
-                                : "bg-cyan-950/90 border-cyan-400 text-cyan-300 ring-1 ring-cyan-400/40 shadow-[0_0_12px_rgba(34,211,238,0.2)]"
-                            : "bg-slate-900/80 border-slate-800 text-slate-400 hover:text-slate-200 hover:border-slate-700"
+                                ? "bg-amber-100 dark:bg-amber-950/90 border-amber-500 text-amber-800 dark:text-amber-300 ring-1 ring-amber-500/40 shadow-sm"
+                                : "bg-sky-100 dark:bg-cyan-950/90 border-sky-400 dark:border-cyan-400 text-sky-800 dark:text-cyan-300 ring-1 ring-sky-400/40 shadow-sm"
+                            : "bg-slate-100 dark:bg-slate-900/80 border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:border-slate-300 dark:hover:border-slate-700"
                         }`}
                       >
                         {sev}

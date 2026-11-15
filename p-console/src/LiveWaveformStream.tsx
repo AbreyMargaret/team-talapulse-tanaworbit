@@ -201,21 +201,15 @@ export default function LiveWaveformStream({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[var(--border)] pb-3 mb-4 gap-2">
         <div>
           <div className="flex items-center gap-2">
-            <span className="size-2 rounded-full bg-emerald-400 animate-pulse" />
-            <h3 className="text-base font-semibold tracking-tight">Biometric Telemetry Waveforms</h3>
+            <h3 className="text-base font-semibold tracking-tight">Drawn lines</h3>
           </div>
           <p className="text-xs text-[var(--muted)] mt-0.5">
-            Continuous cardiovascular & respiratory traces synchronized from active crew bio-harness. Click any metric for spaceflight physiological insights.
+            A drawing next to today's heart rate, blood oxygen, and breathing. This is not a live sensor.
           </p>
         </div>
         <div className="flex items-center gap-2 shrink-0">
-          <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-mono font-medium ${
-            liveStream
-              ? "bg-emerald-950/80 border border-emerald-500/40 text-emerald-300"
-              : "bg-slate-800/80 border border-slate-700 text-slate-400"
-          }`}>
-            <span className={`size-1.5 rounded-full ${liveStream ? "bg-emerald-400 animate-ping" : "bg-slate-500"}`} />
-            {liveStream ? "Bio-Harness: Live Stream" : "Bio-Harness: Paused"}
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border border-[var(--border)] text-[var(--muted)]">
+            {liveStream ? "Drawing on" : "Drawing off"}
           </span>
         </div>
       </div>

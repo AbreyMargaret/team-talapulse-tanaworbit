@@ -43,8 +43,8 @@ export function BiodataPanel({ crewId }: { crewId: string }) {
   return (
     <Panel>
       <div className="section-label">
-        <h2>Crew Baseline Metrics</h2>
-        <span>Flight record & physical profile</span>
+        <h2>Body measurements</h2>
+        <span>Age, height, mass, and a few body notes</span>
       </div>
       <div className="feature-grid">
         {facts.map(([label, value]) => (
@@ -64,8 +64,8 @@ export function MonitorParametersPanel() {
   return (
     <Panel>
       <div className="section-label">
-        <h2>Clinical Reference Standards</h2>
-        <span>Flight surgeon operational tolerance ranges</span>
+        <h2>Ranges we use</h2>
+        <span>Stored reference ranges. Today's flags use the 14-day comparison, not this table.</span>
       </div>
       <div className="feature-table-wrap">
         <table className="feature-table">
@@ -102,8 +102,8 @@ export function CalculationTrendPanel({ crewId, reading }: { crewId: string; rea
   return (
     <Panel>
       <div className="section-label">
-        <h2>Predictive Baseline Deviations</h2>
-        <span>Rolling {trend.window.length}-day baseline window</span>
+        <h2>Compared with the previous 14 days</h2>
+        <span>Today's number minus the average of the previous {trend.window.length} days</span>
       </div>
       <div className="feature-table-wrap">
         <table className="feature-table">
@@ -113,8 +113,8 @@ export function CalculationTrendPanel({ crewId, reading }: { crewId: string; rea
               <th>Current</th>
               <th>14-day mean</th>
               <th>Difference</th>
-              <th>Range</th>
-              <th>Flag</th>
+              <th>Rule</th>
+              <th>Result</th>
             </tr>
           </thead>
           <tbody>
@@ -130,7 +130,7 @@ export function CalculationTrendPanel({ crewId, reading }: { crewId: string; rea
                 <td>{row.delta}</td>
                 <td>{row.rule}</td>
                 <td className={row.flagged ? "feature-flag" : "feature-ok"}>
-                  {row.flagged ? "Attention" : "Nominal"}
+                  {row.flagged ? "Different" : "Usual"}
                 </td>
               </tr>
             ))}
@@ -138,7 +138,7 @@ export function CalculationTrendPanel({ crewId, reading }: { crewId: string; rea
         </table>
       </div>
       <p className="feature-note">
-        Telemetry calculated across {trend.window.length} consecutive flight days.
+        The average leaves out today. A row marked Different is not a medical status.
       </p>
     </Panel>
   );
@@ -213,8 +213,8 @@ export function OrbitalPanel() {
   return (
     <Panel>
       <div className="section-label">
-        <h2>Ephemeris & Orbital Mechanics</h2>
-        <span>Flight Day {latest.missionDay} telemetry status</span>
+        <h2>Orbit</h2>
+        <span>Stored sample from day {latest.missionDay}. This is not a live orbit feed.</span>
       </div>
       <div className="feature-grid">
         <div className="feature-stat">
@@ -381,8 +381,8 @@ export function NutritionPanel({ crewId }: { crewId: string }) {
   return (
     <Panel>
       <div className="section-label">
-        <h2>Daily Telemetry & Nutritional Status</h2>
-        <span>Flight Day {today.missionDay} operational intake</span>
+        <h2>Meals for this day</h2>
+        <span>Stored menu for day {today.missionDay}.</span>
       </div>
       <div className="feature-grid">
         <div className="feature-stat">
@@ -476,8 +476,8 @@ export function SensorimotorPanel({
       />
       <Panel>
         <div className="section-label">
-          <h2>Sensorimotor & Fine Motor Battery</h2>
-          <span>Neurovestibular coordination and reflex assessment</span>
+          <h2>Tapping and reaction</h2>
+          <span>A short practice in this browser. This is not the NASA fine-motor battery.</span>
         </div>
         <SensorimotorTest onRecordResult={onRecordResult} />
       </Panel>

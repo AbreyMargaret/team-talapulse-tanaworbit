@@ -120,10 +120,10 @@ export default function SensorimotorTest({
     <div className="sensorimotor-panel-container">
       <div className="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
         <div>
-          <span className="eyebrow">NASA FINE MOTOR SKILLS TEST BATTERY (TM-2020-5008023)</span>
-          <h2 className="text-lg font-bold text-white">Sensorimotor & Neurovestibular Assessment</h2>
-          <p className="text-xs text-slate-400">
-            Measures hand-eye coordination latency, pointing accuracy, and visual reaction times under microgravity.
+          <span className="eyebrow">Practice in this browser</span>
+          <h2 className="text-lg font-bold">Tapping and reaction</h2>
+          <p className="text-xs text-[var(--muted)]">
+            A short tapping grid and a reaction-time test. This is not the NASA fine-motor battery.
           </p>
         </div>
         <div className="tab-pill-group flex gap-2">
@@ -148,7 +148,7 @@ export default function SensorimotorTest({
         <div className="test-content">
           <div className="test-instructions mb-3 flex items-center justify-between text-xs text-slate-300">
             <span>
-              <strong>Protocol:</strong> Tap the illuminated cyan target as rapidly as possible across {TOTAL_TARGETS} cycles.
+              Tap the highlighted square as it appears. This practice uses {TOTAL_TARGETS} squares.
             </span>
             {tapStage === "running" && (
               <span className="font-mono text-cyan-400 font-bold">
@@ -194,7 +194,7 @@ export default function SensorimotorTest({
                 Accuracy: {tapResults.accuracy}% · Time: {tapResults.timeSec}s
               </h3>
               <p className="text-xs text-slate-300 mt-2">
-                Performance aligns with in-flight normative benchmark (NASA TM-2020-5008023 Table 4).
+                This score stays in this browser until you refresh. It is not compared with a study table.
               </p>
               <button
                 type="button"

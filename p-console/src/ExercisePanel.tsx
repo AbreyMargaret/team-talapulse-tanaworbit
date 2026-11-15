@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from "react";
+import { Info } from "lucide-react";
 import {
   exerciseCatalog,
   mission,
@@ -58,7 +59,7 @@ export default function ExercisePanel({
   return (
     <div className="exercise-workspace">
       <div className="info-banner exercise-notice">
-        <span className="exercise-info-symbol">i</span>
+        <span className="exercise-info-symbol"><Info size={11} /></span>
         <span>
           Manual and synthetic records only. No wearable, sensor stream, calorie estimation, or
           individualized exercise prescription is connected.
