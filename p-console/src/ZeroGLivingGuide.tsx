@@ -68,8 +68,8 @@ const PROTOCOL_TOPICS: ClinicalTopic[] = [
       },
       {
         id: "melatonin",
-        text: "Melatonin Administration (0.5 mg oral) if Phase-Shift > 2 hrs",
-        details: "Take prescribed micro-dose melatonin 45 minutes before sleep if orbital mission schedule is shifted for docking/EVA.",
+        text: "Keep a steady sleep time when the schedule shifts",
+        details: "A shift of more than about two hours makes sleep harder. This page does not suggest a medicine or a dose.",
       },
       {
         id: "sound-masking",
@@ -190,8 +190,8 @@ const PROTOCOL_TOPICS: ClinicalTopic[] = [
       },
       {
         id: "vitamin-d",
-        text: "Vitamin D3 (1,000 IU/day) and Bisphosphonate Schedule Adherence",
-        details: "Supports calcium homeostasis and limits bone turnover markers without sunlight UV exposure.",
+        text: "Sunlight is missing, so vitamin D is only a nutrition note",
+        details: "This page does not set a dose or a medicine schedule.",
       },
     ],
     researchSource: "NASA Human Research Program · Bone and Muscle Laboratory",
@@ -213,8 +213,8 @@ const PROTOCOL_TOPICS: ClinicalTopic[] = [
     actionChecklist: [
       {
         id: "meter-scan",
-        text: "Scan Work Area with Portable Carbon Dioxide Analyzer",
-        details: "Confirm ambient pCO₂ is strictly below 2.8 mmHg (ISS flight surgeon target: nominal < 3.0 mmHg).",
+        text: "Compare a work-area reading with the stored cabin sample",
+        details: "The stored cabin sample on day 142 is 3.2 mmHg. A higher reading is a reason to look at airflow. This page does not set a flight limit.",
       },
       {
         id: "fan-check",
@@ -228,8 +228,8 @@ const PROTOCOL_TOPICS: ClinicalTopic[] = [
       },
       {
         id: "headache-triage",
-        text: "Execute Clinical In-Flight Headache Protocol",
-        details: "If headache occurs: move to high-ventilation central aisle, hydrate 500 mL, rest upright relative to vent airflow.",
+        text: "A headache is a reason to notice the air, not to start a protocol",
+        details: "Move toward moving air and drink water. This page does not start treatment. Sudden or severe symptoms belong to the crew's own emergency steps.",
       },
     ],
     calculator: "co2",
@@ -271,6 +271,13 @@ const PROTOCOL_TOPICS: ClinicalTopic[] = [
     sourceUrl: "https://www.nasa.gov/hrp/",
   },
 ];
+
+function noteKind(severity: ClinicalTopic["severity"]) {
+  if (severity === "Critical Monitoring") return "Worth a second look";
+  if (severity === "Daily Countermeasure") return "Daily note";
+  if (severity === "Clinical Protocol") return "Cabin note";
+  return "Everyday note";
+}
 
 export default function ZeroGLivingGuide({
   onNavigate,
@@ -319,24 +326,23 @@ export default function ZeroGLivingGuide({
   const progressPercent = Math.round((completedCount / topicSteps.length) * 100);
 
   function copySummary() {
-    const text = `TANAWORBIT CLINICAL PROTOCOL BRIEFING
-Mission: Aster Expedition VII · Day 142
-Protocol: ${activeTopic.title} (${activeTopic.category})
-Status: ${completedCount}/${topicSteps.length} Actions Verified (${progressPercent}%)
+    const text = `TanawOrbit cabin note
+Day 142 · Mission altitude 408 km
+Note: ${activeTopic.title} (${activeTopic.category})
+Marked: ${completedCount}/${topicSteps.length}
 
-Action Steps:
 ${topicSteps
   .map(
     (s) =>
-      `[${completedSteps[s.id] ? "VERIFIED" : "PENDING"}] ${s.text}
-  - ${s.details}`
+      `[${completedSteps[s.id] ? "marked" : "open"}] ${s.text}
+  ${s.details}`
   )
   .join("\n")}
 
-Physiological Context:
 ${activeTopic.flightConsideration}
 
-Clinical Reference: ${activeTopic.researchSource}`;
+Source: ${activeTopic.researchSource}
+This is an educational note. It is not medical advice.`;
 
     navigator.clipboard.writeText(text);
     setCopied(true);
@@ -350,13 +356,13 @@ Clinical Reference: ${activeTopic.researchSource}`;
         <div className="flex flex-wrap items-center gap-2">
           <span className="px-2.5 py-1 rounded-md bg-sky-50 dark:bg-cyan-950/80 border border-sky-300 dark:border-cyan-500/40 text-sky-800 dark:text-cyan-300 font-mono text-xs flex items-center gap-1.5 font-semibold">
             <BookOpen size={13} className="text-sky-600 dark:text-cyan-400" />
-            CLINICAL COUNTERMEASURE PROTOCOLS
+            Notes for this cabin
           </span>
           <span className="px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/60 text-slate-600 dark:text-slate-300 font-mono text-xs">
-            FD 142 · LEO 408 KM
+            Day 142 · Mission altitude 408 km
           </span>
           <span className="px-2 py-0.5 rounded-md bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-600/40 text-emerald-700 dark:text-emerald-300 font-mono text-xs font-semibold">
-            6 PROTOCOLS LOADED
+            {PROTOCOL_TOPICS.length} notes
           </span>
         </div>
 
@@ -365,10 +371,10 @@ Clinical Reference: ${activeTopic.researchSource}`;
             type="button"
             onClick={copySummary}
             className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-sky-50 hover:bg-sky-100 dark:bg-cyan-950/80 dark:hover:bg-cyan-900/80 border border-sky-300 dark:border-cyan-500/50 text-xs font-mono text-sky-800 dark:text-cyan-200 font-semibold transition active:scale-98 shadow-sm cursor-pointer"
-            title="Copy operational briefing for flight surgeon log"
+            title="Copy this note"
           >
             {copied ? <Check size={14} className="text-emerald-600 dark:text-emerald-400" /> : <Copy size={14} />}
-            <span>{copied ? "Briefing Copied" : "Copy Flight Note"}</span>
+            <span>{copied ? "Note copied" : "Copy this note"}</span>
           </button>
         </div>
       </div>
@@ -397,7 +403,7 @@ Clinical Reference: ${activeTopic.researchSource}`;
           <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
           <input
             type="text"
-            placeholder="Search symptoms, SANS, CO2, LBNP..."
+            placeholder="Search sleep, air, exercise..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="w-full pl-9 pr-3 py-1.5 rounded-xl bg-white dark:bg-slate-900/80 border border-slate-300 dark:border-slate-800 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:border-sky-500 dark:focus:border-cyan-500 focus:ring-1 focus:ring-sky-500/30 transition outline-none font-mono"
@@ -410,7 +416,7 @@ Clinical Reference: ${activeTopic.researchSource}`;
         {/* Left Column: Topic Browser List (4 Cols) */}
         <div className="lg:col-span-4 space-y-2.5">
           <div className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 px-1 font-semibold flex items-center justify-between">
-            <span>Clinical Protocols ({filteredTopics.length})</span>
+            <span>Notes ({filteredTopics.length})</span>
             <span className="text-[10px] text-sky-600 dark:text-cyan-400">SELECT TO VIEW</span>
           </div>
 
@@ -442,7 +448,7 @@ Clinical Reference: ${activeTopic.researchSource}`;
                           : "bg-sky-50 dark:bg-cyan-950/60 border-sky-300 dark:border-cyan-600/40 text-sky-700 dark:text-cyan-300"
                       }`}
                     >
-                      {topic.severity}
+                      {noteKind(topic.severity)}
                     </span>
                   </div>
 
@@ -456,7 +462,7 @@ Clinical Reference: ${activeTopic.researchSource}`;
                   <div className="mt-2.5 pt-2 border-t border-slate-200 dark:border-slate-800/60 flex items-center justify-between text-[11px] font-mono text-slate-500 dark:text-slate-400">
                     <span className="flex items-center gap-1.5">
                       <CheckSquare size={12} className={completedInTopic > 0 ? "text-emerald-600 dark:text-cyan-400" : "text-slate-400"} />
-                      {completedInTopic} / {topic.actionChecklist.length} Verified
+                      {completedInTopic} / {topic.actionChecklist.length} marked
                     </span>
                     <ChevronRight size={14} className={isSelected ? "text-sky-600 dark:text-cyan-400" : "text-slate-400"} />
                   </div>
@@ -476,7 +482,7 @@ Clinical Reference: ${activeTopic.researchSource}`;
                   {activeTopic.category}
                 </span>
                 <span className="px-2.5 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-xs font-mono">
-                  {activeTopic.severity}
+                  {noteKind(activeTopic.severity)}
                 </span>
               </div>
 
@@ -505,7 +511,7 @@ Clinical Reference: ${activeTopic.researchSource}`;
             <div className="mt-4 p-4 rounded-xl bg-sky-50/70 dark:bg-cyan-950/30 border border-sky-200 dark:border-cyan-500/30 text-xs text-sky-900 dark:text-cyan-100 leading-relaxed">
               <strong className="text-sky-800 dark:text-cyan-300 block mb-1 font-semibold flex items-center gap-1.5">
                 <Activity size={14} />
-                Microgravity Operational Consideration:
+                In this cabin:
               </strong>
               {activeTopic.flightConsideration}
             </div>
@@ -514,7 +520,7 @@ Clinical Reference: ${activeTopic.researchSource}`;
             <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-800">
               <h3 className="text-xs font-mono uppercase tracking-wider text-slate-600 dark:text-slate-400 font-bold mb-1.5 flex items-center gap-1.5">
                 <Sliders size={13} className="text-sky-600 dark:text-cyan-400" />
-                Underlying Physiological Mechanism (Spaceflight Adaptation)
+                Why this happens
               </h3>
               <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                 {activeTopic.mechanism}
@@ -528,14 +534,14 @@ Clinical Reference: ${activeTopic.researchSource}`;
               <div>
                 <h3 className="text-base font-semibold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
                   <CheckSquare size={17} className="text-sky-600 dark:text-cyan-400" />
-                  Actionable Countermeasure Checklist
+                  Things to notice
                 </h3>
                 <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                  Astronaut verification checklist. Click each action step to toggle in-flight completion status.
+                  Educational notes for this cabin. Marking a line only remembers it in this browser. These are not medical steps.
                 </p>
               </div>
               <span className="text-xs font-mono text-sky-800 dark:text-cyan-300 bg-sky-50 dark:bg-cyan-950/80 px-2.5 py-1 rounded-lg border border-sky-200 dark:border-cyan-800/40 font-semibold">
-                {completedCount} / {topicSteps.length} Verified
+                {completedCount} / {topicSteps.length} marked
               </span>
             </div>
 
@@ -593,11 +599,11 @@ Clinical Reference: ${activeTopic.researchSource}`;
               <div className="flex items-center gap-2 mb-3">
                 <Calculator size={16} className="text-sky-600 dark:text-cyan-400" />
                 <h4 className="text-sm font-semibold text-slate-900 dark:text-white">
-                  Interactive Circadian Phase Shift & Lighting Calculator
+                  Sleep-time lighting example
                 </h4>
               </div>
               <p className="text-xs text-slate-500 dark:text-slate-400 mb-4 leading-relaxed">
-                Calculates the exact UTC hour to dim module lighting and schedule melatonin administration based on orbital target sleep epoch.
+                Shows when to dim the lights if sleep starts at the hour you pick. This does not schedule a medicine.
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 font-mono text-xs">
@@ -627,11 +633,11 @@ Clinical Reference: ${activeTopic.researchSource}`;
                 </div>
 
                 <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800">
-                  <span className="text-[10px] text-slate-500 dark:text-slate-400 block mb-1">MELATONIN (0.5mg) TIMING</span>
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 block mb-1">NO DOSE ON THIS PAGE</span>
                   <strong className="text-emerald-700 dark:text-emerald-400 text-sm">
-                    {String((sleepTargetHour + 23) % 24).padStart(2, "0")}:15 UTC
+                    Timing note only
                   </strong>
-                  <small className="text-[10px] text-slate-500 block mt-0.5">45 min before sleep</small>
+                  <small className="text-[10px] text-slate-500 block mt-0.5">Not a medicine schedule</small>
                 </div>
               </div>
             </div>
@@ -642,7 +648,7 @@ Clinical Reference: ${activeTopic.researchSource}`;
               <div className="flex items-center gap-2 mb-3">
                 <Wind size={16} className="text-sky-600 dark:text-cyan-400" />
                 <h4 className="text-sm font-semibold text-slate-900 dark:text-white">
-                  Cabin Carbon Dioxide Risk & Hypercapnia Evaluator
+                  Cabin carbon dioxide example
                 </h4>
               </div>
 
@@ -661,15 +667,15 @@ Clinical Reference: ${activeTopic.researchSource}`;
                     className="w-full accent-sky-600 dark:accent-cyan-400 cursor-pointer"
                   />
                   <div className="flex justify-between text-[9px] text-slate-500 mt-1">
-                    <span>1.0 (Optimal)</span>
-                    <span>3.0 (Limit)</span>
-                    <span>6.0 (Triage)</span>
+                    <span>1.0</span>
+                    <span>3.0 example</span>
+                    <span>6.0</span>
                   </div>
                 </div>
 
                 <div className="w-full sm:w-1/2 p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/90 text-xs">
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">CLINICAL STATUS:</span>
+                    <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">EXAMPLE READING:</span>
                     <span
                       className={`font-bold px-2 py-0.5 rounded text-[10px] ${
                         userCo2Reading < 3.0
@@ -679,15 +685,15 @@ Clinical Reference: ${activeTopic.researchSource}`;
                           : "bg-rose-50 dark:bg-rose-950 text-rose-700 dark:text-rose-300 border border-rose-300 dark:border-rose-800"
                       }`}
                     >
-                      {userCo2Reading < 3.0 ? "NOMINAL" : userCo2Reading < 4.5 ? "OBSERVE FLAGGED" : "TRIAGE REQUIRED"}
+                      {userCo2Reading < 3.0 ? "INSIDE THE EXAMPLE" : userCo2Reading < 4.5 ? "ABOVE THE EXAMPLE" : "WELL ABOVE THE EXAMPLE"}
                     </span>
                   </div>
                   <p className="text-slate-600 dark:text-slate-300 text-[11px] leading-relaxed">
                     {userCo2Reading < 3.0
-                      ? "Nominal cabin scrubbing. No hypercapnic vasodilation or SANS compounding expected."
+                      ? "This slider sits under 3.0 mmHg. The stored cabin sample on day 142 is 3.2 mmHg. This is not a diagnosis."
                       : userCo2Reading < 4.5
-                      ? "Elevated pCO₂. Increase sleeping quarters duct fan velocity. Rest upright relative to air wash."
-                      : "Critical hypercapnia threshold. Alert Flight Surgeon, check CDRA bed cycling, and administer oxygen."}
+                      ? "This slider is above 3.0 mmHg. It is a reason to look at airflow. It does not start treatment."
+                      : "This slider is well above the example band. It is not a diagnosis and it does not start oxygen or any other treatment."}
                   </p>
                 </div>
               </div>
@@ -699,7 +705,7 @@ Clinical Reference: ${activeTopic.researchSource}`;
               <div className="flex items-center gap-2 mb-3">
                 <Heart size={16} className="text-sky-600 dark:text-cyan-400" />
                 <h4 className="text-sm font-semibold text-slate-900 dark:text-white">
-                  Pre-Landing & Post-EVA Fluid Loading Replenishment Calculator
+                  Fluid example from workout time
                 </h4>
               </div>
 
@@ -721,11 +727,11 @@ Clinical Reference: ${activeTopic.researchSource}`;
                 </div>
 
                 <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800">
-                  <span className="text-[10px] text-slate-500 dark:text-slate-400 block mb-1">TARGET FLUID REPLENISHMENT</span>
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 block mb-1">EXAMPLE FIGURE ONLY</span>
                   <strong className="text-sky-700 dark:text-cyan-300 text-sm">
-                    {(1500 + exertionMin * 10).toFixed(0)} mL (with 4 electrolyte tabs)
+                    {(1500 + exertionMin * 10).toFixed(0)} mL
                   </strong>
-                  <small className="text-[10px] text-slate-500 block mt-0.5">Restores central baroreflex volume</small>
+                  <small className="text-[10px] text-slate-500 block mt-0.5">Not a fluid order</small>
                 </div>
               </div>
             </div>

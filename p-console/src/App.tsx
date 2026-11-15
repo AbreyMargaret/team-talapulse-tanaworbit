@@ -53,6 +53,7 @@ import PumaTracker from "./PumaTracker";
 import TelemetryReportModal from "./TelemetryReportModal";
 import OnboardingModal, { type TourStep } from "./OnboardingModal";
 import SimulationScenarioModal from "./SimulationScenarioModal";
+import AcuteEmergencyProtocolModal from "./AcuteEmergencyProtocolModal";
 import LiveWaveformStream from "./LiveWaveformStream";
 import ZeroGLivingGuide from "./ZeroGLivingGuide";
 import DailyHealthCheckIn, { type CheckInDraft } from "./DailyHealthCheckIn";
@@ -543,41 +544,73 @@ const tourSteps: TourStep<Page>[] = [
     page: "Astronaut Dashboard",
     selector: "[data-tour='today-numbers']",
     tag: "TODAY",
-    title: "Today's numbers",
+    title: "Today's numbers & vitals",
     description:
-      "Heart rate, blood pressure, sleep, and how tired you feel, next to the average of the previous 14 days.",
+      "Heart rate, blood pressure, sleep duration, and perceived fatigue compared against your personal 14-day rolling mission average.",
   },
   {
     page: "Astronaut Dashboard",
     selector: "[data-tour='today-compare']",
     tag: "COMPARE",
-    title: "Compared with the recent days",
+    title: "14-day baseline trends",
     description:
-      "The chart and the list under the numbers show the same comparison. Usual means close. Different means past the mark on this page.",
+      "Visual timeline and baseline deltas comparing current readings with recent mission days. Usual indicates expected range; Different marks readings warranting observation.",
+  },
+  {
+    page: "Astronaut Dashboard",
+    selector: "[data-tour='somatic-avatar']",
+    tag: "ANATOMY",
+    title: "Interactive somatic body map",
+    description:
+      "Contoured human anatomical silhouette with localized physiological indicators. Click head, chest, arms, or legs to review localized telemetry and cardiovascular load.",
+  },
+  {
+    page: "Astronaut Dashboard",
+    selector: "[data-tour='puma-tracker']",
+    tag: "METABOLIC",
+    title: "PUMA metabolic monitor",
+    description:
+      "Continuous telemetry from the Portable Unit for Metabolic Analysis tracking minute ventilation, VO2, and VCO2 rates to evaluate respiratory efficiency during orbital tasks.",
   },
   {
     page: "Health Check-In",
     selector: "[data-tour='checkin-suite']",
     tag: "RECORD",
-    title: "Record today",
+    title: "Daily in-flight check-in",
     description:
-      "Write down today's numbers for this visit. What you type stays in this browser until you refresh. This form is not the same check as the flags on Today.",
+      "Record daily vitals with mobile- and keypad-optimized inputs. Entries remain in local browser memory and can be exported into telemetry dossiers.",
+  },
+  {
+    page: "Sensorimotor & Reflex",
+    selector: "[data-tour='cognition-suite']",
+    tag: "PRACTICE",
+    title: "Cognition & reflex practice",
+    description:
+      "Ten research practices based on NASA Appendix C task lists—including Motor praxis, Fractal 2-back, and PVT—alongside finger tapping and reaction tests.",
+  },
+  {
+    page: "Exercise & Recovery",
+    selector: "[data-tour='exercise-suite']",
+    tag: "EXERCISE",
+    title: "Exercise tracking & recovery",
+    description:
+      "Log daily resistive workouts or cycle ergometer minutes, record perceived exertion (RPE 1-10), and view your 7-day movement trend next to recovery sleep.",
   },
   {
     page: "Alerts & Attention",
     selector: "[data-tour='alerts-console']",
     tag: "FLAGS",
-    title: "Flags",
+    title: "Flags & triage attention",
     description:
-      "Readings that differ from the 14-day average, and anything marked for a second look. Usual, Different, and Flagged are labels in this console, not a medical status.",
+      "Readings differing from 14-day rolling averages and items flagged for clinical review. Usual, Different, and Flagged are operational console triage labels.",
   },
   {
     page: "Health Guidance",
     selector: "[data-tour='zero-g-guide']",
     tag: "NOTES",
-    title: "Living notes",
+    title: "Living notes & guidance",
     description:
-      "Notes about sleep, air, and living in a cabin. This is not medical advice and not a NASA manual.",
+      "Operational aerospace notes covering sleep, microgravity adaptation, and cabin air thresholds. Educational prototype for mission crews.",
   },
 ];
 const topics = [
@@ -821,7 +854,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
   const [keptNotes, setKeptNotes] = useState<Record<string, string>>({});
   const [cognitionLog, setCognitionLog] = useState<Record<string, CognitionEntry[]>>({});
   const [topic, setTopic] = useState(0);
-  const [modal, setModal] = useState<"about" | "settings" | "export" | "onboarding" | "account" | "simulation" | null>(null);
+  const [modal, setModal] = useState<"about" | "settings" | "export" | "onboarding" | "account" | "simulation" | "acute-emergency" | null>(null);
   const [tourIndex, setTourIndex] = useState(0);
   const tourReady = useRef(false);
   const [narrow, setNarrow] = useState(() =>
@@ -1279,7 +1312,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                 {reading.mood} <small>Self-reported</small>
               </strong>
             </div>
-            <span className="recorded-note">Not in the label</span>
+            <span className="recorded-note">Self-reported status</span>
           </div>
           <div>
             <span className="secondary-icon">
@@ -1296,7 +1329,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                 <small>°{units === "Celsius" ? "C" : "F"}</small>
               </strong>
             </div>
-            <span className="recorded-note">Not in the label</span>
+            <span className="recorded-note">Core body telemetry</span>
           </div>
           <div>
             <span className="secondary-icon">
@@ -1310,7 +1343,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                 {samples[selectedCrew].spo2} <small>% SpO₂</small>
               </strong>
             </div>
-            <span className="recorded-note">Not in the label</span>
+            <span className="recorded-note">Pulse oximeter SpO₂</span>
           </div>
           <div>
             <span className="secondary-icon">
@@ -1324,7 +1357,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                 {samples[selectedCrew].glucoseMgDl} <small>mg/dL</small>
               </strong>
             </div>
-            <span className="recorded-note">Not in the label</span>
+            <span className="recorded-note">Fasting capillary glucose</span>
           </div>
           <div>
             <span className="secondary-icon">
@@ -1338,7 +1371,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                 {samples[selectedCrew].respiration} <small>breaths/min</small>
               </strong>
             </div>
-            <span className="recorded-note">Not in the label</span>
+            <span className="recorded-note">Resting respiration rate</span>
           </div>
         </div>
       </>
@@ -1821,7 +1854,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
       ? {
           kicker: "Step 1 of 3",
           title: "You are recording today",
-          detail: "Use Next on the form, then press Save this check-in.",
+          detail: "Press Next. Save is on the review step.",
         }
       : {
           kicker: "Step 1 of 3",
@@ -2069,6 +2102,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                   aria-label="Walk through each page"
                   title="Click each page in order"
                   onClick={() => {
+                    dismissArrival();
                     setTourIndex(0);
                     setModal("onboarding");
                     navigate(tourSteps[0].page);
@@ -2222,7 +2256,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                       <span>
                         <span className="status-dot" />
                         {context.id === "orbital"
-                          ? `Low Earth Orbit · ${mission.altitudeKm} km`
+                          ? `Mission altitude ${mission.altitudeKm} km`
                           : context.id === "transit"
                           ? "Cislunar Transit · Coasting Trajectory"
                           : context.id === "lunar"
@@ -2259,7 +2293,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                   <div>
                     <span>{context.title} · {cue.kicker}</span>
                     <strong>{cue.title}</strong>
-                    <p>{cue.detail} {context.description}</p>
+                    <p>{cue.detail}</p>
                   </div>
                   <div className="next-cue-actions">
                     {cue.action && cue.go && (
@@ -2350,7 +2384,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                           {mission.altitudeKm}
                           <small>km</small>
                         </strong>
-                        Altitude
+                        Mission altitude
                       </span>
                     </div>
                   </div>
@@ -2522,13 +2556,15 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
               </div>
             )}
             {page === "Exercise & Recovery" && (
-              <ExercisePanel
-                key={person.id}
-                person={person}
-                reading={reading}
-                records={exerciseSessions}
-                onRecord={(record) => setExerciseSessions((old) => [...old, record])}
-              />
+              <div data-tour="exercise-suite">
+                <ExercisePanel
+                  key={person.id}
+                  person={person}
+                  reading={reading}
+                  records={exerciseSessions}
+                  onRecord={(record) => setExerciseSessions((old) => [...old, record])}
+                />
+              </div>
             )}
             {page === "Health Toolkit" && (
               <FeatureBoundary
@@ -2594,25 +2630,27 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
               <CalculationTrendPanel crewId={person.id} reading={reading} />
             )}
             {page === "Sensorimotor & Reflex" && (
-              <SensorimotorPanel
-                crewId={person.id}
-                crewName={person.name}
-                dominantSide={biodataFor(person.id).dominantSide}
-                cognitionEntries={cognitionLog[person.id] ?? []}
-                onCognition={(score) => {
-                  setCognitionLog((old) => ({
-                    ...old,
-                    [person.id]: [
-                      ...(old[person.id] ?? []),
-                      { ...score, id: `${person.id}-${score.task}-${Date.now()}` },
-                    ],
-                  }));
-                  notify(`${score.label} recorded. ${score.score} ${score.unit}.`);
-                }}
-                onRecordResult={(res) => {
-                  notify(`Assessment recorded: ${res.score} ${res.unit} (${res.status})`);
-                }}
-              />
+              <div data-tour="cognition-suite">
+                <SensorimotorPanel
+                  crewId={person.id}
+                  crewName={person.name}
+                  dominantSide={biodataFor(person.id).dominantSide}
+                  cognitionEntries={cognitionLog[person.id] ?? []}
+                  onCognition={(score) => {
+                    setCognitionLog((old) => ({
+                      ...old,
+                      [person.id]: [
+                        ...(old[person.id] ?? []),
+                        { ...score, id: `${person.id}-${score.task}-${Date.now()}` },
+                      ],
+                    }));
+                    notify(`${score.label} recorded. ${score.score} ${score.unit}.`);
+                  }}
+                  onRecordResult={(res) => {
+                    notify(`Assessment recorded: ${res.score} ${res.unit} (${res.status})`);
+                  }}
+                />
+              </div>
             )}
             {page === "Cabin Conditions" && <CabinPanel />}
             {page === "Orbital Conditions" && <OrbitalPanel />}
@@ -2656,6 +2694,38 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
 
             {page === "Alerts & Attention" && (
               <div data-tour="alerts-console" className="space-y-6">
+                {/* Space Apps Challenge Emergency Crisis Protocol Banner */}
+                <div className="p-4 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-300 dark:border-rose-500/50 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-xs">
+                  <div className="flex items-start gap-3">
+                    <span className="p-2 rounded-lg bg-rose-600 text-white shrink-0 mt-0.5">
+                      <Icon name="shield" size={18} />
+                    </span>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="font-mono text-[10px] font-bold text-rose-700 dark:text-rose-400 uppercase tracking-wider">
+                          SPACE APPS CHALLENGE SCENARIO · BRAZILIAN SPACE AGENCY
+                        </span>
+                        <span className="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-rose-200 dark:bg-rose-900/60 text-rose-800 dark:text-rose-300">
+                          NON-DOCTOR PROTOCOL
+                        </span>
+                      </div>
+                      <strong className="text-sm font-bold text-slate-900 dark:text-white block mt-0.5">
+                        Halfway to Mars · Acute Medical Crisis (Chest Pain &amp; Sudden Collapse)
+                      </strong>
+                      <p className="text-xs text-slate-600 dark:text-slate-300 mt-0.5">
+                        Autonomous 4-phase clinical protocol for non-doctor astronauts: Zero-G CPR restraint, sensor placement, differential diagnosis, and Emergency DSN burst uplink.
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setModal("acute-emergency")}
+                    className="px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-mono text-xs font-bold transition shrink-0 cursor-pointer shadow-sm active:scale-98"
+                  >
+                    Launch Emergency Drill →
+                  </button>
+                </div>
+
                 <div className="alert-status-grid">
                   {(["Stable", "Observe", "Attention"] as Status[]).map((s) => (
                     <button
@@ -2740,7 +2810,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                               )
                             }
                           >
-                            Understand this observation <Icon name="arrow" size={14} />
+                            How this number is kept <Icon name="arrow" size={14} />
                           </button>
                         </div>
                         <span className="log-time">
@@ -2915,9 +2985,19 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
               setModal(null);
             }}
             onClose={() => setModal(null)}
+            onLaunchEmergencyDrill={() => setModal("acute-emergency")}
           />
         )}
-        {modal && modal !== "export" && modal !== "onboarding" && modal !== "simulation" && (
+        {modal === "acute-emergency" && (
+          <AcuteEmergencyProtocolModal
+            onClose={() => setModal(null)}
+            onNavigateToWaveforms={() => {
+              navigate("Sensorimotor & Reflex");
+              setModal(null);
+            }}
+          />
+        )}
+        {modal && modal !== "export" && modal !== "onboarding" && modal !== "simulation" && modal !== "acute-emergency" && (
           <div className="modal-backdrop" onClick={() => setModal(null)}>
             <section
               className={modal === "account" ? "panel modal account-modal" : "panel modal"}

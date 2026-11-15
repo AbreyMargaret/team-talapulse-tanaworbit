@@ -36,6 +36,7 @@ const ZONE_DATA: Record<
   {
     title: string;
     laymanLabel: string;
+    telemetryBadge: string;
     spacePhenomenon: string;
     symptoms: string[];
     countermeasure: string;
@@ -46,6 +47,7 @@ const ZONE_DATA: Record<
   head: {
     title: "Cranial & Ocular System",
     laymanLabel: "Head, Eyes & Brain",
+    telemetryBadge: "SANS: Nominal · Cabin CO₂: 3.2 mmHg · ICP: Stable",
     spacePhenomenon:
       "Fluid Shift & SANS: Without gravity, ~2 liters of bodily fluids float up into your upper body and head, causing facial puffiness, sinus fullness, and mild optic nerve flattening (Spaceflight Associated Neuro-ocular Syndrome).",
     symptoms: [
@@ -62,6 +64,7 @@ const ZONE_DATA: Record<
   neck: {
     title: "Cervical & Vestibular System",
     laymanLabel: "Neck & Inner Ear (Balance)",
+    telemetryBadge: "Otolith Adaptation: Nominal · Gaze Tracking: 100%",
     spacePhenomenon:
       "Otolith Disorientation: Gravity sensors in your inner ear no longer detect 'down'. Rapid head turns cause illusions like feeling inverted or spinning while floating.",
     symptoms: [
@@ -77,6 +80,7 @@ const ZONE_DATA: Record<
   chest: {
     title: "Thoracic & Cardiovascular",
     laymanLabel: "Heart, Lungs & Breath",
+    telemetryBadge: "Resting HR: 71 bpm · SpO₂: 97% · PUMA: 15 br/min",
     spacePhenomenon:
       "Cardiovascular Deconditioning: Your heart doesn't have to pump against gravity, so it works less, stroke volume shifts, and resting pulse fluctuates during intense exercise.",
     symptoms: [
@@ -93,6 +97,7 @@ const ZONE_DATA: Record<
   abdomen: {
     title: "Gastrointestinal & Digestive",
     laymanLabel: "Stomach & Digestion",
+    telemetryBadge: "Gastric Motility: Active · SMS Index: 0 (None)",
     spacePhenomenon:
       "Space Motion Sickness (SMS): Disorientation between your inner ear and eyes causes stomach awareness, reduced appetite, and slow gastric emptying in 70% of astronauts in the first 72 hours.",
     symptoms: [
@@ -109,6 +114,7 @@ const ZONE_DATA: Record<
   spine: {
     title: "Vertebral Column & Posture",
     laymanLabel: "Spine & Lower Back",
+    telemetryBadge: "Elongation: +4.2 cm · Lumbar Strain: Mild (Expected)",
     spacePhenomenon:
       "Spinal Elongation: Intervertebral discs absorb fluid and expand without gravitational load. Astronauts grow 2 to 3 inches taller in space, which stretches back ligaments and causes a dull lower back ache.",
     symptoms: [
@@ -124,6 +130,7 @@ const ZONE_DATA: Record<
   upperLimbs: {
     title: "Upper Extremities & Motor Control",
     laymanLabel: "Arms, Wrists & Hands",
+    telemetryBadge: "Handgrip: 48 kg · Fine Motor Praxis: 98.4%",
     spacePhenomenon:
       "Handgrip Fatigue & Tether Strain: Because you don't walk, you navigate the space station entirely by pulling and gripping handrails, leading to forearm flexor strain and tired finger joints.",
     symptoms: [
@@ -139,6 +146,7 @@ const ZONE_DATA: Record<
   lowerLimbs: {
     title: "Lower Extremities & Bones",
     laymanLabel: "Hips, Legs & Calves",
+    telemetryBadge: "Calf Fluid Shift: -1.2 cm · ARED Deadlift: Logged",
     spacePhenomenon:
       "Muscle & Bone Unloading ('Bird Legs'): Because your legs do zero work to support body weight in microgravity, leg fluids travel upward and calf muscles atrophy rapidly if not exercised.",
     symptoms: [
@@ -229,25 +237,46 @@ export default function AnatomicalAvatar({
 
       {/* Main Grid: Anatomical Wireframe (Left) + Layman Action Protocol (Right) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
-        {/* Left: Precision Medical Wireframe Humanoid Figure */}
-        <div className="lg:col-span-5 relative flex flex-col items-center justify-center p-4 rounded-xl bg-slate-50 dark:bg-slate-950/70 border border-slate-200 dark:border-slate-800/80 overflow-hidden">
-          {/* Subtle medical HUD grid lines */}
+        {/* Left: Precision Medical Contoured Humanoid Silhouette */}
+        <div className="lg:col-span-5 relative flex flex-col items-center justify-center p-4 rounded-xl bg-slate-50 dark:bg-slate-950/70 border border-slate-200 dark:border-slate-800/80 overflow-hidden shadow-xs">
+          {/* Subtle medical HUD grid background */}
           <div className="absolute inset-0 bg-[radial-gradient(#94a3b8_1px,transparent_1px)] dark:bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px] opacity-40 pointer-events-none" />
+
+          {/* Top Aerospace Telemetry Pill */}
+          <div className="relative z-10 w-full mb-2 flex items-center justify-between gap-1.5 px-2.5 py-1 rounded-lg bg-sky-50 dark:bg-slate-900/90 border border-sky-200 dark:border-slate-800 text-[9.5px] font-mono">
+            <span className="flex items-center gap-1 font-bold text-sky-800 dark:text-cyan-300 uppercase tracking-wider shrink-0 text-[10px]">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              {zoneInfo.laymanLabel}
+            </span>
+            <span className="text-slate-600 dark:text-slate-400 text-right truncate text-[9px]" title={zoneInfo.telemetryBadge}>
+              {zoneInfo.telemetryBadge}
+            </span>
+          </div>
 
           {/* SVG Contoured Medical Silhouette */}
           <svg
             viewBox="0 0 240 440"
-            className="w-full max-w-[220px] h-auto drop-shadow-[0_0_20px_rgba(34,211,238,0.15)] relative z-10"
-            aria-label="Contoured medical body wireframe with selectable regions"
+            className="w-full max-w-[230px] h-auto drop-shadow-[0_0_18px_rgba(56,189,248,0.2)] relative z-10 select-none"
+            aria-label="Contoured medical body silhouette with selectable anatomical regions"
           >
             <defs>
-              <linearGradient id="avatarWireframe" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#0284c7" stopOpacity="0.4" />
-                <stop offset="50%" stopColor="#0ea5e9" stopOpacity="0.25" />
-                <stop offset="100%" stopColor="#0369a1" stopOpacity="0.5" />
+              {/* Default Ambient Body Gradient */}
+              <linearGradient id="bodyAmbientGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#0284c7" stopOpacity="0.32" />
+                <stop offset="45%" stopColor="#0ea5e9" stopOpacity="0.22" />
+                <stop offset="100%" stopColor="#0369a1" stopOpacity="0.42" />
               </linearGradient>
-              <filter id="nodeGlow" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur stdDeviation="3" result="blur" />
+
+              {/* Active Zone Illuminated Gradient */}
+              <linearGradient id="activeZoneGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.65" />
+                <stop offset="50%" stopColor="#0284c7" stopOpacity="0.5" />
+                <stop offset="100%" stopColor="#0369a1" stopOpacity="0.7" />
+              </linearGradient>
+
+              {/* Node Glow Blur Filter */}
+              <filter id="reticleGlow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="2.5" result="blur" />
                 <feMerge>
                   <feMergeNode in="blur" />
                   <feMergeNode in="SourceGraphic" />
@@ -255,177 +284,259 @@ export default function AnatomicalAvatar({
               </filter>
             </defs>
 
-            {/* Anatomical Contour Paths */}
-            <g
-              stroke="#38bdf8"
-              strokeWidth="1.5"
-              fill="url(#avatarWireframe)"
-              className="transition duration-300"
-            >
+            {/* Microgravity Cephalad Fluid Shift Vectors (Faint Upward Indicators) */}
+            <g opacity="0.35" stroke="#38bdf8" strokeWidth="1" strokeDasharray="2 3">
+              <path d="M 120 250 L 120 75" />
+              <path d="M 102 210 C 98 160 98 120 108 80" />
+              <path d="M 138 210 C 142 160 142 120 132 80" />
+            </g>
+
+            {/* Anatomical Contoured Silhouette Groups */}
+            <g className="transition-all duration-300">
               {/* Head & Cranium */}
               <path
-                d="M120 22 C106 22 96 34 96 48 C96 62 105 74 120 74 C135 74 144 62 144 48 C144 34 134 22 120 22 Z"
-                className={`cursor-pointer transition ${
-                  activeZone === "head" ? "fill-cyan-500/40 stroke-cyan-300 stroke-2" : "hover:fill-cyan-500/20"
-                }`}
+                d="M 120 18 C 102 18 92 32 92 48 C 92 62 102 72 112 74 L 128 74 C 138 72 148 62 148 48 C 148 32 138 18 120 18 Z"
+                fill={activeZone === "head" ? "url(#activeZoneGradient)" : "url(#bodyAmbientGradient)"}
+                stroke={activeZone === "head" ? "#0284c7" : "#38bdf8"}
+                strokeWidth={activeZone === "head" ? "2.2" : "1.2"}
+                className="cursor-pointer transition-all duration-200 hover:opacity-90"
                 onClick={() => setActiveZone("head")}
               />
+              {/* Ocular / SANS Sightline Reticle inside Cranium */}
+              <g opacity={activeZone === "head" ? "0.9" : "0.45"} pointerEvents="none">
+                <circle cx="113" cy="44" r="2.5" fill="#38bdf8" />
+                <circle cx="127" cy="44" r="2.5" fill="#38bdf8" />
+                <path d="M 108 44 L 132 44" stroke="#38bdf8" strokeWidth="0.8" strokeDasharray="1 2" />
+              </g>
 
-              {/* Neck */}
+              {/* Neck & Cervical Area */}
               <path
-                d="M112 74 L128 74 L132 90 L108 90 Z"
-                className={`cursor-pointer transition ${
-                  activeZone === "neck" ? "fill-cyan-500/40 stroke-cyan-300 stroke-2" : "hover:fill-cyan-500/20"
-                }`}
+                d="M 112 74 L 128 74 C 131 82 134 90 142 96 L 98 96 C 106 90 109 82 112 74 Z"
+                fill={activeZone === "neck" ? "url(#activeZoneGradient)" : "url(#bodyAmbientGradient)"}
+                stroke={activeZone === "neck" ? "#0284c7" : "#38bdf8"}
+                strokeWidth={activeZone === "neck" ? "2.2" : "1.2"}
+                className="cursor-pointer transition-all duration-200 hover:opacity-90"
                 onClick={() => setActiveZone("neck")}
               />
 
-              {/* Shoulders, Chest & Ribcage */}
+              {/* Thorax, Pectorals & Cardiovascular Core */}
               <path
-                d="M108 90 L80 102 L60 115 L66 142 L84 132 L92 158 L148 158 L156 132 L174 142 L180 115 L160 102 L132 90 Z"
-                className={`cursor-pointer transition ${
-                  activeZone === "chest" ? "fill-cyan-500/40 stroke-cyan-300 stroke-2" : "hover:fill-cyan-500/20"
-                }`}
+                d="M 120 96 L 142 96 C 154 98 168 104 178 114 C 181 118 178 132 164 142 C 160 146 156 160 152 172 C 130 176 110 176 88 172 C 84 160 80 146 76 142 C 62 132 59 118 62 114 C 72 104 86 98 98 96 Z"
+                fill={activeZone === "chest" ? "url(#activeZoneGradient)" : "url(#bodyAmbientGradient)"}
+                stroke={activeZone === "chest" ? "#0284c7" : "#38bdf8"}
+                strokeWidth={activeZone === "chest" ? "2.2" : "1.2"}
+                className="cursor-pointer transition-all duration-200 hover:opacity-90"
                 onClick={() => setActiveZone("chest")}
               />
+              {/* Cardiac Pulse Silhouette inside Chest */}
+              <g opacity={activeZone === "chest" ? "0.95" : "0.5"} pointerEvents="none">
+                <circle cx="128" cy="128" r="8" fill="none" stroke="#38bdf8" strokeWidth="1" strokeDasharray="2 2" />
+                <path d="M 123 128 L 126 128 L 128 123 L 130 133 L 132 128 L 135 128" stroke="#38bdf8" strokeWidth="1.2" fill="none" />
+                {/* Ribcage Curvature Highlights */}
+                <path d="M 100 134 C 110 138 130 138 140 134" stroke="#38bdf8" strokeWidth="0.8" opacity="0.4" fill="none" />
+                <path d="M 96 148 C 108 153 132 153 144 148" stroke="#38bdf8" strokeWidth="0.8" opacity="0.4" fill="none" />
+              </g>
 
-              {/* Upper Limbs / Arms */}
+              {/* Upper Limbs (Bilateral Arms) */}
               {/* Left Arm */}
               <path
-                d="M60 115 L40 160 L32 205 L44 208 L52 168 L66 142 Z"
-                className={`cursor-pointer transition ${
-                  activeZone === "upperLimbs" ? "fill-cyan-500/40 stroke-cyan-300 stroke-2" : "hover:fill-cyan-500/20"
-                }`}
+                d="M 62 114 C 54 124 45 146 42 172 C 39 190 33 208 30 222 C 28 230 24 236 26 242 C 28 245 34 245 37 240 C 40 234 40 226 42 222 C 47 208 51 190 53 172 C 55 158 64 148 76 142 C 70 134 65 124 62 114 Z"
+                fill={activeZone === "upperLimbs" ? "url(#activeZoneGradient)" : "url(#bodyAmbientGradient)"}
+                stroke={activeZone === "upperLimbs" ? "#0284c7" : "#38bdf8"}
+                strokeWidth={activeZone === "upperLimbs" ? "2.2" : "1.2"}
+                className="cursor-pointer transition-all duration-200 hover:opacity-90"
                 onClick={() => setActiveZone("upperLimbs")}
               />
               {/* Right Arm */}
               <path
-                d="M180 115 L200 160 L208 205 L196 208 L188 168 L174 142 Z"
-                className={`cursor-pointer transition ${
-                  activeZone === "upperLimbs" ? "fill-cyan-500/40 stroke-cyan-300 stroke-2" : "hover:fill-cyan-500/20"
-                }`}
+                d="M 178 114 C 186 124 195 146 198 172 C 201 190 207 208 210 222 C 212 230 216 236 214 242 C 212 245 206 245 203 240 C 200 234 200 226 198 222 C 193 208 189 190 187 172 C 185 158 176 148 164 142 C 170 134 175 124 178 114 Z"
+                fill={activeZone === "upperLimbs" ? "url(#activeZoneGradient)" : "url(#bodyAmbientGradient)"}
+                stroke={activeZone === "upperLimbs" ? "#0284c7" : "#38bdf8"}
+                strokeWidth={activeZone === "upperLimbs" ? "2.2" : "1.2"}
+                className="cursor-pointer transition-all duration-200 hover:opacity-90"
                 onClick={() => setActiveZone("upperLimbs")}
               />
 
-              {/* Abdomen & Core */}
+              {/* Abdomen & Gastric Region */}
               <path
-                d="M92 158 L88 205 L152 205 L148 158 Z"
-                className={`cursor-pointer transition ${
-                  activeZone === "abdomen" ? "fill-cyan-500/40 stroke-cyan-300 stroke-2" : "hover:fill-cyan-500/20"
-                }`}
+                d="M 88 172 C 110 176 130 176 152 172 C 150 186 151 198 155 208 C 157 213 158 216 158 218 C 138 222 102 222 82 218 C 82 216 83 213 85 208 C 89 198 90 186 88 172 Z"
+                fill={activeZone === "abdomen" ? "url(#activeZoneGradient)" : "url(#bodyAmbientGradient)"}
+                stroke={activeZone === "abdomen" ? "#0284c7" : "#38bdf8"}
+                strokeWidth={activeZone === "abdomen" ? "2.2" : "1.2"}
+                className="cursor-pointer transition-all duration-200 hover:opacity-90"
                 onClick={() => setActiveZone("abdomen")}
               />
 
-              {/* Pelvis & Hips */}
+              {/* Pelvis & Lumbar Foundation */}
               <path
-                d="M88 205 L78 238 L162 238 L152 205 Z"
-                className={`cursor-pointer transition ${
-                  activeZone === "spine" ? "fill-cyan-500/40 stroke-cyan-300 stroke-2" : "hover:fill-cyan-500/20"
-                }`}
+                d="M 82 218 C 102 222 138 222 158 218 C 162 226 165 238 164 254 C 150 255 132 258 120 258 C 108 258 90 255 76 254 C 75 238 78 226 82 218 Z"
+                fill={activeZone === "spine" ? "url(#activeZoneGradient)" : "url(#bodyAmbientGradient)"}
+                stroke={activeZone === "spine" ? "#0284c7" : "#38bdf8"}
+                strokeWidth={activeZone === "spine" ? "2.2" : "1.2"}
+                className="cursor-pointer transition-all duration-200 hover:opacity-90"
                 onClick={() => setActiveZone("spine")}
               />
 
-              {/* Lower Limbs / Thighs & Calves */}
+              {/* Lower Limbs (Bilateral Legs) */}
               {/* Left Leg */}
               <path
-                d="M78 238 L68 318 L64 395 L78 398 L88 322 L112 240 Z"
-                className={`cursor-pointer transition ${
-                  activeZone === "lowerLimbs" ? "fill-cyan-500/40 stroke-cyan-300 stroke-2" : "hover:fill-cyan-500/20"
-                }`}
+                d="M 76 254 C 72 274 69 300 68 326 C 66 344 63 360 64 372 C 65 388 67 404 68 414 L 64 420 L 79 420 L 78 414 C 80 404 83 388 84 372 C 85 360 85 344 84 326 C 84 300 96 274 114 260 L 120 258 C 108 258 90 255 76 254 Z"
+                fill={activeZone === "lowerLimbs" ? "url(#activeZoneGradient)" : "url(#bodyAmbientGradient)"}
+                stroke={activeZone === "lowerLimbs" ? "#0284c7" : "#38bdf8"}
+                strokeWidth={activeZone === "lowerLimbs" ? "2.2" : "1.2"}
+                className="cursor-pointer transition-all duration-200 hover:opacity-90"
                 onClick={() => setActiveZone("lowerLimbs")}
               />
               {/* Right Leg */}
               <path
-                d="M162 238 L172 318 L176 395 L162 398 L152 322 L128 240 Z"
-                className={`cursor-pointer transition ${
-                  activeZone === "lowerLimbs" ? "fill-cyan-500/40 stroke-cyan-300 stroke-2" : "hover:fill-cyan-500/20"
-                }`}
+                d="M 164 254 C 168 274 171 300 172 326 C 174 344 177 360 176 372 C 175 388 173 404 172 414 L 176 420 L 161 420 L 162 414 C 160 404 157 388 156 372 C 155 360 155 344 156 326 C 156 300 144 274 126 260 L 120 258 C 132 258 150 255 164 254 Z"
+                fill={activeZone === "lowerLimbs" ? "url(#activeZoneGradient)" : "url(#bodyAmbientGradient)"}
+                stroke={activeZone === "lowerLimbs" ? "#0284c7" : "#38bdf8"}
+                strokeWidth={activeZone === "lowerLimbs" ? "2.2" : "1.2"}
+                className="cursor-pointer transition-all duration-200 hover:opacity-90"
                 onClick={() => setActiveZone("lowerLimbs")}
               />
             </g>
 
-            {/* Spine Centerline Reference */}
-            <line
-              x1="120"
-              y1="82"
-              x2="120"
-              y2="230"
-              stroke="#38bdf8"
-              strokeDasharray="3 3"
-              strokeWidth="1.5"
-              opacity="0.6"
-            />
+            {/* Vertebral Column Bead Line (24 Articulating Vertebrae C1-L5) */}
+            <g opacity={activeZone === "spine" ? "0.95" : "0.55"} pointerEvents="none">
+              <line x1="120" y1="80" x2="120" y2="242" stroke="#38bdf8" strokeDasharray="3 3" strokeWidth="1.2" />
+              {[82, 94, 106, 118, 130, 142, 154, 166, 178, 190, 202, 214, 226, 238].map((y) => (
+                <circle
+                  key={y}
+                  cx="120"
+                  cy={y}
+                  r={activeZone === "spine" ? "2.5" : "1.6"}
+                  fill={activeZone === "spine" ? "#22d3ee" : "#38bdf8"}
+                />
+              ))}
+            </g>
 
-            {/* Glowing Telemetry Hotspot Nodes */}
+            {/* Symmetric Aerospace Telemetry Hotspot Nodes */}
             {[
-              { zone: "head" as BodyZone, cx: 120, cy: 48, label: "Head" },
-              { zone: "neck" as BodyZone, cx: 120, cy: 82, label: "Inner Ear" },
-              { zone: "chest" as BodyZone, cx: 120, cy: 122, label: "Heart / Lungs" },
-              { zone: "spine" as BodyZone, cx: 120, cy: 168, label: "Spine Stretch" },
-              { zone: "abdomen" as BodyZone, cx: 120, cy: 196, label: "Digestion" },
-              { zone: "upperLimbs" as BodyZone, cx: 48, cy: 168, label: "Hands" },
-              { zone: "lowerLimbs" as BodyZone, cx: 80, cy: 300, label: "Legs" },
-            ].map((node) => {
+              { zone: "head" as BodyZone, cx: 120, cy: 46, label: "Head & Eyes" },
+              { zone: "neck" as BodyZone, cx: 120, cy: 84, label: "Inner Ear" },
+              { zone: "chest" as BodyZone, cx: 120, cy: 128, label: "Heart / Lungs" },
+              { zone: "spine" as BodyZone, cx: 120, cy: 172, label: "Spine Elongation" },
+              { zone: "abdomen" as BodyZone, cx: 120, cy: 198, label: "Digestion / SMS" },
+              { zone: "upperLimbs" as BodyZone, cx: 46, cy: 178, label: "Left Arm" },
+              { zone: "upperLimbs" as BodyZone, cx: 194, cy: 178, label: "Right Arm" },
+              { zone: "lowerLimbs" as BodyZone, cx: 78, cy: 334, label: "Left Calf" },
+              { zone: "lowerLimbs" as BodyZone, cx: 162, cy: 334, label: "Right Calf" },
+            ].map((node, idx) => {
               const isSelected = activeZone === node.zone;
               return (
                 <g
-                  key={node.zone}
+                  key={`${node.zone}-${idx}`}
                   className="cursor-pointer"
                   onClick={() => setActiveZone(node.zone)}
                 >
+                  {/* Outer Radar Ping Target for Selected Node */}
                   {isSelected && (
-                    <circle
-                      cx={node.cx}
-                      cy={node.cy}
-                      r="16"
-                      fill="none"
-                      stroke="#22d3ee"
-                      strokeWidth="1.5"
-                      className="animate-ping"
-                      opacity="0.6"
-                    />
+                    <>
+                      <circle
+                        cx={node.cx}
+                        cy={node.cy}
+                        r="14"
+                        fill="none"
+                        stroke="#0284c7"
+                        strokeWidth="1.5"
+                        className="animate-ping"
+                        opacity="0.65"
+                      />
+                      <circle
+                        cx={node.cx}
+                        cy={node.cy}
+                        r="10"
+                        fill="none"
+                        stroke="#38bdf8"
+                        strokeWidth="1.2"
+                        strokeDasharray="2 3"
+                      />
+                    </>
                   )}
+                  {/* Glowing Node Center */}
                   <circle
                     cx={node.cx}
                     cy={node.cy}
-                    r={isSelected ? 7 : 5}
+                    r={isSelected ? 6 : 4}
                     fill={isSelected ? "#22d3ee" : "#0284c7"}
                     stroke="#ffffff"
                     strokeWidth="1.5"
-                    filter="url(#nodeGlow)"
-                    className="transition duration-200"
+                    filter="url(#reticleGlow)"
+                    className="transition-all duration-200"
                   />
                 </g>
               );
             })}
           </svg>
 
-          {/* Quick Body Selector Pills */}
-          <div className="flex flex-wrap gap-1.5 justify-center mt-3 z-10">
-            {(
-              [
-                ["head", "Head & Eyes"],
-                ["neck", "Neck & Ear"],
-                ["chest", "Heart & Lungs"],
-                ["abdomen", "Stomach"],
-                ["spine", "Spine"],
-                ["upperLimbs", "Arms"],
-                ["lowerLimbs", "Legs"],
-              ] as [BodyZone, string][]
-            ).map(([zone, title]) => (
-              <button
-                key={zone}
-                type="button"
-                onClick={() => setActiveZone(zone)}
-                className={`text-[10px] font-mono px-2 py-1 rounded-md border transition cursor-pointer ${
-                  activeZone === zone
-                    ? "bg-sky-100 dark:bg-cyan-950 border-sky-500 dark:border-cyan-400 text-sky-800 dark:text-cyan-200 font-semibold shadow-sm"
-                    : "bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:border-slate-300 dark:hover:border-slate-700"
-                }`}
-              >
-                {title}
-              </button>
-            ))}
+          {/* Structured Quick Selector Matrix */}
+          <div className="w-full mt-3 flex flex-col gap-1.5 z-10 font-mono text-[11px]">
+            {/* Upper Systems: Head, Neck, Chest, Stomach */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 w-full">
+              {(
+                [
+                  ["head", "Head & Eyes", "Cranial"],
+                  ["neck", "Neck & Ear", "Balance"],
+                  ["chest", "Heart & Lungs", "Thorax"],
+                  ["abdomen", "Stomach", "Digestive"],
+                ] as [BodyZone, string, string][]
+              ).map(([zone, title, sub]) => (
+                <button
+                  key={zone}
+                  type="button"
+                  onClick={() => setActiveZone(zone)}
+                  className={`p-2 rounded-lg border text-left transition duration-150 cursor-pointer ${
+                    activeZone === zone
+                      ? "bg-sky-100 dark:bg-cyan-950/80 border-sky-500 dark:border-cyan-400 text-sky-900 dark:text-cyan-200 font-semibold shadow-xs"
+                      : "bg-white dark:bg-slate-900/80 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700 hover:text-slate-900 dark:hover:text-white"
+                  }`}
+                >
+                  <div className="flex items-center justify-between gap-1">
+                    <span className="block font-bold text-[10px] leading-tight">{title}</span>
+                    <span
+                      className={`w-1.5 h-1.5 rounded-full shrink-0 ${
+                        activeZone === zone ? "bg-cyan-500 animate-pulse" : "bg-emerald-500"
+                      }`}
+                    />
+                  </div>
+                  <span className="text-[9px] text-slate-600 dark:text-slate-400 block mt-0.5">{sub}</span>
+                </button>
+              ))}
+            </div>
+
+            {/* Core & Extremities: Spine, Arms, Legs */}
+            <div className="grid grid-cols-3 gap-1.5 w-full">
+              {(
+                [
+                  ["spine", "Spine & Back", "Elongation"],
+                  ["upperLimbs", "Arms & Hands", "Dexterity"],
+                  ["lowerLimbs", "Hips & Legs", "Calves"],
+                ] as [BodyZone, string, string][]
+              ).map(([zone, title, sub]) => (
+                <button
+                  key={zone}
+                  type="button"
+                  onClick={() => setActiveZone(zone)}
+                  className={`p-2 rounded-lg border text-left transition duration-150 cursor-pointer ${
+                    activeZone === zone
+                      ? "bg-sky-100 dark:bg-cyan-950/80 border-sky-500 dark:border-cyan-400 text-sky-900 dark:text-cyan-200 font-semibold shadow-xs"
+                      : "bg-white dark:bg-slate-900/80 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700 hover:text-slate-900 dark:hover:text-white"
+                  }`}
+                >
+                  <div className="flex items-center justify-between gap-1">
+                    <span className="block font-bold text-[10px] leading-tight">{title}</span>
+                    <span
+                      className={`w-1.5 h-1.5 rounded-full shrink-0 ${
+                        activeZone === zone ? "bg-cyan-500 animate-pulse" : "bg-emerald-500"
+                      }`}
+                    />
+                  </div>
+                  <span className="text-[9px] text-slate-600 dark:text-slate-400 block mt-0.5">{sub}</span>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -552,7 +663,7 @@ export default function AnatomicalAvatar({
                         setSelectedSymptom("");
                         setDropdownOpen(false);
                       }}
-                      className="w-full text-center py-1.5 text-[11px] font-mono text-slate-400 hover:text-rose-400 transition border-t border-slate-800/80 mt-1 cursor-pointer"
+                      className="w-full text-center py-1.5 text-[11px] font-mono text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 transition border-t border-slate-200 dark:border-slate-800/80 mt-1 cursor-pointer"
                     >
                       Clear selection
                     </button>
@@ -562,7 +673,7 @@ export default function AnatomicalAvatar({
             </div>
 
             {/* Severity Rating Selector & Action Row */}
-            <div className="mt-3 pt-3 border-t border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="mt-3 pt-3 border-t border-slate-200 dark:border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div className="flex items-center gap-2">
                 <span className="text-[11px] font-mono text-slate-600 dark:text-slate-400 uppercase tracking-wider shrink-0">
                   Severity:

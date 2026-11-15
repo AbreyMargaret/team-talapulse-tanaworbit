@@ -49,7 +49,7 @@ export default function OnboardingModal<P extends string = string>({
           target.scrollIntoView({ behavior: "smooth", block: "center" });
         }
       }
-    }, 250);
+    }, 280);
 
     return () => {
       clearTimeout(timer);
@@ -57,27 +57,29 @@ export default function OnboardingModal<P extends string = string>({
         el.classList.remove("tour-active-highlight");
       });
     };
-  }, [index, currentStep]);
+  }, [index, currentStep, page]);
 
   const handleNext = () => {
     if (isLast) {
       onClose();
       return;
     }
-    if (blockedLabel) {
-      onPointNext?.();
-      return;
+    const nextIdx = index + 1;
+    const nextStep = steps[nextIdx];
+    if (nextStep && nextStep.page !== page) {
+      onNavigate(nextStep.page);
     }
-    onStepChange(index + 1);
+    onStepChange(nextIdx);
   };
 
   const handlePrev = () => {
     if (!isFirst) {
       const prevIdx = index - 1;
-      onStepChange(prevIdx);
-      if (steps[prevIdx] && steps[prevIdx].page !== page) {
-        onNavigate(steps[prevIdx].page);
+      const prevStep = steps[prevIdx];
+      if (prevStep && prevStep.page !== page) {
+        onNavigate(prevStep.page);
       }
+      onStepChange(prevIdx);
     }
   };
 
@@ -122,7 +124,6 @@ export default function OnboardingModal<P extends string = string>({
 
       <p className="tour-text">
         {currentStep.description}
-        {blockedLabel ? ` Then open ${blockedLabel} in the left menu. The outline shows which one.` : ""}
       </p>
 
       <div className="tour-actions">
@@ -141,18 +142,21 @@ export default function OnboardingModal<P extends string = string>({
           type="button"
           className="tour-btn-next"
           onClick={handleNext}
-          aria-label={isLast ? "Complete walkthrough" : blockedLabel ? `Show ${blockedLabel} in the menu` : "Next step"}
+          aria-label={isLast ? "Complete walkthrough" : "Next step"}
         >
           {isLast ? (
             <>
               <span>Finish Tour</span>
               <CheckCircle2 size={16} />
             </>
-          ) : blockedLabel ? (
-            <span>Open {blockedLabel}</span>
+          ) : steps[index + 1]?.page !== page ? (
+            <>
+              <span>Open {steps[index + 1].page}</span>
+              <ChevronRight size={16} />
+            </>
           ) : (
             <>
-              <span>Next on this page</span>
+              <span>Next</span>
               <ChevronRight size={16} />
             </>
           )}

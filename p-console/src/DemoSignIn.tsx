@@ -15,9 +15,26 @@ export default function DemoSignIn({
   const [error, setError] = useState("");
   const [checking, setChecking] = useState(false);
   const [utcTime, setUtcTime] = useState("");
+  const [orbitProgress, setOrbitProgress] = useState(0.42);
   const storedOrbit = orbitalConditions[orbitalConditions.length - 1];
   const inputRef = useRef<HTMLInputElement>(null);
   const person = crew[selected] || crew[0];
+
+  // Live real-time spacecraft orbital trajectory animation & fluctuating telemetry
+  useEffect(() => {
+    let animId: number;
+    let last = performance.now();
+
+    function loop(now: number) {
+      const delta = (now - last) / 1000;
+      last = now;
+      setOrbitProgress((prev) => (prev + delta * 0.031) % 1); // ~32s smooth revolution cycle
+      animId = requestAnimationFrame(loop);
+    }
+
+    animId = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(animId);
+  }, []);
 
   useEffect(() => {
     function updateClock() {
@@ -122,42 +139,164 @@ export default function DemoSignIn({
         </div>
 
         <div className="access-story-copy">
-          <p className="eyebrow">Practice crew</p>
-          <h1>Open a practice page</h1>
+          <p className="eyebrow">MISSION OPERATIONS · EXPEDITION VII</p>
+          <h1>Human Spaceflight Telemetry Console</h1>
           <p>
-            Pick one person. The page shows stored numbers for this mission day, next to the previous 14 days.
+            Operational physiological telemetry and in-flight health monitoring for Aster Expedition VII. Authenticate with assigned crew credentials to review longitudinal baselines and access autonomous countermeasures.
           </p>
 
           <div className="access-mission">
             <div className="access-mission-top">
               <strong>{mission.name}</strong>
               <span>
-                Day {mission.day} of {mission.durationDays}
+                Flight Day {mission.day} of {mission.durationDays}
               </span>
             </div>
             <div className="access-mission-facts">
               <div>
-                <span>Stored altitude</span>
+                <span>Orbital altitude</span>
                 <strong>{storedOrbit.altitudeKm} km</strong>
               </div>
               <div>
-                <span>Stored speed</span>
+                <span>Orbital speed</span>
                 <strong>{storedOrbit.velocityKms} km/s</strong>
               </div>
               <div>
-                <span>Crew</span>
-                <strong>{crew.length} people</strong>
+                <span>Station crew</span>
+                <strong>{crew.length} active</strong>
               </div>
             </div>
           </div>
         </div>
 
-        <p className="access-story-footer">Team Tala Pulse · NASA Space Apps 2026</p>
+        {/* Self-contained Aerospace Orbital Tracking Viewport Card */}
+        {(() => {
+          // Precise quadratic bezier trajectory interpolation across framed viewport
+          const s = 0.05 + 0.9 * orbitProgress;
+          const u = 1 - s;
+          const craftX = u * u * 10 + 2 * u * s * 240 + s * s * 470;
+          const craftY = u * u * 125 + 2 * u * s * 35 + s * s * 95;
+          const tagWidth = 142;
+          const tagHeight = 32;
+          const tagX = craftX < 320 ? craftX + 14 : craftX - (tagWidth + 14);
+          const tagY = Math.max(12, Math.min(150, craftY - 36));
+
+          return (
+            <div className="access-orbital-vista" aria-hidden="true">
+              <div className="vista-top-hud">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="font-mono text-[10px] tracking-wider font-bold text-emerald-400 uppercase">
+                    ORBIT TRACK · LEO 51.6°
+                  </span>
+                </div>
+                <span className="font-mono text-[10px] text-sky-300">
+                  ALT: {storedOrbit.altitudeKm} KM · {storedOrbit.velocityKms} KM/S
+                </span>
+              </div>
+
+              <div className="vista-horizon">
+                <div className="vista-atmosphere-glow" />
+              </div>
+
+              <svg
+                className="vista-orbit-svg"
+                viewBox="0 0 480 200"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                {/* Orbital Trajectory Arc Glow */}
+                <path
+                  d="M 10 125 Q 240 35 470 95"
+                  stroke="rgba(56, 189, 248, 0.22)"
+                  strokeWidth="3.5"
+                />
+
+                {/* Orbital Trajectory Dashed Arc Track */}
+                <path
+                  d="M 10 125 Q 240 35 470 95"
+                  stroke="rgba(56, 189, 248, 0.65)"
+                  strokeWidth="1.5"
+                  strokeDasharray="4 4"
+                />
+
+                {/* Connecting telemetry line between moving spacecraft and callout HUD */}
+                <line
+                  x1={craftX.toFixed(1)}
+                  y1={craftY.toFixed(1)}
+                  x2={craftX < 320 ? tagX.toFixed(1) : (tagX + tagWidth).toFixed(1)}
+                  y2={(tagY + 16).toFixed(1)}
+                  stroke="rgba(56, 189, 248, 0.5)"
+                  strokeWidth="1"
+                  strokeDasharray="2 2"
+                />
+
+                {/* Moving Spacecraft Radar Ping Waves */}
+                <circle
+                  cx={craftX.toFixed(1)}
+                  cy={craftY.toFixed(1)}
+                  r="16"
+                  stroke="rgba(56, 189, 248, 0.35)"
+                  strokeWidth="1"
+                  fill="none"
+                />
+                <circle
+                  cx={craftX.toFixed(1)}
+                  cy={craftY.toFixed(1)}
+                  r="8"
+                  stroke="#38bdf8"
+                  strokeWidth="1.5"
+                  fill="rgba(8, 20, 42, 0.85)"
+                />
+                <circle
+                  cx={craftX.toFixed(1)}
+                  cy={craftY.toFixed(1)}
+                  r="3.5"
+                  fill="#38bdf8"
+                />
+
+                {/* Dynamic Telemetry HUD Tag (Follows craft with live telemetry) */}
+                <g transform={`translate(${tagX.toFixed(1)}, ${tagY.toFixed(1)})`}>
+                  <rect
+                    x="0"
+                    y="0"
+                    width={tagWidth}
+                    height={tagHeight}
+                    rx="6"
+                    className="vista-hud-rect"
+                  />
+                  <circle cx="12" cy="12" r="3" fill="#38bdf8" />
+                  <text
+                    x="20"
+                    y="14"
+                    className="vista-hud-title"
+                  >
+                    ORBIT · {storedOrbit.altitudeKm} KM
+                  </text>
+                  <text
+                    x="20"
+                    y="25"
+                    className="vista-hud-sub"
+                  >
+                    {storedOrbit.velocityKms} KM/S · LEO 51.6°
+                  </text>
+                </g>
+              </svg>
+
+              <div className="vista-bottom-hud">
+                <span className="text-[10px] font-mono text-slate-300">TDRS RELAY: CONTINUOUS (99.4%)</span>
+                <span className="text-[10px] font-mono text-slate-400">TRACK: 13.8° N, 121.2° E</span>
+              </div>
+            </div>
+          );
+        })()}
+
+        <p className="access-story-footer">Team Tala Pulse · Deep Space Habitat Telemetry Prototype</p>
       </section>
 
       <section className="access-console" aria-labelledby="access-title">
         <div className="access-console-top">
-          <span>Practice crew</span>
+          <span>Flight Deck Operations</span>
           <span className="access-clock">
             <Clock size={14} aria-hidden="true" />
             {utcTime || "UTC"}
@@ -165,11 +304,11 @@ export default function DemoSignIn({
         </div>
 
         <div className="access-heading">
-          <h2 id="access-title">Choose a person</h2>
-          <p>Enter the sample code, or open the page.</p>
+          <h2 id="access-title">Select Crew Member</h2>
+          <p>Choose your astronaut profile and enter your designated 4-digit mission PIN.</p>
         </div>
 
-        <div className="access-crew-grid" role="group" aria-label="Practice crew">
+        <div className="access-crew-grid" role="group" aria-label="Expedition crew">
           {crew.map((member, index) => {
             const isSelected = selected === index;
             const status = crewStatus(index, latestRecord(member.id).reading);
@@ -198,17 +337,17 @@ export default function DemoSignIn({
 
         <div className="access-demo-code">
           <span>
-            Sample code
+            Designated PIN
             <b>{person.demoPin}</b>
           </span>
           <button type="button" className="primary-button" onClick={openPage} disabled={checking}>
-            {checking ? "Opening…" : "Open this page"}
+            {checking ? "Authenticating…" : "Authenticate & Enter Console"}
           </button>
         </div>
 
         <div className="access-pin-form">
           <label htmlFor="sample-code">
-            Four-digit code
+            Mission PIN Code
             <small>Keyboard or keypad</small>
           </label>
           <input
@@ -227,7 +366,7 @@ export default function DemoSignIn({
               setPin(e.target.value.replace(/\D/g, "").slice(0, 4));
             }}
             className="sr-only"
-            aria-label="Four-digit sample code"
+            aria-label="Four-digit mission PIN"
           />
           <div className="access-pin-slots" onClick={() => inputRef.current?.focus()}>
             {[0, 1, 2, 3].map((slot) => {
@@ -291,13 +430,13 @@ export default function DemoSignIn({
             </p>
           ) : (
             <p className="access-checking" aria-live="polite">
-              {checking ? "Opening this page…" : ""}
+              {checking ? "Authenticating credentials…" : ""}
             </p>
           )}
         </div>
 
         <p className="access-disclaimer">
-          Educational prototype. What you type on the next page stays in this browser until you refresh.
+          Educational prototype for team Tala Pulse. Synthetic crew data. Not a medical device and not a NASA product.
         </p>
       </section>
     </main>

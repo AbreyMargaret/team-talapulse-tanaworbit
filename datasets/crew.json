@@ -11,7 +11,7 @@
       "name": "Ella Nicole Fabro",
       "role": "Flight Engineer / Biomedical Research Specialist",
       "initials": "EF",
-      "image": "",
+      "image": "/images/crew-ef.jpg",
       "color": "#6b8fa3",
       "demoPin": "3801",
       "reviewRequested": false
@@ -22,7 +22,7 @@
       "name": "Abrey Diane Barcellano",
       "role": "Payload Specialist / Geologist",
       "initials": "AB",
-      "image": "",
+      "image": "/images/crew-ab.jpg",
       "color": "#8573a3",
       "demoPin": "4202",
       "reviewRequested": false
@@ -33,7 +33,7 @@
       "name": "Hannah Faith Lopez",
       "role": "Medical Officer / Human Physiology Researcher",
       "initials": "HL",
-      "image": "",
+      "image": "/images/crew-hl.jpg",
       "color": "#7b9a7d",
       "demoPin": "4503",
       "reviewRequested": false
@@ -44,7 +44,7 @@
       "name": "Gary Kenp Marasigan",
       "role": "Mission Commander / Aerospace Systems Engineer",
       "initials": "GM",
-      "image": "",
+      "image": "/images/crew-gm.jpg",
       "color": "#547c8b",
       "demoPin": "4804",
       "reviewRequested": false
@@ -55,7 +55,7 @@
       "name": "Greek William Legaspi",
       "role": "Flight Engineer / Robotics Specialist",
       "initials": "GL",
-      "image": "",
+      "image": "/images/crew-gl.jpg",
       "color": "#977b64",
       "demoPin": "5005",
       "reviewRequested": true

@@ -99,9 +99,6 @@ export default function DailyHealthCheckIn({
   const diaDelta = Math.round(diaVal - baseline.diastolic);
   const sleepDelta = +(sleepVal - baseline.sleep).toFixed(1);
 
-  // Mean Arterial Pressure: (2*diastolic + systolic) / 3
-  const mapValue = Math.round((2 * diaVal + sysVal) / 3);
-
   // Automated Flight Surgeon Clinical Triggers
   const clinicalAdvisories = useMemo(() => {
     const list: { type: "nominal" | "warning" | "alert"; text: string; action: string }[] = [];
@@ -298,7 +295,7 @@ Your note: ${draft.notes || "None."}`;
                 {sysVal}/{diaVal} <span className="text-xs text-slate-500 dark:text-slate-400 font-normal">mmHg</span>
               </div>
               <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
-                MAP {mapValue} mmHg
+                {sysDelta >= 0 ? `+${sysDelta}` : sysDelta}/{diaDelta >= 0 ? `+${diaDelta}` : diaDelta} mmHg vs 14-day average
               </span>
             </div>
 
@@ -542,7 +539,7 @@ Your note: ${draft.notes || "None."}`;
                 <div className="space-y-1">
                   <div className="flex items-center justify-between text-[10px] font-mono text-slate-500 dark:text-slate-400">
                     <span>SYSTOLIC</span>
-                    <span className="font-semibold">{sysDelta >= 0 ? `+${sysDelta}` : sysDelta}</span>
+                    <span className="font-semibold">{sysDelta >= 0 ? `+${sysDelta}` : sysDelta} mmHg</span>
                   </div>
                   <input
                     type="number"
@@ -558,7 +555,7 @@ Your note: ${draft.notes || "None."}`;
                 <div className="space-y-1">
                   <div className="flex items-center justify-between text-[10px] font-mono text-slate-500 dark:text-slate-400">
                     <span>DIASTOLIC</span>
-                    <span className="font-semibold">{diaDelta >= 0 ? `+${diaDelta}` : diaDelta}</span>
+                    <span className="font-semibold">{diaDelta >= 0 ? `+${diaDelta}` : diaDelta} mmHg</span>
                   </div>
                   <input
                     type="number"
@@ -573,8 +570,8 @@ Your note: ${draft.notes || "None."}`;
               </div>
 
               <div className="flex items-center justify-between text-[11px] font-mono pt-1">
-                <span className="text-sky-700 dark:text-cyan-300 font-medium">MAP: {mapValue} mmHg</span>
-                <span className="text-slate-500">mmHg</span>
+                <span className="text-slate-500">Those plus and minus figures are versus the 14-day average.</span>
+                <span className="text-slate-500">Flags use a 10 mmHg difference</span>
               </div>
             </div>
 
@@ -840,22 +837,33 @@ Your note: ${draft.notes || "None."}`;
 
               {/* Near vision check */}
               <div
+                role="checkbox"
+                aria-checked={sansVisualBlur}
+                tabIndex={0}
                 onClick={() => setSansVisualBlur(!sansVisualBlur)}
-                className={`p-3 rounded-xl border transition cursor-pointer flex items-center justify-between mt-2 ${
+                onKeyDown={(e) => {
+                  if (e.key === " " || e.key === "Enter") {
+                    e.preventDefault();
+                    setSansVisualBlur(!sansVisualBlur);
+                  }
+                }}
+                className={`p-3 rounded-xl border transition cursor-pointer flex items-center justify-between mt-2 select-none ${
                   sansVisualBlur
                     ? "bg-rose-50 dark:bg-rose-950/40 border-rose-300 dark:border-rose-500/50 text-rose-900 dark:text-rose-200"
                     : "bg-slate-50 dark:bg-slate-950/60 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700"
                 }`}
               >
-                <div className="flex items-center gap-2.5">
-                  <button
-                    type="button"
-                    className={`size-5 rounded-md grid place-items-center transition ${
-                      sansVisualBlur ? "bg-rose-600 text-white" : "bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300"
+                <div className="flex items-center gap-3">
+                  <div
+                    className={`w-5 h-5 min-w-[20px] min-h-[20px] max-w-[20px] max-h-[20px] rounded-md shrink-0 flex items-center justify-center transition-all ${
+                      sansVisualBlur
+                        ? "bg-rose-600 border border-rose-600 text-white shadow-xs"
+                        : "bg-white dark:bg-slate-800 border-2 border-slate-300 dark:border-slate-600 text-transparent hover:border-slate-400 dark:hover:border-slate-500"
                     }`}
+                    aria-hidden="true"
                   >
-                    {sansVisualBlur && <Check size={12} strokeWidth={3} />}
-                  </button>
+                    <Check size={13} strokeWidth={3} className={sansVisualBlur ? "opacity-100" : "opacity-0"} />
+                  </div>
                   <div>
                     <strong className="text-xs font-semibold block text-slate-900 dark:text-white">Near vision looks blurry</strong>
                     <span className="text-[10px] text-slate-500 dark:text-slate-400">Check this if reading up close looks blurry today.</span>

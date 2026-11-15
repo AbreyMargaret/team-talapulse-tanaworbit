@@ -723,7 +723,7 @@ export default function HealthToolkit(props: Props) {
               <small>Prior records only · current day excluded</small>
             </section>
             <section className="panel">
-              <span>CLINICAL VALIDATION</span>
+              <span>MEDICAL USE</span>
               <strong className="evidence-not-validated">Not established</strong>
               <small>No NASA endorsement or device integration</small>
             </section>
