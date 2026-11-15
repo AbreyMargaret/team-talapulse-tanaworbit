@@ -542,7 +542,7 @@
   justify-content: space-between;
   gap: 12px;
   padding: 13px 0;
-  border-bottom: 1px solid #2b4056;
+  border-bottom: 1px solid var(--border);
 }
 .exercise-review dt {
   font-size: 11px;

@@ -373,7 +373,7 @@
   position: absolute;
   width: 7px;
   height: 7px;
-  border: 2px solid #111925;
+  border: 2px solid var(--panel);
   bottom: 0;
   right: 0;
   background: #54bb8d;
@@ -836,7 +836,7 @@ h1 {
   margin-left: 5px;
 }
 .metric-bottom {
-  border-top: 1px solid #2633457a;
+  border-top: 1px solid var(--border);
   margin-top: 14px;
   min-height: 39px;
   display: flex;
@@ -1104,11 +1104,11 @@ select option {
 .chart-footer {
   margin: 3px 18px 0;
   padding: 11px 0 13px;
-  border-top: 1px solid #232e3f;
+  border-top: 1px solid var(--border);
   display: flex;
   align-items: center;
   gap: 6px;
-  color: #637992;
+  color: var(--muted);
   font-size: 7px;
 }
 .chart-footer > svg {
@@ -1156,14 +1156,14 @@ select option {
   padding: 18px 0;
 }
 .change-item + .change-item {
-  border-top: 1px solid #253043;
+  border-top: 1px solid var(--border);
 }
 .change-icon {
   width: 26px;
   height: 27px;
-  border: 1px solid #b1bfce0d;
+  border: 1px solid var(--border);
   border-radius: 5px;
-  background: #242a2f55;
+  background: color-mix(in srgb, var(--panel) 75%, transparent);
   display: grid;
   place-items: center;
   flex-shrink: 0;
@@ -1201,21 +1201,22 @@ select option {
   margin: 0 5px;
 }
 .panel-link {
-  border-top: 1px solid #253043;
+  border-top: 1px solid var(--border);
   padding: 12px 18px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  color: #7faee1;
-  font-size: 8px;
+  color: var(--text);
+  font-size: 13.5px;
   width: 100%;
   text-align: left;
   margin-top: auto;
-  min-height: 39px;
-  transition: background 0.2s;
+  min-height: 44px;
+  transition: background 0.15s ease, color 0.15s ease;
 }
 .panel-link:hover {
-  background: #1c2b41;
+  background: color-mix(in srgb, var(--text) 4%, transparent);
+  color: var(--accent);
 }
 .dashboard-bottom {
   display: grid;
@@ -1254,7 +1255,7 @@ select option {
   color: #63cba4;
 }
 .signal-row + .signal-row {
-  border-top: 1px solid #293b4238;
+  border-top: 1px solid var(--border);
 }
 .signal-label {
   display: flex;
@@ -1312,8 +1313,8 @@ select option {
   align-items: center;
   gap: 7px;
   padding: 11px 18px 12px;
-  border-top: 1px solid #253043;
-  color: #657e98;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
 }
 .physiology-disclaimer > svg {
   flex-shrink: 0;
@@ -1369,7 +1370,7 @@ select option {
   margin: 17px 0 12px;
 }
 .insight-comparison > div + div {
-  border-left: 1px solid #293447;
+  border-left: 1px solid var(--border);
   padding-left: 14px;
 }
 .insight-comparison > div > span {
@@ -1403,8 +1404,8 @@ select option {
   gap: 13px;
   padding: 17px 19px;
   margin-top: 18px;
-  background: linear-gradient(110deg, #132133, #101b2b);
-  border: 1px solid #26374d;
+  background: var(--panel);
+  border: 1px solid var(--border);
   border-radius: 6px;
 }
 .guidance-strip-icon {
@@ -1880,9 +1881,9 @@ footer button {
 }
 .baseline-note {
   padding: 13px 20px;
-  border-top: 1px solid #263246;
+  border-top: 1px solid var(--border);
   font-size: 9px;
-  color: #7489a5;
+  color: var(--muted);
   line-height: 1.7;
 }
 .full-insights .insight-content > p {
@@ -1927,14 +1928,14 @@ footer button {
 .physiology-values {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  border-top: 1px solid #27354a;
+  border-top: 1px solid var(--border);
   margin: 0 24px 22px;
   padding-top: 20px;
   gap: 20px;
 }
 .physiology-values > div + div {
   padding-left: 20px;
-  border-left: 1px solid #27354a;
+  border-left: 1px solid var(--border);
 }
 .physiology-values > div > span {
   color: #a4b6ca;
@@ -2022,10 +2023,10 @@ footer button {
 }
 .form-section-label {
   font-family: var(--font-mono);
-  color: #839cba;
+  color: var(--muted);
   font-size: 9px;
   letter-spacing: 1.2px;
-  border-top: 1px solid #29354a;
+  border-top: 1px solid var(--border);
   padding-top: 24px;
   margin: 26px 0 20px;
   display: flex;
@@ -2190,7 +2191,7 @@ textarea::placeholder {
   gap: 12px;
   margin-top: 23px;
   padding-top: 22px;
-  border-top: 1px solid #29354a;
+  border-top: 1px solid var(--border);
 }
 .form-actions > span {
   display: flex;
@@ -2233,7 +2234,7 @@ textarea::placeholder {
 }
 .checkin-context hr {
   border: 0;
-  border-top: 1px solid #304056;
+  border-top: 1px solid var(--border);
   margin: 23px 0;
 }
 .checkin-context h3 {
@@ -2575,7 +2576,7 @@ textarea::placeholder {
   display: flex;
   gap: 15px;
   padding-top: 25px;
-  border-top: 1px solid #29394e;
+  border-top: 1px solid var(--border);
   margin-top: 25px;
 }
 .guidance-block .section-icon {
@@ -3589,7 +3590,7 @@ textarea::placeholder {
   }
   .secondary-metrics > div + div {
     border-left: 0;
-    border-top: 1px solid #273245;
+    border-top: 1px solid var(--border);
   }
   .secondary-metrics > div > div {
     display: flex;
@@ -3656,7 +3657,7 @@ textarea::placeholder {
     padding: 17px 0;
   }
   .change-item + .change-item {
-    border-top: 1px solid #273448 !important;
+    border-top: 1px solid var(--border) !important;
   }
   .change-icon {
     display: grid;
@@ -3734,7 +3735,7 @@ textarea::placeholder {
   }
   .protocol-grid > div + div {
     border-left: none;
-    border-top: 1px solid #2b3a50;
+    border-top: 1px solid var(--border);
     padding: 15px 0 0;
   }
   .protocol-grid p {
@@ -5186,7 +5187,7 @@ textarea::placeholder {
   }
   .touch-mode .secondary-metrics > div + div {
     border-left: 0;
-    border-top: 1px solid #2b3a4d;
+    border-top: 1px solid var(--border);
   }
   .touch-mode .secondary-metrics > div {
     padding: 15px 20px;
@@ -5222,7 +5223,7 @@ textarea::placeholder {
     gap: 0;
   }
   .touch-mode .change-item + .change-item {
-    border-top: 1px solid #2b3c50;
+    border-top: 1px solid var(--border);
   }
   .touch-mode .change-icon {
     display: grid;

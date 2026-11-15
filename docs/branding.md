@@ -10,7 +10,7 @@
 | Project name                           | **TanawOrbit**                                          |
 | Descriptive project title for the form | **TanawOrbit: Astronaut Health & Mission Operations**   |
 | Team tagline                           | **Human health. Beyond Earth.**                         |
-| Official site                          | **https://tanaw-orbit.app**                             |
+| Official site                          | **https://www.tanaw-orbit.app/**                        |
 | Space Apps team page                   | **https://www.spaceappschallenge.org/2026/find-a-team/tala-pulse/** |
 
 **Team: Tala Pulse.** Tala means “star,” while Pulse represents health and human life.

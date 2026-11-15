@@ -1756,11 +1756,60 @@ input[type="number"] {
   font-weight: 550;
 }
 
+.panel,
+.insights-panel,
+.quiet-card,
+.metric-card,
+.profile-banner {
+  overflow: hidden;
+  border: 1px solid var(--border) !important;
+}
+
 .panel-link,
 .touch-mode .panel-link {
   font-size: 14px;
   min-height: 44px;
-  color: var(--text);
+  padding: 12px 18px;
+  color: var(--text) !important;
+  border-top: 1px solid var(--border) !important;
+  background: transparent !important;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.panel-link:hover,
+.touch-mode .panel-link:hover {
+  background: color-mix(in srgb, var(--text) 4%, transparent) !important;
+  color: var(--accent) !important;
+}
+
+.chart-footer,
+.touch-mode .chart-footer,
+.change-item + .change-item,
+.touch-mode .change-item + .change-item,
+.signal-row + .signal-row,
+.touch-mode .signal-row + .signal-row,
+.physiology-disclaimer,
+.touch-mode .physiology-disclaimer,
+.baseline-note,
+.touch-mode .baseline-note,
+.form-actions,
+.touch-mode .form-actions,
+.guidance-block,
+.touch-mode .guidance-block,
+.protocol-grid > div + div,
+.touch-mode .protocol-grid > div + div {
+  border-top: 1px solid var(--border) !important;
+}
+
+.insight-comparison > div + div,
+.touch-mode .insight-comparison > div + div,
+.physiology-values > div + div,
+.touch-mode .physiology-values > div + div {
+  border-left: 1px solid var(--border) !important;
+}
+
+.avatar > span {
+  border: 2px solid var(--panel) !important;
 }
 
 .guidance-strip .secondary-button,
@@ -1798,16 +1847,51 @@ input[type="number"] {
   margin-top: auto;
 }
 
+.profile-banner {
+  overflow: hidden !important;
+}
+
+.count-badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 1px 6px;
+  border-radius: 9999px;
+  border: 1px solid var(--border) !important;
+  background: color-mix(in srgb, var(--text) 6%, transparent) !important;
+  color: var(--muted) !important;
+}
+
+.sidebar-sim-btn {
+  min-height: 42px !important;
+  border: 1px solid var(--border) !important;
+}
+
 .secondary-metrics {
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 12px;
   background: transparent;
   border: 0;
   padding: 0;
 }
 
+@media (min-width: 1280px) {
+  .secondary-metrics {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 540px) {
+  .secondary-metrics {
+    grid-template-columns: 1fr;
+  }
+}
+
 .secondary-metrics > div,
 .secondary-metrics > div + div {
+  display: flex;
+  flex-wrap: wrap;
+  min-width: 0;
   border: 1px solid var(--border);
   border-radius: 8px;
   background: var(--panel);
@@ -1817,8 +1901,12 @@ input[type="number"] {
 
 .secondary-metrics .recorded-note {
   flex: 1 0 100%;
-  margin: 6px 0 0 38px;
+  width: 100%;
+  margin: 6px 0 0 0;
   text-align: left;
+  font-size: 11px;
+  white-space: normal;
+  word-break: break-word;
 }
 
 .daily-checkin-container [class*="rounded-2xl"] {

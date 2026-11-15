@@ -633,7 +633,7 @@ body .app-shell.touch-mode main {
   gap: 23px;
   align-items: center;
   padding: 0 24px 24px;
-  border-bottom: 1px solid #2c435b;
+  border-bottom: 1px solid var(--border);
 }
 .routine-summary > strong {
   font-family: var(--font-mono);
@@ -1141,7 +1141,7 @@ body .app-shell.touch-mode main {
 .evidence-table-wrap td {
   padding: 17px 13px;
   text-align: left;
-  border-bottom: 1px solid #293f57;
+  border-bottom: 1px solid var(--border);
   line-height: 1.9;
 }
 .evidence-table-wrap tbody th {

@@ -2,7 +2,9 @@
 
 **SI-assisted presentation/script draft.** No public presentation upload or video has been created by this document. Choose **one** of the following demo formats and provide its actual public URL in the submission form.
 
-Official site for the project link: https://tanaw-orbit.app
+Official site for the project link: https://www.tanaw-orbit.app/
+
+The site is published. Localhost is not a submission link. The seven-slide file is `docs/demo/TanawOrbit-SpaceApps-demo.pptx`. Upload that file to a public host, then put the full HTTPS URL in the Project Demonstration field.
 
 Space Apps team page: https://www.spaceappschallenge.org/2026/find-a-team/tala-pulse/
 

@@ -497,6 +497,7 @@ Your note: ${draft.notes || "None."}`;
                   <input
                     id="checkin-heart-input"
                     type="number"
+                    inputMode="numeric"
                     min={35}
                     max={220}
                     value={draft.heart}
@@ -545,6 +546,7 @@ Your note: ${draft.notes || "None."}`;
                   </div>
                   <input
                     type="number"
+                    inputMode="numeric"
                     min={60}
                     max={240}
                     value={draft.systolic}
@@ -560,6 +562,7 @@ Your note: ${draft.notes || "None."}`;
                   </div>
                   <input
                     type="number"
+                    inputMode="numeric"
                     min={40}
                     max={150}
                     value={draft.diastolic}
@@ -600,6 +603,7 @@ Your note: ${draft.notes || "None."}`;
                   <input
                     id="checkin-sleep-input"
                     type="number"
+                    inputMode="decimal"
                     step={0.1}
                     min={0}
                     max={24}
@@ -668,6 +672,7 @@ Your note: ${draft.notes || "None."}`;
                   <div className="flex items-center gap-1.5">
                     <input
                       type="number"
+                      inputMode="decimal"
                       step={0.1}
                       min={35.0}
                       max={41.0}
@@ -686,6 +691,7 @@ Your note: ${draft.notes || "None."}`;
                   <div className="flex items-center gap-1.5">
                     <input
                       type="number"
+                      inputMode="numeric"
                       min={85}
                       max={100}
                       value={spo2}
@@ -703,6 +709,7 @@ Your note: ${draft.notes || "None."}`;
                   <div className="flex items-center gap-1.5">
                     <input
                       type="number"
+                      inputMode="numeric"
                       min={40}
                       max={400}
                       value={glucose}
@@ -720,6 +727,7 @@ Your note: ${draft.notes || "None."}`;
                   <div className="flex items-center gap-1.5">
                     <input
                       type="number"
+                      inputMode="numeric"
                       min={4}
                       max={40}
                       value={respiration}

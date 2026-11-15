@@ -62,9 +62,10 @@
 .portal-card {
   display: block;
   padding: 22px;
-  border: 1px solid #2b3d53;
+  border: 1px solid var(--border);
   border-radius: 12px;
-  background: #121a26;
+  background: var(--panel);
+  color: var(--text);
 }
 .portal-card:hover {
   border-color: #64ccea;
@@ -108,7 +109,7 @@
   grid-template-columns: 88px 1fr;
   gap: 12px;
   padding: 12px 0;
-  border-bottom: 1px solid #243044;
+  border-bottom: 1px solid var(--border);
 }
 .portal-check b.pass {
   color: #7dcaa5;
