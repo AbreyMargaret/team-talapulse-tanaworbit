@@ -4,14 +4,10 @@ import type { Reading } from "./data";
 export default function NextSteps({
   reading,
   baseline,
-  completed,
-  total,
   onOpen,
 }: {
   reading: Reading;
   baseline: Reading;
-  completed: number;
-  total: number;
   onOpen: (tab: ToolkitTab, metric?: MetricId) => void;
 }) {
   const changed = describeObservations(reading, baseline).filter((item) => item.flagged);
@@ -37,15 +33,13 @@ export default function NextSteps({
             </strong>
           </div>
         </button>
-        <button className="next-step-card" onClick={() => onOpen("routine")}>
+        <button className="next-step-card" onClick={() => onOpen("measure")}>
           <span className="next-step-number">2</span>
           <div>
-            <h3>
-              {completed} of {total} tasks done
-            </h3>
-            <p>Record today, log exercise, and read the notes.</p>
+            <h3>The visit list is the one that counts</h3>
+            <p>Record today, try one practice, and log exercise. Those three marks are at the top of Today.</p>
             <strong>
-              Open the list <span aria-hidden="true">→</span>
+              See how a number is recorded <span aria-hidden="true">→</span>
             </strong>
           </div>
         </button>

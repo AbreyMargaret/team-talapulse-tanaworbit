@@ -7,11 +7,15 @@ import {
   biodata,
   cabinConditions,
   crew,
+  crewStatus,
   latestRecord,
   mission,
   nutritionFor,
+  observationFlags,
   orbitalConditions,
+  personalBaseline,
   trendCalculation,
+  type Reading,
 } from "./data";
 import { clearSession, readSession, writeSession, type DemoSession } from "./session";
 import "./portals.css";
@@ -352,6 +356,20 @@ type TrendBody = {
   };
 };
 
+type EvaluateBody = {
+  evaluated?: {
+    name: string;
+    label: string;
+    status: string;
+    numberStatus: string;
+    checks: { id: string; fired: boolean; text: string }[];
+  };
+  error?: string;
+  message?: string;
+};
+
+const statusWord = { Stable: "Usual", Observe: "Different", Attention: "Flagged" } as const;
+
 export function TesterPortal() {
   const session = useSession();
   const sessionKey = session ? `${session.kind}:${session.kind === "backend" ? session.role : session.crewId}` : "";
@@ -359,6 +377,15 @@ export function TesterPortal() {
   const [report, setReport] = useState<VerifyBody | null>(null);
   const [compare, setCompare] = useState<string>("Waiting for the API.");
   const [error, setError] = useState("");
+  const [crewId, setCrewId] = useState(crew[0].id);
+  const starting = latestRecord(crew[0].id).reading;
+  const [heart, setHeart] = useState(String(starting.heart));
+  const [systolic, setSystolic] = useState(String(starting.systolic));
+  const [diastolic, setDiastolic] = useState(String(starting.diastolic));
+  const [sleep, setSleep] = useState(String(starting.sleep));
+  const [fatigue, setFatigue] = useState(String(starting.fatigue));
+  const [trial, setTrial] = useState<string>("");
+  const [trialChecks, setTrialChecks] = useState<EvaluateBody["evaluated"]>();
 
   useEffect(() => {
     if (!sessionKey.startsWith("backend:")) return;
@@ -367,8 +394,9 @@ export function TesterPortal() {
       try {
         const response = await fetchApi("/api/verify");
         const body = (await response.json()) as VerifyBody;
-        const local = trendCalculation("crew-am", latestRecord("crew-am").reading);
-        const trendResponse = await fetchApi("/api/trends?crewId=crew-am");
+        const personId = "crew-ef";
+        const local = trendCalculation(personId, latestRecord(personId).reading);
+        const trendResponse = await fetchApi(`/api/trends?crewId=${personId}`);
         const trendBody = (await trendResponse.json()) as TrendBody;
         const remote = trendBody.trend?.baseline;
         const matched =
@@ -382,7 +410,7 @@ export function TesterPortal() {
           setReport(body);
           setCompare(
             matched
-              ? `Alex Morgan’s 14-day means match. Heart ${local.baseline.heart} bpm.`
+              ? `Ella Nicole Fabro’s 14-day means match. Heart ${local.baseline.heart} bpm.`
               : "The console mean and the API mean do not match.",
           );
           setError("");
@@ -398,6 +426,68 @@ export function TesterPortal() {
       cancelled = true;
     };
   }, [sessionKey]);
+
+  function useStoredReading(nextCrewId: string) {
+    const reading = latestRecord(nextCrewId).reading;
+    setCrewId(nextCrewId);
+    setHeart(String(reading.heart));
+    setSystolic(String(reading.systolic));
+    setDiastolic(String(reading.diastolic));
+    setSleep(String(reading.sleep));
+    setFatigue(String(reading.fatigue));
+  }
+
+  async function runTrial() {
+    const reading: Reading = {
+      heart: Number(heart),
+      systolic: Number(systolic),
+      diastolic: Number(diastolic),
+      sleep: Number(sleep),
+      fatigue: Number(fatigue),
+      mood: "",
+      notes: "",
+    };
+    if (Object.values(reading).some((value) => typeof value === "number" && !Number.isFinite(value))) {
+      setTrial("Enter a number in every field.");
+      setTrialChecks(undefined);
+      return;
+    }
+    const index = crew.findIndex((person) => person.id === crewId);
+    const localFlags = observationFlags(reading, personalBaseline(crewId));
+    const localStatus = crewStatus(index, reading);
+    try {
+      const params = new URLSearchParams({
+        crewId,
+        heart: String(reading.heart),
+        systolic: String(reading.systolic),
+        diastolic: String(reading.diastolic),
+        sleep: String(reading.sleep),
+        fatigue: String(reading.fatigue),
+      });
+      const response = await fetchApi(`/api/evaluate?${params.toString()}`);
+      const body = (await response.json()) as EvaluateBody;
+      const remote = body.evaluated;
+      if (!remote) {
+        setTrial(body.message || "The API could not judge these numbers.");
+        setTrialChecks(undefined);
+        return;
+      }
+      const same =
+        remote.status === localStatus &&
+        remote.checks.filter((item) => item.id !== "review").every((item) => item.fired === localFlags[item.id as keyof typeof localFlags]);
+      setTrialChecks(remote);
+      setTrial(
+        same
+          ? `${remote.name}: ${remote.label}. The console if statements and the API agree. Nothing was saved.`
+          : `${remote.name}: the console says ${statusWord[localStatus]} and the API says ${remote.label}.`,
+      );
+    } catch {
+      setTrialChecks(undefined);
+      setTrial(
+        `The API is not reachable. On this page the console would say ${statusWord[localStatus]}. Start pnpm dev:api and try again.`,
+      );
+    }
+  }
 
   if (!session || session.kind !== "backend") return <Navigate to="/b-login" replace />;
 
@@ -420,9 +510,55 @@ export function TesterPortal() {
         </div>
       </div>
       <p className="portal-lead">
-        This page asks the Worker to recheck the synthetic fixtures: counts, links, monitor bounds,
-        and the 14-day mean. It does not write a record and it does not judge clinical accuracy.
+        This page asks the Worker to recheck the synthetic fixtures, then runs the same heart, blood
+        pressure, sleep, and tired if statements on numbers you type. Nothing is saved.
       </p>
+      <section className="portal-card">
+        <span className="portal-kicker">TRY A READING</span>
+        <label>
+          Person
+          <select value={crewId} onChange={(event) => useStoredReading(event.target.value)}>
+            {crew.map((person) => (
+              <option key={person.id} value={person.id}>
+                {person.name}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label>
+          Heart rate
+          <input value={heart} onChange={(event) => setHeart(event.target.value)} inputMode="decimal" />
+        </label>
+        <label>
+          Systolic
+          <input value={systolic} onChange={(event) => setSystolic(event.target.value)} inputMode="decimal" />
+        </label>
+        <label>
+          Diastolic
+          <input value={diastolic} onChange={(event) => setDiastolic(event.target.value)} inputMode="decimal" />
+        </label>
+        <label>
+          Sleep hours
+          <input value={sleep} onChange={(event) => setSleep(event.target.value)} inputMode="decimal" />
+        </label>
+        <label>
+          How tired, 1 to 5
+          <input value={fatigue} onChange={(event) => setFatigue(event.target.value)} inputMode="decimal" />
+        </label>
+        <button className="primary-button" type="button" onClick={() => void runTrial()}>
+          Check these numbers
+        </button>
+        {trial && <p>{trial}</p>}
+        {trialChecks?.checks.map((item) => (
+          <div className="portal-check" key={item.id}>
+            <b className={item.fired ? "fail" : "pass"}>{item.fired ? "Marked" : "Not marked"}</b>
+            <div>
+              <strong>{item.id}</strong>
+              <p>{item.text}</p>
+            </div>
+          </div>
+        ))}
+      </section>
       {error && (
         <p className="access-error" role="alert">
           {error}

@@ -8,11 +8,56 @@
     {
       "id": "measure",
       "question": "How do I record a measurement?",
-      "keywords": ["measure", "record", "pressure", "heart rate", "sensor", "device"],
-      "answer": "Start by checking the fictional crew profile, source, and units. The measurement walkthrough explains this demo's data-entry process. For actual equipment use, follow the device instructions and mission-approved procedure; this app does not provide sensor-placement training.",
+      "keywords": ["measure", "record", "sensor", "device", "how do i"],
+      "answer": "Start by checking the crew member, the source, and the units. How to record walks through writing a number down. This page does not teach you how to place a sensor.",
       "sourceIds": ["project", "body"],
       "action": "measure",
-      "actionLabel": "Open measurement walkthroughs"
+      "actionLabel": "Open how to record"
+    },
+    {
+      "id": "pressure-today",
+      "question": "Why is blood pressure different?",
+      "keywords": ["blood pressure", "pressure", "mmhg", "systolic", "diastolic"],
+      "answer": "For {{name}}, blood pressure on this page is {{systolic}}/{{diastolic}} mmHg. The average of the previous {{window}} days is {{systolicBaseline}}/{{diastolicBaseline}} mmHg. It is marked when either number differs by more than 10 mmHg. Usual, Different, and Flagged are labels in this console, not a medical status.",
+      "sourceIds": ["project"],
+      "action": "evidence",
+      "actionLabel": "See where the numbers come from"
+    },
+    {
+      "id": "heart-today",
+      "question": "Why is heart rate different?",
+      "keywords": ["heart rate", "heart", "pulse", "bpm"],
+      "answer": "For {{name}}, heart rate on this page is {{heart}} bpm. The average of the previous {{window}} days is {{heartBaseline}} bpm. It is marked when the difference is more than 10 bpm. This is not a diagnosis.",
+      "sourceIds": ["project"],
+      "action": "evidence",
+      "actionLabel": "See where the numbers come from"
+    },
+    {
+      "id": "sugar",
+      "question": "What is my blood sugar?",
+      "keywords": ["blood sugar", "glucose", "sugar"],
+      "answer": "For {{name}}, blood sugar on this page is {{glucose}} mg/dL. It comes from the stored day, or from the check-in if you saved one this visit. Blood sugar is not part of the Usual, Different, or Flagged label.",
+      "sourceIds": ["project"],
+      "action": "measure",
+      "actionLabel": "Open how to record"
+    },
+    {
+      "id": "tired",
+      "question": "Why do I feel tired?",
+      "keywords": ["tired", "fatigue", "sleepy", "how tired"],
+      "answer": "For {{name}}, how tired is {{fatigue}} out of 5. The average of the previous {{window}} days is {{fatigueBaseline}}. It is marked when today is more than 1.5 higher than that average. This is what was written down. It is not a medical grade.",
+      "sourceIds": ["project"],
+      "action": "measure",
+      "actionLabel": "Open how to record"
+    },
+    {
+      "id": "temperature",
+      "question": "What is my temperature?",
+      "keywords": ["temperature", "fever", "warm"],
+      "answer": "For {{name}}, temperature on this page is {{temperature}}°C. Blood oxygen is {{spo2}}%, and breathing is {{respiration}} breaths a minute. These follow the check-in when you save one. They are not part of the Usual, Different, or Flagged label, and this page does not diagnose a fever.",
+      "sourceIds": ["project"],
+      "action": "measure",
+      "actionLabel": "Open how to record"
     },
     {
       "id": "baseline",
@@ -26,11 +71,11 @@
     {
       "id": "exercise",
       "question": "What does perceived effort mean?",
-      "keywords": ["exercise", "effort", "fitness", "recovery", "fatigue", "workout"],
+      "keywords": ["exercise", "effort", "fitness", "recovery", "workout"],
       "answer": "The exercise log uses a simple subjective demo scale: 1 means very light effort and 10 means extremely hard. Its mean summarizes entries; it does not establish safe exercise intensity or diagnose recovery. Review workload alongside sleep, fatigue, and the actual mission-approved exercise plan.",
       "sourceIds": ["project", "body"],
       "action": "exercise",
-      "actionLabel": "Open Exercise & Recovery"
+      "actionLabel": "Open exercise"
     },
     {
       "id": "routine",
@@ -79,5 +124,5 @@
     }
   ],
   "safetyResponse": "This educational demo cannot assess urgent symptoms, diagnose a condition, or recommend medications or doses. In actual operations, do not rely on this prototype: follow the established mission emergency procedures and contact trained crew or mission medical support through the available channels.",
-  "fallbackResponse": "I only have the fixed educational topics listed here. I cannot provide clinical interpretation, treatment advice, or information beyond this demo library. Choose a topic or open the Health Toolkit to inspect the sources and limitations."
+  "fallbackResponse": "I only have the written topics listed here. I can explain this person's heart rate, blood pressure, sleep, how tired, blood sugar, and temperature. I cannot diagnose or recommend a treatment. Choose a topic, or open How to record."
 }

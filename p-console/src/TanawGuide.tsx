@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { rules, type Reading } from "./data";
+import { rules, type BodySample, type Reading } from "./data";
 import {
   fillGuideTemplate,
   guideQuestions,
@@ -27,6 +27,7 @@ export default function TanawGuide({
   name,
   reading,
   baseline,
+  sample,
   context,
   onClose,
   onAction,
@@ -34,6 +35,7 @@ export default function TanawGuide({
   name: string;
   reading: Reading;
   baseline: Reading;
+  sample: BodySample;
   context: string;
   onClose: () => void;
   onAction: (action: ToolkitTab | "exercise") => void;
@@ -74,6 +76,7 @@ export default function TanawGuide({
       name,
       reading,
       baseline,
+      sample,
       context,
       rules.baselineWindowDays,
     );

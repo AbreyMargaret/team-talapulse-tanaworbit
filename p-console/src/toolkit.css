@@ -1300,7 +1300,7 @@ body .app-shell.touch-mode main {
   position: fixed;
   inset: 0;
   z-index: 120;
-  background: rgba(3, 10, 20, 0.6);
+  background: color-mix(in srgb, var(--bg) 55%, transparent);
   backdrop-filter: none;
 }
 .tanaw-guide-panel {
@@ -1310,10 +1310,11 @@ body .app-shell.touch-mode main {
   width: 440px;
   max-width: calc(100vw - 30px);
   height: min(780px, calc(100dvh - 48px));
-  border: 1px solid #426681;
+  border: 1px solid var(--border);
   border-radius: 14px;
-  background: #0f1e30;
-  box-shadow: 0 15px 100px #000a;
+  background: var(--panel);
+  color: var(--text);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.28);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -1323,30 +1324,30 @@ body .app-shell.touch-mode main {
   display: flex;
   align-items: center;
   gap: 11px;
-  background: #172d43;
-  border-bottom: 1px solid #2f4e6a;
+  background: var(--panel-elevated);
+  border-bottom: 1px solid var(--border);
 }
 .tanaw-guide-header > img {
   width: 34px;
   height: 34px;
 }
 .tanaw-guide-header h2 {
-  color: #d7ebf9;
+  color: var(--text);
   font-size: 18px;
   font-weight: 550;
   letter-spacing: -0.4px;
 }
 .tanaw-guide-header > div > span {
   font-family: var(--font-mono);
-  font-size: 7px;
-  color: #6da1c3;
-  letter-spacing: 1px;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
   display: block;
   margin-top: 5px;
 }
 .tanaw-guide-header button {
   min-height: 44px;
-  color: #97b7d4;
+  color: var(--text);
   padding: 7px;
   border-radius: 5px;
 }
@@ -1360,16 +1361,16 @@ body .app-shell.touch-mode main {
   place-items: center;
 }
 .tanaw-guide-header button:hover {
-  background: #2b4862;
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
 }
 .guide-context {
   display: flex;
   align-items: center;
   gap: 7px;
   padding: 11px 19px;
-  color: #6f94b5;
-  font-size: 9px;
-  background: #13273b;
+  color: var(--muted);
+  font-size: 12px;
+  background: var(--bg);
 }
 .guide-context .status-dot {
   background: #75b8d6;
@@ -1390,36 +1391,36 @@ body .app-shell.touch-mode main {
   font-size: 12px;
 }
 .guide-message.guide {
-  background: #172c42;
-  border: 1px solid #2c465f;
+  background: var(--panel-elevated);
+  border: 1px solid var(--border);
   margin-right: 15px;
 }
 .guide-message.user {
-  background: #284b69;
-  border: 1px solid #3a6488;
+  background: color-mix(in srgb, var(--accent) 22%, var(--panel));
+  border: 1px solid var(--border);
   margin-left: 35px;
 }
 .guide-message-author {
   display: block;
   font-family: var(--font-mono);
-  color: #618eb2;
-  font-size: 6px;
-  letter-spacing: 0.8px;
-  line-height: 1.9;
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  line-height: 1.6;
 }
 .guide-message.user .guide-message-author {
   color: #84b5d8;
 }
 .guide-message > p {
-  color: #a7bfd9;
-  font-size: 12px;
-  line-height: 1.95;
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.55;
   margin-top: 8px;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
 .guide-message.user > p {
-  color: #d0e8fa;
+  color: var(--text);
 }
 .guide-message-sources {
   display: flex;
@@ -1448,28 +1449,28 @@ body .app-shell.touch-mode main {
   width: 100%;
   min-height: 46px;
   padding: 10px 12px;
-  background: #244967;
-  border: 1px solid #3d6687;
+  background: color-mix(in srgb, var(--accent) 16%, var(--panel));
+  border: 1px solid var(--border);
   border-radius: 6px;
-  color: #a4d2f0;
-  font-size: 10px;
+  color: var(--text);
+  font-size: 13px;
   margin-top: 13px;
   gap: 12px;
   text-align: left;
 }
 .guide-action-link:hover {
-  background: #315e80;
+  background: color-mix(in srgb, var(--accent) 28%, var(--panel));
 }
 .guide-quick-questions {
   padding: 14px 18px 11px;
-  border-top: 1px solid #2a435c;
-  background: #122339;
+  border-top: 1px solid var(--border);
+  background: var(--bg);
 }
 .guide-quick-questions > span {
   font-family: var(--font-mono);
-  font-size: 6px;
-  color: #577fa4;
-  letter-spacing: 1px;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.04em;
 }
 .guide-quick-questions > div {
   display: flex;
@@ -1481,39 +1482,39 @@ body .app-shell.touch-mode main {
 }
 .guide-quick-questions button {
   min-height: 38px;
-  border: 1px solid #335270;
+  border: 1px solid var(--border);
   border-radius: 6px;
-  color: #8cafce;
-  background: #1a324a;
-  font-size: 9px;
+  color: var(--text);
+  background: var(--panel);
+  font-size: 13px;
   padding: 8px 10px;
   text-align: left;
-  line-height: 1.8;
+  line-height: 1.4;
 }
 .guide-quick-questions button:hover {
-  background: #2b4a67;
-  color: #c5e1f7;
+  background: color-mix(in srgb, var(--accent) 16%, var(--panel));
+  color: var(--text);
 }
 .guide-query-form {
   display: flex;
   gap: 8px;
   padding: 12px 17px 9px;
-  background: #112135;
-  border-top: 1px solid #2a435c;
+  background: var(--bg);
+  border-top: 1px solid var(--border);
 }
 .guide-query-form > input {
   flex: 1;
   min-width: 0;
   min-height: 47px;
   padding: 12px;
-  font-size: 11px;
-  background: #091727;
-  border: 1px solid #3a5775;
+  font-size: 14px;
+  background: var(--panel);
+  border: 1px solid var(--border);
   border-radius: 7px;
-  color: #bbd5ee;
+  color: var(--text);
 }
 .guide-query-form > input::placeholder {
-  color: #4e7094;
+  color: var(--muted);
 }
 .guide-query-form > button {
   width: 48px;
@@ -1521,33 +1522,33 @@ body .app-shell.touch-mode main {
   flex-shrink: 0;
   display: grid;
   place-items: center;
-  background: #3676a3;
-  color: #d1f0ff;
-  border: 1px solid #5e9cc7;
+  background: var(--accent);
+  color: var(--on-accent);
+  border: 1px solid var(--accent);
   border-radius: 7px;
 }
 .guide-query-form > button:disabled {
   opacity: 0.35;
 }
 .guide-disclaimer {
-  background: #112135;
-  padding: 1px 20px 13px;
+  background: var(--bg);
+  padding: 8px 20px 14px;
   text-align: center;
-  font-size: 8px;
-  line-height: 1.8;
-  color: #587b9d;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--muted);
 }
 .tanaw-guide-loading {
   position: absolute;
   right: 24px;
   bottom: 24px;
   padding: 28px;
-  background: #152c42;
-  border: 1px solid #466d8b;
+  background: var(--panel);
+  border: 1px solid var(--border);
   border-radius: 12px;
   max-width: calc(100% - 30px);
-  color: #adcae4;
-  font-size: 13px;
+  color: var(--text);
+  font-size: 14px;
 }
 .tanaw-guide-loading button {
   margin-top: 20px;
@@ -2412,33 +2413,163 @@ body .app-shell.touch-mode main {
   color: #1e293b !important;
 }
 
-[data-theme="light"] .tanaw-guide-launcher {
-  background: #0284c7 !important;
-  color: #ffffff !important;
-  border-color: #0369a1 !important;
-  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35) !important;
-}
-
-[data-theme="light"] .tanaw-guide-launcher small {
-  color: #e0f2fe !important;
-}
-
-[data-theme="light"] .tanaw-guide-panel {
+/* --- Hero Banner & Educational Guidance --- */
+[data-theme="light"] .toolkit-intro {
   background: #ffffff !important;
   border-color: #e2e8f0 !important;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+}
+
+[data-theme="light"] .toolkit-intro h2 {
   color: #0f172a !important;
 }
 
-[data-theme="light"] .tanaw-guide-header {
-  background: #f8fafc !important;
-  border-bottom-color: #e2e8f0 !important;
+[data-theme="light"] .toolkit-intro p {
+  color: #475569 !important;
 }
 
-[data-theme="light"] .tanaw-guide-header h2 {
+[data-theme="light"] .toolkit-intro .eyebrow {
+  color: #0284c7 !important;
+}
+
+[data-theme="light"] .toolkit-intro-meta {
+  border-left-color: #e2e8f0 !important;
+}
+
+[data-theme="light"] .toolkit-intro-meta > span {
+  color: #0284c7 !important;
+}
+
+[data-theme="light"] .toolkit-intro-meta strong {
   color: #0f172a !important;
 }
 
-[data-theme="light"] .tanaw-guide-header > div > span {
+[data-theme="light"] .toolkit-intro-meta > small {
   color: #64748b !important;
+}
+
+/* --- Walkthrough & Measurement Step Contrast --- */
+[data-theme="light"] .measurement-step h3 {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .measurement-step p {
+  color: #334155 !important;
+}
+
+[data-theme="light"] .measurement-step > span {
+  color: #0284c7 !important;
+}
+
+[data-theme="light"] .measurement-step-controls {
+  border-top-color: #e2e8f0 !important;
+}
+
+[data-theme="light"] .measurement-step-controls > button {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .measurement-step-controls > button:hover:not(:disabled) {
+  background: #f8fafc !important;
+  border-color: #94a3b8 !important;
+}
+
+/* --- Measurement Example Box --- */
+[data-theme="light"] .measurement-example {
+  background: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+}
+
+[data-theme="light"] .measurement-example strong {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .measurement-example > div > span,
+[data-theme="light"] .measurement-example > div > small {
+  color: #64748b !important;
+}
+
+[data-theme="light"] .measurement-example p {
+  color: #334155 !important;
+}
+
+/* --- Left Sidebar Measurement Picker --- */
+[data-theme="light"] .measurement-picker > button {
+  background: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  color: #1e293b !important;
+}
+
+[data-theme="light"] .measurement-picker > button:hover {
+  background: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+}
+
+[data-theme="light"] .measurement-picker > button.selected {
+  background: #f0f9ff !important;
+  border-color: #0284c7 !important;
+  color: #0369a1 !important;
+}
+
+[data-theme="light"] .measurement-picker > button > span:first-child {
+  color: inherit !important;
+}
+
+[data-theme="light"] .measurement-picker > button small {
+  color: #64748b !important;
+}
+
+[data-theme="light"] .measurement-picker > button.selected small {
+  color: #0284c7 !important;
+}
+
+/* --- Step Progress Indicators --- */
+[data-theme="light"] .measurement-progress li:not(:last-child)::after {
+  background: #cbd5e1 !important;
+}
+
+[data-theme="light"] .measurement-progress button {
+  background: #e2e8f0 !important;
+  color: #64748b !important;
+  border-color: transparent !important;
+}
+
+[data-theme="light"] .measurement-progress .current button {
+  background: #0284c7 !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.2) !important;
+}
+
+[data-theme="light"] .measurement-progress .complete button {
+  background: #10b981 !important;
+  color: #ffffff !important;
+}
+
+/* --- Limitation Warning Box --- */
+[data-theme="light"] .measurement-limits {
+  background: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+}
+
+[data-theme="light"] .measurement-limits > span {
+  color: #64748b !important;
+}
+
+[data-theme="light"] .measurement-limits p {
+  color: #475569 !important;
+}
+
+/* --- Alert Next Step Button --- */
+[data-theme="light"] .alert-next-step {
+  background: #f0f9ff !important;
+  border-color: #bae6fd !important;
+  color: #0284c7 !important;
+}
+
+[data-theme="light"] .alert-next-step:hover {
+  background: #e0f2fe !important;
+  border-color: #7dd3fc !important;
+  color: #0369a1 !important;
 }

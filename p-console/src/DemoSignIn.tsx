@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { crew, mission } from "./data";
+import { crew, mission, orbitalConditions } from "./data";
 import {
   ShieldCheck,
   KeyRound,
@@ -27,8 +27,7 @@ export default function DemoSignIn({
   const [checking, setChecking] = useState(false);
   const [utcTime, setUtcTime] = useState("");
   const [orbitProgress, setOrbitProgress] = useState(0.42);
-  const [liveAlt, setLiveAlt] = useState(408.2);
-  const [liveVel, setLiveVel] = useState(7.662);
+  const storedOrbit = orbitalConditions[orbitalConditions.length - 1];
   const inputRef = useRef<HTMLInputElement>(null);
   const person = crew[selected] || crew[0];
 
@@ -42,14 +41,7 @@ export default function DemoSignIn({
       last = now;
       setOrbitProgress((prev) => {
         // Continuous orbital revolution sweep across horizon (~32s period)
-        const next = (prev + delta * 0.031) % 1;
-        // Fine microgravity orbital altitude micro-fluctuation (407.7 - 408.4 km)
-        const alt = 408.0 + Math.sin(next * Math.PI * 2) * 0.35;
-        // Orbital velocity variation (7.658 - 7.665 km/s)
-        const vel = 7.660 + Math.cos(next * Math.PI * 2) * 0.004;
-        setLiveAlt(Number(alt.toFixed(1)));
-        setLiveVel(Number(vel.toFixed(3)));
-        return next;
+        return (prev + delta * 0.031) % 1;
       });
       animId = requestAnimationFrame(loop);
     }
@@ -163,7 +155,7 @@ export default function DemoSignIn({
         <div className="access-story-copy">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/70 border border-cyan-500/40 text-cyan-300 text-xs font-mono mb-4">
             <Radio size={13} className="text-cyan-400 animate-pulse" />
-            <span>DEEP-SPACE HEALTH OPERATIONS</span>
+            <span>PRACTICE CREW</span>
           </div>
 
           <h1 className="text-3xl lg:text-4xl xl:text-5xl font-semibold tracking-tight text-white leading-[1.15]">
@@ -173,8 +165,8 @@ export default function DemoSignIn({
           </h1>
 
           <p className="text-slate-300 text-xs lg:text-sm leading-relaxed mt-3 max-w-[440px]">
-            Autonomous physiological telemetry, cabin environment life-support correlation,
-            and individualized clinical countermeasures for long-duration human spaceflight.
+            A practice page for one crew member's stored health numbers. It compares today
+            with the previous 14 days. It does not read a live sensor.
           </p>
 
           <div className="access-mission mt-5 p-3.5 rounded-xl bg-slate-900/90 border border-slate-700/80 shadow-md">
@@ -189,19 +181,16 @@ export default function DemoSignIn({
             </div>
             <div className="grid grid-cols-3 gap-2 text-center font-mono text-xs">
               <div className="p-1.5 rounded bg-slate-950/60 border border-slate-800/80">
-                <span className="text-[9px] text-slate-400 block uppercase">Altitude</span>
-                <strong className="text-slate-200 text-xs tabular-nums">{liveAlt.toFixed(1)} km</strong>
+                <span className="text-[9px] text-slate-400 block uppercase">Stored altitude</span>
+                <strong className="text-slate-200 text-xs tabular-nums">{storedOrbit.altitudeKm} km</strong>
               </div>
               <div className="p-1.5 rounded bg-slate-950/60 border border-slate-800/80">
-                <span className="text-[9px] text-slate-400 block uppercase">Velocity</span>
-                <strong className="text-cyan-300 text-xs tabular-nums">{liveVel.toFixed(3)} km/s</strong>
+                <span className="text-[9px] text-slate-400 block uppercase">Stored speed</span>
+                <strong className="text-cyan-300 text-xs tabular-nums">{storedOrbit.velocityKms} km/s</strong>
               </div>
               <div className="p-1.5 rounded bg-slate-950/60 border border-slate-800/80">
-                <span className="text-[9px] text-slate-400 block uppercase">Telemetry</span>
-                <strong className="text-emerald-400 text-xs flex items-center justify-center gap-1">
-                  <span className="size-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  5/5 Active
-                </strong>
+                <span className="text-[9px] text-slate-400 block uppercase">Crew</span>
+                <strong className="text-emerald-400 text-xs">{crew.length} people</strong>
               </div>
             </div>
           </div>
@@ -296,7 +285,7 @@ export default function DemoSignIn({
                     fontFamily="monospace"
                     fontWeight="bold"
                   >
-                    ASTER VII · {liveAlt.toFixed(1)} KM
+                    STORED · {storedOrbit.altitudeKm} KM
                   </text>
                   <text
                     x="18"
@@ -305,7 +294,7 @@ export default function DemoSignIn({
                     fontSize="8"
                     fontFamily="monospace"
                   >
-                    {liveVel.toFixed(3)} KM/S · 51.6° INC
+                    {storedOrbit.velocityKms} KM/S · STORED SAMPLE
                   </text>
                 </g>
               </svg>
@@ -321,7 +310,7 @@ export default function DemoSignIn({
             </span>
             <div className="flex items-center gap-2 text-xs font-mono text-emerald-400">
               <span className="size-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>ORBITAL TELEMETRY: ACTIVE (4 Hz)</span>
+              <span>STORED ORBIT SAMPLE · NOT A LIVE FEED</span>
             </div>
           </div>
         </div>
@@ -333,7 +322,7 @@ export default function DemoSignIn({
           <div className="flex items-center gap-2">
             <span className="size-2 rounded-full bg-emerald-400 animate-pulse" />
             <span className="text-[11px] font-mono tracking-wider text-slate-300 font-medium">
-              FLIGHT CREW GATEWAY · OPERATIONAL
+              PRACTICE CREW DOOR
             </span>
           </div>
           <div className="flex items-center gap-2 font-mono text-xs text-cyan-400">

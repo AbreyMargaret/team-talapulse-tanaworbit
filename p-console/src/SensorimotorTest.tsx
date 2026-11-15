@@ -118,10 +118,10 @@ export default function SensorimotorTest({
 
   return (
     <div className="sensorimotor-panel-container">
-      <div className="flex items-center justify-between border-b border-slate-800 pb-3 mb-4">
+      <div className="flex items-center justify-between border-b border-[var(--border)] pb-3 mb-4">
         <div>
           <span className="eyebrow">Practice in this browser</span>
-          <h2 className="text-lg font-bold">Tapping and reaction</h2>
+          <h2 className="text-lg font-bold text-[var(--text)]">Tapping and reaction</h2>
           <p className="text-xs text-[var(--muted)]">
             A short tapping grid and a reaction-time test. This is not the NASA fine-motor battery.
           </p>
@@ -146,20 +146,20 @@ export default function SensorimotorTest({
 
       {activeTab === "tapping" ? (
         <div className="test-content">
-          <div className="test-instructions mb-3 flex items-center justify-between text-xs text-slate-300">
+          <div className="test-instructions mb-3 flex items-center justify-between text-xs text-[var(--muted)]">
             <span>
               Tap the highlighted square as it appears. This practice uses {TOTAL_TARGETS} squares.
             </span>
             {tapStage === "running" && (
-              <span className="font-mono text-cyan-400 font-bold">
+              <span className="font-mono text-cyan-500 font-bold">
                 Progress: {tapCount} / {TOTAL_TARGETS} targets
               </span>
             )}
           </div>
 
           {tapStage === "idle" && (
-            <div className="text-center py-10 bg-slate-50 dark:bg-slate-900/60 rounded-xl border border-slate-200 dark:border-slate-800">
-              <p className="text-sm text-slate-700 dark:text-slate-300 mb-4">
+            <div className="text-center py-10 bg-[var(--bg)] rounded-xl border border-[var(--border)]">
+              <p className="text-sm text-[var(--text)] mb-4">
                 Tap each square when it lights up.
               </p>
               <button
@@ -190,10 +190,10 @@ export default function SensorimotorTest({
           {tapStage === "complete" && tapResults && (
             <div className="test-results-card bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-500/40 p-5 rounded-xl text-center">
               <span className="text-xs font-mono text-emerald-600 dark:text-emerald-400 font-semibold">Practice finished</span>
-              <h3 className="text-2xl font-bold text-slate-900 dark:text-white mt-1">
+              <h3 className="text-2xl font-bold text-[var(--text)] mt-1">
                 Accuracy: {tapResults.accuracy}% · Time: {tapResults.timeSec}s
               </h3>
-              <p className="text-xs text-slate-600 dark:text-slate-300 mt-2">
+              <p className="text-xs text-[var(--muted)] mt-2">
                 This score stays in this browser until you refresh. It is not compared with a study table.
               </p>
               <button
@@ -208,7 +208,7 @@ export default function SensorimotorTest({
         </div>
       ) : (
         <div className="test-content">
-          <div className="test-instructions mb-3 text-xs text-slate-300">
+          <div className="test-instructions mb-3 text-xs text-[var(--muted)]">
             <span>
               Click Start, wait until the indicator turns green, then click as fast as you can.
             </span>
@@ -263,9 +263,9 @@ export default function SensorimotorTest({
           </div>
 
           {rxTimes.length > 0 && (
-            <div className="rx-history mt-4 p-3 bg-slate-50 dark:bg-slate-900/60 rounded-xl border border-slate-200 dark:border-slate-800 text-xs">
-              <span className="text-slate-500 dark:text-slate-400 font-mono">Times:</span>
-              <div className="flex gap-4 mt-1 font-mono text-slate-900 dark:text-slate-200">
+            <div className="rx-history mt-4 p-3 bg-[var(--bg)] rounded-xl border border-[var(--border)] text-xs">
+              <span className="text-[var(--muted)] font-mono">Times:</span>
+              <div className="flex gap-4 mt-1 font-mono text-[var(--text)]">
                 {rxTimes.map((t, idx) => (
                   <span key={idx}>
                     Trial {idx + 1}: <strong>{t} ms</strong>

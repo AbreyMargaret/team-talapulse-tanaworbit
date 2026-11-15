@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { cors } from "hono/cors";
-import { accuracyReport, trendFor } from "./accuracy";
+import { accuracyReport, judgeReading, trendFor } from "./accuracy";
 import {
   DISCLAIMER,
   accessRoles,
@@ -147,6 +147,7 @@ app.get("/api", (c) =>
         "/api/orbital",
         "/api/nutrition",
         "/api/trends",
+        "/api/evaluate",
         "/api/verify",
         "/api/access",
         "/api/toolkit",
@@ -203,6 +204,39 @@ app.get("/api/trends", (c) => {
   const trend = trendFor(crewId);
   if (!trend) return c.json(published({ error: "unknown_crew", crewId }), 404);
   return c.json(published({ trend }));
+});
+app.get("/api/evaluate", (c) => {
+  const url = new URL(c.req.url);
+  const crewId = crewIdFrom(url);
+  if (!crewId) {
+    return c.json(
+      published({
+        error: "missing_crew",
+        message: "Choose a crew id, then enter heart, systolic, diastolic, sleep, and fatigue.",
+      }),
+      400,
+    );
+  }
+  const fields = ["heart", "systolic", "diastolic", "sleep", "fatigue"] as const;
+  const reading = { heart: 0, systolic: 0, diastolic: 0, sleep: 0, fatigue: 0 };
+  for (const field of fields) {
+    const raw = url.searchParams.get(field);
+    const value = raw === null ? Number.NaN : Number(raw);
+    if (raw === null || raw.trim() === "" || !Number.isFinite(value)) {
+      return c.json(
+        published({
+          error: "missing_input",
+          field,
+          message: "Enter a number for heart, systolic, diastolic, sleep, and fatigue.",
+        }),
+        400,
+      );
+    }
+    reading[field] = value;
+  }
+  const judged = judgeReading(crewId, reading);
+  if (!judged) return c.json(published({ error: "unknown_crew", crewId }), 404);
+  return c.json(published({ evaluated: judged }));
 });
 app.get("/api/verify", (c) => {
   const report = accuracyReport();

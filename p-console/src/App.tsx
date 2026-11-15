@@ -70,8 +70,10 @@ import {
   crewStatus,
   historyFor,
   initialExercises,
+  bodySampleFor,
   latestRecord,
   mission,
+  type BodySample,
   observationFlags,
   personalBaseline,
   rules,
@@ -806,6 +808,10 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
   const [readings, setReadings] = useState<Reading[]>(() =>
     crew.map((person) => ({ ...latestRecord(person.id).reading })),
   );
+  const [samples, setSamples] = useState<BodySample[]>(() => crew.map((person) => bodySampleFor(person.id)));
+  const [showArrival, setShowArrival] = useState(
+    () => typeof localStorage === "undefined" || localStorage.getItem("tanaworbit_arrived") !== "1",
+  );
   const [exerciseSessions, setExerciseSessions] = useState<ExerciseRecord[]>(() => [
     ...initialExercises,
   ]);
@@ -1058,6 +1064,10 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
     setToast(message);
     window.setTimeout(() => setToast(""), 4500);
   }
+  function dismissArrival() {
+    localStorage.setItem("tanaworbit_arrived", "1");
+    setShowArrival(false);
+  }
   function openModal(next: "about" | "settings" | "export" | "simulation" | "onboarding" | "account") {
     setSidebarOpen(false);
     setNoticesOpen(false);
@@ -1283,7 +1293,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                 {reading.mood} <small>Self-reported</small>
               </strong>
             </div>
-            <Badge status="Stable" />
+            <span className="recorded-note">Not in the label</span>
           </div>
           <div>
             <span className="secondary-icon">
@@ -1295,12 +1305,12 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
               </span>
               <strong>
                 {units === "Celsius"
-                  ? latestRecord(person.id).temperatureC
-                  : ((latestRecord(person.id).temperatureC * 9) / 5 + 32).toFixed(1)}
+                  ? samples[selectedCrew].temperatureC
+                  : ((samples[selectedCrew].temperatureC * 9) / 5 + 32).toFixed(1)}
                 <small>°{units === "Celsius" ? "C" : "F"}</small>
               </strong>
             </div>
-            <Badge status="Stable" />
+            <span className="recorded-note">Not in the label</span>
           </div>
           <div>
             <span className="secondary-icon">
@@ -1311,10 +1321,10 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                 <Term>Blood oxygen</Term>
               </span>
               <strong>
-                {latestRecord(person.id).spo2 ?? 98} <small>% SpO₂</small>
+                {samples[selectedCrew].spo2} <small>% SpO₂</small>
               </strong>
             </div>
-            <Badge status="Stable" />
+            <span className="recorded-note">Not in the label</span>
           </div>
           <div>
             <span className="secondary-icon">
@@ -1325,10 +1335,10 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                 <Term>Blood sugar</Term>
               </span>
               <strong>
-                {latestRecord(person.id).glucoseMgDl ?? 88} <small>mg/dL</small>
+                {samples[selectedCrew].glucoseMgDl} <small>mg/dL</small>
               </strong>
             </div>
-            <Badge status="Stable" />
+            <span className="recorded-note">Not in the label</span>
           </div>
           <div>
             <span className="secondary-icon">
@@ -1339,10 +1349,10 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                 <Term>Breathing</Term>
               </span>
               <strong>
-                {latestRecord(person.id).respiration} <small>breaths/min</small>
+                {samples[selectedCrew].respiration} <small>breaths/min</small>
               </strong>
             </div>
-            <Badge status="Stable" />
+            <span className="recorded-note">Not in the label</span>
           </div>
         </div>
       </>
@@ -1709,9 +1719,9 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
     return (
       <LiveWaveformStream
         heartRate={reading.heart}
-        spo2={latestRecord(person.id).spo2 ?? 98}
-        respiration={latestRecord(person.id).respiration}
-        temperatureC={latestRecord(person.id).temperatureC}
+        spo2={samples[selectedCrew].spo2}
+        respiration={samples[selectedCrew].respiration}
+        temperatureC={samples[selectedCrew].temperatureC}
         liveStream={liveStream}
         full={full}
       />
@@ -2199,13 +2209,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                 <div style={{ margin: "24px 0" }} data-tour="puma-tracker">
                   <PumaTracker />
                 </div>
-                <NextSteps
-                  reading={reading}
-                  baseline={baseline}
-                  completed={routineCount}
-                  total={routineDefinitions.length}
-                  onOpen={openToolkit}
-                />
+                <NextSteps reading={reading} baseline={baseline} onOpen={openToolkit} />
                 <div className="dashboard-middle">
                   <TrendPanel />
                   <RecentChanges />
@@ -2411,9 +2415,11 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                     setDrafts((old) => old.map((r, i) => (i === selectedCrew ? draft : r)))
                   }
                   person={person}
+                  vitals={samples[selectedCrew]}
                   navigate={navigate}
-                  onSave={(draft) => {
+                  onSave={(draft, sample) => {
                     setReadings((old) => old.map((r, i) => (i === selectedCrew ? { ...draft } : r)));
+                    setSamples((old) => old.map((item, i) => (i === selectedCrew ? sample : item)));
                     setCheckedIn((old) => old.map((v, i) => (i === selectedCrew ? true : v)));
                     setDrafts((old) => old.map((r, i) => (i === selectedCrew ? { ...draft } : r)));
                     setReviewed((old) => old.filter((key) => !key.startsWith(`${selectedCrew}-`)));
@@ -2892,6 +2898,28 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
           </div>
         )}
       </div>
+      {showArrival && (
+        <div className="modal-backdrop" role="presentation">
+          <section
+            className="modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="arrival-title"
+          >
+            <h2 id="arrival-title">{person.name}</h2>
+            <p>
+              {mission.name}, day {mission.day} of {mission.durationDays}. Synthetic crew. The numbers
+              are stored samples, plus what you type during this visit.
+            </p>
+            <p>Read today against the previous 14 days.</p>
+            <p>Record a check-in. It stays in this browser until you refresh.</p>
+            <p>Ask the guide when a word is unfamiliar. The answers are written ahead of time.</p>
+            <button className="primary-button" onClick={dismissArrival}>
+              Continue
+            </button>
+          </section>
+        </div>
+      )}
       <button
         className={`tanaw-guide-launcher ${display.touch ? "above-dock" : ""}`}
         aria-label="Open Tanaw Guide"
@@ -2974,6 +3002,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
               name={person.name}
               reading={reading}
               baseline={baseline}
+              sample={samples[selectedCrew]}
               context={context.title}
               onClose={() => setGuideOpen(false)}
               onAction={(action) => {

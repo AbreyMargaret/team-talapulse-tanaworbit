@@ -25,7 +25,7 @@ import {
   FileText,
   CheckCircle2,
 } from "lucide-react";
-import { personalBaseline, mission, crew, type Reading } from "./data";
+import { personalBaseline, mission, crew, type BodySample, type Reading } from "./data";
 import type { Page } from "./App";
 
 export type MeasurementKey = "heart" | "systolic" | "diastolic" | "sleep";
@@ -35,14 +35,16 @@ export default function DailyHealthCheckIn({
   draft,
   onDraftChange,
   person,
+  vitals,
   navigate,
   onSave,
 }: {
   draft: CheckInDraft;
   onDraftChange: (draft: CheckInDraft) => void;
   person: (typeof crew)[number];
+  vitals: BodySample;
   navigate: (page: Page) => void;
-  onSave: (draft: Reading) => void;
+  onSave: (draft: Reading, vitals: BodySample) => void;
 }) {
   const [step, setStep] = useState<1 | 2 | 3>(1);
   const [saved, setSaved] = useState(false);
@@ -54,8 +56,10 @@ export default function DailyHealthCheckIn({
   const [sasRating, setSasRating] = useState<number>(0); // 0=Adapted, 1=Mild, 2=Moderate, 3=Severe
   const [cephaladShift, setCephaladShift] = useState<number>(1); // 0=None, 1=Mild Puffiness, 2=Head Fullness, 3=Severe
   const [sansVisualBlur, setSansVisualBlur] = useState<boolean>(false);
-  const [coreTemp, setCoreTemp] = useState<number>(36.6); // °C
-  const [spo2, setSpo2] = useState<number>(98); // %
+  const [coreTemp, setCoreTemp] = useState<number>(vitals.temperatureC);
+  const [spo2, setSpo2] = useState<number>(vitals.spo2);
+  const [glucose, setGlucose] = useState<number>(vitals.glucoseMgDl);
+  const [respiration, setRespiration] = useState<number>(vitals.respiration);
   const [sleepQuality, setSleepQuality] = useState<"Sound" | "Fragmented" | "Restless">("Sound");
 
   const baseline = useMemo(() => {
@@ -201,14 +205,22 @@ export default function DailyHealthCheckIn({
       ? `${draft.notes}\n[In-Flight Screen: ${symptomsSummary}]`
       : `[In-Flight Screen: ${symptomsSummary}]`;
 
-    onSave({
-      ...draft,
-      heart: hrVal,
-      systolic: sysVal,
-      diastolic: diaVal,
-      sleep: sleepVal,
-      notes: combinedNotes,
-    });
+    onSave(
+      {
+        ...draft,
+        heart: hrVal,
+        systolic: sysVal,
+        diastolic: diaVal,
+        sleep: sleepVal,
+        notes: combinedNotes,
+      },
+      {
+        temperatureC: coreTemp,
+        spo2,
+        glucoseMgDl: glucose,
+        respiration,
+      },
+    );
     setSaved(true);
   }
 
@@ -675,9 +687,44 @@ Your note: ${draft.notes || "None."}`;
                       max={100}
                       value={spo2}
                       onChange={(e) => setSpo2(Number(e.target.value))}
+                      aria-label="Blood oxygen"
                       className="w-full text-lg font-mono font-bold text-slate-900 dark:text-white bg-transparent outline-none"
                     />
                     <span className="text-xs font-mono text-slate-400">%</span>
+                  </div>
+                </div>
+                <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
+                  <div className="text-[10px] font-mono uppercase text-slate-500 dark:text-slate-400 mb-1">
+                    <span>Blood sugar</span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <input
+                      type="number"
+                      min={40}
+                      max={400}
+                      value={glucose}
+                      onChange={(e) => setGlucose(Number(e.target.value))}
+                      aria-label="Blood sugar"
+                      className="w-full text-lg font-mono font-bold text-slate-900 dark:text-white bg-transparent outline-none"
+                    />
+                    <span className="text-xs font-mono text-slate-400">mg/dL</span>
+                  </div>
+                </div>
+                <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
+                  <div className="text-[10px] font-mono uppercase text-slate-500 dark:text-slate-400 mb-1">
+                    <span>Breathing</span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <input
+                      type="number"
+                      min={4}
+                      max={40}
+                      value={respiration}
+                      onChange={(e) => setRespiration(Number(e.target.value))}
+                      aria-label="Breathing"
+                      className="w-full text-lg font-mono font-bold text-slate-900 dark:text-white bg-transparent outline-none"
+                    />
+                    <span className="text-xs font-mono text-slate-400">breaths/min</span>
                   </div>
                 </div>
               </div>

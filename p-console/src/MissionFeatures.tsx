@@ -475,10 +475,6 @@ export function SensorimotorPanel({
         onRecord={onCognition}
       />
       <Panel>
-        <div className="section-label">
-          <h2>Tapping and reaction</h2>
-          <span>A short practice in this browser. This is not the NASA fine-motor battery.</span>
-        </div>
         <SensorimotorTest onRecordResult={onRecordResult} />
       </Panel>
     </>

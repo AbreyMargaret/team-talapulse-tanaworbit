@@ -990,10 +990,40 @@
   background: #ffffff !important;
   border-color: #e2e8f0 !important;
   color: #0f172a !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="light"] .exercise-stat strong {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .exercise-stat > span {
+  color: #64748b !important;
+}
+
+[data-theme="light"] .exercise-stat small {
+  color: #64748b !important;
+}
+
+[data-theme="light"] .exercise-bars > div > span {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .exercise-bars > div > span > small {
+  color: #64748b !important;
+}
+
+[data-theme="light"] .exercise-bars > div > small {
+  color: #64748b !important;
 }
 
 [data-theme="light"] .exercise-bar-track {
   background: #e2e8f0 !important;
+}
+
+[data-theme="light"] .exercise-form-panel label {
+  color: #334155 !important;
+  font-weight: 550;
 }
 
 [data-theme="light"] .exercise-form-panel input,
@@ -1002,6 +1032,39 @@
   background: #ffffff !important;
   border-color: #cbd5e1 !important;
   color: #0f172a !important;
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+
+[data-theme="light"] .exercise-form-panel form > button {
+  background: #0284c7 !important;
+  color: #ffffff !important;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+[data-theme="light"] .exercise-form-panel form > button:hover {
+  background: #0369a1 !important;
+}
+
+[data-theme="light"] .exercise-context p {
+  color: #334155 !important;
+}
+
+[data-theme="light"] .exercise-context b {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .exercise-topic-grid h3 {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .exercise-topic-grid p {
+  color: #475569 !important;
+}
+
+[data-theme="light"] .exercise-topic-grid a {
+  color: #0284c7 !important;
 }
 
 [data-theme="light"] .exercise-review > .exercise-note {

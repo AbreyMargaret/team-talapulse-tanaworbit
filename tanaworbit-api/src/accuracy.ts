@@ -58,26 +58,86 @@ export function latestHealth(crewId: string) {
     .at(-1);
 }
 
+export type JudgeReading = {
+  heart: number;
+  systolic: number;
+  diastolic: number;
+  sleep: number;
+  fatigue: number;
+};
+
+export function judgeReading(crewId: string, reading: JudgeReading) {
+  const person = crew.find((item) => item.id === crewId);
+  const baseline = baselineFor(crewId);
+  if (!person || baseline.sampleCount === 0) return null;
+  const gap = (value: number, from: number) => Math.round((value - from) * 10) / 10;
+  const flags = {
+    heart: Math.abs(reading.heart - baseline.heart) > monitoringRules.heartDifferenceBpm,
+    pressure:
+      Math.abs(reading.systolic - baseline.systolic) > monitoringRules.pressureDifferenceMmHg ||
+      Math.abs(reading.diastolic - baseline.diastolic) > monitoringRules.pressureDifferenceMmHg,
+    sleep: baseline.sleep - reading.sleep > monitoringRules.sleepDecreaseHours,
+    fatigue: reading.fatigue - baseline.fatigue > monitoringRules.fatigueIncreasePoints,
+  };
+  const numberStatus = Object.values(flags).some(Boolean) ? "Observe" : "Stable";
+  const status = person.reviewRequested ? "Attention" : numberStatus;
+  const label = status === "Attention" ? "Flagged" : status === "Observe" ? "Different" : "Usual";
+  return {
+    crewId: person.id,
+    name: person.name,
+    reviewRequested: person.reviewRequested,
+    baseline,
+    reading,
+    flags,
+    numberStatus,
+    status,
+    label,
+    stored: false,
+    checks: [
+      {
+        id: "heart",
+        fired: flags.heart,
+        text: `Heart rate ${reading.heart} is ${gap(reading.heart, baseline.heart)} bpm from the 14-day average ${baseline.heart}. It is marked when the difference is more than ${monitoringRules.heartDifferenceBpm} bpm.`,
+      },
+      {
+        id: "pressure",
+        fired: flags.pressure,
+        text: `Blood pressure ${reading.systolic}/${reading.diastolic} is ${gap(reading.systolic, baseline.systolic)} / ${gap(reading.diastolic, baseline.diastolic)} mmHg from ${baseline.systolic}/${baseline.diastolic}. It is marked when either number differs by more than ${monitoringRules.pressureDifferenceMmHg} mmHg.`,
+      },
+      {
+        id: "sleep",
+        fired: flags.sleep,
+        text: `Sleep ${reading.sleep} hrs is ${gap(reading.sleep, baseline.sleep)} hrs from the 14-day average ${baseline.sleep}. It is marked only when sleep is more than ${monitoringRules.sleepDecreaseHours} hour shorter.`,
+      },
+      {
+        id: "fatigue",
+        fired: flags.fatigue,
+        text: `How tired ${reading.fatigue} is ${gap(reading.fatigue, baseline.fatigue)} from the 14-day average ${baseline.fatigue}. It is marked when it is more than ${monitoringRules.fatigueIncreasePoints} higher.`,
+      },
+      {
+        id: "review",
+        fired: person.reviewRequested,
+        text: person.reviewRequested
+          ? "This person is marked for a second look, so the label is Flagged even when the numbers are close."
+          : "This person is not marked for a second look. The label follows the four number rules.",
+      },
+    ],
+  };
+}
+
 export function trendFor(crewId: string) {
   const latest = latestHealth(crewId);
-  const baseline = baselineFor(crewId);
-  if (!latest || baseline.sampleCount === 0) return null;
-  const reading = latest.reading;
+  if (!latest) return null;
+  const judged = judgeReading(crewId, latest.reading);
+  if (!judged) return null;
   return {
     crewId,
     missionDay: mission.day,
     windowDays: monitoringRules.baselineWindowDays,
-    sampleCount: baseline.sampleCount,
-    baseline,
-    latest: reading,
-    flags: {
-      heart: Math.abs(reading.heart - baseline.heart) > monitoringRules.heartDifferenceBpm,
-      pressure:
-        Math.abs(reading.systolic - baseline.systolic) > monitoringRules.pressureDifferenceMmHg ||
-        Math.abs(reading.diastolic - baseline.diastolic) > monitoringRules.pressureDifferenceMmHg,
-      sleep: baseline.sleep - reading.sleep > monitoringRules.sleepDecreaseHours,
-      fatigue: reading.fatigue - baseline.fatigue > monitoringRules.fatigueIncreasePoints,
-    },
+    sampleCount: judged.baseline.sampleCount,
+    baseline: judged.baseline,
+    latest: latest.reading,
+    flags: judged.flags,
   };
 }
 

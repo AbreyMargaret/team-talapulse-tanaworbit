@@ -1049,11 +1049,16 @@ select option {
   border-bottom: 1px solid var(--border);
 }
 .chart-tabs > button {
-  font-size: 9px;
+  font-size: 13px;
+  font-weight: 550;
   color: var(--muted);
-  padding: 0 1px 11px;
+  padding: 0 4px 12px;
   position: relative;
   white-space: nowrap;
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  transition: color 0.15s ease;
 }
 .chart-tabs > button.selected {
   color: var(--text);

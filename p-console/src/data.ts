@@ -65,6 +65,23 @@ export function historyFor(crewId: string, days = 30): HealthRecord[] {
     .sort((a, b) => a.missionDay - b.missionDay);
 }
 
+export type BodySample = {
+  temperatureC: number;
+  spo2: number;
+  glucoseMgDl: number;
+  respiration: number;
+};
+
+export function bodySampleFor(crewId: string): BodySample {
+  const record = latestRecord(crewId);
+  return {
+    temperatureC: record.temperatureC,
+    spo2: record.spo2 ?? 0,
+    glucoseMgDl: record.glucoseMgDl ?? 0,
+    respiration: record.respiration,
+  };
+}
+
 export function latestRecord(crewId: string): HealthRecord {
   const history = historyFor(crewId);
   const latest = history[history.length - 1];

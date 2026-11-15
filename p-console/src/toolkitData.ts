@@ -1,6 +1,6 @@
 import toolkit from "../../datasets/health-toolkit.json";
 import faq from "../../datasets/assistant-faq.json";
-import { observationFlags, type Reading } from "./data";
+import { observationFlags, type BodySample, type Reading } from "./data";
 
 export type ToolkitTab = "measure" | "routine" | "body" | "context" | "evidence";
 export type MetricId = "heart" | "pressure" | "sleep" | "fatigue" | "mood" | "exercise";
@@ -113,13 +113,27 @@ export function fillGuideTemplate(
   name: string,
   reading: Reading,
   baseline: Reading,
+  sample: BodySample,
   context: string,
   window: number,
 ) {
   const values: Record<string, string> = {
     name,
+    heart: String(reading.heart),
+    heartBaseline: String(baseline.heart),
+    systolic: String(reading.systolic),
+    diastolic: String(reading.diastolic),
+    systolicBaseline: String(baseline.systolic),
+    diastolicBaseline: String(baseline.diastolic),
     sleep: String(reading.sleep),
     sleepBaseline: String(baseline.sleep),
+    fatigue: String(reading.fatigue),
+    fatigueBaseline: String(baseline.fatigue),
+    mood: reading.mood,
+    glucose: String(sample.glucoseMgDl),
+    temperature: String(sample.temperatureC),
+    spo2: String(sample.spo2),
+    respiration: String(sample.respiration),
     context,
     window: String(window),
   };

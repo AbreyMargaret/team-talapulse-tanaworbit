@@ -192,3 +192,55 @@
   color: var(--green);
   font-weight: 600;
 }
+
+/* Tab pill group & segmented control buttons */
+.tab-pill-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: color-mix(in srgb, var(--text) 6%, var(--panel));
+  padding: 4px;
+  border-radius: 9999px;
+  border: 1px solid var(--border);
+}
+
+[data-theme="light"] .tab-pill-group {
+  background: #f1f5f9;
+  border-color: #e2e8f0;
+}
+
+.tab-btn {
+  padding: 6px 16px;
+  border-radius: 9999px;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.tab-btn:hover {
+  color: var(--text);
+}
+
+.tab-btn.active {
+  background: var(--panel);
+  color: var(--text);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+[data-theme="light"] .tab-btn {
+  color: #64748b;
+}
+
+[data-theme="light"] .tab-btn:hover {
+  color: #0f172a;
+}
+
+[data-theme="light"] .tab-btn.active {
+  background: #ffffff;
+  color: #0284c7;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}

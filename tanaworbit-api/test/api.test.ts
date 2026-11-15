@@ -80,6 +80,48 @@ describe("tanaworbit-api", () => {
     expect(body.checks.every((item) => item.ok)).toBe(true);
   });
 
+  it("judges a tester's numbers without storing them", async () => {
+    const usual = await app.request(
+      "/api/evaluate?crewId=crew-ef&heart=71&systolic=120&diastolic=73&sleep=7.2&fatigue=1.8",
+      {},
+      env,
+    );
+    const usualBody = await read<{
+      persistsCheckIns: boolean;
+      evaluated: { label: string; stored: boolean; flags: { heart: boolean } };
+    }>(usual);
+    expect(usual.status).toBe(200);
+    expect(usualBody.persistsCheckIns).toBe(false);
+    expect(usualBody.evaluated.stored).toBe(false);
+    expect(usualBody.evaluated.label).toBe("Usual");
+    expect(usualBody.evaluated.flags.heart).toBe(false);
+
+    const different = await app.request(
+      "/api/evaluate?crewId=crew-ef&heart=90&systolic=120&diastolic=73&sleep=7.2&fatigue=1.8",
+      {},
+      env,
+    );
+    const differentBody = await read<{ evaluated: { label: string; flags: { heart: boolean } } }>(different);
+    expect(differentBody.evaluated.label).toBe("Different");
+    expect(differentBody.evaluated.flags.heart).toBe(true);
+
+    const flagged = await app.request(
+      "/api/evaluate?crewId=crew-gl&heart=65&systolic=120&diastolic=78&sleep=7.3&fatigue=2.1",
+      {},
+      env,
+    );
+    const flaggedBody = await read<{ evaluated: { label: string; numberStatus: string } }>(flagged);
+    expect(flaggedBody.evaluated.numberStatus).toBe("Stable");
+    expect(flaggedBody.evaluated.label).toBe("Flagged");
+  });
+
+  it("asks for the numbers a tester left out", async () => {
+    const response = await app.request("/api/evaluate?crewId=crew-ef&heart=70", {}, env);
+    expect(response.status).toBe(400);
+    const body = await read<ErrorBody>(response);
+    expect(body.error).toBe("missing_input");
+  });
+
   it("publishes a 14-day baseline for one crew member", async () => {
     const response = await app.request("/api/trends?crewId=crew-ef", {}, env);
     const body = await read<{
