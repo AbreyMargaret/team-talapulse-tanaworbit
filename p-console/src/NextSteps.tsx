@@ -33,13 +33,18 @@ export default function NextSteps({
             </strong>
           </div>
         </button>
-        <button className="next-step-card" onClick={() => onOpen("measure")}>
+        <button
+          className="next-step-card"
+          onClick={() =>
+            document.getElementById("visit-practice-title")?.scrollIntoView({ behavior: "smooth", block: "start" })
+          }
+        >
           <span className="next-step-number">2</span>
           <div>
             <h3>The visit list is the one that counts</h3>
             <p>Record today, try one practice, and log exercise. Those three marks are at the top of Today.</p>
             <strong>
-              See how a number is recorded <span aria-hidden="true">→</span>
+              The three steps are at the top of Today <span aria-hidden="true">→</span>
             </strong>
           </div>
         </button>

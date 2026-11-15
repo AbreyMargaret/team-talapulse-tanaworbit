@@ -33,7 +33,7 @@ export default function PumaTracker({ data = DEFAULT_PUMA }: { data?: PumaData }
         <div>
           <h3 className="text-base font-semibold">Breathing gas</h3>
           <p className="text-sm text-[var(--muted)]">
-            Oxygen and carbon dioxide in each breath. Hover a label if you forget what it means.
+            An example of oxygen and carbon dioxide in one breath. These numbers are not this person's stored day, and they are not the cabin air sample.
           </p>
         </div>
       </div>

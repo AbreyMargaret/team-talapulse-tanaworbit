@@ -361,19 +361,19 @@ export const PAGE_TO_HASH: Record<Page, string> = {
 };
 
 export const PAGE_DISPLAY_LABELS: Record<Page, string> = {
-  "Astronaut Dashboard": "Astronaut Flight Deck",
+  "Astronaut Dashboard": "Today",
   "Physiological Monitoring": "Heart and breathing",
   "Cabin Conditions": "Cabin air",
   "Orbital Conditions": "Orbit",
-  "Mission Overview": "Expedition Whole Crew",
+  "Mission Overview": "Crew Overview",
   "Health Trends": "Recent days",
   "Calculation Trend": "Your average",
   "Sensorimotor & Reflex": "Hands and reaction",
-  "Space Nutrition": "Space Nutrition & Hydration",
-  "Exercise & Recovery": "Exercise Countermeasures",
+  "Space Nutrition": "Nutrition & Hydration",
+  "Exercise & Recovery": "Exercise",
   "Biodata": "Body measurements",
   "Monitor Parameters": "Ranges we use",
-  "Health Check-In": "Daily Health Check-In",
+  "Health Check-In": "Daily Check-In",
   "Health Toolkit": "How to record",
   "Health Guidance": "Living notes",
   "Alerts & Attention": "Flags",
@@ -388,7 +388,7 @@ const navGroups: NavGroup[] = [
   {
     pillar: "Today and the crew",
     items: [
-      { page: "Astronaut Dashboard", label: "Flight Deck", icon: "activity" },
+      { page: "Astronaut Dashboard", label: "Today", icon: "activity" },
       { page: "Health Check-In", label: "Daily Check-In", icon: "check" },
       { page: "Alerts & Attention", label: "Flags", icon: "bell" },
       { page: "Mission Overview", label: "Crew Overview", icon: "grid" },
@@ -414,10 +414,10 @@ const navGroups: NavGroup[] = [
   {
     pillar: "Notes and routines",
     items: [
-      { page: "Health Guidance", label: "Living notes", icon: "book" },
-      { page: "Health Toolkit", label: "How to record", icon: "help" },
-      { page: "Exercise & Recovery", label: "Exercise Countermeasures", icon: "activity" },
+      { page: "Exercise & Recovery", label: "Exercise", icon: "activity" },
       { page: "Space Nutrition", label: "Nutrition & Hydration", icon: "battery" },
+      { page: "Health Toolkit", label: "How to record", icon: "help" },
+      { page: "Health Guidance", label: "Living notes", icon: "book" },
       { page: "Monitor Parameters", label: "Ranges we use", icon: "pulse" },
     ],
   },
@@ -427,6 +427,10 @@ const nav: { page: Page; label: string; icon: IconName }[] = navGroups.flatMap((
 
 function pageTitle(page: Page): string {
   return PAGE_DISPLAY_LABELS[page] || page;
+}
+
+function menuLabel(target: Page): string {
+  return nav.find((item) => item.page === target)?.label || pageTitle(target);
 }
 
 function VisitPractice({
@@ -509,7 +513,7 @@ function pageLede(page: Page): string {
     case "Mission Overview":
       return "The same daily readings for each person on this mission.";
     case "Health Trends":
-      return "Averages from the last seven stored days, then heart rate, blood pressure, sleep, and fatigue across recent mission days.";
+      return "Averages from the last seven stored days, then heart rate, blood pressure, sleep, and how tired you felt across recent mission days.";
     case "Calculation Trend":
       return "How today compares with the average of the previous 14 days.";
     case "Sensorimotor & Reflex":
@@ -546,19 +550,11 @@ const tourSteps: TourStep<Page>[] = [
   },
   {
     page: "Astronaut Dashboard",
-    selector: "[data-tour='somatic-avatar']",
-    tag: "BODY NOTES",
-    title: "Body notes",
+    selector: "[data-tour='today-compare']",
+    tag: "COMPARE",
+    title: "Compared with the recent days",
     description:
-      "Pick a region to read a stored note. These notes are not a medical check.",
-  },
-  {
-    page: "Astronaut Dashboard",
-    selector: "[data-tour='puma-tracker']",
-    tag: "EXERCISE",
-    title: "Exercise on this visit",
-    description:
-      "A stored exercise note for this person. It is not a live tracker and not a health score.",
+      "The chart and the list under the numbers show the same comparison. Usual means close. Different means past the mark on this page.",
   },
   {
     page: "Health Check-In",
@@ -1421,9 +1417,16 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
           }
         />
         <div className="chart-tabs">
-          {["Heart rate", "Blood pressure", "Sleep", "Fatigue"].map((m) => (
-            <button key={m} className={metric === m ? "selected" : ""} onClick={() => setMetric(m)}>
-              {m}
+          {(
+            [
+              ["Heart rate", "Heart rate"],
+              ["Blood pressure", "Blood pressure"],
+              ["Sleep", "Sleep"],
+              ["Fatigue", "How tired"],
+            ] as const
+          ).map(([id, label]) => (
+            <button key={id} className={metric === id ? "selected" : ""} onClick={() => setMetric(id)}>
+              {label}
             </button>
           ))}
         </div>
@@ -1673,7 +1676,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
             </span>
             <div>
               <div className="change-title">
-                <Term>Fatigue</Term>{" "}
+                <Term>How tired</Term>{" "}
                 <span className={fatigueObserve ? "amber-text" : "green-text"}>
                   {fatigueObserve ? "↑" : "↔"}{" "}
                   {Math.abs(reading.fatigue - baseline.fatigue).toFixed(1)} pts
@@ -1814,6 +1817,70 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
     if (window.innerWidth <= 760) setSidebarOpen(false);
   }
 
+  function pointAtMenu(target: Page) {
+    if (window.innerWidth <= 760) setSidebarOpen(true);
+    window.setTimeout(() => {
+      document
+        .querySelector<HTMLElement>(`[data-tour-page="${target}"]`)
+        ?.scrollIntoView({ block: "center" });
+    }, 60);
+  }
+
+  const practiceDone = (cognitionLog[person.id] ?? []).length > 0;
+  const exerciseDone = routineComplete.exercise;
+  const recordDone = checkedIn[selectedCrew];
+  const cue = !recordDone
+    ? page === "Health Check-In"
+      ? {
+          kicker: "Step 1 of 3",
+          title: "You are recording today",
+          detail: "Use Next on the form, then press Save this check-in.",
+        }
+      : {
+          kicker: "Step 1 of 3",
+          title: "Next: record today",
+          detail: "Write down today's numbers. They stay in this browser until you refresh.",
+          action: "Record today",
+          go: () => navigate("Health Check-In"),
+        }
+    : !practiceDone
+      ? page === "Sensorimotor & Reflex"
+        ? {
+            kicker: "Step 2 of 3",
+            title: "You are on the practice",
+            detail: "Finish any one practice. That marks this step.",
+          }
+        : {
+            kicker: "Step 2 of 3",
+            title: "Next: try one practice",
+            detail: "Today is recorded. Open the short practices.",
+            action: "Try one practice",
+            go: () => navigate("Sensorimotor & Reflex"),
+          }
+      : !exerciseDone
+        ? page === "Exercise & Recovery"
+          ? {
+              kicker: "Step 3 of 3",
+              title: "You are logging exercise",
+              detail: "Press Review session, then Confirm session.",
+            }
+          : {
+              kicker: "Step 3 of 3",
+              title: "Next: log exercise",
+              detail: "The practice is done. Write down the minutes.",
+              action: "Log exercise",
+              go: () => navigate("Exercise & Recovery"),
+            }
+        : {
+            kicker: "Visit complete",
+            title: "The three steps are done",
+            detail: "The guide explains a word when you are unsure. The answers are written ahead of time.",
+            action: "Open the guide",
+            go: () => setGuideOpen(true),
+          };
+  const tourBlocked =
+    tourOn && tourHere && tourNext && tourNext.page !== tourHere.page ? menuLabel(tourNext.page) : null;
+
   return (
     <>
       <div
@@ -1867,7 +1934,21 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                             : "nav-item"
                       }
                       aria-current={page === target ? "page" : undefined}
-                      onClick={() => navigate(target)}
+                      onClick={() => {
+                        const here = tourSteps[tourIndex];
+                        const following = tourSteps[tourIndex + 1];
+                        if (
+                          modal === "onboarding" &&
+                          here &&
+                          following &&
+                          page === here.page &&
+                          target === following.page &&
+                          following.page !== here.page
+                        ) {
+                          setTourIndex(tourIndex + 1);
+                        }
+                        navigate(target);
+                      }}
                     >
                       <Icon name={icon} size={17} />
                       <span>{label || target}</span>
@@ -2003,7 +2084,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                   onClick={() => setLiveStream((v) => !v)}
                 >
                   <Radio size={14} />
-                  <span>{liveStream ? "Drawing on" : "Drawing off"}</span>
+                  <span>{liveStream ? "Lines moving" : "Lines still"}</span>
                 </button>
                 <button
                   className="display-control"
@@ -2122,14 +2203,24 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                     Export summary
                   </button>
                 )}
-                {page !== "Health Check-In" && page !== "Health Guidance" && (
-                  <button className="primary-button" onClick={() => navigate("Health Check-In")}>
-                    <Icon name="plus" size={18} />
-                    Record today
-                  </button>
-                )}
+
               </div>
             </div>
+
+            {page !== "Astronaut Dashboard" && (
+              <section className="next-cue" data-next-cue="" aria-label="What to do next">
+                <div>
+                  <span>{cue.kicker}</span>
+                  <strong>{cue.title}</strong>
+                  <p>{cue.detail}</p>
+                </div>
+                {cue.action && cue.go && (
+                  <button type="button" className="primary-button" onClick={cue.go}>
+                    {cue.action}
+                  </button>
+                )}
+              </section>
+            )}
 
             {page !== "Mission Overview" && page !== "Health Guidance" && page !== "Health Check-In" && (
               <section className="profile-banner">
@@ -2152,7 +2243,13 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                       </span>
                       <span>
                         <span className="status-dot" />
-                        Low Earth Orbit · {mission.altitudeKm} km
+                        {context.id === "orbital"
+                          ? `Low Earth Orbit · ${mission.altitudeKm} km`
+                          : context.id === "transit"
+                          ? "Cislunar Transit · Coasting Trajectory"
+                          : context.id === "lunar"
+                          ? "Lunar South Pole · Artemis Base Camp"
+                          : "Planetary Surface · Jezero Outpost"}
                       </span>
                       <span>
                         <Icon name="clock" size={14} />
@@ -2180,10 +2277,28 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
 
             {page === "Astronaut Dashboard" && (
               <>
+                <section className="next-cue" data-next-cue="" aria-label="What to do next">
+                  <div>
+                    <span>{context.title} · {cue.kicker}</span>
+                    <strong>{cue.title}</strong>
+                    <p>{cue.detail} {context.description}</p>
+                  </div>
+                  <div className="next-cue-actions">
+                    {cue.action && cue.go && (
+                      <button type="button" className="primary-button" onClick={cue.go}>
+                        {cue.action}
+                      </button>
+                    )}
+                    <button type="button" className="secondary-button" onClick={() => openModal("simulation")}>
+                      <Sliders size={14} />
+                      Change setting
+                    </button>
+                  </div>
+                </section>
                 <VisitPractice
-                  recordDone={checkedIn[selectedCrew]}
-                  practiceDone={(cognitionLog[person.id] ?? []).length > 0}
-                  exerciseDone={routineComplete.exercise}
+                  recordDone={recordDone}
+                  practiceDone={practiceDone}
+                  exerciseDone={exerciseDone}
                   onRecord={() => navigate("Health Check-In")}
                   onPractice={() => navigate("Sensorimotor & Reflex")}
                   onExercise={() => navigate("Exercise & Recovery")}
@@ -2197,6 +2312,11 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                   </div>
                   <MetricCards />
                 </div>
+                <div className="dashboard-middle" data-tour="today-compare">
+                  <TrendPanel />
+                  <RecentChanges />
+                </div>
+                <NextSteps reading={reading} baseline={baseline} onOpen={openToolkit} />
                 <div style={{ margin: "24px 0" }} data-tour="somatic-avatar">
                   <AnatomicalAvatar
                     onLogSymptom={(log) => {
@@ -2208,11 +2328,6 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                 </div>
                 <div style={{ margin: "24px 0" }} data-tour="puma-tracker">
                   <PumaTracker />
-                </div>
-                <NextSteps reading={reading} baseline={baseline} onOpen={openToolkit} />
-                <div className="dashboard-middle">
-                  <TrendPanel />
-                  <RecentChanges />
                 </div>
                 <div className="dashboard-bottom">
                   <Physiology />
@@ -2306,7 +2421,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                           </strong>
                         </div>
                         <div>
-                          <span>Fatigue</span>
+                          <span>How tired</span>
                           <strong>
                             {readings[i].fatigue}
                             <small>/5</small>
@@ -2387,7 +2502,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                       ["Heart rate", String(baseline.heart), "bpm"],
                       ["Blood pressure", `${baseline.systolic}/${baseline.diastolic}`, "mmHg"],
                       ["Sleep duration", String(baseline.sleep), "hours"],
-                      ["Fatigue level", String(baseline.fatigue), "/ 5"],
+                      ["How tired", String(baseline.fatigue), "/ 5"],
                     ].map(([name, value, unit]) => (
                       <div key={name}>
                         <span>{name}</span>
@@ -2531,30 +2646,27 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                 <div className="dashboard-bottom">
                   <section className="panel monitoring-context">
                     <PanelTitle
-                      title="Signal context"
-                      description="Several measurements. One connected picture."
+                      title="What belongs on this page"
+                      description="The numbers are stored. The lines are a drawing."
                     />
                     <p>
-                      Physiological signals are interpreted together with the individual’s recent
-                      patterns, measurement conditions, and self-reported context.
+                      Read heart rate, blood oxygen, and breathing here. The moving lines are not a sensor, and they are not the cabin air sample.
                     </p>
                     <div className="context-row">
                       <Icon name="pulse" />
                       <div>
-                        <strong>Multi-signal observation</strong>
+                        <strong>Today's stored numbers</strong>
                         <p>
-                          Heart rate, respiration, and gas-related signals offer complementary
-                          perspectives.
+                          Heart rate, breathing, and blood oxygen come from this person's stored day, or from the check-in if you saved one.
                         </p>
                       </div>
                     </div>
                     <div className="context-row">
                       <Icon name="shield" />
                       <div>
-                        <strong>Human review remains essential</strong>
+                        <strong>Cabin air is a different page</strong>
                         <p>
-                          These illustrative signals do not establish a diagnosis or replace mission
-                          medical assessment.
+                          Carbon dioxide and cabin pressure on the drawing are examples. The stored cabin sample is on Cabin air.
                         </p>
                       </div>
                     </div>
@@ -2794,6 +2906,8 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
             onStepChange={(newIdx) => setTourIndex(newIdx)}
             onNavigate={(targetPage) => navigate(targetPage)}
             onClose={finishTour}
+            blockedLabel={tourBlocked}
+            onPointNext={() => tourNext && pointAtMenu(tourNext.page)}
           />
         )}
         {modal === "simulation" && (
@@ -2805,6 +2919,10 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
               if (target) {
                 notify(`Simulation scenario updated: ${target.title}`);
               }
+            }}
+            onNavigate={(targetPage) => {
+              navigate(targetPage);
+              setModal(null);
             }}
             onClose={() => setModal(null)}
           />
@@ -2913,7 +3031,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
             </p>
             <p>Read today against the previous 14 days.</p>
             <p>Record a check-in. It stays in this browser until you refresh.</p>
-            <p>Ask the guide when a word is unfamiliar. The answers are written ahead of time.</p>
+            <p>After this, the top of the page names the next click. It is record today, then one practice, then exercise.</p>
             <button className="primary-button" onClick={dismissArrival}>
               Continue
             </button>

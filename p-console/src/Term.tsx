@@ -27,31 +27,55 @@ export const TERMS: Record<string, string> = {
   "Oxygen used": "How much oxygen the body takes from the air each minute.",
   "Breath temperature": "How warm the air is as you breathe it out.",
   "Carbon dioxide": "A gas you breathe out. Here it is how much of that gas is in the air.",
-  Oxygen: "The share of the air that is oxygen.",
-  Pressure: "How hard the air pushes. About 101 kPa is sea level on Earth.",
-  Humidity: "How much water is in the air.",
-  Noise: "How loud the cabin is, in decibels.",
-  Altitude: "How high the craft is above Earth.",
-  Velocity: "How fast the craft is moving.",
-  Lighting: "Whether the craft is in sunlight or in Earth's shadow.",
-  "Beta angle": "The angle between the orbit and the Sun. It changes how long the craft stays in daylight.",
-  Eclipse: "How long the craft is in Earth's shadow on this pass.",
-  Water: "How much water was logged for the day.",
-  "Analog days": "Days this person has spent in a training habitat on Earth.",
-  "Blood-type label": "The blood-type name stored on this profile.",
-  "Dominant side": "The hand this person uses most.",
-  Stature: "Standing height.",
-  Mass: "Body mass.",
-  Age: "Age in years.",
+  CO2: "Carbon dioxide partial pressure in cabin atmosphere, monitored to prevent hypercapnia headaches.",
+  Oxygen: "The share of the air that is oxygen, nominally maintained at 20.9% at sea-level equivalent pressure.",
+  O2: "Oxygen fraction in the cabin atmosphere.",
+  Pressure: "How hard the air pushes. About 101 kPa is standard sea level on Earth.",
+  Humidity: "How much moisture is in the air.",
+  "Relative humidity":
+    "Percentage of water vapor in the cabin atmosphere relative to saturation at ambient temperature. Target is 30–70%.",
+  Noise: "How loud the cabin acoustic environment is in decibels (dB).",
+  Altitude: "How high the craft is above Earth's mean sea level.",
+  Velocity: "How fast the craft is moving in kilometers per second.",
+  Lighting: "Whether the craft is in direct solar sunlight or in Earth's shadow (eclipse).",
+  "Beta angle": "The angle between the orbit plane and the solar vector. It changes daylight exposure.",
+  Eclipse: "Duration the spacecraft stays in Earth's shadow during each 90-minute orbit pass.",
+  Water: "Total hydration logged for the day in milliliters.",
+  "Water intake": "Daily hydration logged in milliliters.",
+  Energy: "Total daily nutritional caloric intake logged in kilocalories (kcal).",
+  Calories: "Total nutritional energy consumed for the day.",
+  Protein: "Dietary protein consumed in grams to preserve muscle mass against microgravity atrophy.",
+  Sodium: "Dietary sodium consumed in milligrams, monitored for fluid shift balance.",
+  Radiation: "Cumulative ionizing cosmic radiation exposure monitored against NASA HRP career limits.",
+  MAP: "Mean Arterial Pressure: calculated average arterial pressure throughout one cardiac cycle.",
+  Systolic: "Peak arterial pressure during cardiac contraction (heart squeeze).",
+  Diastolic: "Resting arterial pressure between heart contractions.",
+  SpO2: "Peripheral capillary oxygen saturation level as a percentage.",
+  Respiration: "Breathing frequency recorded in breaths per minute.",
+  "Analog days": "Days this crew member has spent in an isolated spaceflight training analog habitat on Earth.",
+  "Blood-type label": "The blood-type group name stored on this astronaut's operational medical profile.",
+  "Dominant side": "The hand this astronaut uses most for manual dexterity and switch operation.",
+  Stature: "Standing body height in centimeters.",
+  Mass: "Current body mass recorded in kilograms.",
+  Age: "Chronological age in years.",
 };
 
+const NORMALIZED_TERMS: Record<string, string> = Object.fromEntries(
+  Object.entries(TERMS).map(([k, v]) => [k.trim().toLowerCase(), v])
+);
+
+export function getTermMeaning(key: string): string | undefined {
+  return TERMS[key] || NORMALIZED_TERMS[key.trim().toLowerCase()];
+}
+
 export function MaybeTerm({ children }: { children: string }) {
-  if (!TERMS[children]) return <>{children}</>;
-  return <Term>{children}</Term>;
+  const meaning = getTermMeaning(children);
+  if (!meaning) return <>{children}</>;
+  return <Term tip={meaning}>{children}</Term>;
 }
 
 export default function Term({ children, tip }: { children: ReactNode; tip?: string }) {
-  const text = tip ?? (typeof children === "string" ? TERMS[children] : undefined);
+  const text = tip ?? (typeof children === "string" ? getTermMeaning(children) : undefined);
   const ref = useRef<HTMLSpanElement>(null);
   const [hover, setHover] = useState(false);
   const [pinned, setPinned] = useState(false);

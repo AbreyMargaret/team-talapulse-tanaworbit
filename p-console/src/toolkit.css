@@ -2212,7 +2212,7 @@ body .app-shell.touch-mode main {
     font-size: 20px;
   }
   .tanaw-guide-header > div > span {
-    font-size: 7px;
+    font-size: 11px;
   }
   .tanaw-guide-header button {
     min-height: 48px;
@@ -2250,7 +2250,7 @@ body .app-shell.touch-mode main {
     min-height: 50px;
   }
   .guide-disclaimer {
-    font-size: 9px;
+    font-size: 13px;
     padding-bottom: max(15px, env(safe-area-inset-bottom));
   }
   .tanaw-guide-loading {

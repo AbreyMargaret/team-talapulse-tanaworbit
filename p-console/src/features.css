@@ -73,15 +73,22 @@
 .feature-stat .term {
   display: inline-flex;
   align-items: center;
-  border-bottom: 1px dashed color-mix(in srgb, var(--accent) 45%, var(--muted));
-  padding: 1px 4px;
+  border-bottom: none !important;
+  text-decoration: none !important;
+  padding: 1px 5px;
   border-radius: 4px;
   transition: all 0.15s ease;
 }
 
 .feature-stat .term:hover {
   background: color-mix(in srgb, var(--accent) 15%, transparent);
-  border-bottom-color: var(--accent);
+  border-bottom: none !important;
+  text-decoration: none !important;
+}
+
+[data-theme="light"] .feature-stat .term:hover {
+  background: #e0f2fe !important;
+  color: #0284c7 !important;
 }
 
 .feature-stat .term-label {

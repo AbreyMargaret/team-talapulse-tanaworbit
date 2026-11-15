@@ -327,7 +327,7 @@ Your note: ${draft.notes || "None."}`;
               onClick={() => navigate("Astronaut Dashboard")}
               className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs font-mono transition shadow-md active:scale-98 cursor-pointer"
             >
-              <span>Back to Flight Deck</span>
+              <span>Back to Today</span>
               <ArrowRight size={15} />
             </button>
 
@@ -920,7 +920,7 @@ Your note: ${draft.notes || "None."}`;
           </div>
 
           {/* Operational Notes */}
-          <div className="p-5 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 shadow-sm space-y-2">
+          <div className="checkin-notes-card p-5 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 shadow-sm space-y-2">
             <label htmlFor="checkin-notes" className="text-xs font-mono uppercase tracking-wider text-slate-700 dark:text-slate-300 font-semibold flex items-center gap-2">
               <FileText size={16} className="text-slate-400" />
               Note (optional)
@@ -932,7 +932,7 @@ Your note: ${draft.notes || "None."}`;
               value={draft.notes}
               onChange={(e) => onDraftChange({ ...draft, notes: e.target.value })}
               rows={3}
-              className="w-full p-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-mono text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 outline-none focus:border-sky-500 dark:focus:border-cyan-500 focus:ring-1 focus:ring-sky-500 dark:focus:ring-cyan-500 leading-relaxed"
+              className="checkin-notes-textarea w-full p-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-xs font-mono text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 outline-none focus:border-sky-500 dark:focus:border-cyan-500 focus:ring-1 focus:ring-sky-500 dark:focus:ring-cyan-500 leading-relaxed transition"
             />
           </div>
 

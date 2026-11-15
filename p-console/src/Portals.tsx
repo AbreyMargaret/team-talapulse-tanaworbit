@@ -161,10 +161,22 @@ export function BackendLogin() {
             </button>
           ))}
         </div>
+        <div className="flex items-center justify-between mt-4 mb-2">
+          <span className="text-xs text-slate-400">Assigned code: <code className="text-cyan-300 font-mono font-bold">{role.demoCode}</code></span>
+          <button
+            type="button"
+            className="secondary-button"
+            onClick={() => setCode(role.demoCode)}
+            style={{ minWidth: "120px", justifyContent: "center" }}
+          >
+            1-Click Enter
+          </button>
+        </div>
+
         <form className="access-pin-form" onSubmit={(event) => event.preventDefault()}>
           <label htmlFor="backend-code">
             <span>4-digit demo code</span>
-            <small>Auto-continue when the four digits match</small>
+            <small>Auto-continue when code matches {role.demoCode}</small>
           </label>
           <input
             id="backend-code"
@@ -179,26 +191,76 @@ export function BackendLogin() {
               setCode(event.target.value.replace(/\D/g, "").slice(0, 4));
             }}
           />
+
+          {/* Discrete 4-digit code slots */}
+          <div className="flex items-center gap-3 justify-center my-3" aria-hidden="true">
+            {[0, 1, 2, 3].map((slot) => {
+              const char = code[slot];
+              const isCurrent = code.length === slot;
+              return (
+                <div
+                  key={slot}
+                  style={{
+                    width: "48px",
+                    height: "48px",
+                    borderRadius: "8px",
+                    border: char ? "1.5px solid #38bdf8" : isCurrent ? "1.5px solid #0284c7" : "1px solid #334155",
+                    background: char ? "rgba(8, 20, 42, 0.7)" : "#0f172a",
+                    color: "#38bdf8",
+                    display: "grid",
+                    placeItems: "center",
+                    fontSize: "20px",
+                    fontWeight: "bold",
+                    fontFamily: "monospace",
+                  }}
+                >
+                  {char ? "•" : ""}
+                </div>
+              );
+            })}
+          </div>
+
           <div className="access-keypad" aria-label="Demo code keypad">
-            {["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"].map((value) => (
+            {["1", "2", "3", "4", "5", "6", "7", "8", "9"].map((value) => (
               <button key={value} type="button" onClick={() => digit(value)}>
                 {value}
               </button>
             ))}
+            <button
+              type="button"
+              className="keypad-utility"
+              onClick={() => {
+                setCode("");
+                setError("");
+              }}
+            >
+              Clear
+            </button>
+            <button key="0" type="button" onClick={() => digit("0")}>
+              0
+            </button>
+            <button
+              type="button"
+              className="keypad-utility"
+              disabled={code.length !== 4}
+              onClick={() => {
+                if (code === role.demoCode) {
+                  const backendRole = role.id === "tester" ? "tester" : "admin";
+                  writeSession({ kind: "backend", role: backendRole });
+                  navigate(backendRole === "admin" ? "/admin" : "/tester");
+                } else {
+                  setError("Code mismatch. Use public code: " + role.demoCode);
+                }
+              }}
+            >
+              Enter
+            </button>
           </div>
           {error && (
             <p className="access-error" role="alert">
               {error}
             </p>
           )}
-          <div className="access-demo-code">
-            <span>
-              Public code for {role.label}: <b>{role.demoCode}</b>
-            </span>
-            <button type="button" onClick={() => setCode(role.demoCode)}>
-              Fill demo code
-            </button>
-          </div>
         </form>
         <div className="access-disclaimer">
           <p>
@@ -275,8 +337,7 @@ export function AdminPortal() {
         </div>
       </div>
       <p className="portal-lead">
-        Open any expedition crew member in the console. Cabin life support, orbital ephemeris, crew biodata, and nutrition telemetry
-        are synchronized across the operational suite.
+        Open any of the five crew members. Cabin air, the orbit sample, body measurements, and the day {mission.day} meals are stored fixtures.
       </p>
       <div className="portal-grid">
         <article className="portal-card">

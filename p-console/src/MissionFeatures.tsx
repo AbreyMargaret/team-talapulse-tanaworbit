@@ -386,7 +386,7 @@ export function NutritionPanel({ crewId }: { crewId: string }) {
       </div>
       <div className="feature-grid">
         <div className="feature-stat">
-          <span>Day {today.missionDay} Energy</span>
+          <span><MaybeTerm>Energy</MaybeTerm></span>
           <strong>{today.kcal} kcal</strong>
         </div>
         <div className="feature-stat">
@@ -394,11 +394,11 @@ export function NutritionPanel({ crewId }: { crewId: string }) {
           <strong>{today.waterMl} mL</strong>
         </div>
         <div className="feature-stat">
-          <span>Protein</span>
+          <span><MaybeTerm>Protein</MaybeTerm></span>
           <strong>{today.proteinG} g</strong>
         </div>
         <div className="feature-stat">
-          <span>Sodium</span>
+          <span><MaybeTerm>Sodium</MaybeTerm></span>
           <strong>{today.sodiumMg} mg</strong>
         </div>
       </div>

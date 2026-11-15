@@ -16,6 +16,8 @@ export default function OnboardingModal<P extends string = string>({
   onStepChange,
   onNavigate,
   onClose,
+  blockedLabel = null,
+  onPointNext,
 }: {
   steps: TourStep<P>[];
   index: number;
@@ -23,6 +25,8 @@ export default function OnboardingModal<P extends string = string>({
   onStepChange: (newIndex: number) => void;
   onNavigate: (targetPage: P) => void;
   onClose: () => void;
+  blockedLabel?: string | null;
+  onPointNext?: () => void;
 }) {
   const currentStep = steps[index] || steps[0];
   const isFirst = index === 0;
@@ -31,10 +35,6 @@ export default function OnboardingModal<P extends string = string>({
   // Auto-navigate to page and scroll target element into view with highlight
   useEffect(() => {
     if (!currentStep) return;
-
-    if (page !== currentStep.page) {
-      onNavigate(currentStep.page);
-    }
 
     const timer = setTimeout(() => {
       // Remove any prior highlights
@@ -57,18 +57,18 @@ export default function OnboardingModal<P extends string = string>({
         el.classList.remove("tour-active-highlight");
       });
     };
-  }, [index, currentStep, page, onNavigate]);
+  }, [index, currentStep]);
 
   const handleNext = () => {
     if (isLast) {
       onClose();
-    } else {
-      const nextIdx = index + 1;
-      onStepChange(nextIdx);
-      if (steps[nextIdx] && steps[nextIdx].page !== page) {
-        onNavigate(steps[nextIdx].page);
-      }
+      return;
     }
+    if (blockedLabel) {
+      onPointNext?.();
+      return;
+    }
+    onStepChange(index + 1);
   };
 
   const handlePrev = () => {
@@ -122,6 +122,7 @@ export default function OnboardingModal<P extends string = string>({
 
       <p className="tour-text">
         {currentStep.description}
+        {blockedLabel ? ` Then open ${blockedLabel} in the left menu. The outline shows which one.` : ""}
       </p>
 
       <div className="tour-actions">
@@ -140,16 +141,18 @@ export default function OnboardingModal<P extends string = string>({
           type="button"
           className="tour-btn-next"
           onClick={handleNext}
-          aria-label={isLast ? "Complete walkthrough" : "Next step"}
+          aria-label={isLast ? "Complete walkthrough" : blockedLabel ? `Show ${blockedLabel} in the menu` : "Next step"}
         >
           {isLast ? (
             <>
               <span>Finish Tour</span>
               <CheckCircle2 size={16} />
             </>
+          ) : blockedLabel ? (
+            <span>Open {blockedLabel}</span>
           ) : (
             <>
-              <span>Next Step</span>
+              <span>Next on this page</span>
               <ChevronRight size={16} />
             </>
           )}

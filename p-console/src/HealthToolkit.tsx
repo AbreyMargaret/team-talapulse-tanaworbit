@@ -106,7 +106,7 @@ function BodyOverview({
       left: "50%",
       metrics: [
         ["Mood", reading.mood],
-        ["Fatigue", `${reading.fatigue} / 5`],
+        ["How tired", `${reading.fatigue} / 5`],
       ],
       text: "These subjective entries can support a conversation about context. They do not diagnose a mental-health condition or measure brain function.",
       action: "mood",
@@ -145,7 +145,7 @@ function BodyOverview({
       left: "50%",
       metrics: [
         ["Sleep", `${reading.sleep} hours`],
-        ["Fatigue", `${reading.fatigue} / 5`],
+        ["How tired", `${reading.fatigue} / 5`],
       ],
       text: "Sleep and self-reported fatigue are related context to review alongside work and exercise. They do not establish readiness or fitness for a task.",
       action: "sleep",
@@ -316,7 +316,7 @@ export default function HealthToolkit(props: Props) {
       checkedIn ? "React memory / latest override" : "datasets/health-records.json",
     ],
     [
-      "Fatigue & mood",
+      "How tired and mood",
       `${reading.fatigue}/5 · ${reading.mood}`,
       checkedIn ? "Manual demo input" : "Synthetic JSON",
       checkedIn ? "React memory / latest override" : "datasets/health-records.json",

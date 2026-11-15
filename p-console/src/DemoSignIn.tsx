@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { crew, mission, orbitalConditions } from "./data";
+import { crew, crewStatus, latestRecord, mission, orbitalConditions } from "./data";
 import {
   ShieldCheck,
   KeyRound,
@@ -347,6 +347,8 @@ export default function DemoSignIn({
         <div className="access-crew-grid mt-5" role="group" aria-label="Flight crew roster">
           {crew.map((member, index) => {
             const isSelected = selected === index;
+            const status = crewStatus(index, latestRecord(member.id).reading);
+            const statusLabel = status === "Attention" ? "Flagged" : status === "Observe" ? "Different" : "Usual";
             return (
               <button
                 key={member.id}
@@ -391,9 +393,9 @@ export default function DemoSignIn({
                     <span className="text-[9px] font-mono text-cyan-300/90 bg-cyan-950/60 px-1.5 py-0.5 rounded border border-cyan-800/30">
                       PIN: {member.demoPin}
                     </span>
-                    <span className="text-[9px] font-mono text-emerald-400 flex items-center gap-1">
-                      <span className="size-1.5 rounded-full bg-emerald-400" />
-                      CLEARED
+                    <span className="text-[9px] font-mono text-slate-300 flex items-center gap-1">
+                      <span className="size-1.5 rounded-full bg-current" />
+                      {statusLabel}
                     </span>
                   </div>
                 </div>
@@ -407,7 +409,7 @@ export default function DemoSignIn({
           <div className="flex items-center justify-between mb-3">
             <div>
               <span className="text-[10px] font-mono text-slate-400 block uppercase">
-                Ready for Station Clearance
+                Stored profile · day {mission.day}
               </span>
               <strong className="text-sm font-semibold text-white">
                 {person.name}

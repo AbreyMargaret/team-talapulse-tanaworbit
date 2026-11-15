@@ -124,7 +124,7 @@ export default function ExercisePanel({
                 Sleep <b>{latestHealth.sleep} hrs</b>
               </p>
               <p>
-                Fatigue <b>{latestHealth.fatigue}/5</b>
+                How tired <b>{latestHealth.fatigue}/5</b>
               </p>
             </div>
             <small>

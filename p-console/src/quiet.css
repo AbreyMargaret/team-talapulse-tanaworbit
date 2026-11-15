@@ -433,6 +433,44 @@ h1,
   background: #10b981;
 }
 
+.next-cue {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0 0 18px;
+  padding: 14px 16px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.next-cue span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.next-cue strong {
+  display: block;
+  margin-top: 2px;
+  color: var(--text);
+  font-size: 16px;
+}
+
+.next-cue p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.next-cue-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
 .nav-item.is-tour-target,
 .mobile-menu.is-tour-target {
   outline: 2px solid var(--accent);
@@ -614,12 +652,13 @@ h1,
   position: relative;
   display: inline-flex;
   align-items: center;
-  border-bottom: 1.5px dashed color-mix(in srgb, var(--accent) 45%, var(--muted));
+  border-bottom: none !important;
+  text-decoration: none !important;
   cursor: help;
   text-transform: none;
   letter-spacing: 0;
   vertical-align: middle;
-  padding: 0 4px;
+  padding: 1px 5px;
   border-radius: 4px;
   transition: all 0.15s ease;
 }
@@ -627,10 +666,18 @@ h1,
 .term:hover,
 .term:focus-visible,
 .term.is-open {
-  background: color-mix(in srgb, var(--accent) 15%, transparent);
-  border-bottom-color: var(--accent);
-  color: var(--text);
+  background: color-mix(in srgb, var(--accent) 14%, transparent) !important;
+  color: var(--accent) !important;
+  border-bottom: none !important;
+  text-decoration: none !important;
   outline: none;
+}
+
+[data-theme="light"] .term:hover,
+[data-theme="light"] .term:focus-visible,
+[data-theme="light"] .term.is-open {
+  background: #e0f2fe !important;
+  color: #0284c7 !important;
 }
 
 .term-mark {
@@ -1368,6 +1415,52 @@ button[class*="bg-cyan-600"] {
   font-size: 13px;
 }
 
+.practice-list .secondary-button {
+  min-width: 90px !important;
+  text-align: center !important;
+  justify-content: center !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  font-weight: 600 !important;
+  flex-shrink: 0 !important;
+  padding: 8px 16px !important;
+  border-radius: 8px !important;
+}
+
+/* --- Global Textarea Theme Contrast Fix --- */
+[data-theme="light"] textarea,
+[data-theme="light"] .checkin-notes-textarea,
+html:not([data-theme="dark"]) textarea,
+html:not([data-theme="dark"]) .checkin-notes-textarea {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05) !important;
+}
+
+[data-theme="light"] textarea::placeholder,
+[data-theme="light"] .checkin-notes-textarea::placeholder,
+html:not([data-theme="dark"]) textarea::placeholder,
+html:not([data-theme="dark"]) .checkin-notes-textarea::placeholder {
+  color: #94a3b8 !important;
+}
+
+[data-theme="light"] textarea:focus,
+[data-theme="light"] .checkin-notes-textarea:focus,
+html:not([data-theme="dark"]) textarea:focus,
+html:not([data-theme="dark"]) .checkin-notes-textarea:focus {
+  border-color: #0284c7 !important;
+  box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.2) !important;
+  outline: none !important;
+}
+
+/* Tablet virtual keyboard scroll margin */
+textarea,
+input[type="text"],
+input[type="number"] {
+  scroll-margin-bottom: 140px;
+}
+
 [data-theme="light"] .touch-dock > button.selected {
   background: color-mix(in srgb, var(--accent) 14%, var(--panel)) !important;
   color: var(--text) !important;
@@ -1433,6 +1526,125 @@ button[class*="bg-cyan-600"] {
   color: var(--text) !important;
   padding: 14px 16px !important;
   font-size: 14px !important;
+}
+
+/* ========================================================
+   SCENARIO HUD BANNER (Startup Orientation for Astronauts)
+   ======================================================== */
+.scenario-hud-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 16px 20px;
+  border-radius: 12px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  margin-bottom: 22px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+[data-theme="light"] .scenario-hud-banner {
+  background: #ffffff;
+  border-color: #e2e8f0;
+}
+
+.scenario-hud-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.scenario-hud-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.scenario-hud-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  background: color-mix(in srgb, var(--accent) 12%, var(--panel));
+  color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+[data-theme="light"] .scenario-hud-chip {
+  background: #f0f9ff;
+  color: #0284c7;
+  border-color: #bae6fd;
+}
+
+.scenario-hud-heading h3 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 650;
+  color: var(--text);
+}
+
+.scenario-hud-desc {
+  margin: 4px 0 8px;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.45;
+  max-width: 680px;
+}
+
+.scenario-hud-tags {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 11px;
+  color: var(--subtle);
+  font-family: var(--font-mono);
+}
+
+.scenario-hud-tags strong {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.scenario-hud-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.scenario-hud-actions .secondary-button {
+  min-height: 38px;
+  padding: 0 14px;
+  font-size: 12px;
+}
+
+.simulation-scenario-modal {
+  max-width: 880px !important;
+  width: 95vw !important;
+  max-height: 90vh !important;
+  overflow-y: auto !important;
+  padding: 28px !important;
+}
+
+@media (max-width: 820px) {
+  .scenario-hud-banner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .scenario-hud-actions {
+    width: 100%;
+    margin-top: 6px;
+  }
+  .scenario-hud-actions .secondary-button {
+    flex: 1;
+    justify-content: center;
+  }
 }
 
 @media (max-width: 760px) {

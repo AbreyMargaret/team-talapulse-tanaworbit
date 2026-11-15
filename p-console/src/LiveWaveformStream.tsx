@@ -201,7 +201,7 @@ export default function LiveWaveformStream({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[var(--border)] pb-3 mb-4 gap-2">
         <div>
           <div className="flex items-center gap-2">
-            <h3 className="text-base font-semibold tracking-tight">Drawn lines</h3>
+            <h3 className="text-base font-semibold tracking-tight">Moving lines</h3>
           </div>
           <p className="text-xs text-[var(--muted)] mt-0.5">
             A drawing next to today's heart rate, blood oxygen, and breathing. This is not a live sensor.
@@ -209,7 +209,7 @@ export default function LiveWaveformStream({
         </div>
         <div className="flex items-center gap-2 shrink-0">
           <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border border-[var(--border)] text-[var(--muted)]">
-            {liveStream ? "Drawing on" : "Drawing off"}
+            {liveStream ? "Lines moving" : "Lines still"}
           </span>
         </div>
       </div>
@@ -426,7 +426,9 @@ export default function LiveWaveformStream({
         </div>
       </div>
 
-      {/* 4 Bottom Telemetry Metrics with Clickable Insights (Airflow, CO2, Temp, Pressure) */}
+      {/* Example gases stay on the heart page. Today already shows the stored numbers. */}
+      {full && (
+      <>
       <div className="mt-4 pt-3.5 border-t border-slate-800/80 grid grid-cols-2 md:grid-cols-4 gap-2.5">
         {/* End-Tidal CO2 */}
         <div
@@ -588,6 +590,8 @@ export default function LiveWaveformStream({
             </div>
           )}
         </div>
+      )}
+      </>
       )}
     </div>
   );
