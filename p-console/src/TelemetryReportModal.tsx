@@ -112,10 +112,10 @@ export default function TelemetryReportModal({
                   </span>
                 </div>
                 <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-white print:text-slate-900 leading-tight">
-                  WEEKLY MEDICAL &amp; PHYSIOLOGICAL TELEMETRY REPORT
+                  STORED WEEKLY READINGS
                 </h1>
                 <p className="text-xs text-slate-400 print:text-slate-600 font-mono mt-1">
-                  MISSION: {mission.name.toUpperCase()} · FLIGHT DAY {mission.day} OF {mission.durationDays} · ORBIT: LEO 408 KM · 51.6° INC
+                  MISSION: {mission.name.toUpperCase()} · FLIGHT DAY {mission.day} OF {mission.durationDays} · MISSION ALTITUDE {mission.altitudeKm} KM · 51.6° INC
                 </p>
               </div>
 
@@ -123,7 +123,7 @@ export default function TelemetryReportModal({
               <div className="flex sm:flex-col items-end justify-between sm:justify-start gap-2 shrink-0">
                 <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/40 text-emerald-400 print:text-emerald-800 print:border-emerald-600 print:bg-emerald-50 text-xs font-mono font-bold tracking-wider whitespace-nowrap">
                   <span className="size-2 rounded-full bg-emerald-400 print:bg-emerald-600" />
-                  STATUS: NOMINAL
+                  EXAMPLE ONLY
                 </div>
                 <div className="text-right font-mono text-[11px] text-slate-400 print:text-slate-600 space-y-0.5 whitespace-nowrap">
                   <div><span className="text-slate-500">DOC ID:</span> WMR-2026-W4-0142</div>
@@ -179,7 +179,7 @@ export default function TelemetryReportModal({
                     <th className="p-2.5 text-center font-semibold">14-DAY BASELINE</th>
                     <th className="p-2.5 text-center font-semibold text-sky-400 print:text-sky-800">TODAY'S VALUE</th>
                     <th className="p-2.5 text-center font-semibold">DELTA (vs AVG)</th>
-                    <th className="p-2.5 text-center font-semibold">CLINICAL REFERENCE RANGE</th>
+                    <th className="p-2.5 text-center font-semibold">STORED USUAL RANGE</th>
                     <th className="p-2.5 text-right font-semibold">STATUS</th>
                   </tr>
                 </thead>
@@ -322,12 +322,12 @@ export default function TelemetryReportModal({
             </div>
             <div className="text-right border-l sm:border-l sm:border-slate-800 print:border-slate-300 sm:pl-6 shrink-0 w-full sm:w-auto">
               <div className="inline-block text-left sm:text-right">
-                <span className="text-[10px] text-slate-500 uppercase tracking-wider block">Telemetric Sign-off</span>
+                <span className="text-[10px] text-slate-500 uppercase tracking-wider block">Example footer</span>
                 <strong className="text-xs text-white print:text-slate-900 block font-mono mt-0.5">
-                  FLIGHT MEDICAL CONTROLLER · HOUSTON / TAN-ORB
+                  SYNTHETIC CREW · NOT A SIGN-OFF
                 </strong>
                 <span className="text-[10px] text-emerald-400 print:text-emerald-700 block font-mono mt-0.5">
-                  DIGITALLY CERTIFIED · FD {mission.day} 08:32 UTC
+                  STORED EXAMPLE · DAY {mission.day}
                 </span>
               </div>
             </div>

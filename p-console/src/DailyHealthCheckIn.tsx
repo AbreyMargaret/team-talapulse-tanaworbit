@@ -99,9 +99,6 @@ export default function DailyHealthCheckIn({
   const diaDelta = Math.round(diaVal - baseline.diastolic);
   const sleepDelta = +(sleepVal - baseline.sleep).toFixed(1);
 
-  // Mean Arterial Pressure: (2*diastolic + systolic) / 3
-  const mapValue = Math.round((2 * diaVal + sysVal) / 3);
-
   // Automated Flight Surgeon Clinical Triggers
   const clinicalAdvisories = useMemo(() => {
     const list: { type: "nominal" | "warning" | "alert"; text: string; action: string }[] = [];
@@ -298,7 +295,7 @@ Your note: ${draft.notes || "None."}`;
                 {sysVal}/{diaVal} <span className="text-xs text-slate-500 dark:text-slate-400 font-normal">mmHg</span>
               </div>
               <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
-                MAP {mapValue} mmHg
+                {sysDelta >= 0 ? `+${sysDelta}` : sysDelta}/{diaDelta >= 0 ? `+${diaDelta}` : diaDelta} mmHg vs 14-day average
               </span>
             </div>
 
@@ -542,7 +539,7 @@ Your note: ${draft.notes || "None."}`;
                 <div className="space-y-1">
                   <div className="flex items-center justify-between text-[10px] font-mono text-slate-500 dark:text-slate-400">
                     <span>SYSTOLIC</span>
-                    <span className="font-semibold">{sysDelta >= 0 ? `+${sysDelta}` : sysDelta}</span>
+                    <span className="font-semibold">{sysDelta >= 0 ? `+${sysDelta}` : sysDelta} mmHg</span>
                   </div>
                   <input
                     type="number"
@@ -558,7 +555,7 @@ Your note: ${draft.notes || "None."}`;
                 <div className="space-y-1">
                   <div className="flex items-center justify-between text-[10px] font-mono text-slate-500 dark:text-slate-400">
                     <span>DIASTOLIC</span>
-                    <span className="font-semibold">{diaDelta >= 0 ? `+${diaDelta}` : diaDelta}</span>
+                    <span className="font-semibold">{diaDelta >= 0 ? `+${diaDelta}` : diaDelta} mmHg</span>
                   </div>
                   <input
                     type="number"
@@ -573,8 +570,8 @@ Your note: ${draft.notes || "None."}`;
               </div>
 
               <div className="flex items-center justify-between text-[11px] font-mono pt-1">
-                <span className="text-sky-700 dark:text-cyan-300 font-medium">MAP: {mapValue} mmHg</span>
-                <span className="text-slate-500">mmHg</span>
+                <span className="text-slate-500">Those plus and minus figures are versus the 14-day average.</span>
+                <span className="text-slate-500">Flags use a 10 mmHg difference</span>
               </div>
             </div>
 

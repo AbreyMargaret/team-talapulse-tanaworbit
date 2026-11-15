@@ -85,7 +85,7 @@ export function MonitorParametersPanel() {
                 <td>{item.group}</td>
                 <td>{item.unit}</td>
                 <td>
-                  {item.demoMin}–{item.demoMax}
+                  {item.normalMin}–{item.normalMax}
                 </td>
                 <td>{item.comparison}</td>
               </tr>

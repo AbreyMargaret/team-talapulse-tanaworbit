@@ -15,9 +15,26 @@ export default function DemoSignIn({
   const [error, setError] = useState("");
   const [checking, setChecking] = useState(false);
   const [utcTime, setUtcTime] = useState("");
+  const [orbitProgress, setOrbitProgress] = useState(0.42);
   const storedOrbit = orbitalConditions[orbitalConditions.length - 1];
   const inputRef = useRef<HTMLInputElement>(null);
   const person = crew[selected] || crew[0];
+
+  // Live real-time spacecraft orbital trajectory animation & fluctuating telemetry
+  useEffect(() => {
+    let animId: number;
+    let last = performance.now();
+
+    function loop(now: number) {
+      const delta = (now - last) / 1000;
+      last = now;
+      setOrbitProgress((prev) => (prev + delta * 0.031) % 1); // ~32s smooth revolution cycle
+      animId = requestAnimationFrame(loop);
+    }
+
+    animId = requestAnimationFrame(loop);
+    return () => cancelAnimationFrame(animId);
+  }, []);
 
   useEffect(() => {
     function updateClock() {
@@ -151,6 +168,113 @@ export default function DemoSignIn({
             </div>
           </div>
         </div>
+
+        {/* Seamless Planetary Horizon Vista & Moving Orbital Telemetry */}
+        {(() => {
+          // Precise quadratic bezier trajectory interpolation: M -20 170 Q 270 45 620 115
+          const s = 0.05 + 0.9 * orbitProgress;
+          const u = 1 - s;
+          const craftX = u * u * -20 + 2 * u * s * 270 + s * s * 620;
+          const craftY = u * u * 170 + 2 * u * s * 45 + s * s * 115;
+          const tagWidth = 148;
+          const tagHeight = 34;
+          const tagX = craftX < 420 ? craftX + 16 : craftX - (tagWidth + 16);
+          const tagY = Math.max(14, Math.min(160, craftY - 38));
+
+          return (
+            <div className="access-orbital-vista" aria-hidden="true">
+              <div className="vista-horizon">
+                <div className="vista-atmosphere-glow" />
+              </div>
+
+              <svg
+                className="vista-orbit-svg"
+                viewBox="0 0 600 220"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                {/* Orbital Trajectory Arc Glow */}
+                <path
+                  d="M -20 170 Q 270 45 620 115"
+                  stroke="rgba(56, 189, 248, 0.18)"
+                  strokeWidth="4"
+                />
+
+                {/* Orbital Trajectory Dashed Arc Track */}
+                <path
+                  d="M -20 170 Q 270 45 620 115"
+                  stroke="rgba(56, 189, 248, 0.5)"
+                  strokeWidth="1.5"
+                  strokeDasharray="5 5"
+                />
+
+                {/* Connecting telemetry line between moving spacecraft and callout HUD */}
+                <line
+                  x1={craftX.toFixed(1)}
+                  y1={craftY.toFixed(1)}
+                  x2={craftX < 420 ? tagX.toFixed(1) : (tagX + tagWidth).toFixed(1)}
+                  y2={(tagY + 17).toFixed(1)}
+                  stroke="rgba(56, 189, 248, 0.45)"
+                  strokeWidth="1"
+                  strokeDasharray="2 2"
+                />
+
+                {/* Moving Spacecraft Radar Ping Waves */}
+                <circle
+                  cx={craftX.toFixed(1)}
+                  cy={craftY.toFixed(1)}
+                  r="18"
+                  stroke="rgba(56, 189, 248, 0.3)"
+                  strokeWidth="1"
+                  fill="none"
+                  opacity="0.8"
+                />
+                <circle
+                  cx={craftX.toFixed(1)}
+                  cy={craftY.toFixed(1)}
+                  r="9"
+                  stroke="#38bdf8"
+                  strokeWidth="1.5"
+                  fill="rgba(8, 20, 42, 0.75)"
+                  opacity="0.95"
+                />
+                <circle
+                  cx={craftX.toFixed(1)}
+                  cy={craftY.toFixed(1)}
+                  r="4"
+                  fill="#38bdf8"
+                />
+
+                {/* Dynamic Telemetry HUD Tag (Follows craft with live telemetry) */}
+                <g transform={`translate(${tagX.toFixed(1)}, ${tagY.toFixed(1)})`}>
+                  <rect
+                    x="0"
+                    y="0"
+                    width={tagWidth}
+                    height={tagHeight}
+                    rx="6"
+                    className="vista-hud-rect"
+                  />
+                  <circle cx="12" cy="13" r="3" fill="#38bdf8" />
+                  <text
+                    x="20"
+                    y="15"
+                    className="vista-hud-title"
+                  >
+                    STORED · {storedOrbit.altitudeKm} KM
+                  </text>
+                  <text
+                    x="20"
+                    y="27"
+                    className="vista-hud-sub"
+                  >
+                    {storedOrbit.velocityKms} KM/S · LEO 51.6°
+                  </text>
+                </g>
+              </svg>
+            </div>
+          );
+        })()}
 
         <p className="access-story-footer">Team Tala Pulse · NASA Space Apps 2026</p>
       </section>
