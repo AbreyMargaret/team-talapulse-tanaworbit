@@ -1771,14 +1771,16 @@ input[type="number"] {
   min-height: 44px;
   padding: 12px 18px;
   color: var(--text) !important;
-  border-top: 1px solid var(--border) !important;
-  background: transparent !important;
+  border: 0 !important;
+  border-top: 1px solid var(--border-subtle, color-mix(in srgb, var(--border) 45%, transparent)) !important;
+  background: color-mix(in srgb, var(--text) 2%, transparent) !important;
+  border-radius: 0 0 7px 7px;
   transition: background 0.15s ease, color 0.15s ease;
 }
 
 .panel-link:hover,
 .touch-mode .panel-link:hover {
-  background: color-mix(in srgb, var(--text) 4%, transparent) !important;
+  background: color-mix(in srgb, var(--text) 6%, transparent) !important;
   color: var(--accent) !important;
 }
 
@@ -1798,14 +1800,14 @@ input[type="number"] {
 .touch-mode .guidance-block,
 .protocol-grid > div + div,
 .touch-mode .protocol-grid > div + div {
-  border-top: 1px solid var(--border) !important;
+  border-top: 1px solid var(--border-subtle, color-mix(in srgb, var(--border) 45%, transparent)) !important;
 }
 
 .insight-comparison > div + div,
 .touch-mode .insight-comparison > div + div,
 .physiology-values > div + div,
 .touch-mode .physiology-values > div + div {
-  border-left: 1px solid var(--border) !important;
+  border-left: 1px solid var(--border-subtle, color-mix(in srgb, var(--border) 45%, transparent)) !important;
 }
 
 .avatar > span {
@@ -1868,20 +1870,26 @@ input[type="number"] {
 
 .secondary-metrics {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 12px;
   background: transparent;
   border: 0;
   padding: 0;
 }
 
-@media (min-width: 1280px) {
+@media (max-width: 960px) {
   .secondary-metrics {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
-@media (max-width: 540px) {
+@media (max-width: 640px) {
+  .secondary-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 420px) {
   .secondary-metrics {
     grid-template-columns: 1fr;
   }
@@ -1997,12 +2005,6 @@ input[type="number"] {
   font-size: 14px;
 }
 
-@media (max-width: 1180px) {
-  .secondary-metrics {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
 @media (max-width: 760px) {
   .next-cue {
     align-items: stretch;
@@ -2019,9 +2021,207 @@ input[type="number"] {
   }
 }
 
-@media (max-width: 640px) {
-  .secondary-metrics,
-  .touch-mode .secondary-metrics {
-    grid-template-columns: 1fr;
+/* ========================================================
+   AEROSPACE MEDICAL DOSSIER & TELEMETRY REPORT (THEMED GLOBAL)
+   ======================================================== */
+.telemetry-dossier-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  overflow-y: auto;
+}
+
+.telemetry-dossier-modal {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  max-width: 920px;
+  width: 100%;
+  padding: 24px;
+  color: var(--text);
+  max-height: 92vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.28);
+}
+
+.dossier-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: 1px solid var(--border-subtle, color-mix(in srgb, var(--border) 50%, transparent));
+  padding-bottom: 16px;
+  margin-bottom: 24px;
+}
+
+.dossier-control-btn {
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-family: var(--font-mono, monospace);
+  font-size: 12px;
+  font-weight: 550;
+  background: var(--panel-elevated);
+  border: 1px solid var(--border);
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.dossier-control-btn:hover {
+  background: color-mix(in srgb, var(--accent) 15%, var(--panel-elevated));
+  color: var(--accent);
+}
+
+.printable-report {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+  color: var(--text);
+}
+
+.report-header {
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 20px;
+  margin-bottom: 24px;
+}
+
+.report-section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 6px;
+  margin-bottom: 12px;
+}
+
+.report-section-heading h2 {
+  font-family: var(--font-mono, monospace);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  text-transform: uppercase;
+}
+
+.report-profile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px;
+}
+
+.report-table-wrapper {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  text-align: left;
+}
+
+.report-table thead {
+  background: var(--panel-elevated);
+  border-bottom: 1px solid var(--border);
+}
+
+.report-table th {
+  padding: 10px 14px;
+  font-family: var(--font-mono, monospace);
+  font-size: 10px;
+  text-transform: uppercase;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+.report-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border-subtle, color-mix(in srgb, var(--border) 45%, transparent));
+}
+
+.report-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.report-table tbody tr:hover {
+  background: color-mix(in srgb, var(--text) 3%, transparent);
+}
+
+.report-environmental-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px;
+  font-family: var(--font-mono, monospace);
+}
+
+.report-footer {
+  border-top: 2px solid var(--border);
+  padding-top: 18px;
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-family: var(--font-mono, monospace);
+  font-size: 11px;
+}
+
+@media (min-width: 640px) {
+  .report-footer {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+}
+
+@media print {
+  .telemetry-dossier-overlay {
+    position: static;
+    padding: 0;
+    background: transparent !important;
+  }
+  .telemetry-dossier-modal {
+    max-height: none !important;
+    overflow: visible !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    background: white !important;
+    color: #0f172a !important;
+  }
+  .printable-report {
+    border: none !important;
+    padding: 0 !important;
+    background: white !important;
+    color: #0f172a !important;
+  }
+  .dossier-controls {
+    display: none !important;
+  }
+  .report-profile-grid,
+  .report-environmental-grid {
+    background: #f8fafc !important;
+    border-color: #cbd5e1 !important;
+  }
+  .report-table thead {
+    background: #f1f5f9 !important;
+    color: #475569 !important;
   }
 }

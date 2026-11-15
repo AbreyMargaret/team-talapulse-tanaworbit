@@ -552,7 +552,7 @@ export default function AnatomicalAvatar({
                         setSelectedSymptom("");
                         setDropdownOpen(false);
                       }}
-                      className="w-full text-center py-1.5 text-[11px] font-mono text-slate-400 hover:text-rose-400 transition border-t border-slate-800/80 mt-1 cursor-pointer"
+                      className="w-full text-center py-1.5 text-[11px] font-mono text-slate-500 dark:text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 transition border-t border-slate-200 dark:border-slate-800/80 mt-1 cursor-pointer"
                     >
                       Clear selection
                     </button>
@@ -562,7 +562,7 @@ export default function AnatomicalAvatar({
             </div>
 
             {/* Severity Rating Selector & Action Row */}
-            <div className="mt-3 pt-3 border-t border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div className="mt-3 pt-3 border-t border-slate-200 dark:border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div className="flex items-center gap-2">
                 <span className="text-[11px] font-mono text-slate-600 dark:text-slate-400 uppercase tracking-wider shrink-0">
                   Severity:

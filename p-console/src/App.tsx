@@ -53,6 +53,7 @@ import PumaTracker from "./PumaTracker";
 import TelemetryReportModal from "./TelemetryReportModal";
 import OnboardingModal, { type TourStep } from "./OnboardingModal";
 import SimulationScenarioModal from "./SimulationScenarioModal";
+import AcuteEmergencyProtocolModal from "./AcuteEmergencyProtocolModal";
 import LiveWaveformStream from "./LiveWaveformStream";
 import ZeroGLivingGuide from "./ZeroGLivingGuide";
 import DailyHealthCheckIn, { type CheckInDraft } from "./DailyHealthCheckIn";
@@ -853,7 +854,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
   const [keptNotes, setKeptNotes] = useState<Record<string, string>>({});
   const [cognitionLog, setCognitionLog] = useState<Record<string, CognitionEntry[]>>({});
   const [topic, setTopic] = useState(0);
-  const [modal, setModal] = useState<"about" | "settings" | "export" | "onboarding" | "account" | "simulation" | null>(null);
+  const [modal, setModal] = useState<"about" | "settings" | "export" | "onboarding" | "account" | "simulation" | "acute-emergency" | null>(null);
   const [tourIndex, setTourIndex] = useState(0);
   const tourReady = useRef(false);
   const [narrow, setNarrow] = useState(() =>
@@ -1311,7 +1312,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                 {reading.mood} <small>Self-reported</small>
               </strong>
             </div>
-            <span className="recorded-note">Not in the label</span>
+            <span className="recorded-note">Self-reported status</span>
           </div>
           <div>
             <span className="secondary-icon">
@@ -1328,7 +1329,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                 <small>°{units === "Celsius" ? "C" : "F"}</small>
               </strong>
             </div>
-            <span className="recorded-note">Not in the label</span>
+            <span className="recorded-note">Core body telemetry</span>
           </div>
           <div>
             <span className="secondary-icon">
@@ -1342,7 +1343,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                 {samples[selectedCrew].spo2} <small>% SpO₂</small>
               </strong>
             </div>
-            <span className="recorded-note">Not in the label</span>
+            <span className="recorded-note">Pulse oximeter SpO₂</span>
           </div>
           <div>
             <span className="secondary-icon">
@@ -1356,7 +1357,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                 {samples[selectedCrew].glucoseMgDl} <small>mg/dL</small>
               </strong>
             </div>
-            <span className="recorded-note">Not in the label</span>
+            <span className="recorded-note">Fasting capillary glucose</span>
           </div>
           <div>
             <span className="secondary-icon">
@@ -1370,7 +1371,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                 {samples[selectedCrew].respiration} <small>breaths/min</small>
               </strong>
             </div>
-            <span className="recorded-note">Not in the label</span>
+            <span className="recorded-note">Resting respiration rate</span>
           </div>
         </div>
       </>
@@ -2693,6 +2694,38 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
 
             {page === "Alerts & Attention" && (
               <div data-tour="alerts-console" className="space-y-6">
+                {/* Space Apps Challenge Emergency Crisis Protocol Banner */}
+                <div className="p-4 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-300 dark:border-rose-500/50 flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-xs">
+                  <div className="flex items-start gap-3">
+                    <span className="p-2 rounded-lg bg-rose-600 text-white shrink-0 mt-0.5">
+                      <Icon name="shield" size={18} />
+                    </span>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="font-mono text-[10px] font-bold text-rose-700 dark:text-rose-400 uppercase tracking-wider">
+                          SPACE APPS CHALLENGE SCENARIO · BRAZILIAN SPACE AGENCY
+                        </span>
+                        <span className="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-rose-200 dark:bg-rose-900/60 text-rose-800 dark:text-rose-300">
+                          NON-DOCTOR PROTOCOL
+                        </span>
+                      </div>
+                      <strong className="text-sm font-bold text-slate-900 dark:text-white block mt-0.5">
+                        Halfway to Mars · Acute Medical Crisis (Chest Pain &amp; Sudden Collapse)
+                      </strong>
+                      <p className="text-xs text-slate-600 dark:text-slate-300 mt-0.5">
+                        Autonomous 4-phase clinical protocol for non-doctor astronauts: Zero-G CPR restraint, sensor placement, differential diagnosis, and Emergency DSN burst uplink.
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setModal("acute-emergency")}
+                    className="px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-mono text-xs font-bold transition shrink-0 cursor-pointer shadow-sm active:scale-98"
+                  >
+                    Launch Emergency Drill →
+                  </button>
+                </div>
+
                 <div className="alert-status-grid">
                   {(["Stable", "Observe", "Attention"] as Status[]).map((s) => (
                     <button
@@ -2952,9 +2985,19 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
               setModal(null);
             }}
             onClose={() => setModal(null)}
+            onLaunchEmergencyDrill={() => setModal("acute-emergency")}
           />
         )}
-        {modal && modal !== "export" && modal !== "onboarding" && modal !== "simulation" && (
+        {modal === "acute-emergency" && (
+          <AcuteEmergencyProtocolModal
+            onClose={() => setModal(null)}
+            onNavigateToWaveforms={() => {
+              navigate("Sensorimotor & Reflex");
+              setModal(null);
+            }}
+          />
+        )}
+        {modal && modal !== "export" && modal !== "onboarding" && modal !== "simulation" && modal !== "acute-emergency" && (
           <div className="modal-backdrop" onClick={() => setModal(null)}>
             <section
               className={modal === "account" ? "panel modal account-modal" : "panel modal"}

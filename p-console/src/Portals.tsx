@@ -14,6 +14,7 @@ import {
   observationFlags,
   orbitalConditions,
   personalBaseline,
+  rules,
   trendCalculation,
   type Reading,
 } from "./data";
@@ -40,8 +41,8 @@ export function PortalHome() {
           <span className="portal-kicker">EDUCATIONAL PROTOTYPE</span>
           <h1>Choose a door.</h1>
           <p>
-            Astronauts enter the crew console. Admin and tester use the backend door to review the
-            same synthetic datasets. Demo codes are public. They are not accounts.
+            Astronauts enter the crew console with a public sample PIN. Admin and tester open the
+            backend by choosing a role. Neither door is an account.
           </p>
         </div>
         <p>
@@ -57,7 +58,7 @@ export function PortalHome() {
         <Link className="portal-card" to="/b-login">
           <span className="portal-kicker">/b-login</span>
           <strong>Backend</strong>
-          <p>Admin opens the console for any crew. Tester checks dataset accuracy on the API.</p>
+          <p>Choose Admin or Tester. The role opens at once. No code.</p>
         </Link>
         {session?.kind === "astronaut" && (
           <Link className="portal-card" to="/Astronaut">
@@ -91,28 +92,24 @@ export function AstronautLogin() {
   );
 }
 
+const backendRoleCopy: Record<string, { title: string; detail: string }> = {
+  admin: {
+    title: "Admin",
+    detail: "Review every fictional profile, the cabin sample, the orbit sample, and today’s intake. Open any crew console.",
+  },
+  tester: {
+    title: "Tester",
+    detail: "See whether the published datasets passed, then try one reading against that person’s 14-day mean.",
+  },
+};
+
 export function BackendLogin() {
   const navigate = useNavigate();
-  const [roleId, setRoleId] = useState<(typeof accessRoles)[number]["id"]>("admin");
-  const [code, setCode] = useState("");
-  const [error, setError] = useState("");
-  const role = accessRoles.find((item) => item.id === roleId) ?? accessRoles[0];
 
-  useEffect(() => {
-    if (code.length !== 4) return;
-    if (code === role.demoCode) {
-      const backendRole = role.id === "tester" ? "tester" : "admin";
-      writeSession({ kind: "backend", role: backendRole });
-      navigate(backendRole === "admin" ? "/admin" : "/tester");
-      return;
-    }
-    setCode("");
-    setError("That public demo code does not match this backend role.");
-  }, [code, navigate, role.demoCode, role.id, role.portal]);
-
-  function digit(value: string) {
-    setError("");
-    setCode((current) => (current + value).slice(0, 4));
+  function enter(roleId: string) {
+    const backendRole = roleId === "tester" ? "tester" : "admin";
+    writeSession({ kind: "backend", role: backendRole });
+    navigate(backendRole === "admin" ? "/admin" : "/tester");
   }
 
   return (
@@ -125,11 +122,11 @@ export function BackendLogin() {
           </span>
         </div>
         <div className="access-story-copy">
-          <span className="eyebrow">DATASET REVIEW</span>
+          <span className="eyebrow">FOR JUDGES</span>
           <h2>
-            Admin or tester.
+            Choose a role.
             <br />
-            Same public fixtures.
+            The page opens.
           </h2>
           <p>This door does not create an account and does not store a health record.</p>
         </div>
@@ -141,131 +138,25 @@ export function BackendLogin() {
       <section className="access-console" aria-labelledby="backend-title">
         <div className="access-heading">
           <span className="eyebrow">/b-login</span>
-          <h1 id="backend-title">Backend demo access.</h1>
-          <p>Pick a role, then enter its public four-digit code.</p>
+          <h1 id="backend-title">Backend review.</h1>
+          <p>Click a role to enter. There is no code on this door.</p>
         </div>
-        <div className="role-switch" role="group" aria-label="Backend role">
-          {accessRoles.map((item) => (
-            <button
-              key={item.id}
-              type="button"
-              className={item.id === role.id ? "secondary-button selected" : "secondary-button"}
-              aria-pressed={item.id === role.id}
-              onClick={() => {
-                setRoleId(item.id);
-                setCode("");
-                setError("");
-              }}
-            >
-              {item.label}
-            </button>
-          ))}
-        </div>
-        <div className="flex items-center justify-between mt-4 mb-2">
-          <span className="text-xs text-slate-400">Assigned code: <code className="text-cyan-300 font-mono font-bold">{role.demoCode}</code></span>
-          <button
-            type="button"
-            className="secondary-button"
-            onClick={() => setCode(role.demoCode)}
-            style={{ minWidth: "120px", justifyContent: "center" }}
-          >
-            1-Click Enter
-          </button>
-        </div>
-
-        <form className="access-pin-form" onSubmit={(event) => event.preventDefault()}>
-          <label htmlFor="backend-code">
-            <span>4-digit demo code</span>
-            <small>Auto-continue when code matches {role.demoCode}</small>
-          </label>
-          <input
-            id="backend-code"
-            inputMode="numeric"
-            autoComplete="off"
-            maxLength={4}
-            value={code}
-            placeholder="••••"
-            aria-invalid={Boolean(error)}
-            onChange={(event) => {
-              setError("");
-              setCode(event.target.value.replace(/\D/g, "").slice(0, 4));
-            }}
-          />
-
-          {/* Discrete 4-digit code slots */}
-          <div className="flex items-center gap-3 justify-center my-3" aria-hidden="true">
-            {[0, 1, 2, 3].map((slot) => {
-              const char = code[slot];
-              const isCurrent = code.length === slot;
-              return (
-                <div
-                  key={slot}
-                  style={{
-                    width: "48px",
-                    height: "48px",
-                    borderRadius: "8px",
-                    border: char ? "1.5px solid #38bdf8" : isCurrent ? "1.5px solid #0284c7" : "1px solid #334155",
-                    background: char ? "rgba(8, 20, 42, 0.7)" : "#0f172a",
-                    color: "#38bdf8",
-                    display: "grid",
-                    placeItems: "center",
-                    fontSize: "20px",
-                    fontWeight: "bold",
-                    fontFamily: "monospace",
-                  }}
-                >
-                  {char ? "•" : ""}
-                </div>
-              );
-            })}
-          </div>
-
-          <div className="access-keypad" aria-label="Demo code keypad">
-            {["1", "2", "3", "4", "5", "6", "7", "8", "9"].map((value) => (
-              <button key={value} type="button" onClick={() => digit(value)}>
-                {value}
+        <div className="role-enter" role="group" aria-label="Backend role">
+          {accessRoles.map((item) => {
+            const copy = backendRoleCopy[item.id] ?? { title: item.label, detail: item.portal };
+            return (
+              <button key={item.id} type="button" onClick={() => enter(item.id)}>
+                <span className="portal-kicker">{item.portal}</span>
+                <strong>{copy.title}</strong>
+                <p>{copy.detail}</p>
               </button>
-            ))}
-            <button
-              type="button"
-              className="keypad-utility"
-              onClick={() => {
-                setCode("");
-                setError("");
-              }}
-            >
-              Clear
-            </button>
-            <button key="0" type="button" onClick={() => digit("0")}>
-              0
-            </button>
-            <button
-              type="button"
-              className="keypad-utility"
-              disabled={code.length !== 4}
-              onClick={() => {
-                if (code === role.demoCode) {
-                  const backendRole = role.id === "tester" ? "tester" : "admin";
-                  writeSession({ kind: "backend", role: backendRole });
-                  navigate(backendRole === "admin" ? "/admin" : "/tester");
-                } else {
-                  setError("Code mismatch. Use public code: " + role.demoCode);
-                }
-              }}
-            >
-              Enter
-            </button>
-          </div>
-          {error && (
-            <p className="access-error" role="alert">
-              {error}
-            </p>
-          )}
-        </form>
+            );
+          })}
+        </div>
         <div className="access-disclaimer">
           <p>
-            <strong>Demo access, not secure authentication.</strong> The code only chooses which
-            review page opens. Refreshing still clears console edits.
+            <strong>A role choice, not secure authentication.</strong> Admin and tester read the
+            same synthetic files the crew console uses. Refreshing still clears console edits.
           </p>
         </div>
       </section>
@@ -337,7 +228,7 @@ export function AdminPortal() {
         </div>
       </div>
       <p className="portal-lead">
-        Open any of the five crew members. Cabin air, the orbit sample, body measurements, and the day {mission.day} meals are stored fixtures.
+        This is the mission review desk for {mission.name}, flight day {mission.day}. It shows the same synthetic files the crew console uses. Opening a profile does not create a medical record, and the status words are demonstration labels.
       </p>
       <div className="portal-grid">
         <article className="portal-card">
@@ -360,17 +251,30 @@ export function AdminPortal() {
         </article>
       </div>
       <div className="portal-grid" style={{ marginTop: 14 }}>
-        {crew.map((person) => {
+        {crew.map((person, index) => {
           const body = biodata.find((row) => row.crewId === person.id);
           const intake = nutritionFor(person.id).find((row) => row.missionDay === mission.day);
+          const reading = latestRecord(person.id).reading;
+          const status = crewStatus(index, reading);
+          const note =
+            status === "Attention"
+              ? "Marked for review in the fixture."
+              : status === "Observe"
+                ? "A reading sits outside the demonstration rule."
+                : "Inside the demonstration rules.";
           return (
             <article className="portal-card" key={person.id}>
               <span className="portal-kicker">{person.role}</span>
               <strong>{person.name}</strong>
               <p>
+                <b className={status === "Stable" ? "pass" : "fail"}>{status}</b>
+                {" · "}
+                {note}
+              </p>
+              <p>
                 {body ? `${body.statureCm} cm · ${body.massKg} kg · ${body.bloodTypeLabel}` : "No biodata"}
               </p>
-              <p>{intake ? `${intake.kcal} kcal · ${intake.waterMl} mL water on day ${mission.day}` : "No intake row"}</p>
+              <p>{intake ? `${intake.kcal} kcal · ${intake.waterMl} mL water on day ${mission.day}` : "No intake row for this day"}</p>
               <div className="portal-actions">
                 <Link className="primary-button" to={`/Astronaut?crew=${person.id}`}>
                   Open console
@@ -478,7 +382,7 @@ export function TesterPortal() {
         }
       } catch {
         if (!cancelled) {
-          setError("The read-only API is not reachable. Start it with pnpm dev:api, then reload this page.");
+          setError("The read-only API did not answer. The public address is https://api.tanaw-orbit.app/.");
         }
       }
     }
@@ -545,7 +449,7 @@ export function TesterPortal() {
     } catch {
       setTrialChecks(undefined);
       setTrial(
-        `The API is not reachable. On this page the console would say ${statusWord[localStatus]}. Start pnpm dev:api and try again.`,
+        `The API did not answer. On this page the console would say ${statusWord[localStatus]}. The public address is https://api.tanaw-orbit.app/.`,
       );
     }
   }
@@ -571,11 +475,51 @@ export function TesterPortal() {
         </div>
       </div>
       <p className="portal-lead">
-        This page asks the Worker to recheck the synthetic fixtures, then runs the same heart, blood
-        pressure, sleep, and tired if statements on numbers you type. Nothing is saved.
+        Judges can see two things here. First, whether the published datasets still pass. Second, what the demonstration rules say about one reading. Nothing typed here is saved.
       </p>
       <section className="portal-card">
-        <span className="portal-kicker">TRY A READING</span>
+        <span className="portal-kicker">DEMONSTRATION RULES</span>
+        <p>These are not clinical limits. A mark means the number is far from that person’s previous 14 synthetic days.</p>
+        <div className="portal-check">
+          <b>Heart</b>
+          <p>More than {rules.heartDifferenceBpm} bpm from the mean.</p>
+        </div>
+        <div className="portal-check">
+          <b>Pressure</b>
+          <p>More than {rules.pressureDifferenceMmHg} mmHg from the mean.</p>
+        </div>
+        <div className="portal-check">
+          <b>Sleep</b>
+          <p>More than {rules.sleepDecreaseHours} hour below the mean.</p>
+        </div>
+        <div className="portal-check">
+          <b>Tired</b>
+          <p>More than {rules.fatigueIncreasePoints} points above the mean, on a 1 to 5 scale.</p>
+        </div>
+      </section>
+      {error && (
+        <p className="access-error" role="alert">
+          {error}
+        </p>
+      )}
+      {report && (
+        <section className="portal-card">
+          <span className="portal-kicker">{report.ok ? "1 · FIXTURES PASSED" : "1 · FIXTURES NEED ATTENTION"}</span>
+          <strong>{compare}</strong>
+          <p>{report.disclaimer}</p>
+          {report.checks.map((item) => (
+            <div className="portal-check" key={item.id}>
+              <b className={item.ok ? "pass" : "fail"}>{item.ok ? "Pass" : "Fail"}</b>
+              <div>
+                <strong>{item.label}</strong>
+                <p>{item.detail}</p>
+              </div>
+            </div>
+          ))}
+        </section>
+      )}
+      <section className="portal-card trial-form">
+        <span className="portal-kicker">2 · TRY A READING</span>
         <label>
           Person
           <select value={crewId} onChange={(event) => useStoredReading(event.target.value)}>
@@ -620,26 +564,6 @@ export function TesterPortal() {
           </div>
         ))}
       </section>
-      {error && (
-        <p className="access-error" role="alert">
-          {error}
-        </p>
-      )}
-      {report && (
-        <section className="portal-card">
-          <span className="portal-kicker">{report.ok ? "FIXTURES PASSED" : "FIXTURES NEED ATTENTION"}</span>
-          <strong>{compare}</strong>
-          {report.checks.map((item) => (
-            <div className="portal-check" key={item.id}>
-              <b className={item.ok ? "pass" : "fail"}>{item.ok ? "Pass" : "Fail"}</b>
-              <div>
-                <strong>{item.label}</strong>
-                <p>{item.detail}</p>
-              </div>
-            </div>
-          ))}
-        </section>
-      )}
     </main>
   );
 }

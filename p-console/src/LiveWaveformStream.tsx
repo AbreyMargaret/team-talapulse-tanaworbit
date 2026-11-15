@@ -226,15 +226,15 @@ export default function LiveWaveformStream({
 
           {/* Collapsible Explanatory Insight */}
           {activeInfo === "heartRate" && (
-            <div className="mt-2.5 p-3 rounded-lg bg-slate-900 border border-slate-700/80 text-xs text-slate-300 leading-relaxed animate-fade-in">
-              <div className="flex items-center justify-between text-cyan-300 font-semibold mb-1">
+            <div className="mt-2.5 p-3 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700/80 text-xs text-slate-700 dark:text-slate-300 leading-relaxed animate-fade-in">
+              <div className="flex items-center justify-between text-emerald-700 dark:text-cyan-300 font-semibold mb-1">
                 <span>{METRIC_INSIGHTS.heartRate.layman}</span>
-                <span className="font-mono text-[11px] text-emerald-400">
+                <span className="font-mono text-[11px] text-emerald-600 dark:text-emerald-400">
                   Often: {METRIC_INSIGHTS.heartRate.normal}
                 </span>
               </div>
               <p className="mb-1.5">{METRIC_INSIGHTS.heartRate.whatItMeans}</p>
-              <div className="p-2 rounded bg-cyan-950/40 border border-cyan-800/40 text-[11px] text-cyan-200">
+              <div className="p-2 rounded bg-emerald-50 dark:bg-cyan-950/40 border border-emerald-200 dark:border-cyan-800/40 text-[11px] text-emerald-800 dark:text-cyan-200">
                 <strong>On a long mission: </strong> {METRIC_INSIGHTS.heartRate.spaceSignificance}
               </div>
             </div>
@@ -292,15 +292,15 @@ export default function LiveWaveformStream({
           </div>
 
           {activeInfo === "spo2" && (
-            <div className="mt-2.5 p-3 rounded-lg bg-slate-900 border border-slate-700/80 text-xs text-slate-300 leading-relaxed animate-fade-in">
-              <div className="flex items-center justify-between text-cyan-300 font-semibold mb-1">
+            <div className="mt-2.5 p-3 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700/80 text-xs text-slate-700 dark:text-slate-300 leading-relaxed animate-fade-in">
+              <div className="flex items-center justify-between text-cyan-700 dark:text-cyan-300 font-semibold mb-1">
                 <span>{METRIC_INSIGHTS.spo2.layman}</span>
-                <span className="font-mono text-[11px] text-cyan-400">
+                <span className="font-mono text-[11px] text-cyan-600 dark:text-cyan-400">
                   Often: {METRIC_INSIGHTS.spo2.normal}
                 </span>
               </div>
               <p className="mb-1.5">{METRIC_INSIGHTS.spo2.whatItMeans}</p>
-              <div className="p-2 rounded bg-cyan-950/40 border border-cyan-800/40 text-[11px] text-cyan-200">
+              <div className="p-2 rounded bg-cyan-50 dark:bg-cyan-950/40 border border-cyan-200 dark:border-cyan-800/40 text-[11px] text-cyan-800 dark:text-cyan-200">
                 <strong>On a long mission: </strong> {METRIC_INSIGHTS.spo2.spaceSignificance}
               </div>
             </div>
@@ -358,15 +358,15 @@ export default function LiveWaveformStream({
           </div>
 
           {activeInfo === "respiration" && (
-            <div className="mt-2.5 p-3 rounded-lg bg-slate-900 border border-slate-700/80 text-xs text-slate-300 leading-relaxed animate-fade-in">
-              <div className="flex items-center justify-between text-purple-300 font-semibold mb-1">
+            <div className="mt-2.5 p-3 rounded-lg bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700/80 text-xs text-slate-700 dark:text-slate-300 leading-relaxed animate-fade-in">
+              <div className="flex items-center justify-between text-purple-700 dark:text-purple-300 font-semibold mb-1">
                 <span>{METRIC_INSIGHTS.respiration.layman}</span>
-                <span className="font-mono text-[11px] text-purple-400">
+                <span className="font-mono text-[11px] text-purple-600 dark:text-purple-400">
                   Often: {METRIC_INSIGHTS.respiration.normal}
                 </span>
               </div>
               <p className="mb-1.5">{METRIC_INSIGHTS.respiration.whatItMeans}</p>
-              <div className="p-2 rounded bg-purple-950/40 border border-purple-800/40 text-[11px] text-purple-200">
+              <div className="p-2 rounded bg-purple-50 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-800/40 text-[11px] text-purple-800 dark:text-purple-200">
                 <strong>On a long mission: </strong> {METRIC_INSIGHTS.respiration.spaceSignificance}
               </div>
             </div>

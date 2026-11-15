@@ -103,6 +103,7 @@
   --muted: #8b949e;
   --subtle: #6e7681;
   --border: #30363d;
+  --border-subtle: rgba(255, 255, 255, 0.07);
   --panel: #161b22;
   --panel-elevated: #1f242c;
   --accent: #38bdf8;
@@ -367,7 +368,6 @@
   object-fit: cover;
   object-position: center 36%;
   border-radius: 50%;
-  filter: saturate(0.4);
 }
 .avatar > span {
   position: absolute;
@@ -5718,6 +5718,7 @@ textarea::placeholder {
   --muted: #656d76;
   --subtle: #8c959f;
   --border: #d0d7de;
+  --border-subtle: rgba(0, 0, 0, 0.08);
   --panel: #ffffff;
   --panel-elevated: #f0f2f5;
   --accent: #0284c7;
