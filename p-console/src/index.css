@@ -870,10 +870,12 @@ h1 {
 }
 .secondary-metrics {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  background: #0d1424;
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
   margin-top: 13px;
 }
 .secondary-metrics > div {
@@ -883,7 +885,7 @@ h1 {
   padding: 13px 17px;
 }
 .secondary-metrics > div + div {
-  border-left: 1px solid var(--border);
+  border-left: none;
 }
 .secondary-icon {
   color: #7c94b4;
@@ -5798,7 +5800,6 @@ textarea::placeholder {
 [data-theme="light"] .overview-panel,
 [data-theme="light"] .modal-sheet,
 [data-theme="light"] .quiet-card,
-[data-theme="light"] .secondary-metrics,
 [data-theme="light"] .guidance-strip,
 [data-theme="light"] .next-step-card {
   background: var(--panel);

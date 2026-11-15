@@ -166,6 +166,30 @@
   background: #0b1019;
   color: var(--text);
 }
+.logic-sheet {
+  display: grid;
+  gap: 10px;
+  margin: 8px 0;
+}
+.logic-table {
+  display: grid;
+  gap: 4px;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+.logic-table [role="row"] {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(52px, 1fr));
+  gap: 8px;
+}
+.logic-head,
+.logic-mean {
+  color: #9fd8ea;
+}
+.logic-sum {
+  color: #c5d0de;
+}
 .portal-card .pass {
   color: #7dcaa5;
 }

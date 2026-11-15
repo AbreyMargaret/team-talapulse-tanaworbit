@@ -8,9 +8,14 @@ import {
   cabinConditions,
   crew,
   crewStatus,
+  healthRecords,
+  initialExercises,
   latestRecord,
   mission,
+  monitorParameters,
   nutritionFor,
+  nutritionItems,
+  nutritionRecords,
   observationFlags,
   orbitalConditions,
   personalBaseline,
@@ -335,6 +340,112 @@ type EvaluateBody = {
 
 const statusWord = { Stable: "Usual", Observe: "Different", Attention: "Flagged" } as const;
 
+const datasetIndex = [
+  { file: "crew.json", checkId: "crew-count", local: () => `${crew.length} profiles` },
+  { file: "health-records.json", checkId: "health-count", local: () => `${healthRecords.length} records` },
+  { file: "monitoring-rules.json", checkId: "baseline-window", local: () => `${rules.baselineWindowDays} days before day ${mission.day}` },
+  { file: "exercise-records.json", checkId: "exercise-links", local: () => `${initialExercises.length} sessions` },
+  { file: "biodata.json", checkId: "biodata", local: () => `${biodata.length} rows` },
+  { file: "monitor-parameters.json", checkId: "monitor-parameters", local: () => `${monitorParameters.length} bounds` },
+  { file: "cabin-conditions.json", checkId: "cabin", local: () => `${cabinConditions.length} samples` },
+  { file: "orbital-conditions.json", checkId: "orbit", local: () => `${orbitalConditions.length} samples` },
+  { file: "nutrition.json", checkId: "nutrition", local: () => `${nutritionRecords.length} intake rows, ${nutritionItems.length} menu items` },
+  { file: "calculation", checkId: "trend-math", local: () => "mean of the prior days, rounded to 1 decimal" },
+] as const;
+
+function round1(value: number) {
+  return Math.round(value * 10) / 10;
+}
+
+function LogicSheet({ crewId, reading }: { crewId: string; reading: Reading }) {
+  const ready = [reading.heart, reading.systolic, reading.diastolic, reading.sleep, reading.fatigue].every(Number.isFinite);
+  if (!ready) return <p>Enter a number in every field to see the if statements.</p>;
+  const calc = trendCalculation(crewId, reading);
+  const person = crew.find((item) => item.id === crewId);
+  const n = calc.window.length;
+  const keys = ["heart", "systolic", "diastolic", "sleep", "fatigue"] as const;
+  const heartSum = calc.window.reduce((total, row) => total + row.reading.heart, 0);
+  const flags = observationFlags(reading, calc.baseline);
+  const numberStatus = Object.values(flags).some(Boolean) ? "Observe" : "Stable";
+  const status = person?.reviewRequested ? "Attention" : numberStatus;
+  const tests = [
+    {
+      id: "heart",
+      fired: flags.heart,
+      formula: `abs(${reading.heart} − ${calc.baseline.heart}) > ${rules.heartDifferenceBpm}`,
+      result: `${round1(Math.abs(reading.heart - calc.baseline.heart))} > ${rules.heartDifferenceBpm}`,
+    },
+    {
+      id: "pressure",
+      fired: flags.pressure,
+      formula: `abs(systolic gap) > ${rules.pressureDifferenceMmHg} OR abs(diastolic gap) > ${rules.pressureDifferenceMmHg}`,
+      result: `${round1(Math.abs(reading.systolic - calc.baseline.systolic))} or ${round1(Math.abs(reading.diastolic - calc.baseline.diastolic))} > ${rules.pressureDifferenceMmHg}`,
+    },
+    {
+      id: "sleep",
+      fired: flags.sleep,
+      formula: `${calc.baseline.sleep} − ${reading.sleep} > ${rules.sleepDecreaseHours}`,
+      result: "Marks only a shorter night. A longer night stays unmarked.",
+    },
+    {
+      id: "fatigue",
+      fired: flags.fatigue,
+      formula: `${reading.fatigue} − ${calc.baseline.fatigue} > ${rules.fatigueIncreasePoints}`,
+      result: "Marks only a higher tired score. A lower score stays unmarked.",
+    },
+  ];
+  return (
+    <div className="logic-sheet">
+      <p>
+        {n} stored days before mission day {mission.day}. Mean = round(sum ÷ {n}, 1 decimal). The current day is not inside the mean.
+      </p>
+      <div className="logic-table" role="table" aria-label="Baseline days">
+        <div role="row" className="logic-head">
+          <span>Day</span>
+          <span>Heart</span>
+          <span>Sys</span>
+          <span>Dia</span>
+          <span>Sleep</span>
+          <span>Tired</span>
+        </div>
+        {calc.window.map((row) => (
+          <div role="row" key={row.id}>
+            <span>{row.missionDay}</span>
+            <span>{row.reading.heart}</span>
+            <span>{row.reading.systolic}</span>
+            <span>{row.reading.diastolic}</span>
+            <span>{row.reading.sleep}</span>
+            <span>{row.reading.fatigue}</span>
+          </div>
+        ))}
+        <div role="row" className="logic-mean">
+          <span>Mean</span>
+          {keys.map((key) => (
+            <span key={key}>{calc.baseline[key]}</span>
+          ))}
+        </div>
+      </div>
+      <p className="logic-sum">
+        Heart sum {heartSum} ÷ {n} rounds to {calc.baseline.heart}. Pressure, sleep, and tired use that same round-to-one-decimal step.
+      </p>
+      {tests.map((test) => (
+        <div className="portal-check" key={test.id}>
+          <b className={test.fired ? "fail" : "pass"}>{test.fired ? "Marked" : "Not marked"}</b>
+          <div>
+            <strong>{test.id}</strong>
+            <p>{test.formula}</p>
+            <p>{test.result}</p>
+          </div>
+        </div>
+      ))}
+      <p>
+        Second look on this profile: {person?.reviewRequested ? "yes, so the label is Flagged even when the numbers are close" : "no"}.
+        {" "}Label from the numbers alone: {statusWord[numberStatus]}. Label the console uses: {statusWord[status]}.
+      </p>
+    </div>
+  );
+}
+
 export function TesterPortal() {
   const session = useSession();
   const sessionKey = session ? `${session.kind}:${session.kind === "backend" ? session.role : session.crewId}` : "";
@@ -502,22 +613,23 @@ export function TesterPortal() {
           {error}
         </p>
       )}
-      {report && (
-        <section className="portal-card">
-          <span className="portal-kicker">{report.ok ? "1 · FIXTURES PASSED" : "1 · FIXTURES NEED ATTENTION"}</span>
-          <strong>{compare}</strong>
-          <p>{report.disclaimer}</p>
-          {report.checks.map((item) => (
-            <div className="portal-check" key={item.id}>
-              <b className={item.ok ? "pass" : "fail"}>{item.ok ? "Pass" : "Fail"}</b>
+      <section className="portal-card">
+        <span className="portal-kicker">{report ? (report.ok ? "1 · EVERY DATASET PASSED" : "1 · A DATASET NEEDS ATTENTION") : "1 · DATASETS"}</span>
+        <strong>{report ? compare : "Local counts are shown now. The API pass or fail appears when the Worker answers."}</strong>
+        {datasetIndex.map((item) => {
+          const remote = report?.checks.find((check) => check.id === item.checkId);
+          return (
+            <div className="portal-check" key={item.file}>
+              <b className={remote ? (remote.ok ? "pass" : "fail") : ""}>{remote ? (remote.ok ? "Pass" : "Fail") : "Local"}</b>
               <div>
-                <strong>{item.label}</strong>
-                <p>{item.detail}</p>
+                <strong>{item.file}</strong>
+                <p>{item.local()}</p>
+                {remote && <p>{remote.label}. {remote.detail}</p>}
               </div>
             </div>
-          ))}
-        </section>
-      )}
+          );
+        })}
+      </section>
       <section className="portal-card trial-form">
         <span className="portal-kicker">2 · TRY A READING</span>
         <label>
@@ -550,8 +662,20 @@ export function TesterPortal() {
           How tired, 1 to 5
           <input value={fatigue} onChange={(event) => setFatigue(event.target.value)} inputMode="decimal" />
         </label>
+        <LogicSheet
+          crewId={crewId}
+          reading={{
+            heart: Number(heart),
+            systolic: Number(systolic),
+            diastolic: Number(diastolic),
+            sleep: Number(sleep),
+            fatigue: Number(fatigue),
+            mood: "",
+            notes: "",
+          }}
+        />
         <button className="primary-button" type="button" onClick={() => void runTrial()}>
-          Check these numbers
+          Ask the API to judge these numbers
         </button>
         {trial && <p>{trial}</p>}
         {trialChecks?.checks.map((item) => (
