@@ -232,6 +232,17 @@ app.get("/api/evaluate", (c) => {
         400,
       );
     }
+
+    if (field === "heart" && value <= 0) {
+      return c.json(
+        published({
+          error: "invalid_input",
+          field,
+          message: "Heart Rate Must be greater than zero.",
+        }),
+        400,
+      );
+    }
     reading[field] = value;
   }
   const judged = judgeReading(crewId, reading);
