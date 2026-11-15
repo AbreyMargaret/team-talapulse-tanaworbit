@@ -939,19 +939,23 @@ h1,
 .week-board {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  margin-bottom: 22px;
+  gap: 18px;
+  margin-bottom: 24px;
+  padding: 26px 28px;
+  border-radius: 14px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
 .week-board h2 {
   margin: 0;
   font-size: 20px;
-  font-weight: 550;
-  letter-spacing: 0;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
-.week-board .week-note,
-.note-keep p {
+.week-board .week-note {
   margin: 6px 0 0;
   color: var(--muted);
   font-size: 14px;
@@ -1109,18 +1113,66 @@ h1,
   border-color: #0284c7;
 }
 
+.note-keep {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+  padding: 24px 28px;
+  border-radius: 14px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.note-keep .panel-heading {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.note-keep .panel-heading h2 {
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  color: var(--text) !important;
+  letter-spacing: -0.01em !important;
+  margin: 0 !important;
+}
+
+.note-keep .panel-heading p {
+  color: var(--muted) !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+  margin: 6px 0 0 !important;
+}
+
 .note-keep textarea {
   box-sizing: border-box;
   width: 100%;
-  min-height: 96px;
-  margin-top: 12px;
-  padding: 12px;
-  border-radius: 8px;
+  min-height: 108px;
+  margin: 0;
+  padding: 14px 16px;
+  border-radius: 10px;
   border: 1px solid var(--border);
   background: var(--bg);
   color: var(--text);
   font: inherit;
+  font-size: 14px;
+  line-height: 1.6;
   resize: vertical;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.note-keep textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 15%, transparent);
+}
+
+.note-keep p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
 }
 
 @media (max-width: 760px) {
@@ -1132,6 +1184,17 @@ h1,
 .avatar {
   color: #ffffff;
   box-shadow: none;
+}
+
+.sensorimotor-panel-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 26px 28px !important;
+  border-radius: 14px !important;
+  background: var(--panel) !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
 }
 
 .avatar-symptom-mapper,
@@ -1336,26 +1399,27 @@ button[class*="bg-cyan-600"] {
 .practice-board {
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  margin: 0 0 22px;
-  padding: 18px 20px;
+  gap: 16px;
+  margin: 0 0 24px;
+  padding: 24px 28px;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 14px;
   background: var(--panel);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
 .practice-board h2 {
   margin: 0;
-  font-size: 16px;
-  font-weight: 550;
-  letter-spacing: -0.02em;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 
 .practice-board > div > p {
   margin: 6px 0 0;
   color: var(--muted);
   font-size: 14px;
-  line-height: 1.45;
+  line-height: 1.5;
 }
 
 .practice-list {
@@ -1776,6 +1840,67 @@ input[type="number"] {
   width: 40px;
   height: auto;
   align-self: stretch;
+}
+
+.mood-note {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.daily-checkin-container .mood-choices {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.daily-checkin-container .mood-choices > button {
+  --mood: var(--muted);
+  min-height: 72px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 550;
+}
+
+.daily-checkin-container .mood-choices > button[data-mood="great"] {
+  --mood: var(--green);
+}
+
+.daily-checkin-container .mood-choices > button[data-mood="good"] {
+  --mood: var(--accent);
+}
+
+.daily-checkin-container .mood-choices > button[data-mood="fair"] {
+  --mood: var(--amber);
+}
+
+.daily-checkin-container .mood-choices > button[data-mood="low"] {
+  --mood: var(--red);
+}
+
+.daily-checkin-container .mood-choices > button svg {
+  color: var(--mood);
+}
+
+.daily-checkin-container .mood-choices > button[aria-pressed="true"] {
+  border-color: var(--mood);
+  background: color-mix(in srgb, var(--mood) 18%, var(--panel));
+}
+
+@media (max-width: 600px) {
+  .daily-checkin-container .mood-choices {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 .quiet-card button {

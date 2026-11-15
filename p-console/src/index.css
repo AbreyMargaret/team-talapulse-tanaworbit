@@ -36,51 +36,6 @@
 @theme {
   --font-sans: "DM Sans", sans-serif;
   --font-mono: "IBM Plex Mono", monospace;
-  --color-slate-50: #f4f1ea;
-  --color-slate-100: #efeae2;
-  --color-slate-200: #ddd6c8;
-  --color-slate-300: #cfc6b6;
-  --color-slate-400: #8a8478;
-  --color-slate-500: #5c574e;
-  --color-slate-600: #4a453c;
-  --color-slate-700: #3a362f;
-  --color-slate-800: #2e2d2a;
-  --color-slate-900: #212226;
-  --color-slate-950: #191a1d;
-  --color-sky-50: #f4f1ea;
-  --color-sky-100: #efeae2;
-  --color-sky-200: #ddd6c8;
-  --color-sky-300: #c6b59a;
-  --color-sky-400: #8a8478;
-  --color-sky-500: #5c574e;
-  --color-sky-600: #3d5344;
-  --color-sky-700: #3d5344;
-  --color-sky-800: #1e1c17;
-  --color-sky-900: #1e1c17;
-  --color-sky-950: #141516;
-  --color-cyan-50: #f4f1ea;
-  --color-cyan-100: #efeae2;
-  --color-cyan-200: #e7e4dc;
-  --color-cyan-300: #c6b59a;
-  --color-cyan-400: #c6b59a;
-  --color-cyan-500: #b5a488;
-  --color-cyan-600: #3d5344;
-  --color-cyan-700: #314436;
-  --color-cyan-800: #2e2d2a;
-  --color-cyan-900: #212226;
-  --color-cyan-950: #191a1d;
-  --color-emerald-300: #8ea184;
-  --color-emerald-400: #8ea184;
-  --color-emerald-500: #4e6a52;
-  --color-emerald-600: #3d5344;
-  --color-amber-300: #d2a86a;
-  --color-amber-400: #d2a86a;
-  --color-amber-500: #8a5a2a;
-  --color-amber-600: #8a5a2a;
-  --color-rose-300: #d08a7a;
-  --color-rose-400: #d08a7a;
-  --color-rose-500: #8d4034;
-  --color-rose-600: #8d4034;
 }
 
 @layer base {
@@ -142,20 +97,20 @@
 }
 
 :root {
-  --bg: #191a1d;
-  --sidebar: #141516;
-  --text: #e7e4dc;
-  --muted: #a39e93;
-  --subtle: #7c776e;
-  --border: #2e2d2a;
-  --panel: #212226;
-  --panel-elevated: #2a2926;
-  --accent: #c6b59a;
-  --on-accent: #1c1a16;
-  --cyan: #c6b59a;
-  --green: #8ea184;
-  --amber: #d2a86a;
-  --red: #d08a7a;
+  --bg: #0d1117;
+  --sidebar: #090d13;
+  --text: #f0f6fc;
+  --muted: #8b949e;
+  --subtle: #6e7681;
+  --border: #30363d;
+  --panel: #161b22;
+  --panel-elevated: #1f242c;
+  --accent: #38bdf8;
+  --on-accent: #0b1320;
+  --cyan: #38bdf8;
+  --green: #2ea043;
+  --amber: #d29922;
+  --red: #f85149;
 }
 .app-shell {
   min-height: 100vh;
@@ -5756,20 +5711,20 @@ textarea::placeholder {
 
 [data-theme="light"] {
   color-scheme: light;
-  --bg: #f4f1ea;
-  --sidebar: #efeae2;
-  --text: #1e1c17;
-  --muted: #5c574e;
-  --subtle: #8a8478;
-  --border: #ddd6c8;
-  --panel: #fbf9f4;
-  --panel-elevated: #f4f1ea;
-  --accent: #3d5344;
-  --on-accent: #f7f4ee;
-  --cyan: #3d5344;
-  --green: #4e6a52;
-  --amber: #8a5a2a;
-  --red: #8d4034;
+  --bg: #f6f8fa;
+  --sidebar: #ffffff;
+  --text: #1f2328;
+  --muted: #656d76;
+  --subtle: #8c959f;
+  --border: #d0d7de;
+  --panel: #ffffff;
+  --panel-elevated: #f0f2f5;
+  --accent: #0284c7;
+  --on-accent: #ffffff;
+  --cyan: #0284c7;
+  --green: #1a7f37;
+  --amber: #9a6700;
+  --red: #cf222e;
   color: var(--text);
   background: var(--bg);
 }

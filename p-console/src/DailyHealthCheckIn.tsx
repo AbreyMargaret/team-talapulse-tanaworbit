@@ -17,6 +17,9 @@ import {
   RotateCcw,
   Stethoscope,
   Eye,
+  Frown,
+  Laugh,
+  Meh,
   Smile,
   Compass,
   Sparkles,
@@ -891,28 +894,31 @@ Your note: ${draft.notes || "None."}`;
               </p>
             </div>
 
-            {/* Crew Mood & Morale */}
             <div className="p-5 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-mono uppercase tracking-wider text-slate-700 dark:text-slate-300 font-semibold flex items-center gap-2">
-                  <Smile size={16} className="text-emerald-500" />
+              <div>
+                <span className="text-xs font-mono uppercase tracking-wider text-slate-700 dark:text-slate-300 font-semibold">
                   Mood
                 </span>
+                <p className="mood-note">How today feels. This note is not part of the Usual, Different, or Flagged label.</p>
               </div>
-              <div className="grid grid-cols-4 gap-2">
-                {["Great", "Good", "Fair", "Low"].map((m) => (
+              <div className="mood-choices" role="group" aria-label="Mood">
+                {(
+                  [
+                    { name: "Great", Icon: Laugh },
+                    { name: "Good", Icon: Smile },
+                    { name: "Fair", Icon: Meh },
+                    { name: "Low", Icon: Frown },
+                  ] as const
+                ).map(({ name, Icon }) => (
                   <button
-                    key={m}
+                    key={name}
                     type="button"
-                    onClick={() => onDraftChange({ ...draft, mood: m })}
-                    className={`py-3 px-2 rounded-xl border text-center transition cursor-pointer ${
-                      draft.mood === m
-                        ? "bg-emerald-50 dark:bg-emerald-950/80 border-emerald-400 dark:border-emerald-500/60 text-emerald-900 dark:text-emerald-200 shadow-sm font-semibold"
-                        : "bg-slate-50 dark:bg-slate-950/60 border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
-                    }`}
+                    data-mood={name.toLowerCase()}
+                    aria-pressed={draft.mood === name}
+                    onClick={() => onDraftChange({ ...draft, mood: name })}
                   >
-                    <Smile size={18} className="mx-auto mb-1 text-emerald-500" />
-                    <span className="text-xs font-mono block">{m}</span>
+                    <Icon size={22} aria-hidden="true" />
+                    <span>{name}</span>
                   </button>
                 ))}
               </div>
