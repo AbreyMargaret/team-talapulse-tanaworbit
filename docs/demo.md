@@ -42,7 +42,7 @@ Educational prototype. Fictional crew. No NASA-device connection.
 
 **A mission overview that leads to the individual.**
 
-- Select one of four fictional crew members.
+- Select one of five fictional crew members.
 - Review heart rate, blood pressure, sleep, fatigue, mood, temperature, and respiration.
 - Open a simple daily check-in to record measurements and context.
 

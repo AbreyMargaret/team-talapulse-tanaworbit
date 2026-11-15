@@ -6549,33 +6549,100 @@ textarea::placeholder {
    PRINT MEDIA STYLES FOR OFFICIAL DOSSIER PDF
    ======================================================== */
 @media print {
-  body, .app-shell, .content-area {
-    background: #ffffff !important;
-    color: #000000 !important;
-    padding: 0 !important;
-    margin: 0 !important;
+  @page {
+    size: letter portrait;
+    margin: 12mm 14mm;
   }
-  .sidebar, .top-bar, .tanaw-guide-launcher, .modal-controls, button {
+  
+  html, body, #root, .app, .app-shell, .app-container {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: auto !important;
+  }
+
+  /* Hide the rest of the application so only the report prints */
+  main,
+  header,
+  nav,
+  aside,
+  .sidebar,
+  .top-bar,
+  .topbar,
+  .content-area,
+  .touch-dock,
+  .tanaw-guide-launcher,
+  .toast,
+  button,
+  .print\:hidden {
     display: none !important;
   }
+
+  .telemetry-dossier-overlay {
+    position: static !important;
+    inset: auto !important;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    display: block !important;
+    width: 100% !important;
+    overflow: visible !important;
+  }
+
   .telemetry-dossier-modal {
     position: static !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
     max-width: 100% !important;
     width: 100% !important;
-    box-shadow: none !important;
-    border: none !important;
-    padding: 0 !important;
-    background: #ffffff !important;
+    max-height: none !important;
+    overflow: visible !important;
+    color: #0f172a !important;
   }
+
   .printable-report {
     background: #ffffff !important;
-    color: #000000 !important;
-    border: 1px solid #999999 !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    color: #0f172a !important;
   }
-  .printable-report h1, .printable-report h2, .printable-report strong, .printable-report td {
-    color: #000000 !important;
+
+  .printable-report * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
+
+  .printable-report h1,
+  .printable-report h2,
+  .printable-report strong {
+    color: #0f172a !important;
+  }
+
   .printable-report table {
-    border-color: #999999 !important;
+    border-collapse: collapse !important;
+    width: 100% !important;
+  }
+
+  .printable-report th {
+    background: #f1f5f9 !important;
+    color: #334155 !important;
+    border-bottom: 2px solid #cbd5e1 !important;
+  }
+
+  .printable-report td {
+    border-bottom: 1px solid #e2e8f0 !important;
+    color: #1e293b !important;
+  }
+
+  .printable-report tr:nth-child(even) td {
+    background: #f8fafc !important;
   }
 }

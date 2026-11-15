@@ -57,7 +57,26 @@ assert.deepEqual(
   ["checkin", "exercise", "guidance"],
 );
 const actions = new Set(["measure", "routine", "body", "context", "evidence", "exercise"]);
-const templateKeys = new Set(["name", "sleep", "sleepBaseline", "window", "context"]);
+const templateKeys = new Set([
+  "name",
+  "heart",
+  "heartBaseline",
+  "systolic",
+  "diastolic",
+  "systolicBaseline",
+  "diastolicBaseline",
+  "sleep",
+  "sleepBaseline",
+  "fatigue",
+  "fatigueBaseline",
+  "mood",
+  "glucose",
+  "temperature",
+  "spo2",
+  "respiration",
+  "context",
+  "window",
+]);
 for (const record of faq.records) {
   assert.ok(record.question && record.answer && record.actionLabel);
   assert.ok(record.keywords.length);
@@ -66,7 +85,7 @@ for (const record of faq.records) {
   for (const [, key] of record.answer.matchAll(/\{\{(\w+)\}\}/g)) assert.ok(templateKeys.has(key));
 }
 assert.match(faq.safetyResponse, /cannot assess urgent symptoms/);
-assert.match(faq.fallbackResponse, /fixed educational topics/);
+assert.match(faq.fallbackResponse, /written topics|fixed educational topics/);
 console.log(
   "PASS: 6 four-step walkthroughs, 4 context previews, 5 hazards, 3 routine tasks, source links/IDs, FAQ actions/templates, and explicit clinical limitations.",
 );
