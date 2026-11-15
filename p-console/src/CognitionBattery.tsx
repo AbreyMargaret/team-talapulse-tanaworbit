@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { ChevronRight, CheckCircle2, Play } from "lucide-react";
 import "./cognition.css";
 
 export type CognitionEntry = {
@@ -81,20 +82,50 @@ export default function CognitionBattery({
         </div>
       </div>
       <div className="cog-tasks">
-        {TASKS.map((item) => {
+        {TASKS.map((item, index) => {
           const saved = latest.get(item.id);
+          const isSelected = task === item.id;
           return (
             <button
               key={item.id}
               type="button"
-              className={[task === item.id ? "is-on" : "", saved ? "is-done" : ""].filter(Boolean).join(" ") || undefined}
+              className={[
+                "cog-task-card",
+                isSelected ? "is-on" : "",
+                saved ? "is-done" : "",
+              ].filter(Boolean).join(" ")}
               onClick={() => {
                 setTask(item.id);
                 setPlayKey((key) => key + 1);
               }}
             >
-              <strong>{item.label}</strong>
-              <small>{saved ? `${saved.score} ${saved.unit}` : item.blurb}</small>
+              <div className="cog-task-main">
+                <span className="cog-task-num">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div className="cog-task-info">
+                  <strong>{item.label}</strong>
+                  <small>{saved ? `Score: ${saved.score} ${saved.unit}` : item.blurb}</small>
+                </div>
+              </div>
+              <div className="cog-task-action">
+                {saved ? (
+                  <span className="cog-status-badge is-done">
+                    <CheckCircle2 size={13} />
+                    <span>Done</span>
+                  </span>
+                ) : isSelected ? (
+                  <span className="cog-status-badge is-active">
+                    <Play size={12} fill="currentColor" />
+                    <span>Practicing</span>
+                  </span>
+                ) : (
+                  <span className="cog-action-btn">
+                    <span>Practice</span>
+                    <ChevronRight size={13} />
+                  </span>
+                )}
+              </div>
             </button>
           );
         })}

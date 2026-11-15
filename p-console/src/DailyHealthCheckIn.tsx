@@ -386,7 +386,7 @@ Your note: ${draft.notes || "None."}`;
           <button
             type="button"
             onClick={syncWearableSensors}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-sky-50 hover:bg-sky-100 dark:bg-cyan-950/80 dark:hover:bg-cyan-900/90 border border-sky-300 dark:border-cyan-500/50 text-sky-800 dark:text-cyan-200 font-mono text-xs font-semibold transition active:scale-98 shadow-sm cursor-pointer group"
+            className="secondary-button"
             title="Fill the form with a sample. This does not read a wearable."
           >
             <Zap size={14} className="text-sky-600 dark:text-cyan-400 group-hover:scale-110 transition" />

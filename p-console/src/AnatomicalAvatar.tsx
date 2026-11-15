@@ -596,7 +596,7 @@ export default function AnatomicalAvatar({
                 type="button"
                 onClick={handleLog}
                 disabled={!selectedSymptom}
-                className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 disabled:from-slate-800 disabled:to-slate-800 disabled:text-slate-500 disabled:border-slate-700/50 text-white font-medium text-xs shadow-md shadow-cyan-950/50 transition cursor-pointer border border-cyan-400/30 disabled:cursor-not-allowed"
+                className="primary-button"
               >
                 <CheckCircle2 size={14} className={selectedSymptom ? "text-cyan-300" : "text-slate-500"} />
                 <span>Save this note</span>

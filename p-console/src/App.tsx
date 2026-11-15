@@ -505,7 +505,7 @@ function pageLede(page: Page): string {
     case "Astronaut Dashboard":
       return "Heart rate, blood pressure, sleep, and how tired you feel, next to your average from the last 14 days.";
     case "Physiological Monitoring":
-      return "Today's heart rate, blood oxygen, and breathing. The moving line is a drawing, not a live sensor.";
+      return "Today's heart rate, blood oxygen, and breathing. The sketch under them is an example, not a sensor.";
     case "Cabin Conditions":
       return "Stored samples of cabin pressure, oxygen, carbon dioxide, temperature, and noise.";
     case "Orbital Conditions":
@@ -1131,9 +1131,9 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
       id: "sleep",
       status: (sleepObserve ? "Observe" : "Stable") as Status,
       title: sleepObserve
-        ? "Sleep duration below personal baseline"
-        : "Sleep duration close to personal baseline",
-      text: `${reading.sleep} hours recorded compared with a ${baseline.sleep}-hour personal baseline. Review sleep patterns and recent schedule changes.`,
+        ? "Sleep is shorter than the 14-day average"
+        : "Sleep is close to the 14-day average",
+      text: `${reading.sleep} hours today, next to a ${baseline.sleep}-hour average of the previous 14 days.`,
       time: "08:32",
       icon: "moon" as IconName,
     },
@@ -1141,9 +1141,9 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
       id: "fatigue",
       status: (fatigueObserve ? "Observe" : "Stable") as Status,
       title: fatigueObserve
-        ? "Reported fatigue has increased"
-        : "Fatigue remains within recent pattern",
-      text: `Self-reported fatigue is ${reading.fatigue}/5. The recent personal baseline is ${baseline.fatigue}/5. Consider alongside sleep and workload.`,
+        ? "How tired is higher than the 14-day average"
+        : "How tired is close to the 14-day average",
+      text: `How tired is ${reading.fatigue} out of 5 today. The 14-day average is ${baseline.fatigue} out of 5.`,
       time: "08:32",
       icon: "battery" as IconName,
     },
@@ -1151,9 +1151,9 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
       id: "heart",
       status: (heartObserve ? "Observe" : "Stable") as Status,
       title: heartObserve
-        ? "Heart rate differs from personal pattern"
-        : "Heart rate within recent personal pattern",
-      text: `${reading.heart} bpm recorded; personal baseline is ${baseline.heart} bpm. ${heartObserve ? "Different from the recent average." : "Close to the recent average."}`,
+        ? "Heart rate is past the mark"
+        : "Heart rate is close to the 14-day average",
+      text: `${reading.heart} bpm today. The 14-day average is ${baseline.heart} bpm.`,
       time: "08:30",
       icon: "heart" as IconName,
     },
@@ -1162,8 +1162,8 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
           {
             id: "bp",
             status: "Observe" as Status,
-            title: "Blood pressure differs from personal pattern",
-            text: `${reading.systolic}/${reading.diastolic} mmHg recorded compared with a ${baseline.systolic}/${baseline.diastolic} mmHg personal baseline. Review measurement context.`,
+            title: "Blood pressure is past the mark",
+            text: `${reading.systolic}/${reading.diastolic} mmHg today. The 14-day average is ${baseline.systolic}/${baseline.diastolic} mmHg.`,
             time: "08:32",
             icon: "pressure" as IconName,
           },
@@ -2079,12 +2079,12 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                 </button>
                 <button
                   className={`display-control ${liveStream ? "is-on" : ""}`}
-                  aria-label="Toggle the moving lines"
-                  title="Show or hide the moving lines."
+                  aria-label="Play or pause the example sketch"
+                  title="Play or pause the example sketch. It is not a sensor."
                   onClick={() => setLiveStream((v) => !v)}
                 >
                   <Radio size={14} />
-                  <span>{liveStream ? "Lines moving" : "Lines still"}</span>
+                  <span>{liveStream ? "Sketch playing" : "Sketch paused"}</span>
                 </button>
                 <button
                   className="display-control"
@@ -2445,13 +2445,13 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                 </div>
                 <section className="panel mission-console">
                   <PanelTitle
-                    title="Mission monitoring protocol"
-                    description="What Usual, Different, and Flagged mean on this page."
+                    title="What the labels mean"
+                    description="Usual, Different, and Flagged on this page."
                   />
                   <div className="protocol-grid">
                     {(
                       [
-                        { status: "Stable", text: "No significant change from personal baseline." },
+                        { status: "Stable", text: "Close to this person's 14-day average." },
                         {
                           status: "Observe",
                           text: "A recorded measurement has changed from its recent pattern.",
@@ -2484,7 +2484,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                 <div className="section-label">
                   <h2>Measurements over time</h2>
                   <span>
-                    Personal baseline window: previous {rules.baselineWindowDays} mission days
+                    Average of the previous {rules.baselineWindowDays} days, not counting today
                   </span>
                 </div>
                 <TrendPanel expanded />
@@ -2494,8 +2494,8 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                 </div>
                 <section className="panel baseline-panel">
                   <PanelTitle
-                    title="Your personal baseline"
-                    description="A recent reference for comparison, unique to the individual."
+                    title="Your 14-day average"
+                    description="The average of the previous 14 days, not counting today."
                   />
                   <div className="baseline-grid">
                     {[
@@ -2647,10 +2647,10 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                   <section className="panel monitoring-context">
                     <PanelTitle
                       title="What belongs on this page"
-                      description="The numbers are stored. The lines are a drawing."
+                      description="The numbers are stored. The sketch is an example."
                     />
                     <p>
-                      Read heart rate, blood oxygen, and breathing here. The moving lines are not a sensor, and they are not the cabin air sample.
+                      Read heart rate, blood oxygen, and breathing here. The example sketch is not a sensor, and it is not the breathing-gas card.
                     </p>
                     <div className="context-row">
                       <Icon name="pulse" />
@@ -2666,7 +2666,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                       <div>
                         <strong>Cabin air is a different page</strong>
                         <p>
-                          Carbon dioxide and cabin pressure on the drawing are examples. The stored cabin sample is on Cabin air.
+                          Carbon dioxide and cabin pressure on the sketch are examples. The stored cabin sample is on Cabin air.
                         </p>
                       </div>
                     </div>
@@ -2696,7 +2696,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                       </strong>
                       <p>
                         {s === "Stable"
-                          ? "No significant change from personal baseline."
+                          ? "Close to this person's 14-day average."
                           : s === "Observe"
                             ? "A measurement has changed from its recent pattern."
                             : "Information should be reviewed."}
@@ -2706,16 +2706,25 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                 </div>
                 <section className="panel alert-console">
                   <PanelTitle
-                    title="Monitoring event log"
-                    description="Review observations in the context of the astronaut’s personal baseline."
+                    title="What is marked"
+                    description="Marks from today's numbers, next to this person's recent average."
                     action={
                       <select
                         aria-label="Filter alerts by status"
                         value={alertFilter}
                         onChange={(e) => setAlertFilter(e.target.value)}
                       >
-                        {["All statuses", "Stable", "Observe", "Attention"].map((s) => (
-                          <option key={s}>{s}</option>
+                        {(
+                          [
+                            ["All statuses", "All labels"],
+                            ["Stable", "Usual"],
+                            ["Observe", "Different"],
+                            ["Attention", "Flagged"],
+                          ] as const
+                        ).map(([value, label]) => (
+                          <option key={value} value={value}>
+                            {label}
+                          </option>
                         ))}
                       </select>
                     }
@@ -2787,13 +2796,16 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                     .length === 0 && (
                     <div className="empty-state">
                       <Icon name="shield" size={32} />
-                      <h3>No {alertFilter.toLowerCase()} observations</h3>
+                      <h3>
+                        No {alertFilter === "All statuses" ? "" : `${STATUS_LABEL[alertFilter as Status].toLowerCase()} `}
+                        marks
+                      </h3>
                       <p>Nothing in this group for {person.name}.</p>
                       <button
                         className="text-button"
                         onClick={() => setAlertFilter("All statuses")}
                       >
-                        View all observations
+                        Show every mark
                         <Icon name="arrow" size={16} />
                       </button>
                     </div>

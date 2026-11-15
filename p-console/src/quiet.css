@@ -1657,3 +1657,158 @@ input[type="number"] {
     margin-left: 40px;
   }
 }
+
+/* One control size: 40px tall, 14px type, 8px corners. */
+.display-control,
+.notification-button,
+.topbar-avatar {
+  width: auto;
+  min-width: 40px;
+  min-height: 40px;
+  border-radius: 8px;
+}
+
+.notification-button,
+.topbar-avatar {
+  width: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chart-tabs > button,
+.expanded .chart-tabs > button,
+.touch-mode .chart-tabs > button {
+  font-size: 14px;
+  min-height: 40px;
+  padding: 0 2px 10px;
+}
+
+.chart-footer .text-button,
+.text-button,
+.touch-mode .chart-footer .text-button {
+  font-size: 14px;
+  min-height: 32px;
+  font-weight: 550;
+}
+
+.panel-link,
+.touch-mode .panel-link {
+  font-size: 14px;
+  min-height: 44px;
+  color: var(--text);
+}
+
+.guidance-strip .secondary-button,
+.touch-mode .guidance-strip .secondary-button {
+  min-height: 40px;
+  padding: 8px 14px;
+  font-size: 14px;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.practice-list .secondary-button {
+  width: 104px;
+}
+
+.next-cue-actions {
+  flex-shrink: 0;
+  flex-wrap: nowrap;
+}
+
+.next-cue button {
+  min-height: 40px;
+}
+
+.next-step-card > div {
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  min-width: 0;
+}
+
+.next-step-card strong {
+  margin-top: auto;
+}
+
+.secondary-metrics {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
+
+.secondary-metrics > div,
+.secondary-metrics > div + div {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--panel);
+  min-height: 84px;
+  align-items: flex-start;
+}
+
+.secondary-metrics .recorded-note {
+  flex: 1 0 100%;
+  margin: 6px 0 0 38px;
+  text-align: left;
+}
+
+.daily-checkin-container [class*="rounded-2xl"] {
+  border-radius: 12px;
+}
+
+.daily-checkin-container button,
+.daily-checkin-container input,
+.daily-checkin-container select {
+  border-radius: 8px;
+}
+
+.daily-checkin-container button {
+  min-height: 40px;
+  font-size: 14px;
+}
+
+.daily-checkin-container button[class*="size-11"] {
+  width: 40px;
+  height: auto;
+  align-self: stretch;
+}
+
+.quiet-card button {
+  min-height: 40px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+@media (max-width: 1180px) {
+  .secondary-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .next-cue {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .next-cue-actions {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .next-cue button {
+    flex: 1;
+  }
+}
+
+@media (max-width: 640px) {
+  .secondary-metrics,
+  .touch-mode .secondary-metrics {
+    grid-template-columns: 1fr;
+  }
+}

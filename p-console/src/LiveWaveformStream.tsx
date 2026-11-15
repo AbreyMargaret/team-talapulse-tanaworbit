@@ -201,15 +201,15 @@ export default function LiveWaveformStream({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[var(--border)] pb-3 mb-4 gap-2">
         <div>
           <div className="flex items-center gap-2">
-            <h3 className="text-base font-semibold tracking-tight">Moving lines</h3>
+            <h3 className="text-base font-semibold tracking-tight">Example sketch</h3>
           </div>
           <p className="text-xs text-[var(--muted)] mt-0.5">
-            A drawing next to today's heart rate, blood oxygen, and breathing. This is not a live sensor.
+            An example of the shape of a heart trace, a blood-oxygen trace, and a breathing trace. The shape does not come from a sensor or from the breathing-gas card. The numbers beside it are the stored day.
           </p>
         </div>
         <div className="flex items-center gap-2 shrink-0">
           <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border border-[var(--border)] text-[var(--muted)]">
-            {liveStream ? "Lines moving" : "Lines still"}
+            {liveStream ? "Sketch playing" : "Sketch paused"}
           </span>
         </div>
       </div>

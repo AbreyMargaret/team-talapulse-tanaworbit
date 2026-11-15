@@ -442,8 +442,8 @@ export function PumaPanel() {
   return (
     <Panel>
       <div className="section-label">
-        <h2>Metabolic Gas Analysis (PUMA Suite)</h2>
-        <span>Breath-by-breath gas exchange telemetry</span>
+        <h2>Breathing gas</h2>
+        <span>An example. Not a connected device, and not the example sketch.</span>
       </div>
       <PumaTracker />
     </Panel>

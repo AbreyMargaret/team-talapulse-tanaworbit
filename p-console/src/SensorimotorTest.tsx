@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { Target, Timer } from "lucide-react";
 
 export type SensorimotorResult = {
   testType: "tapping" | "reaction";
@@ -126,20 +127,26 @@ export default function SensorimotorTest({
             A short tapping grid and a reaction-time test. This is not the NASA fine-motor battery.
           </p>
         </div>
-        <div className="tab-pill-group flex gap-2">
+        <div className="tab-pill-group" role="tablist" aria-label="Sensorimotor test selector">
           <button
             type="button"
+            role="tab"
+            aria-selected={activeTab === "tapping"}
             className={`tab-btn ${activeTab === "tapping" ? "active" : ""}`}
             onClick={() => setActiveTab("tapping")}
           >
-            Tapping
+            <Target size={14} />
+            <span>Tapping</span>
           </button>
           <button
             type="button"
+            role="tab"
+            aria-selected={activeTab === "reaction"}
             className={`tab-btn ${activeTab === "reaction" ? "active" : ""}`}
             onClick={() => setActiveTab("reaction")}
           >
-            Reaction time
+            <Timer size={14} />
+            <span>Reaction time</span>
           </button>
         </div>
       </div>
