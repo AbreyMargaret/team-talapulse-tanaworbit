@@ -1300,8 +1300,8 @@ body .app-shell.touch-mode main {
   position: fixed;
   inset: 0;
   z-index: 120;
-  background: #030a1477;
-  backdrop-filter: blur(3px);
+  background: rgba(3, 10, 20, 0.6);
+  backdrop-filter: none;
 }
 .tanaw-guide-panel {
   position: absolute;
@@ -2264,4 +2264,181 @@ body .app-shell.touch-mode main {
   .next-step-card {
     transition: none;
   }
+}
+
+
+/* ==========================================================================
+   Light Mode Overrides for Health Toolkit and Educational Contexts
+   ========================================================================== */
+
+[data-theme="light"] .health-toolkit .panel,
+[data-theme="light"] .context-detail,
+[data-theme="light"] .measurement-picker,
+[data-theme="light"] .measurement-walkthrough,
+[data-theme="light"] .routine-list-panel,
+[data-theme="light"] .reminder-settings-panel,
+[data-theme="light"] .evidence-table-panel,
+[data-theme="light"] .source-reference-card {
+  background: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  color: #0f172a !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .context-boundary {
+  background: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  color: #1e293b !important;
+}
+
+[data-theme="light"] .context-boundary > span,
+[data-theme="light"] .context-facts span {
+  color: #64748b !important;
+}
+
+[data-theme="light"] .context-boundary p {
+  color: #334155 !important;
+}
+
+[data-theme="light"] .context-facts strong {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .hazard-card {
+  background: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .hazard-card.relevant {
+  background: #f0f9ff !important;
+  border-color: #0284c7 !important;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.08);
+}
+
+[data-theme="light"] .hazard-card h3 {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .hazard-card p {
+  color: #475569 !important;
+}
+
+[data-theme="light"] .hazard-relevance {
+  color: #64748b !important;
+}
+
+[data-theme="light"] .hazard-card.relevant .hazard-relevance {
+  color: #0284c7 !important;
+  font-weight: 600;
+}
+
+[data-theme="light"] .hazard-card a {
+  color: #0284c7 !important;
+}
+
+[data-theme="light"] .toolkit-tabs {
+  border-bottom-color: #e2e8f0 !important;
+}
+
+[data-theme="light"] .toolkit-tabs button {
+  color: #64748b !important;
+}
+
+[data-theme="light"] .toolkit-tabs button:hover {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .toolkit-tabs button.selected {
+  color: #0284c7 !important;
+  border-bottom-color: #0284c7 !important;
+}
+
+[data-theme="light"] .toolkit-section-heading .eyebrow,
+[data-theme="light"] .context-detail .eyebrow {
+  color: #64748b !important;
+}
+
+[data-theme="light"] .body-region-item {
+  background: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .body-region-item.selected {
+  background: #f0f9ff !important;
+  border-color: #0284c7 !important;
+}
+
+[data-theme="light"] .routine-task {
+  background: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .routine-task.complete {
+  background: #f0fdf4 !important;
+  border-color: #86efac !important;
+}
+
+[data-theme="light"] .routine-task-number {
+  background: #e2e8f0 !important;
+  color: #475569 !important;
+}
+
+[data-theme="light"] .routine-task.complete .routine-task-number {
+  background: #10b981 !important;
+  color: #ffffff !important;
+}
+
+[data-theme="light"] .observation-explainer {
+  background: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .observation-fact {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .evidence-table th {
+  background: #f1f5f9 !important;
+  color: #475569 !important;
+  border-bottom-color: #cbd5e1 !important;
+}
+
+[data-theme="light"] .evidence-table td {
+  border-bottom-color: #f1f5f9 !important;
+  color: #1e293b !important;
+}
+
+[data-theme="light"] .tanaw-guide-launcher {
+  background: #0284c7 !important;
+  color: #ffffff !important;
+  border-color: #0369a1 !important;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35) !important;
+}
+
+[data-theme="light"] .tanaw-guide-launcher small {
+  color: #e0f2fe !important;
+}
+
+[data-theme="light"] .tanaw-guide-panel {
+  background: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15) !important;
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .tanaw-guide-header {
+  background: #f8fafc !important;
+  border-bottom-color: #e2e8f0 !important;
+}
+
+[data-theme="light"] .tanaw-guide-header h2 {
+  color: #0f172a !important;
+}
+
+[data-theme="light"] .tanaw-guide-header > div > span {
+  color: #64748b !important;
 }

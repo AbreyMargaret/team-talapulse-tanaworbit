@@ -225,16 +225,16 @@ export default function AnatomicalAvatar({
         </div>
 
         <div className="flex items-center gap-2 text-xs font-mono">
-          <span className="px-2.5 py-1 rounded-full bg-emerald-950/70 border border-emerald-500/30 text-emerald-300 flex items-center gap-1.5">
-            <span className="size-1.5 rounded-full bg-emerald-400" />
+          <span className="px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 dark:bg-emerald-950/60 dark:border-emerald-800 dark:text-emerald-300 flex items-center gap-1.5 font-medium">
+            <span className="size-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400" />
             Nominal
           </span>
-          <span className="px-2.5 py-1 rounded-full bg-amber-950/70 border border-amber-500/30 text-amber-300 flex items-center gap-1.5">
-            <span className="size-1.5 rounded-full bg-amber-400" />
+          <span className="px-2.5 py-1 rounded-full bg-amber-50 border border-amber-200 text-amber-700 dark:bg-amber-950/60 dark:border-amber-800 dark:text-amber-300 flex items-center gap-1.5 font-medium">
+            <span className="size-1.5 rounded-full bg-amber-500 dark:bg-amber-400" />
             Observation
           </span>
-          <span className="px-2.5 py-1 rounded-full bg-rose-950/70 border border-rose-500/30 text-rose-300 flex items-center gap-1.5">
-            <span className="size-1.5 rounded-full bg-rose-400" />
+          <span className="px-2.5 py-1 rounded-full bg-rose-50 border border-rose-200 text-rose-700 dark:bg-rose-950/60 dark:border-rose-800 dark:text-rose-300 flex items-center gap-1.5 font-medium">
+            <span className="size-1.5 rounded-full bg-rose-500 dark:bg-rose-400" />
             Attention
           </span>
         </div>
@@ -243,9 +243,9 @@ export default function AnatomicalAvatar({
       {/* Main Grid: Anatomical Wireframe (Left) + Layman Action Protocol (Right) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
         {/* Left: Precision Medical Wireframe Humanoid Figure */}
-        <div className="lg:col-span-5 relative flex flex-col items-center justify-center p-4 rounded-xl bg-slate-950/70 border border-slate-800/80 overflow-hidden">
+        <div className="lg:col-span-5 relative flex flex-col items-center justify-center p-4 rounded-xl bg-slate-50 dark:bg-slate-950/70 border border-slate-200 dark:border-slate-800/80 overflow-hidden">
           {/* Subtle medical HUD grid lines */}
-          <div className="absolute inset-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px] opacity-40 pointer-events-none" />
+          <div className="absolute inset-0 bg-[radial-gradient(#94a3b8_1px,transparent_1px)] dark:bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px] opacity-40 pointer-events-none" />
 
           {/* SVG Contoured Medical Silhouette */}
           <svg
@@ -432,8 +432,8 @@ export default function AnatomicalAvatar({
                 onClick={() => setActiveZone(zone)}
                 className={`text-[10px] font-mono px-2 py-1 rounded-md border transition cursor-pointer ${
                   activeZone === zone
-                    ? "bg-cyan-950 border-cyan-400 text-cyan-200 font-semibold shadow-[0_0_10px_rgba(34,211,238,0.3)]"
-                    : "bg-slate-900 border-slate-800 text-slate-400 hover:text-slate-200 hover:border-slate-700"
+                    ? "bg-sky-100 dark:bg-cyan-950 border-sky-500 dark:border-cyan-400 text-sky-800 dark:text-cyan-200 font-semibold shadow-sm"
+                    : "bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:border-slate-300 dark:hover:border-slate-700"
                 }`}
               >
                 {title}
@@ -445,22 +445,22 @@ export default function AnatomicalAvatar({
         {/* Right: Space Medicine Protocols & Clinical Countermeasure */}
         <div className="lg:col-span-7 flex flex-col gap-4">
           {/* Card: Microgravity Physiological Adaptation */}
-          <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800">
+          <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800">
             <div className="flex items-center justify-between gap-2 mb-1">
-              <h4 className="text-base font-semibold text-white">{zoneInfo.title}</h4>
-              <span className="text-[11px] font-mono text-cyan-400 bg-cyan-950/60 border border-cyan-800/40 px-2 py-0.5 rounded">
+              <h4 className="text-base font-semibold text-slate-900 dark:text-white">{zoneInfo.title}</h4>
+              <span className="text-[11px] font-mono text-sky-700 dark:text-cyan-400 bg-sky-100 dark:bg-cyan-950/60 border border-sky-300 dark:border-cyan-800/40 px-2 py-0.5 rounded">
                 {zoneInfo.laymanLabel}
               </span>
             </div>
 
-            <div className="mt-3 p-3 rounded-lg bg-slate-900/60 border border-slate-800 text-xs sm:text-sm text-slate-300 leading-relaxed">
-              <strong className="block text-cyan-300 text-xs font-mono uppercase tracking-wider mb-1">
+            <div className="mt-3 p-3 rounded-lg bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+              <strong className="block text-sky-700 dark:text-cyan-300 text-xs font-mono uppercase tracking-wider mb-1">
                 Microgravity Adaptation Phenomenon:
               </strong>
               {zoneInfo.spacePhenomenon}
             </div>
 
-            <div className="mt-2.5 text-xs text-slate-400 px-1">
+            <div className="mt-2.5 text-xs text-slate-500 dark:text-slate-400 px-1">
               <span className="text-slate-500 font-mono text-[11px] uppercase tracking-wider block mb-0.5">
                 Nominal 1G Clinical Baseline:
               </span>
@@ -469,27 +469,27 @@ export default function AnatomicalAvatar({
           </div>
 
           {/* Card: In-Flight Clinical Protocols & Countermeasures */}
-          <div className="p-4 rounded-xl bg-slate-950/60 border border-slate-800">
+          <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800">
             <div className="flex items-center gap-2 mb-2">
-              <Shield size={15} className="text-emerald-400" />
-              <strong className="text-sm font-semibold text-white">
+              <Shield size={15} className="text-emerald-500 dark:text-emerald-400" />
+              <strong className="text-sm font-semibold text-slate-900 dark:text-white">
                 Flight Protocol & Clinical Countermeasure
               </strong>
             </div>
-            <p className="text-xs text-slate-200 leading-relaxed bg-emerald-950/30 border border-emerald-500/20 p-3 rounded-lg">
+            <p className="text-xs text-emerald-950 dark:text-slate-200 leading-relaxed bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-500/20 p-3 rounded-lg">
               {zoneInfo.countermeasure}
             </p>
           </div>
 
           {/* Bespoke Interactive Symptom Logger */}
-          <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 backdrop-blur-md">
+          <div className="p-4 rounded-xl bg-white dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800">
             <div className="flex items-center justify-between mb-2.5">
-              <label className="text-xs font-semibold text-slate-200 flex items-center gap-1.5">
-                <Activity size={13} className="text-cyan-400" />
+              <label className="text-xs font-semibold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
+                <Activity size={13} className="text-sky-600 dark:text-cyan-400" />
                 Record Clinical Observation ({zoneInfo.laymanLabel})
               </label>
               {loggedNotice && (
-                <span className="text-[11px] font-mono text-emerald-400 animate-fade-in bg-emerald-950/80 border border-emerald-500/40 px-2 py-0.5 rounded">
+                <span className="text-[11px] font-mono text-emerald-600 dark:text-emerald-400 animate-fade-in bg-emerald-50 dark:bg-emerald-950/80 border border-emerald-200 dark:border-emerald-500/40 px-2 py-0.5 rounded">
                   ✓ {loggedNotice}
                 </span>
               )}
@@ -502,10 +502,10 @@ export default function AnatomicalAvatar({
                 onClick={() => setDropdownOpen((prev) => !prev)}
                 className={`w-full flex items-center justify-between gap-3 px-3.5 py-2.5 rounded-xl border text-left text-xs transition duration-150 cursor-pointer shadow-sm ${
                   dropdownOpen
-                    ? "bg-slate-900 border-cyan-400/80 ring-2 ring-cyan-500/20 text-white"
+                    ? "bg-white dark:bg-slate-900 border-sky-500 dark:border-cyan-400/80 ring-2 ring-sky-500/20 text-slate-900 dark:text-white"
                     : selectedSymptom
-                      ? "bg-slate-900/90 border-slate-700 text-slate-100 hover:border-slate-600"
-                      : "bg-slate-900/60 border-slate-700/80 text-slate-400 hover:border-slate-600 hover:text-slate-200"
+                      ? "bg-white dark:bg-slate-900/90 border-slate-300 dark:border-slate-700 text-slate-900 dark:text-slate-100 hover:border-slate-400"
+                      : "bg-slate-50 dark:bg-slate-900/60 border-slate-300 dark:border-slate-700/80 text-slate-500 dark:text-slate-400 hover:border-slate-400 hover:text-slate-700"
                 }`}
                 aria-haspopup="listbox"
                 aria-expanded={dropdownOpen}
@@ -513,7 +513,7 @@ export default function AnatomicalAvatar({
                 <div className="flex items-center gap-2.5 truncate">
                   <Activity
                     size={14}
-                    className={selectedSymptom ? "text-cyan-400 shrink-0" : "text-slate-500 shrink-0"}
+                    className={selectedSymptom ? "text-sky-600 dark:text-cyan-400 shrink-0" : "text-slate-400 shrink-0"}
                   />
                   <span className="truncate">
                     {selectedSymptom || `Select observed symptom for ${zoneInfo.laymanLabel}...`}
@@ -522,7 +522,7 @@ export default function AnatomicalAvatar({
                 <ChevronDown
                   size={14}
                   className={`text-slate-400 transition-transform duration-200 shrink-0 ${
-                    dropdownOpen ? "rotate-180 text-cyan-400" : ""
+                    dropdownOpen ? "rotate-180 text-sky-600 dark:text-cyan-400" : ""
                   }`}
                 />
               </button>
@@ -530,9 +530,9 @@ export default function AnatomicalAvatar({
               {dropdownOpen && (
                 <div
                   role="listbox"
-                  className="absolute left-0 right-0 top-full mt-1.5 z-50 p-1.5 bg-slate-900/98 border border-slate-700/90 rounded-xl shadow-[0_16px_36px_rgba(0,0,0,0.65)] backdrop-blur-xl max-h-60 overflow-y-auto space-y-1 animate-in fade-in zoom-in-95 duration-100"
+                  className="absolute left-0 right-0 top-full mt-1.5 z-50 p-1.5 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700/90 rounded-xl shadow-[0_16px_36px_rgba(0,0,0,0.18)] max-h-60 overflow-y-auto space-y-1 animate-in fade-in zoom-in-95 duration-100"
                 >
-                  <div className="px-2.5 py-1 text-[10px] font-mono uppercase tracking-wider text-slate-500 border-b border-slate-800/80 mb-1">
+                  <div className="px-2.5 py-1 text-[10px] font-mono uppercase tracking-wider text-slate-400 dark:text-slate-500 border-b border-slate-200 dark:border-slate-800/80 mb-1">
                     Select Symptom · {zoneInfo.laymanLabel}
                   </div>
                   {zoneInfo.symptoms.map((symptom) => {
@@ -549,12 +549,12 @@ export default function AnatomicalAvatar({
                         }}
                         className={`w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg text-xs text-left transition cursor-pointer ${
                           isSelected
-                            ? "bg-cyan-950/80 border border-cyan-500/40 text-cyan-200 font-medium shadow-inner"
-                            : "text-slate-200 hover:bg-slate-800/80 hover:text-white"
+                            ? "bg-sky-50 dark:bg-cyan-950/80 border border-sky-300 dark:border-cyan-500/40 text-sky-800 dark:text-cyan-200 font-medium"
+                            : "text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-slate-900 dark:hover:text-white"
                         }`}
                       >
                         <span className="flex-1 leading-snug">{symptom}</span>
-                        {isSelected && <Check size={14} className="text-cyan-400 shrink-0" />}
+                        {isSelected && <Check size={14} className="text-sky-600 dark:text-cyan-400 shrink-0" />}
                       </button>
                     );
                   })}

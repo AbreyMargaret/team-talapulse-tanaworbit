@@ -21,7 +21,7 @@ export default function TelemetryReportModal({
   }
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+    <div className="fixed inset-0 z-50 bg-black/75 flex items-center justify-center p-4 overflow-y-auto">
       <div className="telemetry-dossier-modal bg-slate-900 border border-slate-700 rounded-2xl max-w-4xl w-full p-6 text-white max-h-[92vh] overflow-y-auto shadow-2xl">
         {/* Modal Controls Bar */}
         <div className="flex items-center justify-between border-b border-slate-800 pb-4 mb-6 print:hidden">

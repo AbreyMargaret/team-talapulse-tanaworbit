@@ -52,10 +52,12 @@ import FeatureBoundary from "./FeatureBoundary";
 import AnatomicalAvatar, { type SymptomLog } from "./AnatomicalAvatar";
 import PumaTracker from "./PumaTracker";
 import TelemetryReportModal from "./TelemetryReportModal";
-import OnboardingModal from "./OnboardingModal";
+import OnboardingModal, { type TourStep } from "./OnboardingModal";
+import SimulationScenarioModal from "./SimulationScenarioModal";
 import LiveWaveformStream from "./LiveWaveformStream";
 import ZeroGLivingGuide from "./ZeroGLivingGuide";
 import DailyHealthCheckIn, { type CheckInDraft } from "./DailyHealthCheckIn";
+import type { CognitionEntry } from "./CognitionBattery";
 import Term from "./Term";
 import { missionContexts, routineDefinitions, type MetricId, type ToolkitTab } from "./toolkitData";
 import { useRoutineReminders } from "./useRoutineReminders";
@@ -425,6 +427,73 @@ function pageTitle(page: Page): string {
   return PAGE_DISPLAY_LABELS[page] || page;
 }
 
+function VisitPractice({
+  recordDone,
+  practiceDone,
+  exerciseDone,
+  onRecord,
+  onPractice,
+  onExercise,
+}: {
+  recordDone: boolean;
+  practiceDone: boolean;
+  exerciseDone: boolean;
+  onRecord: () => void;
+  onPractice: () => void;
+  onExercise: () => void;
+}) {
+  const items = [
+    {
+      done: recordDone,
+      title: "Record today",
+      detail: recordDone ? "Saved for this visit" : "Write down today's numbers",
+      action: "Record",
+      onAction: onRecord,
+    },
+    {
+      done: practiceDone,
+      title: "Try one practice",
+      detail: practiceDone ? "A practice is saved for this visit" : "Open the short cognition practices",
+      action: "Open",
+      onAction: onPractice,
+    },
+    {
+      done: exerciseDone,
+      title: "Log exercise",
+      detail: exerciseDone ? "A session is saved for this visit" : "Write down minutes of exercise",
+      action: "Log",
+      onAction: onExercise,
+    },
+  ];
+  const doneCount = items.filter((item) => item.done).length;
+  return (
+    <section className="practice-board" aria-labelledby="visit-practice-title">
+      <div>
+        <h2 id="visit-practice-title">This visit</h2>
+        <p>
+          {doneCount} of 3 done. These marks stay until you refresh. They are not a health score.
+        </p>
+      </div>
+      <ol className="practice-list">
+        {items.map((item, index) => (
+          <li key={item.title} className={item.done ? "is-done" : undefined}>
+            <span className="practice-mark">{item.done ? "✓" : index + 1}</span>
+            <span className="practice-copy">
+              <strong>{item.title}</strong>
+              <small>{item.detail}</small>
+            </span>
+            {!item.done && (
+              <button type="button" className="secondary-button" onClick={item.onAction}>
+                {item.action}
+              </button>
+            )}
+          </li>
+        ))}
+      </ol>
+    </section>
+  );
+}
+
 function pageLede(page: Page): string {
   switch (page) {
     case "Astronaut Dashboard":
@@ -442,7 +511,7 @@ function pageLede(page: Page): string {
     case "Calculation Trend":
       return "How today compares with the average of the previous 14 days.";
     case "Sensorimotor & Reflex":
-      return "A short tapping test and a reaction-time test. Scores stay in this browser until you refresh.";
+      return "Short cognition practices, plus a tapping test and a reaction-time test. Scores stay in this browser until you refresh.";
     case "Space Nutrition":
       return "Meals logged for this mission day, with energy and water beside them.";
     case "Exercise & Recovery":
@@ -464,11 +533,56 @@ function pageLede(page: Page): string {
   }
 }
 
-const tourSteps = nav.map((item) => ({
-  page: item.page,
-  label: item.label,
-  text: pageLede(item.page),
-}));
+const tourSteps: TourStep<Page>[] = [
+  {
+    page: "Astronaut Dashboard",
+    selector: "[data-tour='today-numbers']",
+    tag: "BIOMETRIC TELEMETRY",
+    title: "1. Today's Numbers & 14-Day Baseline Delta",
+    description:
+      "Continuous vitals monitoring: resting heart rate, blood pressure, circadian sleep duration, and self-reported fatigue compared with each astronaut's personal 14-day running average.",
+  },
+  {
+    page: "Astronaut Dashboard",
+    selector: "[data-tour='somatic-avatar']",
+    tag: "SOMATIC ADAPTATION",
+    title: "2. Somatic Wireframe Mapping & Clinical Logs",
+    description:
+      "Interactive 3D medical silhouette. Click any anatomical hot zone (Cranial/SANS, Torso/Cardio, Musculoskeletal) to review microgravity adaptations and record clinical flight notes.",
+  },
+  {
+    page: "Astronaut Dashboard",
+    selector: "[data-tour='puma-tracker']",
+    tag: "COUNTERMEASURES",
+    title: "3. PUMA Exercise & Microgravity Tracker",
+    description:
+      "Real-time countermeasure compliance tracking for aerobic (T2 Treadmill) and resistive (ARED) regimens to prevent bone mineral loss and postural ataxia.",
+  },
+  {
+    page: "Health Check-In",
+    selector: "[data-tour='checkin-suite']",
+    tag: "IN-FLIGHT PROTOCOL",
+    title: "4. Autonomous In-Flight Clinical Check-In",
+    description:
+      "Three-step guided protocol: 1) Biometric vitals sync, 2) Neuro-ocular & space motion sickness screening, 3) Telemetry cryptographic review and store-and-forward transmission.",
+  },
+  {
+    page: "Alerts & Attention",
+    selector: "[data-tour='alerts-console']",
+    tag: "CLINICAL TRIAGE",
+    title: "5. Operational Alerts & Clinical Triage Log",
+    description:
+      "Multi-tiered clinical triage (Stable, Observe, Attention) with chronological event logs. Flight surgeons and crew can review trends and trigger evidence-based countermeasures.",
+  },
+  {
+    page: "Health Guidance",
+    selector: "[data-tour='zero-g-guide']",
+    tag: "LIVING GUIDELINES",
+    title: "6. Countermeasure Action Protocols & Tools",
+    description:
+      "Evidence-based countermeasures compiled from NASA HRP flight data. Includes actionable verification checklists, circadian lighting calculation, and hypercapnia micro-pocket safety.",
+  },
+];
 const topics = [
   {
     title: "Sleep & circadian rhythm",
@@ -704,8 +818,9 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
   const [alertFilter, setAlertFilter] = useState("All statuses");
   const [reviewed, setReviewed] = useState<string[]>([]);
   const [keptNotes, setKeptNotes] = useState<Record<string, string>>({});
+  const [cognitionLog, setCognitionLog] = useState<Record<string, CognitionEntry[]>>({});
   const [topic, setTopic] = useState(0);
-  const [modal, setModal] = useState<"about" | "settings" | "export" | "onboarding" | "account" | null>(null);
+  const [modal, setModal] = useState<"about" | "settings" | "export" | "onboarding" | "account" | "simulation" | null>(null);
   const [tourIndex, setTourIndex] = useState(0);
   const tourReady = useRef(false);
   const [narrow, setNarrow] = useState(() =>
@@ -916,13 +1031,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
       tourReady.current = true;
       return;
     }
-    if (modal !== "onboarding") return;
-    setTourIndex((current) => {
-      const next = tourSteps[current + 1];
-      if (next && next.page === page) return current + 1;
-      return current;
-    });
-  }, [page, modal]);
+  }, [modal]);
 
   useEffect(() => {
     if (typeof localStorage !== "undefined" && crew[selectedCrew]) {
@@ -949,7 +1058,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
     setToast(message);
     window.setTimeout(() => setToast(""), 4500);
   }
-  function openModal(next: "about" | "settings" | "export") {
+  function openModal(next: "about" | "settings" | "export" | "simulation" | "onboarding" | "account") {
     setSidebarOpen(false);
     setNoticesOpen(false);
     setModal(next);
@@ -966,6 +1075,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
     if (!fromNotice) notify(`Account opened. ${line}`, "info");
   }
   function exportData() {
+    const cell = (value: string) => `"${value.replace(/"/g, '""')}"`;
     const rows = [
       ["TanawOrbit health summary"],
       [
@@ -989,7 +1099,16 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
         reading.mood,
       ],
     ];
-    const blob = new Blob([rows.map((r) => r.join(",")).join("\n")], {
+    const practice = cognitionLog[person.id] ?? [];
+    if (practice.length) {
+      rows.push([]);
+      rows.push(["Cognition practice"]);
+      rows.push(["Task", "Score", "Unit", "Detail"]);
+      for (const entry of practice) {
+        rows.push([entry.label, String(entry.score), entry.unit, entry.detail]);
+      }
+    }
+    const blob = new Blob([rows.map((r) => r.map((value) => cell(value)).join(",")).join("\n")], {
       type: "text/csv;charset=utf-8;",
     });
     const url = URL.createObjectURL(blob);
@@ -1794,10 +1913,19 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
               About
               <Icon name="external" size={13} />
             </button>
-            <div className="sidebar-sim-badge">
+            <button
+              type="button"
+              className="sidebar-sim-btn"
+              onClick={() => openModal("simulation")}
+              aria-label="Change mission simulation scenario"
+              title="Switch operational simulation scenario"
+            >
               <span className="status-dot" />
-              <span>Simulation 1 · Educational Prototype</span>
-            </div>
+              <div className="sidebar-sim-text">
+                <span className="sidebar-sim-name">{context.title}</span>
+                <span className="sidebar-sim-action">Scenario ▾</span>
+              </div>
+            </button>
             <div className="sidebar-user">
               <button
                 className="account-open"
@@ -1874,7 +2002,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                   onClick={() => {
                     setTourIndex(0);
                     setModal("onboarding");
-                    if (window.innerWidth <= 760) setSidebarOpen(true);
+                    navigate(tourSteps[0].page);
                   }}
                 >
                   <Compass size={15} />
@@ -2038,39 +2166,28 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
               </section>
             )}
 
-            {page !== "Health Guidance" && page !== "Health Check-In" && (
-              <div className="mission-context-strip">
-                <label>
-                  Setting
-                  <select
-                    aria-label="Mission context preview"
-                    value={contextId}
-                    onChange={(event) => setContextId(event.target.value)}
-                  >
-                    {missionContexts.map((item) => (
-                      <option key={item.id} value={item.id}>
-                        {item.title}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-                <p>This changes the notes only. The numbers stay the same.</p>
-                <button onClick={() => openToolkit("context")}>
-                  Read why <Icon name="arrow" size={16} />
-                </button>
-              </div>
-            )}
+
 
             {page === "Astronaut Dashboard" && (
               <>
-                <div className="section-label">
-                  <h2>Today's numbers</h2>
-                  <span>
-                    {checkedIn[selectedCrew] ? "just now" : "Today, 08:32 UTC"}
-                  </span>
+                <VisitPractice
+                  recordDone={checkedIn[selectedCrew]}
+                  practiceDone={(cognitionLog[person.id] ?? []).length > 0}
+                  exerciseDone={routineComplete.exercise}
+                  onRecord={() => navigate("Health Check-In")}
+                  onPractice={() => navigate("Sensorimotor & Reflex")}
+                  onExercise={() => navigate("Exercise & Recovery")}
+                />
+                <div data-tour="today-numbers">
+                  <div className="section-label">
+                    <h2>Today's numbers</h2>
+                    <span>
+                      {checkedIn[selectedCrew] ? "just now" : "Today, 08:32 UTC"}
+                    </span>
+                  </div>
+                  <MetricCards />
                 </div>
-                <MetricCards />
-                <div style={{ margin: "24px 0" }}>
+                <div style={{ margin: "24px 0" }} data-tour="somatic-avatar">
                   <AnatomicalAvatar
                     onLogSymptom={(log) => {
                       setSymptomLogs((prev) => [...prev, log]);
@@ -2079,7 +2196,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                     recentLogs={symptomLogs}
                   />
                 </div>
-                <div style={{ margin: "24px 0" }}>
+                <div style={{ margin: "24px 0" }} data-tour="puma-tracker">
                   <PumaTracker />
                 </div>
                 <NextSteps
@@ -2286,22 +2403,24 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
             )}
 
             {page === "Health Check-In" && (
-              <DailyHealthCheckIn
-                key={selectedCrew}
-                draft={drafts[selectedCrew]}
-                onDraftChange={(draft) =>
-                  setDrafts((old) => old.map((r, i) => (i === selectedCrew ? draft : r)))
-                }
-                person={person}
-                navigate={navigate}
-                onSave={(draft) => {
-                  setReadings((old) => old.map((r, i) => (i === selectedCrew ? { ...draft } : r)));
-                  setCheckedIn((old) => old.map((v, i) => (i === selectedCrew ? true : v)));
-                  setDrafts((old) => old.map((r, i) => (i === selectedCrew ? { ...draft } : r)));
-                  setReviewed((old) => old.filter((key) => !key.startsWith(`${selectedCrew}-`)));
-                  notify("Daily check-in recorded.");
-                }}
-              />
+              <div data-tour="checkin-suite">
+                <DailyHealthCheckIn
+                  key={selectedCrew}
+                  draft={drafts[selectedCrew]}
+                  onDraftChange={(draft) =>
+                    setDrafts((old) => old.map((r, i) => (i === selectedCrew ? draft : r)))
+                  }
+                  person={person}
+                  navigate={navigate}
+                  onSave={(draft) => {
+                    setReadings((old) => old.map((r, i) => (i === selectedCrew ? { ...draft } : r)));
+                    setCheckedIn((old) => old.map((v, i) => (i === selectedCrew ? true : v)));
+                    setDrafts((old) => old.map((r, i) => (i === selectedCrew ? { ...draft } : r)));
+                    setReviewed((old) => old.filter((key) => !key.startsWith(`${selectedCrew}-`)));
+                    notify("Daily check-in recorded.");
+                  }}
+                />
+              </div>
             )}
             {page === "Exercise & Recovery" && (
               <ExercisePanel
@@ -2377,6 +2496,20 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
             )}
             {page === "Sensorimotor & Reflex" && (
               <SensorimotorPanel
+                crewId={person.id}
+                crewName={person.name}
+                dominantSide={biodataFor(person.id).dominantSide}
+                cognitionEntries={cognitionLog[person.id] ?? []}
+                onCognition={(score) => {
+                  setCognitionLog((old) => ({
+                    ...old,
+                    [person.id]: [
+                      ...(old[person.id] ?? []),
+                      { ...score, id: `${person.id}-${score.task}-${Date.now()}` },
+                    ],
+                  }));
+                  notify(`${score.label} recorded. ${score.score} ${score.unit}.`);
+                }}
                 onRecordResult={(res) => {
                   notify(`Assessment recorded: ${res.score} ${res.unit} (${res.status})`);
                 }}
@@ -2426,25 +2559,7 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
             )}
 
             {page === "Alerts & Attention" && (
-              <>
-                <section className="panel note-keep">
-                  <PanelTitle
-                    title="Note to keep"
-                    description="Write something to remember. It stays in this browser until you refresh. Nothing is sent."
-                  />
-                  <textarea
-                    aria-label="Note to keep"
-                    value={keptNotes[person.id] ?? ""}
-                    placeholder="A reminder for this person"
-                    onChange={(event) =>
-                      setKeptNotes((old) => ({ ...old, [person.id]: event.target.value }))
-                    }
-                  />
-                  <p>
-                    If something feels sudden or severe, use the crew's own emergency steps. This page
-                    only compares today's numbers with this person's recent average.
-                  </p>
-                </section>
+              <div data-tour="alerts-console" className="space-y-6">
                 <div className="alert-status-grid">
                   {(["Stable", "Observe", "Attention"] as Status[]).map((s) => (
                     <button
@@ -2566,11 +2681,31 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
                     </div>
                   )}
                 </section>
-              </>
+                <section className="panel note-keep">
+                  <PanelTitle
+                    title="Note to keep"
+                    description="Write something to remember. It stays in this browser until you refresh. Nothing is sent."
+                  />
+                  <textarea
+                    aria-label="Note to keep"
+                    value={keptNotes[person.id] ?? ""}
+                    placeholder="A reminder for this person"
+                    onChange={(event) =>
+                      setKeptNotes((old) => ({ ...old, [person.id]: event.target.value }))
+                    }
+                  />
+                  <p>
+                    If something feels sudden or severe, use the crew's own emergency steps. This page
+                    only compares today's numbers with this person's recent average.
+                  </p>
+                </section>
+              </div>
             )}
 
             {page === "Health Guidance" && (
-              <ZeroGLivingGuide onNavigate={navigate} />
+              <div data-tour="zero-g-guide">
+                <ZeroGLivingGuide onNavigate={navigate} />
+              </div>
             )}
 
           </main>
@@ -2650,11 +2785,25 @@ function App({ crewId, allowCrewSwitch, portal, onSignOut }: ConsoleProps) {
             steps={tourSteps}
             index={tourIndex}
             page={page}
-            menuClosed={tourPointMenu}
+            onStepChange={(newIdx) => setTourIndex(newIdx)}
+            onNavigate={(targetPage) => navigate(targetPage)}
             onClose={finishTour}
           />
         )}
-        {modal && modal !== "export" && modal !== "onboarding" && (
+        {modal === "simulation" && (
+          <SimulationScenarioModal
+            currentId={contextId}
+            onSelect={(newId) => {
+              setContextId(newId);
+              const target = missionContexts.find((c) => c.id === newId);
+              if (target) {
+                notify(`Simulation scenario updated: ${target.title}`);
+              }
+            }}
+            onClose={() => setModal(null)}
+          />
+        )}
+        {modal && modal !== "export" && modal !== "onboarding" && modal !== "simulation" && (
           <div className="modal-backdrop" onClick={() => setModal(null)}>
             <section
               className={modal === "account" ? "panel modal account-modal" : "panel modal"}

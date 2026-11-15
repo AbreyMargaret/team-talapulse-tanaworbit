@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Info } from "lucide-react";
 import {
   healthRecords,
   historyFor,
@@ -262,7 +263,7 @@ function BodyOverview({
           ))}
         </div>
         <div className="info-banner">
-          <span className="toolkit-info-icon">i</span>
+          <span className="toolkit-info-icon"><Info size={11} /></span>
           <span>
             Points group information by topic. Selecting a body area does not generate a new finding
             or infer a problem in that organ.
@@ -634,7 +635,7 @@ export default function HealthToolkit(props: Props) {
               </small>
             </section>
             <div className="info-banner">
-              <span className="toolkit-info-icon">i</span>
+              <span className="toolkit-info-icon"><Info size={11} /></span>
               <span>
                 Check-in and exercise actions complete automatically after a manual demo
                 confirmation. Guidance review is your own demonstration acknowledgement.

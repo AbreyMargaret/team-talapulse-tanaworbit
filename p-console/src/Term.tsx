@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type MouseEvent, type ReactNode } from "react";
 import { createPortal } from "react-dom";
+import { Info } from "lucide-react";
 
 /** Plain meanings for words a reader can forget. Not advice. */
 export const TERMS: Record<string, string> = {
@@ -120,7 +121,7 @@ export default function Term({ children, tip }: { children: ReactNode; tip?: str
     >
       <span className="term-label">{children}</span>
       <span className="term-mark" aria-hidden="true">
-        i
+        <Info size={11} className="shrink-0" />
       </span>
       {open &&
         createPortal(

@@ -177,7 +177,7 @@ export default function DemoSignIn({
             and individualized clinical countermeasures for long-duration human spaceflight.
           </p>
 
-          <div className="access-mission mt-5 p-3.5 rounded-xl bg-slate-900/80 border border-slate-700/80 backdrop-blur-md">
+          <div className="access-mission mt-5 p-3.5 rounded-xl bg-slate-900/90 border border-slate-700/80 shadow-md">
             <div className="flex items-center justify-between gap-3 mb-2.5 pb-2 border-b border-slate-800">
               <div className="flex items-center gap-2">
                 <span className="size-2 rounded-full bg-emerald-400 animate-pulse" />
@@ -315,7 +315,7 @@ export default function DemoSignIn({
 
         {/* Clean Grounded Footer (Backend Review Door removed) */}
         <div className="access-story-footer relative z-10 pt-4">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 p-3 rounded-xl bg-slate-950/85 border border-slate-800/90 backdrop-blur-md">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 p-3 rounded-xl bg-slate-950/95 border border-slate-800 shadow-md">
             <span className="font-mono text-[11px] tracking-wider text-slate-400">
               TEAM TALA PULSE · NASA SPACE APPS 2026
             </span>
@@ -414,7 +414,7 @@ export default function DemoSignIn({
         </div>
 
         {/* Selected Astronaut Clearance & Auth Box */}
-        <div className="mt-6 p-4 rounded-xl bg-slate-900/80 border border-slate-800 backdrop-blur-md">
+        <div className="mt-6 p-4 rounded-xl bg-slate-900/90 border border-slate-800 shadow-md">
           <div className="flex items-center justify-between mb-3">
             <div>
               <span className="text-[10px] font-mono text-slate-400 block uppercase">

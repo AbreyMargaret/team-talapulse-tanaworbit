@@ -58,15 +58,45 @@
   border-color: var(--accent);
 }
 
-.feature-stat span,
+.feature-stat > span,
 .feature-kicker {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 6px;
   color: var(--muted);
   font-size: 11px;
   font-family: var(--font-mono);
-  text-transform: uppercase;
   letter-spacing: 0.08em;
   font-weight: 600;
+}
+
+.feature-stat .term {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.feature-stat .term-label {
+  text-transform: uppercase;
+}
+
+.feature-stat .term-mark {
+  text-transform: none !important;
+}
+
+[data-theme="light"] .feature-stat {
+  background: #ffffff !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+}
+
+[data-theme="light"] .feature-stat:hover {
+  background: #f0f9ff !important;
+  border-color: #0284c7 !important;
+}
+
+[data-theme="light"] .feature-stat strong {
+  color: #0f172a !important;
 }
 
 .feature-stat strong {

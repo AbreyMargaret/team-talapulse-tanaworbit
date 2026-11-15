@@ -346,16 +346,16 @@ Clinical Reference: ${activeTopic.researchSource}`;
   return (
     <div className="zero-g-living-guide space-y-6 animate-fade-in">
       {/* Flight Operations Toolbar & Quick Actions */}
-      <div className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 shadow-lg backdrop-blur-xl flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+      <div className="p-3.5 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="px-2.5 py-1 rounded-md bg-cyan-950/80 border border-cyan-500/40 text-cyan-300 font-mono text-xs flex items-center gap-1.5">
-            <BookOpen size={13} className="text-cyan-400" />
+          <span className="px-2.5 py-1 rounded-md bg-sky-50 dark:bg-cyan-950/80 border border-sky-300 dark:border-cyan-500/40 text-sky-800 dark:text-cyan-300 font-mono text-xs flex items-center gap-1.5 font-semibold">
+            <BookOpen size={13} className="text-sky-600 dark:text-cyan-400" />
             CLINICAL COUNTERMEASURE PROTOCOLS
           </span>
-          <span className="px-2 py-0.5 rounded-md bg-slate-800/80 border border-slate-700/60 text-slate-300 font-mono text-xs">
+          <span className="px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/60 text-slate-600 dark:text-slate-300 font-mono text-xs">
             FD 142 · LEO 408 KM
           </span>
-          <span className="px-2 py-0.5 rounded-md bg-emerald-950/60 border border-emerald-600/40 text-emerald-300 font-mono text-xs">
+          <span className="px-2 py-0.5 rounded-md bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-600/40 text-emerald-700 dark:text-emerald-300 font-mono text-xs font-semibold">
             6 PROTOCOLS LOADED
           </span>
         </div>
@@ -364,10 +364,10 @@ Clinical Reference: ${activeTopic.researchSource}`;
           <button
             type="button"
             onClick={copySummary}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-cyan-950/80 hover:bg-cyan-900/80 border border-cyan-500/50 text-xs font-mono text-cyan-200 transition active:scale-98 shadow-sm cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-sky-50 hover:bg-sky-100 dark:bg-cyan-950/80 dark:hover:bg-cyan-900/80 border border-sky-300 dark:border-cyan-500/50 text-xs font-mono text-sky-800 dark:text-cyan-200 font-semibold transition active:scale-98 shadow-sm cursor-pointer"
             title="Copy operational briefing for flight surgeon log"
           >
-            {copied ? <Check size={14} className="text-emerald-400" /> : <Copy size={14} />}
+            {copied ? <Check size={14} className="text-emerald-600 dark:text-emerald-400" /> : <Copy size={14} />}
             <span>{copied ? "Briefing Copied" : "Copy Flight Note"}</span>
           </button>
         </div>
@@ -383,8 +383,8 @@ Clinical Reference: ${activeTopic.researchSource}`;
               onClick={() => setSelectedCat(cat)}
               className={`px-3 py-1.5 rounded-lg text-xs font-mono font-medium whitespace-nowrap transition cursor-pointer ${
                 selectedCat === cat
-                  ? "bg-cyan-950 border border-cyan-500/60 text-cyan-200 shadow-[0_0_12px_rgba(6,182,212,0.15)]"
-                  : "bg-slate-900/60 border border-slate-800 text-slate-400 hover:text-slate-200 hover:bg-slate-800"
+                  ? "bg-sky-100 dark:bg-cyan-950 border border-sky-400 dark:border-cyan-500/60 text-sky-900 dark:text-cyan-200 shadow-sm font-semibold"
+                  : "bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800"
               }`}
             >
               {cat}
@@ -400,7 +400,7 @@ Clinical Reference: ${activeTopic.researchSource}`;
             placeholder="Search symptoms, SANS, CO2, LBNP..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-9 pr-3 py-1.5 rounded-xl bg-slate-900/80 border border-slate-800 text-xs text-white placeholder-slate-500 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/30 transition outline-none font-mono"
+            className="w-full pl-9 pr-3 py-1.5 rounded-xl bg-white dark:bg-slate-900/80 border border-slate-300 dark:border-slate-800 text-xs text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:border-sky-500 dark:focus:border-cyan-500 focus:ring-1 focus:ring-sky-500/30 transition outline-none font-mono"
           />
         </div>
       </div>
@@ -409,9 +409,9 @@ Clinical Reference: ${activeTopic.researchSource}`;
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Left Column: Topic Browser List (4 Cols) */}
         <div className="lg:col-span-4 space-y-2.5">
-          <div className="text-[11px] font-mono uppercase tracking-wider text-slate-400 px-1 font-semibold flex items-center justify-between">
+          <div className="text-[11px] font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 px-1 font-semibold flex items-center justify-between">
             <span>Clinical Protocols ({filteredTopics.length})</span>
-            <span className="text-[10px] text-cyan-400">SELECT TO VIEW</span>
+            <span className="text-[10px] text-sky-600 dark:text-cyan-400">SELECT TO VIEW</span>
           </div>
 
           <div className="space-y-2">
@@ -425,40 +425,40 @@ Clinical Reference: ${activeTopic.researchSource}`;
                   onClick={() => setActiveTopicId(topic.id)}
                   className={`w-full text-left p-3.5 rounded-xl border transition cursor-pointer relative group ${
                     isSelected
-                      ? "bg-slate-800/90 border-cyan-400/70 shadow-[0_0_20px_rgba(34,211,238,0.12)] ring-1 ring-cyan-400/30"
-                      : "bg-slate-900/60 border-slate-800/80 hover:bg-slate-850 hover:border-slate-700"
+                      ? "bg-sky-50/60 dark:bg-slate-800/90 border-sky-400 dark:border-cyan-400/70 shadow-sm ring-1 ring-sky-400/30 dark:ring-cyan-400/30"
+                      : "bg-white dark:bg-slate-900/60 border-slate-200 dark:border-slate-800/80 hover:bg-slate-50 dark:hover:bg-slate-850 hover:border-slate-300 dark:hover:border-slate-700"
                   }`}
                 >
                   <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-[10px] font-mono uppercase tracking-wide px-2 py-0.5 rounded bg-slate-950/80 border border-slate-800 text-slate-300">
+                    <span className="text-[10px] font-mono uppercase tracking-wide px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 font-medium">
                       {topic.category}
                     </span>
                     <span
-                      className={`text-[9px] font-mono px-2 py-0.5 rounded-full border ${
+                      className={`text-[9px] font-mono px-2 py-0.5 rounded-full border font-semibold ${
                         topic.severity === "Critical Monitoring"
-                          ? "bg-rose-950/60 border-rose-600/40 text-rose-300"
+                          ? "bg-rose-50 dark:bg-rose-950/60 border-rose-300 dark:border-rose-600/40 text-rose-700 dark:text-rose-300"
                           : topic.severity === "Daily Countermeasure"
-                          ? "bg-emerald-950/60 border-emerald-600/40 text-emerald-300"
-                          : "bg-cyan-950/60 border-cyan-600/40 text-cyan-300"
+                          ? "bg-emerald-50 dark:bg-emerald-950/60 border-emerald-300 dark:border-emerald-600/40 text-emerald-700 dark:text-emerald-300"
+                          : "bg-sky-50 dark:bg-cyan-950/60 border-sky-300 dark:border-cyan-600/40 text-sky-700 dark:text-cyan-300"
                       }`}
                     >
                       {topic.severity}
                     </span>
                   </div>
 
-                  <strong className="text-sm font-semibold text-white block group-hover:text-cyan-300 transition">
+                  <strong className="text-sm font-semibold text-slate-900 dark:text-white block group-hover:text-sky-600 dark:group-hover:text-cyan-300 transition">
                     {topic.title}
                   </strong>
-                  <p className="text-xs text-slate-400 line-clamp-2 mt-1 leading-relaxed">
+                  <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 mt-1 leading-relaxed">
                     {topic.lead}
                   </p>
 
-                  <div className="mt-2.5 pt-2 border-t border-slate-800/60 flex items-center justify-between text-[11px] font-mono text-slate-400">
+                  <div className="mt-2.5 pt-2 border-t border-slate-200 dark:border-slate-800/60 flex items-center justify-between text-[11px] font-mono text-slate-500 dark:text-slate-400">
                     <span className="flex items-center gap-1.5">
-                      <CheckSquare size={12} className={completedInTopic > 0 ? "text-cyan-400" : "text-slate-600"} />
+                      <CheckSquare size={12} className={completedInTopic > 0 ? "text-emerald-600 dark:text-cyan-400" : "text-slate-400"} />
                       {completedInTopic} / {topic.actionChecklist.length} Verified
                     </span>
-                    <ChevronRight size={14} className={isSelected ? "text-cyan-400" : "text-slate-600"} />
+                    <ChevronRight size={14} className={isSelected ? "text-sky-600 dark:text-cyan-400" : "text-slate-400"} />
                   </div>
                 </button>
               );
@@ -469,41 +469,41 @@ Clinical Reference: ${activeTopic.researchSource}`;
         {/* Right Column: Active Clinical Protocol Deep Dive (8 Cols) */}
         <div className="lg:col-span-8 space-y-5">
           {/* Active Header Card */}
-          <div className="p-6 rounded-2xl bg-slate-900/90 border border-slate-800 shadow-xl backdrop-blur-xl relative overflow-hidden">
+          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 shadow-sm relative overflow-hidden">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-2.5">
               <div className="flex items-center gap-2">
-                <span className="px-2.5 py-0.5 rounded-md bg-cyan-950/80 border border-cyan-500/40 text-cyan-300 text-xs font-mono">
+                <span className="px-2.5 py-0.5 rounded-md bg-sky-50 dark:bg-cyan-950/80 border border-sky-300 dark:border-cyan-500/40 text-sky-800 dark:text-cyan-300 text-xs font-mono font-medium">
                   {activeTopic.category}
                 </span>
-                <span className="px-2.5 py-0.5 rounded-md bg-slate-800 border border-slate-700 text-slate-300 text-xs font-mono">
+                <span className="px-2.5 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-xs font-mono">
                   {activeTopic.severity}
                 </span>
               </div>
 
               {/* Progress Pill */}
               <div className="flex items-center gap-2">
-                <div className="w-28 h-2 rounded-full bg-slate-800 overflow-hidden">
+                <div className="w-28 h-2 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
                   <div
-                    className="h-full bg-gradient-to-r from-cyan-500 to-emerald-400 transition-all duration-300"
+                    className="h-full bg-gradient-to-r from-sky-500 to-emerald-500 transition-all duration-300"
                     style={{ width: `${progressPercent}%` }}
                   />
                 </div>
-                <span className="text-xs font-mono text-cyan-300 font-bold">
+                <span className="text-xs font-mono text-sky-700 dark:text-cyan-300 font-bold">
                   {progressPercent}%
                 </span>
               </div>
             </div>
 
-            <h1 className="text-2xl font-bold text-white tracking-tight">
+            <h1 className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
               {activeTopic.title}
             </h1>
-            <p className="text-sm text-slate-300 mt-2 leading-relaxed">
+            <p className="text-sm text-slate-600 dark:text-slate-300 mt-2 leading-relaxed">
               {activeTopic.lead}
             </p>
 
             {/* Microgravity Spaceflight Consideration Callout */}
-            <div className="mt-4 p-4 rounded-xl bg-cyan-950/30 border border-cyan-500/30 text-xs text-cyan-100 leading-relaxed">
-              <strong className="text-cyan-300 block mb-1 font-semibold flex items-center gap-1.5">
+            <div className="mt-4 p-4 rounded-xl bg-sky-50/70 dark:bg-cyan-950/30 border border-sky-200 dark:border-cyan-500/30 text-xs text-sky-900 dark:text-cyan-100 leading-relaxed">
+              <strong className="text-sky-800 dark:text-cyan-300 block mb-1 font-semibold flex items-center gap-1.5">
                 <Activity size={14} />
                 Microgravity Operational Consideration:
               </strong>
@@ -511,30 +511,30 @@ Clinical Reference: ${activeTopic.researchSource}`;
             </div>
 
             {/* Physiological Mechanism */}
-            <div className="mt-4 pt-4 border-t border-slate-800">
-              <h3 className="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold mb-1.5 flex items-center gap-1.5">
-                <Sliders size={13} className="text-cyan-400" />
+            <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-800">
+              <h3 className="text-xs font-mono uppercase tracking-wider text-slate-600 dark:text-slate-400 font-bold mb-1.5 flex items-center gap-1.5">
+                <Sliders size={13} className="text-sky-600 dark:text-cyan-400" />
                 Underlying Physiological Mechanism (Spaceflight Adaptation)
               </h3>
-              <p className="text-xs text-slate-300 leading-relaxed">
+              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                 {activeTopic.mechanism}
               </p>
             </div>
           </div>
 
           {/* Interactive Step-by-Step Action Checklist */}
-          <div className="p-6 rounded-2xl bg-slate-900/90 border border-slate-800 shadow-xl backdrop-blur-xl">
-            <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-800">
+          <div className="p-6 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 shadow-sm">
+            <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-200 dark:border-slate-800">
               <div>
-                <h3 className="text-base font-semibold text-white tracking-tight flex items-center gap-2">
-                  <CheckSquare size={17} className="text-cyan-400" />
+                <h3 className="text-base font-semibold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+                  <CheckSquare size={17} className="text-sky-600 dark:text-cyan-400" />
                   Actionable Countermeasure Checklist
                 </h3>
-                <p className="text-xs text-slate-400 mt-0.5">
+                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                   Astronaut verification checklist. Click each action step to toggle in-flight completion status.
                 </p>
               </div>
-              <span className="text-xs font-mono text-cyan-300 bg-cyan-950/80 px-2.5 py-1 rounded-lg border border-cyan-800/40">
+              <span className="text-xs font-mono text-sky-800 dark:text-cyan-300 bg-sky-50 dark:bg-cyan-950/80 px-2.5 py-1 rounded-lg border border-sky-200 dark:border-cyan-800/40 font-semibold">
                 {completedCount} / {topicSteps.length} Verified
               </span>
             </div>
@@ -548,8 +548,8 @@ Clinical Reference: ${activeTopic.researchSource}`;
                     onClick={() => toggleStep(step.id)}
                     className={`p-3.5 rounded-xl border transition cursor-pointer flex items-start gap-3.5 ${
                       isDone
-                        ? "bg-emerald-950/30 border-emerald-500/40 text-slate-200"
-                        : "bg-slate-950/60 border-slate-800/90 hover:border-slate-700 text-slate-300"
+                        ? "bg-emerald-50/70 dark:bg-emerald-950/30 border-emerald-300 dark:border-emerald-500/40 text-slate-700 dark:text-slate-200"
+                        : "bg-slate-50 dark:bg-slate-950/60 border-slate-200 dark:border-slate-800/90 hover:border-slate-300 dark:hover:border-slate-700 text-slate-700 dark:text-slate-300"
                     }`}
                   >
                     <button
@@ -557,8 +557,8 @@ Clinical Reference: ${activeTopic.researchSource}`;
                       aria-label={isDone ? "Mark incomplete" : "Mark complete"}
                       className={`size-6 rounded-lg grid place-items-center shrink-0 mt-0.5 transition ${
                         isDone
-                          ? "bg-emerald-500 text-slate-950 shadow-[0_0_10px_rgba(16,185,129,0.4)]"
-                          : "bg-slate-800 border border-slate-700 text-transparent hover:border-cyan-400"
+                          ? "bg-emerald-600 text-white shadow-sm"
+                          : "bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-transparent hover:border-sky-500"
                       }`}
                     >
                       <Check size={14} strokeWidth={3} className={isDone ? "block" : "opacity-0"} />
@@ -568,16 +568,16 @@ Clinical Reference: ${activeTopic.researchSource}`;
                       <div className="flex items-center justify-between gap-2">
                         <strong
                           className={`text-xs font-semibold ${
-                            isDone ? "text-emerald-300 line-through opacity-90" : "text-white"
+                            isDone ? "text-emerald-700 dark:text-emerald-300 line-through opacity-90" : "text-slate-900 dark:text-white"
                           }`}
                         >
                           Step {idx + 1}: {step.text}
                         </strong>
-                        <span className="text-[10px] font-mono text-slate-500 shrink-0">
+                        <span className="text-[10px] font-mono text-slate-500 shrink-0 font-medium">
                           {isDone ? "COMPLETED" : "PENDING"}
                         </span>
                       </div>
-                      <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+                      <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
                         {step.details}
                       </p>
                     </div>
@@ -589,20 +589,20 @@ Clinical Reference: ${activeTopic.researchSource}`;
 
           {/* Inline Interactive Clinical Calculator (Topic Specific) */}
           {activeTopic.calculator === "circadian" && (
-            <div className="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 shadow-xl backdrop-blur-xl">
+            <div className="p-5 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 shadow-sm">
               <div className="flex items-center gap-2 mb-3">
-                <Calculator size={16} className="text-cyan-400" />
-                <h4 className="text-sm font-semibold text-white">
+                <Calculator size={16} className="text-sky-600 dark:text-cyan-400" />
+                <h4 className="text-sm font-semibold text-slate-900 dark:text-white">
                   Interactive Circadian Phase Shift & Lighting Calculator
                 </h4>
               </div>
-              <p className="text-xs text-slate-400 mb-4 leading-relaxed">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mb-4 leading-relaxed">
                 Calculates the exact UTC hour to dim module lighting and schedule melatonin administration based on orbital target sleep epoch.
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 font-mono text-xs">
-                <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-                  <span className="text-[10px] text-slate-400 block mb-1">TARGET SLEEP (UTC)</span>
+                <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800">
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 block mb-1">TARGET SLEEP (UTC)</span>
                   <div className="flex items-center gap-2">
                     <input
                       type="range"
@@ -610,25 +610,25 @@ Clinical Reference: ${activeTopic.researchSource}`;
                       max={23}
                       value={sleepTargetHour}
                       onChange={(e) => setSleepTargetHour(Number(e.target.value))}
-                      className="w-full accent-cyan-400 cursor-pointer"
+                      className="w-full accent-sky-600 dark:accent-cyan-400 cursor-pointer"
                     />
-                    <strong className="text-white text-sm whitespace-nowrap">
+                    <strong className="text-slate-900 dark:text-white text-sm whitespace-nowrap">
                       {String(sleepTargetHour).padStart(2, "0")}:00
                     </strong>
                   </div>
                 </div>
 
-                <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-                  <span className="text-[10px] text-slate-400 block mb-1">DIM LIGHTING PROTOCOL</span>
-                  <strong className="text-cyan-300 text-sm">
+                <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800">
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 block mb-1">DIM LIGHTING PROTOCOL</span>
+                  <strong className="text-sky-700 dark:text-cyan-300 text-sm">
                     {String((sleepTargetHour + 23) % 24).padStart(2, "0")}:00 UTC
                   </strong>
                   <small className="text-[10px] text-slate-500 block mt-0.5">60 min before sleep</small>
                 </div>
 
-                <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-                  <span className="text-[10px] text-slate-400 block mb-1">MELATONIN (0.5mg) TIMING</span>
-                  <strong className="text-emerald-400 text-sm">
+                <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800">
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 block mb-1">MELATONIN (0.5mg) TIMING</span>
+                  <strong className="text-emerald-700 dark:text-emerald-400 text-sm">
                     {String((sleepTargetHour + 23) % 24).padStart(2, "0")}:15 UTC
                   </strong>
                   <small className="text-[10px] text-slate-500 block mt-0.5">45 min before sleep</small>
@@ -638,17 +638,17 @@ Clinical Reference: ${activeTopic.researchSource}`;
           )}
 
           {activeTopic.calculator === "co2" && (
-            <div className="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 shadow-xl backdrop-blur-xl">
+            <div className="p-5 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 shadow-sm">
               <div className="flex items-center gap-2 mb-3">
-                <Wind size={16} className="text-cyan-400" />
-                <h4 className="text-sm font-semibold text-white">
+                <Wind size={16} className="text-sky-600 dark:text-cyan-400" />
+                <h4 className="text-sm font-semibold text-slate-900 dark:text-white">
                   Cabin Carbon Dioxide Risk & Hypercapnia Evaluator
                 </h4>
               </div>
 
               <div className="flex flex-col sm:flex-row items-center gap-4 font-mono">
-                <div className="w-full sm:w-1/2 p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-                  <span className="text-[10px] text-slate-400 block mb-1">
+                <div className="w-full sm:w-1/2 p-3 rounded-xl bg-slate-50 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800">
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 block mb-1">
                     CURRENT CABIN pCO₂ READING: {userCo2Reading.toFixed(1)} mmHg
                   </span>
                   <input
@@ -658,7 +658,7 @@ Clinical Reference: ${activeTopic.researchSource}`;
                     step={0.1}
                     value={userCo2Reading}
                     onChange={(e) => setUserCo2Reading(Number(e.target.value))}
-                    className="w-full accent-cyan-400 cursor-pointer"
+                    className="w-full accent-sky-600 dark:accent-cyan-400 cursor-pointer"
                   />
                   <div className="flex justify-between text-[9px] text-slate-500 mt-1">
                     <span>1.0 (Optimal)</span>
@@ -667,22 +667,22 @@ Clinical Reference: ${activeTopic.researchSource}`;
                   </div>
                 </div>
 
-                <div className="w-full sm:w-1/2 p-3.5 rounded-xl border bg-slate-950/90 text-xs">
+                <div className="w-full sm:w-1/2 p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/90 text-xs">
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-[10px] text-slate-400">CLINICAL STATUS:</span>
+                    <span className="text-[10px] text-slate-500 dark:text-slate-400 font-medium">CLINICAL STATUS:</span>
                     <span
                       className={`font-bold px-2 py-0.5 rounded text-[10px] ${
                         userCo2Reading < 3.0
-                          ? "bg-emerald-950 text-emerald-300 border border-emerald-800"
+                          ? "bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800"
                           : userCo2Reading < 4.5
-                          ? "bg-amber-950 text-amber-300 border border-amber-800"
-                          : "bg-rose-950 text-rose-300 border border-rose-800"
+                          ? "bg-amber-50 dark:bg-amber-950 text-amber-700 dark:text-amber-300 border border-amber-300 dark:border-amber-800"
+                          : "bg-rose-50 dark:bg-rose-950 text-rose-700 dark:text-rose-300 border border-rose-300 dark:border-rose-800"
                       }`}
                     >
                       {userCo2Reading < 3.0 ? "NOMINAL" : userCo2Reading < 4.5 ? "OBSERVE FLAGGED" : "TRIAGE REQUIRED"}
                     </span>
                   </div>
-                  <p className="text-slate-300 text-[11px] leading-relaxed">
+                  <p className="text-slate-600 dark:text-slate-300 text-[11px] leading-relaxed">
                     {userCo2Reading < 3.0
                       ? "Nominal cabin scrubbing. No hypercapnic vasodilation or SANS compounding expected."
                       : userCo2Reading < 4.5
@@ -695,17 +695,17 @@ Clinical Reference: ${activeTopic.researchSource}`;
           )}
 
           {activeTopic.calculator === "fluid" && (
-            <div className="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 shadow-xl backdrop-blur-xl">
+            <div className="p-5 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 shadow-sm">
               <div className="flex items-center gap-2 mb-3">
-                <Heart size={16} className="text-cyan-400" />
-                <h4 className="text-sm font-semibold text-white">
+                <Heart size={16} className="text-sky-600 dark:text-cyan-400" />
+                <h4 className="text-sm font-semibold text-slate-900 dark:text-white">
                   Pre-Landing & Post-EVA Fluid Loading Replenishment Calculator
                 </h4>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 font-mono text-xs">
-                <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-                  <span className="text-[10px] text-slate-400 block mb-1">DAILY WORKOUT DURATION</span>
+                <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800">
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 block mb-1">DAILY WORKOUT DURATION</span>
                   <div className="flex items-center gap-2">
                     <input
                       type="range"
@@ -714,15 +714,15 @@ Clinical Reference: ${activeTopic.researchSource}`;
                       step={15}
                       value={exertionMin}
                       onChange={(e) => setExertionMin(Number(e.target.value))}
-                      className="w-full accent-cyan-400 cursor-pointer"
+                      className="w-full accent-sky-600 dark:accent-cyan-400 cursor-pointer"
                     />
-                    <strong className="text-white text-sm">{exertionMin}m</strong>
+                    <strong className="text-slate-900 dark:text-white text-sm">{exertionMin}m</strong>
                   </div>
                 </div>
 
-                <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800">
-                  <span className="text-[10px] text-slate-400 block mb-1">TARGET FLUID REPLENISHMENT</span>
-                  <strong className="text-cyan-300 text-sm">
+                <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-950/80 border border-slate-200 dark:border-slate-800">
+                  <span className="text-[10px] text-slate-500 dark:text-slate-400 block mb-1">TARGET FLUID REPLENISHMENT</span>
+                  <strong className="text-sky-700 dark:text-cyan-300 text-sm">
                     {(1500 + exertionMin * 10).toFixed(0)} mL (with 4 electrolyte tabs)
                   </strong>
                   <small className="text-[10px] text-slate-500 block mt-0.5">Restores central baroreflex volume</small>
@@ -732,15 +732,15 @@ Clinical Reference: ${activeTopic.researchSource}`;
           )}
 
           {/* Research & Source Evidence Attribution Card */}
-          <div className="p-4 rounded-xl bg-slate-950/70 border border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
+          <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-950/70 border border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs">
             <div>
               <span className="text-[10px] font-mono text-slate-500 uppercase tracking-wider block">
                 NASA HRP Scientific Evidence Base
               </span>
-              <strong className="text-slate-200 block mt-0.5 font-medium">
+              <strong className="text-slate-800 dark:text-slate-200 block mt-0.5 font-medium">
                 {activeTopic.researchSource}
               </strong>
-              <p className="text-[11px] text-slate-400 mt-0.5">
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
                 {activeTopic.citation}
               </p>
             </div>
@@ -749,7 +749,7 @@ Clinical Reference: ${activeTopic.researchSource}`;
               href={activeTopic.sourceUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-cyan-400 hover:text-cyan-300 font-mono text-xs transition shrink-0"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white hover:bg-slate-100 dark:bg-slate-900 dark:hover:bg-slate-800 border border-slate-300 dark:border-slate-700 text-sky-700 dark:text-cyan-400 hover:text-sky-800 dark:hover:text-cyan-300 font-mono text-xs transition shrink-0"
             >
               <span>View Source</span>
               <ExternalLink size={12} />

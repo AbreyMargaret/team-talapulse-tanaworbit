@@ -13,6 +13,7 @@ import {
   type Reading,
 } from "./data";
 import "./features.css";
+import CognitionBattery, { type CognitionEntry } from "./CognitionBattery";
 import { MaybeTerm } from "./Term";
 
 function Panel({ title, note, children }: { title?: string; note?: string; children: ReactNode }) {
@@ -450,17 +451,36 @@ export function PumaPanel() {
 }
 
 export function SensorimotorPanel({
+  crewId,
+  crewName,
+  dominantSide,
+  cognitionEntries,
+  onCognition,
   onRecordResult,
 }: {
+  crewId: string;
+  crewName: string;
+  dominantSide: string;
+  cognitionEntries: CognitionEntry[];
+  onCognition: (score: Omit<CognitionEntry, "id">) => void;
   onRecordResult?: (res: SensorimotorResult) => void;
 }) {
   return (
-    <Panel>
-      <div className="section-label">
-        <h2>Sensorimotor & Fine Motor Battery</h2>
-        <span>Neurovestibular coordination and reflex assessment</span>
-      </div>
-      <SensorimotorTest onRecordResult={onRecordResult} />
-    </Panel>
+    <>
+      <CognitionBattery
+        key={crewId}
+        crewName={crewName}
+        dominantSide={dominantSide}
+        entries={cognitionEntries}
+        onRecord={onCognition}
+      />
+      <Panel>
+        <div className="section-label">
+          <h2>Sensorimotor & Fine Motor Battery</h2>
+          <span>Neurovestibular coordination and reflex assessment</span>
+        </div>
+        <SensorimotorTest onRecordResult={onRecordResult} />
+      </Panel>
+    </>
   );
 }

@@ -1,100 +1,160 @@
 import { useEffect } from "react";
+import { ChevronLeft, ChevronRight, X, Compass, CheckCircle2 } from "lucide-react";
 
-export type TourStep = {
-  page: string;
-  label: string;
-  text: string;
+export type TourStep<P = string> = {
+  page: P;
+  selector: string;
+  title: string;
+  description: string;
+  tag?: string;
 };
 
-/**
- * Walks the sidebar in order. The reader advances by opening the highlighted page.
- * Nothing else moves the tour forward.
- */
-export default function OnboardingModal({
+export default function OnboardingModal<P extends string = string>({
   steps,
   index,
   page,
-  menuClosed,
+  onStepChange,
+  onNavigate,
   onClose,
 }: {
-  steps: TourStep[];
+  steps: TourStep<P>[];
   index: number;
-  page: string;
-  menuClosed: boolean;
+  page: P;
+  onStepChange: (newIndex: number) => void;
+  onNavigate: (targetPage: P) => void;
   onClose: () => void;
 }) {
-  const here = steps[index];
-  const next = steps[index + 1];
-  const onStep = Boolean(here && page === here.page);
-  const targetPage = here ? (onStep && next ? next.page : here.page) : "";
+  const currentStep = steps[index] || steps[0];
+  const isFirst = index === 0;
+  const isLast = index === steps.length - 1;
+
+  // Auto-navigate to page and scroll target element into view with highlight
   useEffect(() => {
-    if (!here) return;
-    const place = () => {
-      const selector = menuClosed ? "[data-tour-menu]" : `[data-tour-page="${targetPage}"]`;
-      const nodes = Array.from(document.querySelectorAll<HTMLElement>(selector));
-      const el =
-        nodes.find((node) => node.closest(".sidebar")) ??
-        nodes.find((node) => {
-          const rect = node.getBoundingClientRect();
-          return rect.width > 0 && rect.height > 0;
-        }) ??
-        nodes[0];
-      if (!el) return;
-      el.scrollIntoView({ block: "nearest", inline: "nearest" });
-    };
-    place();
-    const id = window.setInterval(place, 300);
-    window.addEventListener("resize", place);
-    window.addEventListener("scroll", place, true);
+    if (!currentStep) return;
+
+    if (page !== currentStep.page) {
+      onNavigate(currentStep.page);
+    }
+
+    const timer = setTimeout(() => {
+      // Remove any prior highlights
+      document.querySelectorAll(".tour-active-highlight").forEach((el) => {
+        el.classList.remove("tour-active-highlight");
+      });
+
+      if (currentStep.selector) {
+        const target = document.querySelector<HTMLElement>(currentStep.selector);
+        if (target) {
+          target.classList.add("tour-active-highlight");
+          target.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+      }
+    }, 250);
+
     return () => {
-      window.clearInterval(id);
-      window.removeEventListener("resize", place);
-      window.removeEventListener("scroll", place, true);
+      clearTimeout(timer);
+      document.querySelectorAll(".tour-active-highlight").forEach((el) => {
+        el.classList.remove("tour-active-highlight");
+      });
     };
-  }, [here, menuClosed, targetPage, page, index]);
+  }, [index, currentStep, page, onNavigate]);
 
-  if (!here) return null;
+  const handleNext = () => {
+    if (isLast) {
+      onClose();
+    } else {
+      const nextIdx = index + 1;
+      onStepChange(nextIdx);
+      if (steps[nextIdx] && steps[nextIdx].page !== page) {
+        onNavigate(steps[nextIdx].page);
+      }
+    }
+  };
 
-  const narrow = window.matchMedia("(max-width: 760px)").matches;
-  const width = Math.min(320, window.innerWidth - 24);
-  const top = Math.max(16, window.innerHeight - (narrow ? 380 : 340));
-  const left = Math.max(248, window.innerWidth - width - 210);
-
-  const prompt = menuClosed
-    ? `Open the menu, then click ${onStep && next ? next.label : here.label}.`
-    : onStep && next
-      ? `Click ${next.label}.`
-      : onStep
-        ? ""
-        : `Click ${here.label}.`;
+  const handlePrev = () => {
+    if (!isFirst) {
+      const prevIdx = index - 1;
+      onStepChange(prevIdx);
+      if (steps[prevIdx] && steps[prevIdx].page !== page) {
+        onNavigate(steps[prevIdx].page);
+      }
+    }
+  };
 
   return (
     <div
       className="tour-card"
       role="dialog"
       aria-modal="false"
-      aria-labelledby="tour-title"
-      style={{ top, left, width }}
+      aria-labelledby="tour-modal-title"
     >
       <div className="tour-progress">
-        <span>
-          {index + 1} of {steps.length}
-        </span>
-        <button type="button" className="tour-skip" onClick={onClose}>
-          Skip
+        <div className="flex items-center gap-1.5">
+          <Compass size={14} className="text-sky-500 dark:text-cyan-400" />
+          <span className="font-mono text-xs font-semibold tracking-wider">
+            STEP {index + 1} OF {steps.length}
+          </span>
+        </div>
+        <button
+          type="button"
+          className="tour-skip flex items-center gap-1"
+          onClick={onClose}
+          aria-label="Exit tour"
+        >
+          <X size={14} />
+          <span>Exit</span>
         </button>
       </div>
+
       <div className="tour-bar" aria-hidden="true">
-        <span style={{ width: `${((index + (onStep ? 1 : 0)) / steps.length) * 100}%` }} />
+        <span style={{ width: `${((index + 1) / steps.length) * 100}%` }} />
       </div>
-      <h2 id="tour-title">{onStep ? here.label : `Open ${here.label}`}</h2>
-      <p>{onStep ? here.text : "The list on the left is the order to read these pages."}</p>
-      {prompt && <p className="tour-next">{prompt}</p>}
-      {onStep && !next && (
-        <button type="button" className="tour-done" onClick={onClose}>
-          Done
-        </button>
+
+      {currentStep.tag && (
+        <span className="tour-tag">
+          {currentStep.tag}
+        </span>
       )}
+
+      <h2 id="tour-modal-title" className="tour-title">
+        {currentStep.title}
+      </h2>
+
+      <p className="tour-text">
+        {currentStep.description}
+      </p>
+
+      <div className="tour-actions">
+        <button
+          type="button"
+          className="tour-btn-prev"
+          onClick={handlePrev}
+          disabled={isFirst}
+          aria-label="Previous step"
+        >
+          <ChevronLeft size={16} />
+          <span>Previous</span>
+        </button>
+
+        <button
+          type="button"
+          className="tour-btn-next"
+          onClick={handleNext}
+          aria-label={isLast ? "Complete walkthrough" : "Next step"}
+        >
+          {isLast ? (
+            <>
+              <span>Finish Tour</span>
+              <CheckCircle2 size={16} />
+            </>
+          ) : (
+            <>
+              <span>Next Step</span>
+              <ChevronRight size={16} />
+            </>
+          )}
+        </button>
+      </div>
     </div>
   );
 }

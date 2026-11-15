@@ -39,56 +39,56 @@ export default function PumaTracker({ data = DEFAULT_PUMA }: { data?: PumaData }
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <div className="puma-stat-box p-3 bg-slate-950/60 rounded border border-slate-800/80">
+        <div className="puma-stat-box p-3 bg-slate-50 dark:bg-slate-950/60 rounded-xl border border-slate-200 dark:border-slate-800/80 shadow-sm">
           <span className="text-xs text-[var(--muted)] block">
             <Term>Oxygen in / out</Term>
           </span>
           <div className="mt-1 flex items-baseline justify-between">
-            <span className="text-xs text-slate-400">In / out</span>
-            <strong className="text-sm font-mono text-cyan-300">
+            <span className="text-xs text-slate-500 dark:text-slate-400">In / out</span>
+            <strong className="text-sm font-mono text-sky-700 dark:text-cyan-300">
               {data.inhaledO2} / {data.exhaledO2} <small className="text-[10px]">mmHg</small>
             </strong>
           </div>
         </div>
 
-        <div className="puma-stat-box p-3 bg-slate-950/60 rounded border border-slate-800/80">
+        <div className="puma-stat-box p-3 bg-slate-50 dark:bg-slate-950/60 rounded-xl border border-slate-200 dark:border-slate-800/80 shadow-sm">
           <span className="text-xs text-[var(--muted)] block">
             <Term>Carbon dioxide in / out</Term>
           </span>
           <div className="mt-1 flex items-baseline justify-between">
-            <span className="text-xs text-slate-400">In / out</span>
-            <strong className="text-sm font-mono text-amber-300">
+            <span className="text-xs text-slate-500 dark:text-slate-400">In / out</span>
+            <strong className="text-sm font-mono text-amber-700 dark:text-amber-300">
               {data.inhaledCO2} / {data.exhaledCO2} <small className="text-[10px]">mmHg</small>
             </strong>
           </div>
         </div>
 
-        <div className="puma-stat-box p-3 bg-slate-950/60 rounded border border-slate-800/80">
+        <div className="puma-stat-box p-3 bg-slate-50 dark:bg-slate-950/60 rounded-xl border border-slate-200 dark:border-slate-800/80 shadow-sm">
           <span className="text-xs text-[var(--muted)] block">
             <Term>Oxygen used</Term>
           </span>
           <div className="mt-1 flex items-baseline justify-between">
-            <span className="text-xs text-slate-400">Each minute</span>
-            <strong className="text-sm font-mono text-emerald-300">
+            <span className="text-xs text-slate-500 dark:text-slate-400">Each minute</span>
+            <strong className="text-sm font-mono text-emerald-700 dark:text-emerald-300">
               {data.vo2MlMin} <small className="text-[10px]">mL/min</small>
             </strong>
           </div>
         </div>
 
-        <div className="puma-stat-box p-3 bg-slate-950/60 rounded border border-slate-800/80">
+        <div className="puma-stat-box p-3 bg-slate-50 dark:bg-slate-950/60 rounded-xl border border-slate-200 dark:border-slate-800/80 shadow-sm">
           <span className="text-xs text-[var(--muted)] block">
             <Term>Breathing ratio</Term>
           </span>
           <div className="mt-1 flex items-baseline justify-between">
-            <span className="text-xs text-slate-400">CO₂ / O₂</span>
-            <strong className="text-sm font-mono text-purple-300">
+            <span className="text-xs text-slate-500 dark:text-slate-400">CO₂ / O₂</span>
+            <strong className="text-sm font-mono text-purple-700 dark:text-purple-300">
               {data.rer}
             </strong>
           </div>
         </div>
       </div>
 
-      <div className="mt-4 pt-3 border-t border-slate-800/60 grid grid-cols-2 md:grid-cols-3 gap-2 text-xs font-mono text-slate-400">
+      <div className="mt-4 pt-3 border-t border-slate-200 dark:border-slate-800/60 grid grid-cols-2 md:grid-cols-3 gap-2 text-xs font-mono text-slate-600 dark:text-slate-400">
         <div>
           <Term>Air flow</Term>: <span className="text-[var(--text)]">{data.flowRateLs} L/s</span>
         </div>
